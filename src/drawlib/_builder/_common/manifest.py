@@ -22,8 +22,10 @@ from pydantic import BaseModel, ConfigDict, Field
 from drawlib._templates.langs import normalize_language
 
 PROJECT_MANIFEST_FILENAME = "drawlib.toml"
-ProjectArchetype = Literal["images", "doc", "site", "slide", "catalog"]
+ProjectArchetype = Literal["images", "doc", "site", "slide", "catalog", "jupyter"]
 TwitterCardType = Literal["summary_large_image", "summary"]
+JupyterCellMode = Literal["markdown", "code"]
+JupyterImageMode = Literal["attachment", "url", "relative"]
 _VALID_ARCHETYPES: dict[str, ProjectArchetype] = {
     "images": "images",
     "image": "images",
@@ -31,8 +33,9 @@ _VALID_ARCHETYPES: dict[str, ProjectArchetype] = {
     "site": "site",
     "slide": "slide",
     "catalog": "catalog",
+    "jupyter": "jupyter",
 }
-_I18N_ARCHETYPES: frozenset[str] = frozenset({"doc", "site", "slide", "catalog"})
+_I18N_ARCHETYPES: frozenset[str] = frozenset({"doc", "site", "slide", "catalog", "jupyter"})
 _SEO_ALLOWED_KEYS: frozenset[str] = frozenset(
     {
         "site_url",
@@ -54,8 +57,20 @@ _CATALOG_ALLOWED_KEYS: frozenset[str] = frozenset(
         "breadcrumb_root",
     }
 )
+_JUPYTER_ALLOWED_KEYS: frozenset[str] = frozenset(
+    {
+        "github_repo",
+        "github_branch",
+        "notebook_dir_in_repo",
+        "setup_packages",
+        "drawlib_cell_mode",
+        "image_mode",
+        "execute",
+    }
+)
 _UNSAFE_ATTR_CHARS: tuple[str, ...] = ("\r", "\n", "\x00", '"', "'", "<", ">")
 _TWITTER_HANDLE_RE = re.compile(r"^@?[A-Za-z0-9_]{1,30}$")
+_GITHUB_REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 _SCHEME_PREFIX_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:")
 _WIN_DRIVE_RE = re.compile(r"^[A-Za-z]:[\\/]")
 
@@ -192,14 +207,55 @@ class CatalogConfig(BaseModel):
         return _resolve_localized_value(self.badge_text, lang, default_lang)
 
 
+class JupyterConfig(BaseModel):
+    """Parsed configuration from the ``[jupyter]`` (or ``[colab]``) section of ``drawlib.toml``.
+
+    Attributes:
+        github_repo: Optional GitHub ``owner/repo`` slug for generating ``Open in Colab`` URLs.
+        github_branch: Git branch name used in ``Open in Colab`` URLs (defaults to ``'main'``).
+        notebook_dir_in_repo: Relative directory path from the GitHub repository root where
+            built ``.ipynb`` files reside (e.g. ``'docs/jupyter'`` or ``'jupyter_html'``).
+        setup_packages: Tuple of pip package names to install in an optional top setup cell
+            (e.g. ``('drawlib',)``). Empty tuple disables automatic pip install cell injection.
+        drawlib_cell_mode: Default conversion mode for ````drawlib```` blocks without an explicit
+            ``cell=`` attribute: ``'markdown'`` (rendered diagram embedded in Markdown cell) or
+            ``'code'`` (rendered diagram preview + executable ``drawlib`` code cell).
+        image_mode: How rendered diagram images are referenced in ``.ipynb`` Markdown cells:
+            ``'attachment'`` (self-contained base64 cell attachment), ``'url'`` (public ``[seo].site_url``
+            reference for zero-bloat Git tracking), or ``'relative'`` (relative file path).
+        execute: Whether to dry-run execute all code cells sequentially in-process during build.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    github_repo: str = ""
+    github_branch: str = "main"
+    notebook_dir_in_repo: str = ""
+    setup_packages: tuple[str, ...] = ("drawlib",)
+    drawlib_cell_mode: JupyterCellMode = "markdown"
+    image_mode: JupyterImageMode = "attachment"
+    execute: bool = True
+
+    def build_colab_url(self, rel_notebook_path: str) -> str:
+        """Construct a Google Colab ``https://colab.research.google.com/github/...`` URL if ``github_repo`` is set."""
+        if not self.github_repo:
+            return ""
+        rel_clean = rel_notebook_path.replace("\\", "/").lstrip("/")
+        prefix = self.notebook_dir_in_repo.replace("\\", "/").strip("/")
+        full_rel = f"{prefix}/{rel_clean}" if prefix else rel_clean
+        branch = self.github_branch.strip() or "main"
+        return f"https://colab.research.google.com/github/{self.github_repo}/blob/{branch}/{full_rel}"
+
+
 class ProjectManifest(BaseModel):
     """Validated project manifest parsed from ``drawlib.toml``.
 
     Attributes:
         project: Core project archetype and metadata from ``[project]``.
-        i18n: Locale configuration from ``[i18n]`` (always populated for ``doc``, ``site``, ``slide``, ``catalog``).
-        seo: Optional SEO/OGP/crawler configuration from ``[seo]`` (for ``doc``, ``site``, ``slide``, ``catalog``).
+        i18n: Locale configuration from ``[i18n]`` (for ``doc``, ``site``, ``slide``, ``catalog``, ``jupyter``).
+        seo: Optional SEO/OGP/crawler configuration from ``[seo]``.
         catalog: Catalog & reference layout configuration from ``[catalog]`` (populated for ``catalog`` projects).
+        jupyter: Jupyter / Google Colab notebook configuration from ``[jupyter]`` (for ``jupyter`` projects).
     """
 
     model_config = ConfigDict(frozen=True)
@@ -208,6 +264,7 @@ class ProjectManifest(BaseModel):
     i18n: I18nConfig | None = None
     seo: SeoConfig | None = None
     catalog: CatalogConfig | None = None
+    jupyter: JupyterConfig | None = None
 
     @property
     def is_i18n(self) -> bool:
@@ -229,7 +286,7 @@ def _parse_project_section(raw_proj: object, cfg_path: str, input_abs: str) -> P
 
     raw_type = raw_proj.get("type")
     if not isinstance(raw_type, str) or raw_type.strip().lower() not in _VALID_ARCHETYPES:
-        valid_str = ", ".join(("images", "doc", "site", "slide", "catalog"))
+        valid_str = ", ".join(("images", "doc", "site", "slide", "catalog", "jupyter"))
         raise ValueError(f'Invalid "{cfg_path}": "[project].type" must be one of [{valid_str}], got {raw_type!r}.')
     norm_type = _VALID_ARCHETYPES[raw_type.strip().lower()]
 
@@ -313,8 +370,8 @@ def _parse_i18n_section(
 
     if project_meta.type not in _I18N_ARCHETYPES:
         raise ValueError(
-            f'Invalid "{cfg_path}": "[i18n]" is only supported for "doc", "site", "slide", and "catalog" projects, '
-            f'not "{project_meta.type}".'
+            f'Invalid "{cfg_path}": "[i18n]" is only supported for "doc", "site", "slide", "catalog", '
+            f'and "jupyter" projects, not "{project_meta.type}".'
         )
 
     unknown_keys = sorted(set(raw_i18n.keys()) - {"default_lang", "langs", "labels", "descriptions"})
@@ -449,8 +506,8 @@ def _parse_seo_section(
 
     if project_meta.type not in _I18N_ARCHETYPES:
         raise ValueError(
-            f'Invalid "{cfg_path}": "[seo]" is only supported for "doc", "site", "slide", and "catalog" projects, '
-            f'not "{project_meta.type}".'
+            f'Invalid "{cfg_path}": "[seo]" is only supported for "doc", "site", "slide", "catalog", '
+            f'and "jupyter" projects, not "{project_meta.type}".'
         )
 
     unknown_keys = sorted(set(raw_seo.keys()) - _SEO_ALLOWED_KEYS)
@@ -647,6 +704,90 @@ def _parse_catalog_section(
     )
 
 
+def _parse_jupyter_section(
+    raw_jupyter: object,
+    project_meta: ProjectMetadata,
+    cfg_path: str,
+) -> JupyterConfig:
+    """Validate and normalize the ``[jupyter]`` table."""
+    if not isinstance(raw_jupyter, dict):
+        raise ValueError(f'Invalid "{cfg_path}": "[jupyter]" must be a TOML table.')
+
+    if project_meta.type != "jupyter":
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[jupyter]" is only supported for "jupyter" projects, '
+            f'not "{project_meta.type}".'
+        )
+
+    unknown_keys = sorted(set(raw_jupyter.keys()) - _JUPYTER_ALLOWED_KEYS)
+    if unknown_keys:
+        raise ValueError(f'Invalid "{cfg_path}": unknown key(s) {unknown_keys} in "[jupyter]".')
+
+    raw_repo = raw_jupyter.get("github_repo", "")
+    if not isinstance(raw_repo, str):
+        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].github_repo" must be a string.')
+    cleaned_repo = raw_repo.strip().strip("/")
+    if cleaned_repo and not _GITHUB_REPO_RE.match(cleaned_repo):
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[jupyter].github_repo" must be in "owner/repo" format, got {raw_repo!r}.'
+        )
+
+    raw_branch = raw_jupyter.get("github_branch", "main")
+    if not isinstance(raw_branch, str) or not raw_branch.strip():
+        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].github_branch" must be a non-empty string.')
+    cleaned_branch = raw_branch.strip()
+    if any(ch in cleaned_branch for ch in (*_UNSAFE_ATTR_CHARS, " ", "\t")):
+        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].github_branch" contains unsafe characters.')
+
+    raw_nb_dir = raw_jupyter.get("notebook_dir_in_repo", "")
+    if not isinstance(raw_nb_dir, str):
+        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].notebook_dir_in_repo" must be a string.')
+    cleaned_nb_dir = raw_nb_dir.strip().replace("\\", "/").strip("/")
+    if any(ch in cleaned_nb_dir for ch in _UNSAFE_ATTR_CHARS) or ".." in cleaned_nb_dir.split("/"):
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[jupyter].notebook_dir_in_repo" must be a safe relative repository path.'
+        )
+
+    raw_pkgs = raw_jupyter.get("setup_packages", ["drawlib"])
+    if not isinstance(raw_pkgs, list) or not all(isinstance(p, str) and p.strip() for p in raw_pkgs):
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[jupyter].setup_packages" must be a list of non-empty package strings.'
+        )
+    setup_pkgs = tuple(p.strip() for p in raw_pkgs)
+
+    raw_cell_mode = raw_jupyter.get("drawlib_cell_mode", "markdown")
+    if raw_cell_mode not in {"markdown", "code"}:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[jupyter].drawlib_cell_mode" must be "markdown" or "code", '
+            f"got {raw_cell_mode!r}."
+        )
+    cell_mode: JupyterCellMode = "code" if raw_cell_mode == "code" else "markdown"
+
+    raw_img_mode = raw_jupyter.get("image_mode", "attachment")
+    if raw_img_mode not in {"attachment", "url", "relative"}:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[jupyter].image_mode" must be "attachment", "url", or "relative", '
+            f"got {raw_img_mode!r}."
+        )
+    image_mode: JupyterImageMode = (
+        "url" if raw_img_mode == "url" else ("relative" if raw_img_mode == "relative" else "attachment")
+    )
+
+    raw_exec = raw_jupyter.get("execute", True)
+    if not isinstance(raw_exec, bool):
+        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].execute" must be a boolean.')
+
+    return JupyterConfig(
+        github_repo=cleaned_repo,
+        github_branch=cleaned_branch,
+        notebook_dir_in_repo=cleaned_nb_dir,
+        setup_packages=setup_pkgs,
+        drawlib_cell_mode=cell_mode,
+        image_mode=image_mode,
+        execute=raw_exec,
+    )
+
+
 def load_project_manifest(input_dir: str) -> ProjectManifest | None:
     """Load and validate ``drawlib.toml`` directly inside ``input_dir`` if present.
 
@@ -692,7 +833,19 @@ def load_project_manifest(input_dir: str) -> ProjectManifest | None:
     elif project_meta.type == "catalog":
         catalog_cfg = CatalogConfig()
 
-    return ProjectManifest(project=project_meta, i18n=i18n_cfg, seo=seo_cfg, catalog=catalog_cfg)
+    jupyter_cfg: JupyterConfig | None = None
+    if "jupyter" in raw:
+        jupyter_cfg = _parse_jupyter_section(raw["jupyter"], project_meta, cfg_path)
+    elif project_meta.type == "jupyter":
+        jupyter_cfg = JupyterConfig()
+
+    return ProjectManifest(
+        project=project_meta,
+        i18n=i18n_cfg,
+        seo=seo_cfg,
+        catalog=catalog_cfg,
+        jupyter=jupyter_cfg,
+    )
 
 
 def find_project_manifest(path: str, max_up: int = 4) -> tuple[str, ProjectManifest] | None:
@@ -731,6 +884,7 @@ def format_project_manifest_toml(
     description: str = "",
     seo: SeoConfig | None = None,
     catalog: CatalogConfig | None = None,
+    jupyter: JupyterConfig | None = None,
     include_seo_comment: bool = True,
 ) -> str:
     """Serialize a clean, human-readable ``drawlib.toml`` string for ``drawlib init``.
@@ -740,13 +894,14 @@ def format_project_manifest_toml(
         project_type: Canonical project archetype.
         style: Selected style preset or CSS path.
         lang: Primary / default canonical language code.
-        langs: Ordered list of canonical languages for ``doc``, ``site``, ``slide``, and ``catalog``.
+        langs: Ordered list of canonical languages for ``doc``, ``site``, ``slide``, ``catalog``, and ``jupyter``.
         labels: Optional custom display labels for ``[i18n.labels]``.
         descriptions: Optional localized descriptions for ``[i18n.descriptions]``.
         title: Optional default title override.
         description: Optional project description.
         seo: Optional active ``[seo]`` configuration block.
         catalog: Optional active ``[catalog]`` configuration block for ``catalog`` projects.
+        jupyter: Optional active ``[jupyter]`` configuration block for ``jupyter`` projects.
         include_seo_comment: If True and ``seo`` is None, append a commented ``[seo]`` template on web projects.
 
     Returns:
@@ -833,6 +988,33 @@ def format_project_manifest_toml(
                     ]
                 )
 
+        if project_type == "jupyter":
+            eff_jupyter = jupyter or JupyterConfig()
+            pkgs_literal = ", ".join(f'"{_esc(p)}"' for p in eff_jupyter.setup_packages)
+            lines.extend(
+                [
+                    "",
+                    "[jupyter]",
+                ]
+            )
+            if eff_jupyter.github_repo:
+                lines.append(f'github_repo = "{_esc(eff_jupyter.github_repo)}"')
+            else:
+                lines.append('# github_repo = "owner/repo"')
+            lines.append(f'github_branch = "{_esc(eff_jupyter.github_branch)}"')
+            if eff_jupyter.notebook_dir_in_repo:
+                lines.append(f'notebook_dir_in_repo = "{_esc(eff_jupyter.notebook_dir_in_repo)}"')
+            else:
+                lines.append('# notebook_dir_in_repo = "jupyter_html"')
+            lines.extend(
+                [
+                    f"setup_packages = [{pkgs_literal}]",
+                    f'drawlib_cell_mode = "{_esc(eff_jupyter.drawlib_cell_mode)}"',
+                    f'image_mode = "{_esc(eff_jupyter.image_mode)}"',
+                    f"execute = {str(eff_jupyter.execute).lower()}",
+                ]
+            )
+
         if seo is not None:
             lines.extend(
                 [
@@ -867,6 +1049,7 @@ def format_project_manifest_toml(
             )
 
     return "\n".join(lines) + "\n"
+
 
 
 

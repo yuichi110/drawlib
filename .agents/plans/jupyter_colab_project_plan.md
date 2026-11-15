@@ -12,18 +12,17 @@
 3. **`drawlib` 自身のゼロインストール体験の提供**:
    `drawlib` を初めて知るユーザーが、ローカル環境構築なしでブラウザ上からワンクリック（`Open in Colab`）で `drawlib` の描画コードを実行・改造して学べる公式ハンズオン環境が求められていた。
 
-そこで、`drawlib` の第6のプロジェクトアーキタイプとして **`jupyter`（CLI エイリアス: `colab`）** を導入し、**「Markdown + Python で執筆・Git 管理し、図解入りの `.ipynb`（Jupyter / Google Colab ノートブック）と Web プレビュー HTML を同時ビルドできる仕組み（Illustrated Notebook / Colab as Code）」** を実現します。
+そこで、`drawlib` の第6のプロジェクトアーキタイプとして **`jupyter`** を導入し、**「Markdown + Python で執筆・Git 管理し、図解入りの `.ipynb`（Jupyter / Google Colab ノートブック）と Web プレビュー HTML を同時ビルドできる仕組み（Illustrated Notebook / Colab as Code）」** を実現します。
 
 ---
 
 ## 2. 基本設計方針
 
-### 2.1 プロジェクトタイプ名：`jupyter`（＋ `colab` エイリアス・連携の標準搭載）
-- **正式アーキタイプ名**: **`jupyter`**（`drawlib.toml` の `type = "jupyter"`）
-  - 既存の5アーキタイプ（`images`, `doc`, `site`, `catalog`, `slide`）と同様に、特定のクラウド製品名ではなく汎用規格名である `jupyter` を採用する。
+### 2.1 プロジェクトタイプ名：`jupyter`（＋ Google Colab 連携の標準搭載）
+- **正式アーキタイプ名**: **`jupyter`**（`drawlib.toml` の `type = "jupyter"`、エイリアスなし）
+  - 既存の5アーキタイプ（`images`, `doc`, `site`, `catalog`, `slide`）と同様に、特定のクラウド製品名ではなく汎用規格名である `jupyter` を一貫して採用する（`colab` エイリアスは設けない）。
   - 生成される `.ipynb` は Google Colab はもちろん、VS Code Jupyter 拡張、ローカルの JupyterLab、JupyterHub、Kaggle Notebooks 等すべての環境でそのまま動作する。
-- **Google Colab ファーストクラス連携 & CLI エイリアス**:
-  - CLI（`drawlib init project` / `drawlib build`）および `./dcli docs build` では、直感的に打てるよう **`colab`（および `ipynb`）をエイリアスとして受け付ける**。
+- **Google Colab ファーストクラス連携**:
   - 生成される HTML プレビューおよびノートブック先頭には、ワンクリックで Google Colab を起動できる **`Open in Colab` バッジ** と `.ipynb` ダウンロード導線を標準搭載する。
 
 ### 2.2 本リポジトリ（`yuichi110/drawlib`）内での一元管理（Single Source of Truth）
@@ -110,17 +109,17 @@ AI コーディングエージェントが作成したノートブックの品�
 
 ## 4. `drawlib` コア・CLI・マニフェストの拡張仕様
 
-### 4.1 ノートブック環境向けのパス解決フォールバック（`src/drawlib/_core/l1_core/_path_utils.py`）
-- **現状の課題**:
-  Google Colab や Jupyter のセル内で `save("output.png")`（相対パス）や引数なし `save()`、`Dimage("input.png")` を呼ぶと、`get_script_path()` がコールスタック上の実在 `.py` ファイルを探そうとして、Colab の `<ipython-input-...>` フレームでは `FileNotFoundError: Critical Error. Unable to detect call script file` が発生する。
-- **改善内容**:
-  `get_script_path()` で通常の `.py` / `.md` ファイルが見つからない場合、インタラクティブ／ノートブック環境（IPython / Colab / REPL）であれば `os.path.join(os.getcwd(), "notebook.py")` 相当（ディレクトリとして `os.getcwd()`＝Colab では `/content`）へ安全にフォールバックさせる。
-  これにより、Colab 上でも `save("diagram.png")` や引数なし `save()`（`/content/notebook.png`）がエラーなく動作する。
+### 4.1 `setup(..., cwd=True)` による明示的なカレントディレクトリ基準パス解決
+- **設計方針**:
+  コールスタック推測による暗黙的な自動フォールバックは行わず、`0` / `1` の決定的なオプションとして `setup(..., cwd=True)`（および `drawlib_settings.set_cwd(True)`）を導入する。
+- **挙動**:
+  - `cwd=False`（デフォルト）: 従来通り呼び出し元スクリプト（`.py` / `.md`）の場所を基準に相対パス（`save()`, `image()`, `Dimage()` 等）を解決する。
+  - `cwd=True`（`setup(width=100, height=50, cwd=True)` 指定時）: すべての相対ファイルパス解決（`get_script_relative_path()`）および引数なし `save()`（`<cwd>/output.png`）を確実にカレントワーキングディレクトリ（`os.getcwd()`）基準に切り替える。`clear()` 呼び出し時には `cwd=False` にリセットされる。
 
 ### 4.2 `drawlib.toml` マニフェスト拡張（`src/drawlib/_builder/_common/manifest.py`）
-- `ProjectArchetype` に `"jupyter"` を追加（`"colab"` や `"notebook"` も入力エイリアスとして `"jupyter"` に正規化）。
+- `ProjectArchetype` に `"jupyter"` を追加。
 - `_I18N_ARCHETYPES` に `"jupyter"` を追加し、単一言語（`en/` または `ja/`）および多言語（`langs = ["en", "ja"]`）の `<src_dir>/<lang>/*.md` 構造に完全対応させる。
-- `[jupyter]`（または `[colab]` エイリアス）セクションのサポート：
+- `[jupyter]` セクションのサポート：
   ```toml
   [project]
   name = "tutorials"
@@ -142,13 +141,13 @@ AI コーディングエージェントが作成したノートブックの品�
   ```
 
 ### 4.3 CLI コマンドの追加（`src/drawlib/_cli/commands/`）
-1. **`drawlib init project jupyter [target] [-l <langs>] [-s <style>] [-f]`**（エイリアス: `colab`）
+1. **`drawlib init project jupyter [target] [-l <langs>] [-s <style>] [-f]`**
    - `<target>_src/` をスキャフォールドする：
      - `drawlib.toml`（`type = "jupyter"`）
      - `styles.py`, `utils.py`, `_assets/`, `style.css`, `template.html`
      - `<lang>/01_sample_notebook.md`（図解 ```` ```drawlib ```` ブロックと実行用 ```` ```python ```` セルの両方を含むスターター）
      - `build.sh`（HTML と `.ipynb` を一括ビルド）、`build_jupyter.sh`、`build_html.sh`、`serve.sh`
-2. **`drawlib build jupyter <input_path> [-o <output_dir>] [--execute/--no-execute] [--dry-run]`**（エイリアス: `colab`, `ipynb`）
+2. **`drawlib build jupyter <input_path> [-o <output_dir>] [--execute/--no-execute] [--dry-run]`**
    - `<input_path>`（ディレクトリまたは単一 `.md` ファイル）から以下を生成・検証する：
      - 各 `.md` に対応する `.ipynb` ファイル（`nbformat v4.5` 準拠の JSON、外部依存パッケージ不要で標準 `json` モジュールのみで生成）
      - `--execute`（デフォルト有効）により全コードセルを順次 Dry-Run 実行し、エラーがないことを検証するとともに `stdout` 出力を `.ipynb` と HTML に記録する（`--dry-run` 指定時はファイル書き出しを行わず順次実行検証のみを高速実行）
@@ -162,7 +161,7 @@ AI コーディングエージェントが作成したノートブックの品�
 
 ### 5.1 手元のブラウザで確認・インタラクティブ試用する2つの方法
 1. **Notebook 風 HTML プレビューで確認する（`./dcli docs serve jupyter`）**:
-   - `./dcli docs build jupyter`（エイリアス: `colab`）でビルド後、`./dcli docs serve jupyter` を実行すると、手元のブラウザ（`http://localhost:8000`）で Notebook 風 HTML プレビューが開く。
+   - `./dcli docs build jupyter` でビルド後、`./dcli docs serve jupyter` を実行すると、手元のブラウザ（`http://localhost:8000`）で Notebook 風 HTML プレビューが開く。
    - Dry-Run によって実際に実行された `In [1]:` コードセル、`Out [1]:` 出力結果、レンダリング済み図解、`Open in Colab` ボタン、`.ipynb` ダウンロードリンクをブラウザ上で即座に確認できる。
 2. **手元のブラウザ上で `.ipynb` を実際に動かして試す（ローカル JupyterLab / Notebook モード）**:
    - 「Google Colab に push する前に、手元のブラウザ上で実際に `.ipynb` のセルを編集して `Shift + Enter` で動かして試したい」という場合のために、生成された `docs/jupyter/{en,ja}/*.ipynb` をローカルの JupyterLab（`uv run --with jupyterlab jupyter lab docs/jupyter`、または `./dcli docs serve jupyter --lab` オプション）や VS Code Jupyter 拡張で直接開き、ローカルの `drawlib` コードを使ってその場でインタラクティブにセル実行できる環境を提供する。
@@ -186,20 +185,52 @@ AI コーディングエージェントが作成したノートブックの品�
 
 ---
 
-## 6. 段階的な実装ステップ
+## 6. 段階的な実装ステップ（全5ステップ）
 
-### Phase 1: コアのノートブック環境対応（`l1_core`）
-- [ ] `src/drawlib/_core/l1_core/_path_utils.py` の `get_script_path()` にノートブック／対話環境フォールバック（`os.getcwd()`）を実装し、単体テストを追加する。
+各ステップごとに単体テスト（`./dcli test target ...`）と静的解析（`./dcli code-check all`）を実行し、段階的に品質を固めながら進めます。
 
-### Phase 2: `jupyter` ビルダ・Dry-Run エンジン・CLI・自動テストの実装（`_builder`, `_templates`, `_cli`）
-- [ ] `src/drawlib/_builder/_common/manifest.py` に `type = "jupyter"`（エイリアス `"colab"`）および `[jupyter]` 設定モデルを追加する。
-- [ ] `src/drawlib/_builder/doc_builder/` に `.ipynb` コンパイラ／エクスポータおよび **インプロセス Dry-Run 順次実行エンジン**（`compiler/jupyter.py`, `exporter_jupyter.py`）を実装する（`cell=code` / `cell=markdown` 属性、`save()` → `show()` 変換、順次 `exec()` による `stdout`・図解キャプチャ、`--dry-run` モード、`Open in Colab` ヘッダー生成）。
-- [ ] HTML 出力時に `type = "jupyter"` 向けの Notebook 風セル UI（`In [n]:` / `Out [n]:` 表示、コードコピーボタン）およびページ上部の `Open in Colab` バッジ・`.ipynb` ダウンロードボタンを追加する。
-- [ ] `src/drawlib/_templates/` に `jupyter` プロジェクトのスターターテンプレートを追加し、`drawlib init project jupyter`（エイリアス `colab`）および `drawlib build jupyter`（エイリアス `colab`, `ipynb`）を有効化する。
-- [ ] `tests/drawlib/doc_builder/test_jupyter_builder.py` に `.ipynb` 生成・Dry-Run 実行・エラー検知の自動テストを追加し、`./dcli test` および `./dcli code-check all` で検証する。
+### Step 1: `setup(..., cwd=True)` による明示的パス解決の実装（`l1_core`, `l4_canvas`）
+- **対象**:
+  - `src/drawlib/_core/l1_core/_settings.py`, `_path_utils.py`
+  - `src/drawlib/_core/l4_canvas/_base.py`
+  - `tests/drawlib/_core/l1_core/test_path_utils.py`
+- **内容**:
+  - `setup(..., cwd=True)` 指定時に `os.getcwd()` 基準でパスを解決し、`clear()` で `cwd=False` に戻す決定的な仕組みを実装。
+- **検証**: `./dcli test target core` & `./dcli test target canvas` & `./dcli code-check all`
 
-### Phase 3: ルール・API ドキュメントの更新と `docs_src/jupyter/` の構築（Dogfooding & Browser Review）
-- [ ] `src/drawlib/_rules/`（`project-overview.md`, `project-jupyter.md`, `cli.md`, `api.md`）および `docs_src/api/` を更新する。
-- [ ] `docs_src/jupyter/`（日英バイリンガル）を作成し、`tools/dcli/docs/builder.py`・`cli.py`（`--lab` によるローカル JupyterLab 起動サポート含む）・`banner.py` に統合する。
-- [ ] `tests/drawlib/doc_builder/test_jupyter_docs_dryrun.py` を追加し、`./dcli test` で公式ノートブック全件の Dry-Run が自動テストされるようにする。
-- [ ] `./dcli docs build --all` と `./dcli docs serve jupyter --check` を実行し、AI による Dry-Run 実行検証と Playwright ブラウザスクリーンショットによる Stage 3 視覚レビューを実施する。
+### Step 2: マニフェスト拡張・`.ipynb` コンパイラ・AI Dry-Run エンジンの実装（`_builder`）
+- **対象**:
+  - `src/drawlib/_builder/_common/manifest.py`（`type = "jupyter"`、`JupyterConfig` `[jupyter]` セクション追加）
+  - `src/drawlib/_builder/doc_builder/detector.py` & `i18n.py`（`jupyter` タイプ認識・多言語検証対応）
+  - `src/drawlib/_builder/doc_builder/exporter_jupyter.py`（新規：`nbformat v4.5` `.ipynb` 生成器＋**インプロセス順次 Dry-Run 実行エンジン**）
+  - `src/drawlib/_builder/doc_builder/compiler/jupyter.py`（新規：`build_jupyter()` 実装。`.ipynb` 出力、Notebook 風 HTML プレビュー生成、`In [n]:` / `Out [n]:` 表示、`Open in Colab` バッジ、`--dry-run` 対応）
+  - `src/drawlib/_builder/doc_builder/__init__.py`（`build_jupyter` の公開）
+  - `tests/drawlib/doc_builder/test_jupyter_builder.py`（新規：単体テスト）
+- **検証**: `./dcli test target doc-builder` & `./dcli code-check all`
+
+### Step 3: プロジェクトテンプレート・CSS・CLI コマンドの実装（`_templates`, `_cli`）
+- **対象**:
+  - `src/drawlib/_templates/_models.py` & `_project.py`（`jupyter` プロジェクトタイプ登録）
+  - `src/drawlib/_templates/project/jupyter/`（新規：`drawlib.toml`, `build.sh`, `build_jupyter.sh`, `build_html.sh`, `serve.sh`, `template.html`, `<lang>/01_sample_notebook.md`）
+  - `src/drawlib/_templates/css/targets/jupyter.css`（新規：Notebook セル UI と `Open in Colab` / `.ipynb` ダウンロードバーの CSS）
+  - `src/drawlib/_cli/commands/init.py`（`drawlib init project jupyter` 追加）
+  - `src/drawlib/_cli/commands/build.py`（`drawlib build jupyter` 追加、`--execute/--no-execute`, `--dry-run` 対応）
+- **検証**: `./dcli test target cli` & `./dcli test target doc-builder` & `./dcli code-check all`
+
+### Step 4: AI エージェントルールと公式 API / CLI リファレンスの更新
+- **対象**:
+  - `src/drawlib/_rules/project_jupyter.md`（新規：`uv run drawlib rules show project-jupyter` 用ルール）
+  - `src/drawlib/_rules/project_overview.md`, `cli.md`, `api.md`
+  - `docs_src/api/{en,ja}/28_cli.md`（新規追加した CLI コマンドを日英両方で記載し、機械的完全性テストをパスさせる）
+- **検証**: `./dcli test target tests/drawlib/doc_builder/test_api_docs_completeness.py` & `./dcli code-check all`
+
+### Step 5: 公式ハンズオン `docs_src/jupyter/` の構築・`dcli` 統合・ブラウザ視覚レビュー（Dogfooding）
+- **対象**:
+  - `docs_src/jupyter/`（日英バイリンガル `en/`, `ja/` の全6章ハンズオンノートブックを作成）
+  - `tools/dcli/docs/builder.py`, `cli.py`, `banner.py`（`./dcli docs build jupyter`、`./dcli docs serve jupyter [--lab]`、ポータルバナー連携）
+  - `tests/drawlib/doc_builder/test_jupyter_docs_dryrun.py`（`docs_src/jupyter/` 全ノートブックの自動 Dry-Run 統合テスト）
+- **検証**:
+  - `./dcli docs build jupyter` & `./dcli docs serve jupyter --check`
+  - 3段階マルチモーダル視覚レビュー（`drawlib show -g` グリッド確認＋Playwright `1280×920` ブラウザスクリーンショット確認）
+  - `./dcli code-check all` & `./dcli test all` の完走確認
+

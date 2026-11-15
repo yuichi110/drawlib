@@ -164,6 +164,7 @@ def setup(
     grid_centerstyle: Style | None = None,
     grid_xpitch: PosInt | None = None,
     grid_ypitch: PosInt | None = None,
+    cwd: bool = False,
 ) -> None
 ```
 
@@ -182,6 +183,7 @@ def setup(
 | `grid_centerstyle` | `Style \| None` | 太めグレー破線 | 中心軸（`x = width / 2`、`y = height / 2`）グリッド線の `Style`。 |
 | `grid_xpitch` | `PosInt \| None` | `10`（または `width // 10`） | 垂直グリッド線の X 軸間隔。 |
 | `grid_ypitch` | `PosInt \| None` | `10`（または `height // 10`） | 水平グリッド線の Y 軸間隔。 |
+| `cwd` | `bool` | `False` | `True` の場合、相対ファイルパス（`save()`・`image()`・`Dimage()` 等）を呼び出し元スクリプトの場所ではなくカレントディレクトリ（`os.getcwd()`）基準で解決します（Jupyter / Colab ノートブック環境で推奨）。 |
 
 ---
 

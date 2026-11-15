@@ -546,3 +546,80 @@ def cmd_build_pptx(
         print(f"Successfully compiled PowerPoint presentation: {summary}")
     except Exception as e:
         _handle_build_error("Build PowerPoint Error", e)
+
+
+@build_app.command("jupyter", epilog=HELP_EPILOG)
+def cmd_build_jupyter(
+    input_path: Annotated[
+        str,
+        typer.Argument(
+            metavar="INPUT",
+            help="Jupyter project root directory (containing drawlib.toml) or single Markdown (.md) file.",
+        ),
+    ],
+    output: Annotated[
+        str | None,
+        typer.Option(
+            "-o",
+            "--output",
+            help="Output directory path (or .ipynb file path for single-file build).",
+        ),
+    ] = None,
+    format: Annotated[
+        Literal["png", "webp"],
+        typer.Option("-f", "--format", help="Image output format for drawlib blocks: png or webp."),
+    ] = "png",
+    styles: Annotated[
+        str | None,
+        typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+    ] = None,
+    utils: Annotated[
+        str | None,
+        typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
+    ] = None,
+    execute: Annotated[
+        bool | None,
+        typer.Option(
+            "--execute/--no-execute",
+            help="Execute notebook code cells sequentially in-process and embed outputs into .ipynb and HTML.",
+        ),
+    ] = None,
+    dry_run: Annotated[
+        bool,
+        typer.Option(
+            "--dry-run",
+            help="Execute all notebook cells in-process to verify zero errors without writing output files.",
+        ),
+    ] = False,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
+    workers: Annotated[
+        str,
+        typer.Option("-w", "--workers", help=_WORKERS_HELP),
+    ] = "auto",
+) -> None:
+    """Compile Markdown sources into Jupyter Notebooks (.ipynb), HTML previews, and run AI Dry-Run cell verification."""
+    try:
+        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
+        from drawlib._builder.doc_builder import build_jupyter  # noqa: PLC0415
+
+        eff_workers = resolve_build_workers(workers)
+        out_path = build_jupyter(
+            input_path=input_path,
+            output_dir=output,
+            image_format=format,
+            styles_path=styles,
+            utils_path=utils,
+            no_cache=no_cache,
+            execute=execute,
+            dry_run=dry_run,
+            workers=eff_workers,
+        )
+        if dry_run:
+            print(f"Successfully verified Jupyter notebook cell execution (dry-run): {out_path}")
+        else:
+            print(f"Successfully compiled Jupyter notebook(s) and HTML preview: {out_path}")
+    except Exception as e:
+        _handle_build_error("Build Jupyter Error", e)

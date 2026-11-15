@@ -603,21 +603,22 @@ def validate_i18n_project(
     input_dir: str,
     config: I18nConfig,
     *,
-    project_type: Literal["site", "doc", "slide", "catalog"] = "site",
+    project_type: Literal["site", "doc", "slide", "catalog", "jupyter"] = "site",
     default_format: str = "png",
 ) -> dict[str, list[str]]:
     """Run mechanical consistency checks across every locale in ``config``.
 
     Checks performed:
     1. File set parity across ``<input_dir>/<lang>/``.
-    2. ``navbar.md`` section and link target parity (for ``'site'``/``'catalog'``; rejected for ``'doc'``/``'slide'``).
+    2. ``navbar.md`` section and link target parity (for ``'site'``/``'catalog'``; rejected for
+       ``'doc'``/``'slide'``/``'jupyter'``).
     3. Markdown skeleton sequence parity (``H1..H3``, ``MarkdownText``, ``DrawlibBlock``, ``CodeBlock``).
     4. ``DrawlibBlock`` Python code parity (exact match for shared filenames, ``<stem>_<lang>.<ext>`` for localized).
 
     Args:
         input_dir: Root source directory containing ``drawlib.toml``.
         config: Loaded ``I18nConfig`` instance.
-        project_type: ``'site'``, ``'doc'``, ``'slide'``, or ``'catalog'``.
+        project_type: ``'site'``, ``'doc'``, ``'slide'``, ``'catalog'``, or ``'jupyter'``.
         default_format: Default image output format (``'png'``, ``'webp'``, or ``'svg'``).
 
     Returns:
@@ -630,14 +631,17 @@ def validate_i18n_project(
     default_lang = config.default_lang
     default_dir = os.path.join(input_abs, default_lang)
     is_slide = project_type == "slide"
+    md_only = project_type in {"slide", "jupyter"}
 
-    default_files = collect_locale_doc_files(default_dir, markdown_only=is_slide)
+    default_files = collect_locale_doc_files(default_dir, markdown_only=md_only)
     if not default_files:
         if is_slide:
             raise ValueError(f'No Markdown slide files found in "{default_dir}".')
+        if project_type == "jupyter":
+            raise ValueError(f'No Markdown notebook files found in "{default_dir}".')
         raise ValueError(f'No Markdown or HTML documentation files found in "{default_dir}".')
 
-    if project_type in {"doc", "slide"}:
+    if project_type in {"doc", "slide", "jupyter"}:
         for lang in config.langs:
             lang_nav = resolve_locale_navbar_path(os.path.join(input_abs, lang))
             if lang_nav is not None:
@@ -663,7 +667,7 @@ def validate_i18n_project(
             default_files=default_files,
             default_has_navbar=(default_navbar_path is not None),
             lang=lang,
-            markdown_only=is_slide,
+            markdown_only=md_only,
         )
 
     if default_navbar_path is not None:

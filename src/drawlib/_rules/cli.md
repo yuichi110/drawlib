@@ -16,15 +16,18 @@ drawlib build pdf doc_src/ -o manual.pdf --generate-index   # Merged vector PDF 
 drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) per locale (manual_<lang>.docx)
 drawlib build slide slide_src/ -o slide_html/               # 16:9 HTML presentation slide deck (<lang>/index.html)
 drawlib build pptx slide_src/ -o slide.pptx                 # Editable 16:9 MS PowerPoint per locale (slide_<lang>.pptx)
+drawlib build jupyter jupyter_src/ -o jupyter_notebooks/    # Interactive .ipynb notebooks + AI dry-run execution
+drawlib build jupyter jupyter_src/ --dry-run                # Headless AI dry-run verification without writing files
 drawlib build image scripts/ -o assets/ -g                  # Batch Python illustration rendering
 
 # Project scaffolding & AI agent instructions
-drawlib init project list                                  # List available starter project templates (site, catalog, doc, slide, images)
+drawlib init project list                                  # List available starter project templates (site, catalog, doc, slide, jupyter, images)
 drawlib init project site                                  # Scaffold multi-page documentation website (docs_src/en/)
 drawlib init project catalog                               # Scaffold illustrated catalog / API / schema reference (catalog_src/en/)
 drawlib init project doc                                   # Scaffold linear document project (doc_src/en/)
 drawlib init project doc rbac -s google                    # Scaffold doc project with custom target name & theme (rbac_src/en/)
 drawlib init project slide -l en,ja -s google              # Scaffold bilingual 16:9 presentation slide deck (slide_src/{en,ja}/)
+drawlib init project jupyter -l en,ja -s google            # Scaffold bilingual Jupyter/Colab notebook project (jupyter_src/{en,ja}/)
 drawlib init project images                                # Scaffold standalone Python illustrations repository (images_src/)
 drawlib init agent antigravity                             # Generate AI agent rules (.agents/rules/drawlib.md, mode: auto)
 drawlib init agent --detect                                # Auto-detect configured AI agents in repo and generate rules
@@ -65,6 +68,7 @@ drawlib rules show overview                                # Display canvas over
 drawlib rules show style-guide                             # Display design principles and color rules
 drawlib rules show project-overview                        # Display project scaffolding and build conventions
 drawlib rules show project-catalog                         # Display illustrated catalog & reference guidelines
+drawlib rules show project-jupyter                         # Display Jupyter & Google Colab notebook guidelines
 drawlib rules show cli                                     # Display this CLI reference guide
 drawlib rules clear                                        # Delete all cached rule illustrations and docs
 ```
@@ -93,16 +97,17 @@ drawlib [GLOBAL_OPTIONS] COMMAND [SUBCOMMAND] [ARGS...]
 
 ## 1. Document & Illustration Compiler (`drawlib build`)
 
-The `drawlib build` subsystem compiles Markdown documentation directories (`doc`, `site`, `catalog`), slide decks (`slide`), MS Office deliverables (`.docx`, `.pptx`), and standalone Python illustration scripts (`images`) into production-ready publishing targets.
+The `drawlib build` subsystem compiles Markdown documentation directories (`doc`, `site`, `catalog`, `jupyter`), slide decks (`slide`), MS Office deliverables (`.docx`, `.pptx`), and standalone Python illustration scripts (`images`) into production-ready publishing targets.
 
 ```text
 drawlib build
-├── html       Compile a documentation source directory (site, catalog, or doc) into static HTML
+├── html       Compile a documentation source directory (site, catalog, doc, or jupyter) into static HTML
 ├── markdown   Compile a documentation source directory (site, catalog, or doc) into GitHub-ready Markdown
 ├── pdf        Compile a doc/slide project directory (<stem>_<lang>.pdf) or single Markdown file into vector PDF
 ├── docx       Compile a doc project directory (<stem>_<lang>.docx) or single Markdown file into editable MS Word
 ├── slide      Compile a slide project directory into a 16:9 HTML presentation deck (<lang>/index.html)
 ├── pptx       Compile a slide project directory into editable 16:9 MS PowerPoint (<stem>_<lang>.pptx)
+├── jupyter    Compile a jupyter project directory into .ipynb notebooks with in-process AI dry-run execution
 └── image      Batch execute standalone Python scripts or extract embedded project diagram images
 ```
 

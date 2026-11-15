@@ -36,6 +36,7 @@ TOPIC_SOURCE_MAP: Final[dict[str, tuple[str, ...]]] = {
     "project-site": ("project_site.md",),
     "project-catalog": ("project_catalog.md",),
     "project-slide": ("project_slide.md",),
+    "project-jupyter": ("project_jupyter.md",),
     "cli": ("cli.md",),
     "api": ("api.md",),
     # Core Library Modules

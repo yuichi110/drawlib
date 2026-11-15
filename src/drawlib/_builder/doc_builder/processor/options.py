@@ -73,6 +73,7 @@ class DrawlibBlockOptions(BaseModel):
     css_class: str | None = None
     file: str | None = None
     code: Literal["hide", "show", "fold"] = "hide"
+    cell: Literal["markdown", "code"] | None = None
     no_cache: bool = False
     anim_trigger: Literal["auto", "click"] | None = None
     anim_loop: Literal["once", "infinite"] | None = None
@@ -111,6 +112,12 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.code = "fold"
             elif val_code == "hide":
                 options.code = "hide"
+        elif key_lower == "cell":
+            val_cell = val_clean.lower()
+            if val_cell == "code":
+                options.cell = "code"
+            elif val_cell == "markdown":
+                options.cell = "markdown"
         elif key_lower == "width":
             if val_clean:
                 options.width = val_clean if (val_clean.endswith("px") or val_clean.endswith("%")) else f"{val_clean}px"

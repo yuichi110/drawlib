@@ -269,6 +269,7 @@ from drawlib.tools import (
     build_docx,
     build_html,
     build_image,
+    build_jupyter,
     build_markdown,
     build_pdf,
     build_pptx,
@@ -304,7 +305,7 @@ The canvas operates in a Cartesian coordinate space with the origin `(0, 0)` loc
 
 | Function | Parameters | Description |
 | :--- | :--- | :--- |
-| `setup(...)` | `width: int \| None = None`, `height: int \| None = None`, `dpi: int \| None = None`, `background_color: Color \| tuple \| str \| None = None`, `background_alpha: float \| None = None`, `grid: bool \| None = None`, `grid_only: bool \| None = None`, `grid_style: Style \| None = None`, `grid_centerstyle: Style \| None = None`, `grid_xpitch: int \| None = None`, `grid_ypitch: int \| None = None` | Initializes canvas dimensions (default `100×100`), DPI (`100`), background color/alpha, and optional coordinate grid. |
+| `setup(...)` | `width: int \| None = None`, `height: int \| None = None`, `dpi: int \| None = None`, `background_color: Color \| tuple \| str \| None = None`, `background_alpha: float \| None = None`, `grid: bool \| None = None`, `grid_only: bool \| None = None`, `grid_style: Style \| None = None`, `grid_centerstyle: Style \| None = None`, `grid_xpitch: int \| None = None`, `grid_ypitch: int \| None = None`, `cwd: bool = False` | Initializes canvas dimensions (default `100×100`), DPI (`100`), background color/alpha, optional coordinate grid, and `cwd=True` (`os.getcwd()`) path resolution mode. |
 | `save(...)` | `file: str \| Path \| None = None`, `format: Literal["jpg", "png", "apng", "webp", "gif", "pdf", "svg"] \| None = None` | Exports the drawn canvas to an image file (`.png`, `.apng`, `.jpg`, `.webp`, `.gif`, `.pdf`, `.svg`). |
 | `clear()` | None | Clears the active canvas and resets state for the next diagram. |
 | `show()` | None | Displays the interactive GUI preview window (avoid in headless CI / agents). |

@@ -14,16 +14,17 @@ GUI diagram tools (draw.io, Visio) decouple visuals from Git, causing diagrams t
 ## 2. Core Principles for AI Agents
 
 1. **Draw with Drawlib (No Raw SVGs or Matplotlib Boilerplate)**:
-   Never emit raw SVG strings or matplotlib boilerplate. Use Drawlib's declarative Python API and high-level components.
+   Never emit raw SVG strings or matplotlib boilerplate. Use Drawlib's declarative Python API and components.
 2. **Project-First Rule: Always Start with `drawlib init project` (No Bare `.py` Files)**:
-   Never write bare `.py` scripts or hand-craft folders. If no `*_src/` project exists, **scaffold one first with `drawlib init project`** so `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `build.sh` are configured:
+   Never write bare `.py` scripts or hand-craft folders. If no `*_src/` project exists, **scaffold one first with `drawlib init project`** so `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `build.sh` are ready:
    - **Images only** -> `uv run drawlib init project images [target] [-l <lang>] [-s <style>]` (`project-images`)
-   - **Linear doc / PDF / `.docx`** -> `uv run drawlib init project doc [target] [-l <langs>] [-s <style>]` (`project-doc`; `build_docx.sh` for Word)
+   - **Linear doc / PDF / `.docx`** -> `uv run drawlib init project doc [target] [-l <langs>] [-s <style>]` (`project-doc`)
    - **Multi-page website** -> `uv run drawlib init project site [target] [-l <langs>] [-s <style>]` (`project-site`)
    - **Catalog / API / schema ref** -> `uv run drawlib init project catalog [target] [-l <langs>] [-s <style>]` (`project-catalog`)
-   - **16:9 slide deck / `.pptx`** -> `uv run drawlib init project slide [target] [-l <langs>] [-s <style>]` (`project-slide`; `build_pptx.sh` for PowerPoint)
-   - **Localization & SEO**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`catalog`/`slide` for multi-locale `<src_dir>/<lang>/` (`[i18n]` & `[seo]`).
-   - **CLI Runner**: Use `uv run drawlib` in `uv` projects, `uvx drawlib` in zero-install/non-Python repos, or `drawlib` globally. Delete starter `sample*.py` after scaffolding.
+   - **16:9 slide deck / `.pptx`** -> `uv run drawlib init project slide [target] [-l <langs>] [-s <style>]` (`project-slide`)
+   - **Jupyter / Colab notebook** -> `uv run drawlib init project jupyter [target] [-l <langs>] [-s <style>]` (`project-jupyter`)
+   - **Localization & SEO**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`catalog`/`slide`/`jupyter` for `<src_dir>/<lang>/` (`[i18n]` & `[seo]`).
+   - **CLI Runner**: Use `uv run drawlib` in `uv` projects, `uvx drawlib` in zero-install repos, or `drawlib` globally. Delete starter `sample*.py` after scaffolding.
 3. **Cartesian Coordinates (`(0, 0)` at Bottom-Left)**:
    Run `uv run drawlib rules show overview` before coding *(origin `(0, 0)` is bottom-left; X right, Y up)*.
 4. **Follow the Style Guide**:
@@ -33,15 +34,15 @@ GUI diagram tools (draw.io, Visio) decouple visuals from Git, causing diagrams t
    - **PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles` (never lowercase `styles` or `colors`).
 5. **Parallel Multi-Agent Delegation**:
    For multi-file tasks (`*_src/*.py`, `*_src/<lang>/**/*.md`), parallelize across subagents when available:
-   - **Phase 1 (Parent)**: Run `drawlib init project` and finalize shared `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `<lang>/navbar.md` or outline first.
-   - **Phase 2 (Subagents)**: Assign disjoint `.py`/`.md` files. Each subagent runs Stage 1 & Stage 2 (`drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` + visual inspection) with a **unique scratch filename**.
-   - **Phase 3 (Parent)**: Run `./build.sh` once after subagents finish (avoiding `.drawlib/cache.db` contention), run `drawlib serve --check`, and perform Stage 3 review.
+   - **Phase 1 (Parent)**: Run `drawlib init project` and finalize shared `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `<lang>/navbar.md`.
+   - **Phase 2 (Subagents)**: Assign disjoint `.py`/`.md` files. Each subagent runs Stage 1 & 2 (`drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` + visual review) with a **unique scratch filename**.
+   - **Phase 3 (Parent)**: Run `./build.sh` once after subagents finish (avoiding `.drawlib/cache.db` contention), `drawlib serve --check`, and Stage 3 review.
 
 ---
 
 ## 3. What Drawlib Can Do (Favor High-Level Components)
 
-Always prefer tailored high-level components over manual primitive rectangles and lines:
+Prefer high-level components over manual primitive rectangles and lines:
 
 | Category | Recommended Module | Primary Use Cases |
 | :--- | :--- | :--- |
@@ -75,19 +76,19 @@ rectangle((50, 20), width=60, height=20, style=Styles.Neutral, text="Service")
 save()
 ```
 ````
-- **Top Hero & Density**: Place a **Top Hero diagram at Lines 5–15** with `code=fold` for above-the-fold visibility; include `2+` diagrams/page pairing icons (`phosphor`, `gcp`) with high-level components.
-- **Attributes & `720pt` Typography**: Always set `file=<name>.png` and `caption="..."`. Omit narrow pixel caps (`width=500px`/`600px`), and keep `text_size >= 10.0` (body `10.5`–`12.0`, headers `12.0`–`14.0`, floor `9.5`) so labels ($\text{text\_size} \times \text{Width} / 720$) match `16px` HTML prose.
-- **Source of Truth & Relative Links**: Edit only `<base>_src/` (never `*_markdown/` or `*_html/`). Never put local absolute paths (`/usr/...`, `C:\...`) or `file:///` URLs in Markdown sources; use relative links only.
-- **Caches & Dependencies**: `playwright`, `python-docx`, and `python-pptx` are standard dependencies; headless Chromium auto-downloads on first PDF/PPTX build (pre-download via `uv run drawlib cache download --all`; run `playwright install-deps chromium` on minimal Linux containers). Pass `--no-cache` or `uv run drawlib cache clear --images` if editing external Python helpers.
+- **Top Hero & Density**: Place a **Top Hero diagram at Lines 5–15** (`code=fold`) for above-the-fold visibility; include `2+` diagrams/page pairing icons (`phosphor`, `gcp`) with high-level components.
+- **Attributes & `720pt` Typography**: Always set `file=<name>.png` and `caption="..."`. Omit narrow pixel caps (`width=500px`/`600px`), and keep `text_size >= 10.0` (body `10.5`–`12.0`, headers `12.0`–`14.0`, floor `9.5`) so labels ($\text{text\_size} \times \text{Width} / 720$) match `16px` prose.
+- **Source of Truth & Relative Links**: Edit only `<base>_src/` (never `*_markdown/` or `*_html/`). Never put local absolute paths (`/usr/...`, `C:\...`) or `file:///` URLs in Markdown; use relative links only.
+- **Caches & Dependencies**: `playwright`, `python-docx`, and `python-pptx` are standard dependencies; Chromium auto-downloads on first PDF/PPTX build (pre-download via `uv run drawlib cache download --all`; run `playwright install-deps chromium` on minimal Linux containers). Pass `--no-cache` or `uv run drawlib cache clear --images` when editing external helpers.
 
 ---
 
 ## 5. Autonomous 3-Stage Review & Self-Correction Loop
 
 Never deliver unverified diagrams or docs (`uv run drawlib rules show review-guide`):
-1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at Lines 5–15 (`code=fold`), no narrow `px` caps, `text_size >= 10.0`, and coordinate anchors (`shapes`/`text`/`icons`/`images` = **Center `(cx, cy)`**; `Charts`/`Diagrams`/most `SmartArts` = **Bottom-Left `(x0, y0)`**; `Table`/`TreeNode`/`BulletPoints`/`SourceCode` = **Top-Left**; `MindMapNode`/`Cycle` = **Center**; `graph.get_layout()` exposes `.xy` centers & `.bottom_left` corners).
-2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export with the 10/5-unit grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/<unique_name>_grid.png`), fix any `[Geometry Warning]` on `stderr`, and inspect for clipping, overlaps, buried arrowheads (orthogonal gaps `>= 6.0`), margins (`>= 4–6`), and `50%+` neutral balance.
-3. **Stage 3 — Macro-Page Review**: Run `./build.sh`, check links (`uv run drawlib serve <out_html>/ --check`), and inspect a `1280×920` browser screenshot of built HTML (or PDF/PPTX/DOCX) for Hero placement and font parity.
+1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at Lines 5–15 (`code=fold`), no narrow `px` caps, `text_size >= 10.0`, and anchors (`shapes`/`text`/`icons`/`images` = **Center `(cx, cy)`**; `Charts`/`Diagrams`/most `SmartArts` = **Bottom-Left `(x0, y0)`**; `Table`/`TreeNode`/`BulletPoints`/`SourceCode` = **Top-Left**; `MindMapNode`/`Cycle` = **Center**; `graph.get_layout()` exposes `.xy` centers & `.bottom_left` corners).
+2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export with the 10/5-unit grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/<unique_name>_grid.png`), fix any `[Geometry Warning]`, and inspect for clipping, overlaps, buried arrowheads (orthogonal gaps `>= 6.0`), margins (`>= 4–6`), and `50%+` neutral balance.
+3. **Stage 3 — Macro-Page Review**: Run `./build.sh`, check links (`uv run drawlib serve <out_html>/ --check`), and inspect a `1280×920` screenshot of built HTML (or PDF/PPTX/DOCX/Jupyter) for Hero placement and font parity.
 
 ---
 
@@ -101,15 +102,16 @@ uv run drawlib rules show style-guide # Color tokens, typography, 50%+ neutral r
 uv run drawlib rules show review-guide # 3-stage multimodal review, 720pt math, anchors
 uv run drawlib rules show anim-guide # Animation loop idioms & component patterns
 uv run drawlib rules show slide-guide # Slide story arc, ::: block/note & visuals
-uv run drawlib rules show project-overview # Scaffolding (init), 5 archetypes & cache
+uv run drawlib rules show project-overview # Scaffolding (init), 6 archetypes & cache
 uv run drawlib rules show project-images # Standalone Python scripts (images_src/*.py)
 uv run drawlib rules show project-doc # Linear docs, A4 PDFs & .docx (doc_src/)
 uv run drawlib rules show project-site # Multi-page sites, navbar.md & Top Hero
 uv run drawlib rules show project-catalog # Catalogs & API/CLI/schema refs (catalog_src/)
 uv run drawlib rules show project-slide # 16:9 slides, ::: block/note & .pptx
+uv run drawlib rules show project-jupyter # Jupyter & Colab notebooks (.ipynb + dry-run)
 uv run drawlib rules show cli # CLI commands (build, show, init, serve, cache)
 uv run drawlib rules show api # Complete API index & symbol cheat sheet
-uv run drawlib rules show lib-<module> # Core (canvas, lines, text, styles, preset-styles, preset-colors, fonts, images, math, types, tools, anim, slide)
+uv run drawlib rules show lib-<module> # Core (canvas, lines, text, styles, preset-*, fonts, images, math, types, tools, anim, slide)
 uv run drawlib rules show lib-shapes-overview # 43 shapes (+ basic, polygon, arrow, badge, container, symbol)
 uv run drawlib rules show lib-icons-overview # 34 icon suites (+ phosphor, gcp, aws, azure, ai..workspace)
 uv run drawlib rules show lib-smartarts-overview # 18 SmartArts (+ table, tree, mindmap, chevron-process, geomap, calendar, ...)

@@ -26,6 +26,7 @@ PROJECT_TYPES: Final[dict[str, str]] = {
     "site": "Multi-page documentation website with sidebar navigation and search.",
     "catalog": "Multi-page searchable catalog & reference website with H1/H2 sidebar navigation and semantic badges.",
     "slide": "16:9 presentation slide deck with modular SmartArts and vector diagrams.",
+    "jupyter": "Illustrated Jupyter Notebook (.ipynb) & Google Colab tutorials with HTML preview and AI Dry-Run.",
     "images": "Standalone Python illustration scripts compiled into images.",
 }
 
@@ -34,10 +35,11 @@ _CANONICAL_TYPE_MAP: Final[dict[str, str]] = {
     "site": "site",
     "catalog": "catalog",
     "slide": "slide",
+    "jupyter": "jupyter",
     "images": "images",
     "image": "images",
 }
-_I18N_PROJECT_TYPES: Final[frozenset[str]] = frozenset({"doc", "site", "slide", "catalog"})
+_I18N_PROJECT_TYPES: Final[frozenset[str]] = frozenset({"doc", "site", "slide", "catalog", "jupyter"})
 
 
 def list_project_types() -> dict[str, str]:
@@ -69,6 +71,7 @@ def _resolve_target_base_and_dir(
     default_names = {
         "site": "docs",
         "catalog": "catalog",
+        "jupyter": "jupyter",
         "images": "images",
         "image": "images",
         "slide": "slide",
@@ -85,9 +88,9 @@ def resolve_project_paths(
     """Resolve project directory names and output paths into a structured ProjectPaths object.
 
     Args:
-        project_type: Project type name ('doc', 'site', 'catalog', 'slide', 'images', 'image').
+        project_type: Project type name ('doc', 'site', 'catalog', 'slide', 'jupyter', 'images', 'image').
         target: Custom base name or relative path for the project (e.g. 'spec', 'docs/mysite').
-            If None, defaults to canonical type name ('doc', 'docs', 'catalog', 'slide', 'images').
+            If None, defaults to canonical type name ('doc', 'docs', 'catalog', 'slide', 'jupyter', 'images').
         destination: Base directory path where <target>_src will be created (defaults to current dir).
 
     Returns:
@@ -102,7 +105,8 @@ def resolve_project_paths(
 
     out_markdown_dir_name = f"{base_name}_markdown"
     out_images_dir_name = base_name if canonical_type == "images" else f"{base_name}_images"
-    out_html_dir_name = f"{base_name}_html"
+    out_jupyter_dir_name = f"{base_name}_jupyter"
+    out_html_dir_name = out_jupyter_dir_name if canonical_type == "jupyter" else f"{base_name}_html"
     out_pdf_name = f"{base_name}.pdf"
     out_docx_name = f"{base_name}.docx"
     out_pptx_name = f"{base_name}.pptx"
@@ -119,6 +123,7 @@ def resolve_project_paths(
         out_pdf_name=out_pdf_name,
         out_docx_name=out_docx_name,
         out_pptx_name=out_pptx_name,
+        out_jupyter_dir_name=out_jupyter_dir_name,
     )
 
 
@@ -183,11 +188,12 @@ def _resolve_stylesheet(
     lang: str = "en",
 ) -> str | None:
     """Resolve and validate stylesheet content for web/slide project types."""
-    target_map: dict[str, Literal["site", "doc", "slide", "catalog"]] = {
+    target_map: dict[str, Literal["site", "doc", "slide", "catalog", "jupyter"]] = {
         "site": "site",
         "doc": "doc",
         "slide": "slide",
         "catalog": "catalog",
+        "jupyter": "jupyter",
     }
     target = target_map.get(project_type)
     if target is None:
@@ -277,26 +283,27 @@ def _parse_init_languages(lang: str, canonical_type: str) -> list[str]:
 
     if len(normalized) > 1 and canonical_type not in _I18N_PROJECT_TYPES:
         raise ValueError(
-            f"Multi-language initialization ('{lang}') is supported for 'doc', 'site', 'slide', and 'catalog' "
-            f"projects, not '{canonical_type}'."
+            f"Multi-language initialization ('{lang}') is supported for 'doc', 'site', 'slide', 'catalog', and "
+            f"'jupyter' projects, not '{canonical_type}'."
         )
     return normalized
 
 
-def _to_archetype_literal(canonical_type: str) -> Literal["images", "doc", "site", "slide", "catalog"]:
+def _to_archetype_literal(canonical_type: str) -> Literal["images", "doc", "site", "slide", "catalog", "jupyter"]:
     """Narrow canonical project type string to ProjectArchetype literal."""
-    mapping: dict[str, Literal["images", "doc", "site", "slide", "catalog"]] = {
+    mapping: dict[str, Literal["images", "doc", "site", "slide", "catalog", "jupyter"]] = {
         "doc": "doc",
         "site": "site",
         "slide": "slide",
         "catalog": "catalog",
+        "jupyter": "jupyter",
     }
     return mapping.get(canonical_type, "images")
 
 
 def _deploy_project_manifest(
     src_dir: Path,
-    canonical_type: Literal["images", "doc", "site", "slide", "catalog"],
+    canonical_type: Literal["images", "doc", "site", "slide", "catalog", "jupyter"],
     target_name: str,
     style: str,
     primary_lang: str,
@@ -380,12 +387,12 @@ def init_project(
     """Scaffold a starter Drawlib project in the target destination directory.
 
     Args:
-        project_type: Project type ('doc', 'site', 'catalog', 'slide', 'images', 'image').
+        project_type: Project type ('doc', 'site', 'catalog', 'slide', 'jupyter', 'images', 'image').
         destination: Base directory path where <target>_src is created (defaults to current dir).
-        target: Custom base name for the project (e.g. 'spec', 'report', 'docs', 'catalog', 'api').
+        target: Custom base name for the project (e.g. 'spec', 'report', 'docs', 'catalog', 'api', 'jupyter').
         output: Legacy alias for target (e.g. 'rbac' creates 'rbac_src/').
         force: If True, overwrite existing files and directories.
-        lang: Language code ('en', 'ja', etc.) or comma-separated codes for 'doc'/'site'/'catalog'/'slide' ('en,ja').
+        lang: Language code ('en', 'ja', etc.) or comma-separated codes ('en,ja').
         style: Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS file path.
         here: Deprecated legacy option. Ignored when target_src is always created.
 
@@ -432,6 +439,7 @@ def init_project(
         "__OUT_MARKDOWN_DIR__": paths.out_markdown_dir_name,
         "__OUT_IMAGES_DIR__": paths.out_images_dir_name,
         "__OUT_HTML_DIR__": paths.out_html_dir_name,
+        "__OUT_JUPYTER_DIR__": paths.out_jupyter_dir_name,
         "__OUT_PDF__": paths.out_pdf_name,
         "__OUT_DOCX__": paths.out_docx_name,
         "__OUT_PPTX__": paths.out_pptx_name,

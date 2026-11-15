@@ -96,6 +96,7 @@ setup(
     grid_centerstyle: Style | None = None,
     grid_xpitch: int | None = None,
     grid_ypitch: int | None = None,
+    cwd: bool = False,
 )
 ```
 
@@ -113,6 +114,7 @@ setup(
 | `grid_centerstyle`| `Style` | Bold gray dashed | Custom line style for center axes (`x=width/2`, `y=height/2`). |
 | `grid_xpitch` | `int` | `width / 10` | Spacing between vertical grid lines. |
 | `grid_ypitch` | `int` | `height / 10` | Spacing between horizontal grid lines. |
+| `cwd` | `bool` | `False` | When `True`, resolves relative file paths (`save()`, `image()`, `Dimage()`) against `os.getcwd()` instead of the caller script directory (recommended in Jupyter/Colab notebooks). |
 
 ### 3.2. `save()`
 Exports the current canvas drawing to an image file on disk.

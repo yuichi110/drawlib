@@ -44,3 +44,4 @@ class ProjectPaths:
     out_pdf_name: str
     out_docx_name: str = ""
     out_pptx_name: str = ""
+    out_jupyter_dir_name: str = ""

@@ -1,0 +1,441 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04. SmartArts：KPI カード・パイプライン・テーブル</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/jupyter/en/04_smartarts_and_tables.html">
+    
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/jupyter/ja/04_smartarts_and_tables.html">
+    
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/jupyter/en/04_smartarts_and_tables.html">
+    
+    
+    
+    <meta name="description" content="drawlib.smartarts は、整列や余白計算を自動化する 18 種類の構造化コンポーネント（KpiCards、ChevronProcess、Table、TreeNode、MindMapNode、Roadmap、Cycle、GridLayout、Pyramid、GeoMap、*Calendar…">
+    <link rel="canonical" href="https://www.drawlib.com/jupyter/ja/04_smartarts_and_tables.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib Interactive Notebooks">
+    <meta property="og:title" content="04. SmartArts：KPI カード・パイプライン・テーブル — Drawlib Interactive Notebooks">
+    <meta property="og:description" content="drawlib.smartarts は、整列や余白計算を自動化する 18 種類の構造化コンポーネント（KpiCards、ChevronProcess、Table、TreeNode、MindMapNode、Roadmap、Cycle、GridLayout、Pyramid、GeoMap、*Calendar…">
+    <meta property="og:url" content="https://www.drawlib.com/jupyter/ja/04_smartarts_and_tables.html">
+    <meta property="og:image" content="https://www.drawlib.com/jupyter/_assets/ogp.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="04. SmartArts：KPI カード・パイプライン・テーブル — Drawlib Interactive Notebooks">
+    <meta name="twitter:description" content="drawlib.smartarts は、整列や余白計算を自動化する 18 種類の構造化コンポーネント（KpiCards、ChevronProcess、Table、TreeNode、MindMapNode、Roadmap、Cycle、GridLayout、Pyramid、GeoMap、*Calendar…">
+    <meta name="twitter:image" content="https://www.drawlib.com/jupyter/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body>
+    <div class="demo-banner" role="region" aria-label="Portal Navigation">
+        <div class="demo-banner-inner">
+            <span class="demo-banner-badge">DRAWLIB OFFICIAL</span>
+            <span class="demo-banner-text">
+                Drawlib で構築された Jupyter / Colab ハンズオンノートブック（<code>type = "jupyter"</code>）
+            </span>
+            <span class="demo-banner-links">
+                <a href="../../ja/index.html">User Guide</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../api/ja/index.html">API Reference</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../architecture/index.html">Architecture</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../quickstart/ja/index.html">Quickstart</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../about-drawlib/ja/index.html">Slide Deck</a>
+                <span class="demo-banner-sep">·</span>
+                <strong>Jupyter / Colab</strong>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../reports/pni-full-audit/index.html">PNI501 Audit</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples ↗</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </span>
+        </div>
+    </div>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand" aria-label="Drawlib Interactive Notebooks">
+                    
+                    Drawlib Interactive Notebooks
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                
+                    <div class="sidebar-heading">Notebooks</div>
+                    <ul class="nav-list">
+                        
+                        <li class="nav-item ">
+                            <a href="01_quickstart_colab.html" >01. Jupyter &amp; Google Colab で始める Drawlib</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="02_styles_and_primitives.html" >02. スタイルトークン・50%+ ニュートラル原則・基本図形</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="03_data_charts.html" >03. ノートブックでの定量データチャート描画</a>
+                        </li>
+                        
+                        <li class="nav-item active">
+                            <a href="04_smartarts_and_tables.html" >04. SmartArts：KPI カード・パイプライン・テーブル</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="05_architecture_and_flows.html" >05. クラウド構成図とソフトウェアフロー図</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="06_graph_auto_layout.html" >06. 自動グラフレイアウトソルバー（`get_layout()`）</a>
+                        </li>
+                        
+                    </ul>
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Notebooks</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">04. SmartArts：KPI カード・パイプライン・テーブル</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../en/04_smartarts_and_tables.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="04_smartarts_and_tables.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <div class="jupyter-notebook">
+  <div class="nb-toolbar">
+    <a class="nb-btn nb-btn-colab" href="https://colab.research.google.com/github/yuichi110/drawlib/blob/main/docs/jupyter/ja/04_smartarts_and_tables.ipynb" target="_blank" rel="noopener noreferrer"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+    <a class="nb-btn nb-btn-download" href="04_smartarts_and_tables.ipynb" download="04_smartarts_and_tables.ipynb">⬇ Download .ipynb</a>
+    <span class="nb-status-pill">✓ Dry-Run Verified (2 cells)</span>
+  </div>
+  <div class="nb-cell nb-markdown-cell">
+<h1>04. SmartArts：KPI カード・パイプライン・テーブル</h1>
+<p><code>drawlib.smartarts</code> は、整列や余白計算を自動化する <strong>18 種類の構造化コンポーネント</strong>（<code>KpiCards</code>、<code>ChevronProcess</code>、<code>Table</code>、<code>TreeNode</code>、<code>MindMapNode</code>、<code>Roadmap</code>、<code>Cycle</code>、<code>GridLayout</code>、<code>Pyramid</code>、<code>GeoMap</code>、<code>*Calendar</code> など）を提供します。</p>
+
+<figure class="drawlib-figure align-center">
+  <img src="../images/04_smartarts_and_tables/04_hero_smartarts.png" alt="エグゼクティブ KPI カードとフェーズ別パイプライン" loading="lazy">
+  <figcaption>エグゼクティブ KPI カードとフェーズ別パイプライン</figcaption>
+</figure>
+<details class="drawlib-code-fold">
+  <summary>View Drawlib Python Code</summary>
+  <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span><span class="p">,</span> <span class="n">KpiCards</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">72.0</span><span class="p">,</span> <span class="mf">59.0</span><span class="p">),</span>
+    <span class="s2">"Platform Reliability KPIs &amp; Rollout Pipeline"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">kpi</span> <span class="o">=</span> <span class="n">KpiCards</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">accent_position</span><span class="o">=</span><span class="s2">"top_bar"</span><span class="p">,</span>
+    <span class="n">metric_layout</span><span class="o">=</span><span class="s2">"top_stack"</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">kpi</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"99.99%"</span><span class="p">,</span> <span class="s2">"Global Uptime"</span><span class="p">,</span> <span class="s2">"Multi-region active-active"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">)</span>
+<span class="n">kpi</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"12.4 ms"</span><span class="p">,</span>
+    <span class="s2">"P99 Gateway"</span><span class="p">,</span>
+    <span class="s2">"Zero-copy edge routing"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+    <span class="n">metric_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteFlat</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">kpi</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"100%"</span><span class="p">,</span>
+    <span class="s2">"Dry-Run Verified"</span><span class="p">,</span>
+    <span class="s2">"All notebook cells tested"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+    <span class="n">accent_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">kpi</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">132.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Author"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Markdown + Python"</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Dry-Run"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Verify cells &amp; plots"</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Export .ipynb"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Colab &amp; JupyterLab"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Publish"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"HTML + GitHub Pages"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">132.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Python セルでテーブル行データを準備する</h2>
+<p>上から下へ読むコンポーネント（<code>Table</code>、<code>TreeNode</code>、<code>BulletPoints</code>、<code>SourceCode</code>）は <strong>左上座標 <code>(x0, y_top)</code></strong> をアンカーとし、下方向（<code>-Y</code>）へ展開されます。</p>
+
+  </div>
+  <div class="nb-cell nb-code-cell nb-setup-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [setup]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-bash">!pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>drawlib
+</code></pre>
+      </div>
+    </div>
+  </div>
+  <div class="nb-cell nb-code-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [1]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-python"><span class="n">sla_matrix</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">"Service Tier"</span><span class="p">,</span> <span class="s2">"Availability SLO"</span><span class="p">,</span> <span class="s2">"Latency Target"</span><span class="p">,</span> <span class="s2">"Topology"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Tier-0 Ingress"</span><span class="p">,</span> <span class="s2">"99.99%"</span><span class="p">,</span> <span class="s2">"&lt; 15 ms"</span><span class="p">,</span> <span class="s2">"Active-Active"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Tier-1 Auth API"</span><span class="p">,</span> <span class="s2">"99.95%"</span><span class="p">,</span> <span class="s2">"&lt; 25 ms"</span><span class="p">,</span> <span class="s2">"Multi-AZ"</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">"Tier-2 Batch ETL"</span><span class="p">,</span> <span class="s2">"99.50%"</span><span class="p">,</span> <span class="s2">"&lt; 5 min"</span><span class="p">,</span> <span class="s2">"Regional Queue"</span><span class="p">],</span>
+<span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Prepared </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sla_matrix</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> SLA matrix rows."</span><span class="p">)</span>
+</code></pre>
+      </div>
+    </div>
+    <div class="nb-output">
+      <div class="nb-prompt nb-out-prompt">Out [1]:</div>
+      <div class="nb-output-area">
+        <pre class="nb-stream-stdout">Prepared 3 SLA matrix rows.
+</pre>
+      </div>
+    </div>
+  </div>
+  <div class="nb-cell nb-markdown-cell">
+<hr />
+<h2>2. <code>Table</code> SmartArt のインライン描画</h2>
+<p>前のセルで定義した <code>sla_matrix</code> を <code>Table</code> コンポーネントで描画します。</p>
+
+  </div>
+  <div class="nb-cell nb-code-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [2]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">show</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="s2">"Production Service-Level Agreement (SLA) Matrix"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">))</span>
+
+<span class="n">tbl</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="n">cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+    <span class="n">header_cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">header_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">border_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">set_style_cell_evenodd</span><span class="p">(</span>
+    <span class="n">even_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray1</span><span class="p">,</span>
+    <span class="n">even_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+    <span class="n">odd_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">odd_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">set_style_cell_header</span><span class="p">(</span>
+    <span class="n">background_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">draw_flexible</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span>
+    <span class="n">column_widths</span><span class="o">=</span><span class="p">[</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">],</span>
+    <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">],</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">sla_matrix</span><span class="p">,</span>
+    <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">show</span><span class="p">()</span>
+</code></pre>
+      </div>
+    </div>
+    <div class="nb-output">
+      <div class="nb-prompt nb-out-prompt">Out [2]:</div>
+      <div class="nb-output-area">
+        <div class="nb-output-figure"><img src="../images/04_smartarts_and_tables/04_live_sla_table.png" alt="Output [2]"></div>
+      </div>
+    </div>
+  </div>
+</div>
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

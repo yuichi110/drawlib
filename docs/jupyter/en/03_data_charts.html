@@ -1,0 +1,426 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03. Quantitative Data Charts in Notebooks</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/jupyter/en/03_data_charts.html">
+    
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/jupyter/ja/03_data_charts.html">
+    
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/jupyter/en/03_data_charts.html">
+    
+    
+    
+    <meta name="description" content="Drawlib includes 10 quantitative chart components (BarChart, LineChart, AreaChart, PieChart, RadarChart, BoxChart, ScatterChart, GanttChart, HeatmapChart…">
+    <link rel="canonical" href="https://www.drawlib.com/jupyter/en/03_data_charts.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib Interactive Notebooks">
+    <meta property="og:title" content="03. Quantitative Data Charts in Notebooks — Drawlib Interactive Notebooks">
+    <meta property="og:description" content="Drawlib includes 10 quantitative chart components (BarChart, LineChart, AreaChart, PieChart, RadarChart, BoxChart, ScatterChart, GanttChart, HeatmapChart…">
+    <meta property="og:url" content="https://www.drawlib.com/jupyter/en/03_data_charts.html">
+    <meta property="og:image" content="https://www.drawlib.com/jupyter/_assets/ogp.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="03. Quantitative Data Charts in Notebooks — Drawlib Interactive Notebooks">
+    <meta name="twitter:description" content="Drawlib includes 10 quantitative chart components (BarChart, LineChart, AreaChart, PieChart, RadarChart, BoxChart, ScatterChart, GanttChart, HeatmapChart…">
+    <meta name="twitter:image" content="https://www.drawlib.com/jupyter/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body>
+    <div class="demo-banner" role="region" aria-label="Portal Navigation">
+        <div class="demo-banner-inner">
+            <span class="demo-banner-badge">DRAWLIB OFFICIAL</span>
+            <span class="demo-banner-text">
+                Interactive Jupyter &amp; Colab Tutorials (<code>type = "jupyter"</code>) built with Drawlib
+            </span>
+            <span class="demo-banner-links">
+                <a href="../../index.html">User Guide</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../api/index.html">API Reference</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../architecture/index.html">Architecture</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../quickstart/en/index.html">Quickstart</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../about-drawlib/en/index.html">Slide Deck</a>
+                <span class="demo-banner-sep">·</span>
+                <strong>Jupyter / Colab</strong>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../reports/pni-full-audit/index.html">PNI501 Audit</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples ↗</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </span>
+        </div>
+    </div>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand" aria-label="Drawlib Interactive Notebooks">
+                    
+                    Drawlib Interactive Notebooks
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                
+                    <div class="sidebar-heading">Notebooks</div>
+                    <ul class="nav-list">
+                        
+                        <li class="nav-item ">
+                            <a href="01_quickstart_colab.html" >01. Drawlib on Jupyter &amp; Google Colab</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="02_styles_and_primitives.html" >02. Style Tokens, 50%+ Neutral Rule &amp; Primitives</a>
+                        </li>
+                        
+                        <li class="nav-item active">
+                            <a href="03_data_charts.html" >03. Quantitative Data Charts in Notebooks</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="04_smartarts_and_tables.html" >04. SmartArts: Executive KPIs, Pipelines &amp; Tables</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="05_architecture_and_flows.html" >05. Cloud Architecture &amp; Software Flow Diagrams</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="06_graph_auto_layout.html" >06. Automatic Graph Layout Solvers (`get_layout()`)</a>
+                        </li>
+                        
+                    </ul>
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Notebooks</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">03. Quantitative Data Charts in Notebooks</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">English</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="03_data_charts.html" class="lang-option active" lang="en" hreflang="en" aria-current="page">
+                                <span>English</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                            <a href="../ja/03_data_charts.html" class="lang-option" lang="ja" hreflang="ja" >
+                                <span>日本語</span>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <div class="jupyter-notebook">
+  <div class="nb-toolbar">
+    <a class="nb-btn nb-btn-colab" href="https://colab.research.google.com/github/yuichi110/drawlib/blob/main/docs/jupyter/en/03_data_charts.ipynb" target="_blank" rel="noopener noreferrer"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+    <a class="nb-btn nb-btn-download" href="03_data_charts.ipynb" download="03_data_charts.ipynb">⬇ Download .ipynb</a>
+    <span class="nb-status-pill">✓ Dry-Run Verified (2 cells)</span>
+  </div>
+  <div class="nb-cell nb-markdown-cell">
+<h1>03. Quantitative Data Charts in Notebooks</h1>
+<p>Drawlib includes 10 quantitative chart components (<code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>BoxChart</code>, <code>ScatterChart</code>, <code>GanttChart</code>, <code>HeatmapChart</code>, <code>HeatmapOverlay</code>) that sit alongside callouts, icons, and architecture diagrams on a single canvas.</p>
+
+<figure class="drawlib-figure align-center">
+  <img src="../images/03_data_charts/03_hero_kpi_charts.png" alt="Multi-Chart Executive Dashboard on a Single Canvas" loading="lazy">
+  <figcaption>Multi-Chart Executive Dashboard on a Single Canvas</figcaption>
+</figure>
+<details class="drawlib-code-fold">
+  <summary>View Drawlib Python Code</summary>
+  <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.line</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">card_bg</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray3</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">38.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">64.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_bg</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">106.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">64.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_bg</span><span class="p">)</span>
+
+<span class="n">bar</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">,</span> <span class="s2">"Q4"</span><span class="p">],</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">56.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span>
+    <span class="n">bar_mode</span><span class="o">=</span><span class="s2">"group"</span><span class="p">,</span>
+    <span class="n">bar_width_ratio</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.1f}</span><span class="s2">"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Throughput (k req/s)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Baseline"</span><span class="p">,</span> <span class="p">[</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Cached"</span><span class="p">,</span> <span class="p">[</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mf">15.0</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">))</span>
+
+<span class="n">line_chart</span> <span class="o">=</span> <span class="n">LineChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">,</span> <span class="s2">"Q4"</span><span class="p">],</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">56.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span>
+    <span class="n">show_points</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">point_size</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"P99 Tail Latency (ms)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">line_chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"P99 (ms)"</span><span class="p">,</span> <span class="p">[</span><span class="mf">42.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">)</span>
+<span class="n">line_chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">"</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"ms"</span><span class="p">)</span>
+<span class="n">line_chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">78.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Computing Metrics in Python Cells</h2>
+<p>Because notebook cells share state, you can aggregate or transform data in standard Python cells before passing the series into a Drawlib chart:</p>
+
+  </div>
+  <div class="nb-cell nb-code-cell nb-setup-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [setup]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-bash">!pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>drawlib
+</code></pre>
+      </div>
+    </div>
+  </div>
+  <div class="nb-cell nb-code-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [1]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-python"><span class="n">raw_latencies_ms</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"v0.3.8"</span><span class="p">:</span> <span class="p">[</span><span class="mf">48.2</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">,</span> <span class="mf">45.1</span><span class="p">],</span>
+    <span class="s2">"v0.3.9"</span><span class="p">:</span> <span class="p">[</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">,</span> <span class="mf">35.1</span><span class="p">,</span> <span class="mf">31.8</span><span class="p">],</span>
+    <span class="s2">"v0.3.10"</span><span class="p">:</span> <span class="p">[</span><span class="mf">22.4</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">,</span> <span class="mf">23.1</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">],</span>
+    <span class="s2">"v0.3.11"</span><span class="p">:</span> <span class="p">[</span><span class="mf">15.8</span><span class="p">,</span> <span class="mf">14.9</span><span class="p">,</span> <span class="mf">16.2</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">releases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">raw_latencies_ms</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">mean_latencies</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">vals</span> <span class="ow">in</span> <span class="n">raw_latencies_ms</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+<span class="k">for</span> <span class="n">rel</span><span class="p">,</span> <span class="n">avg</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">releases</span><span class="p">,</span> <span class="n">mean_latencies</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">rel</span><span class="si">}</span><span class="s2">: mean=</span><span class="si">{</span><span class="n">avg</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> ms"</span><span class="p">)</span>
+<span class="n">mean_latencies</span>
+</code></pre>
+      </div>
+    </div>
+    <div class="nb-output">
+      <div class="nb-prompt nb-out-prompt">Out [1]:</div>
+      <div class="nb-output-area">
+        <pre class="nb-stream-stdout">v0.3.8: mean=47.2 ms
+v0.3.9: mean=33.4 ms
+v0.3.10: mean=21.8 ms
+v0.3.11: mean=15.3 ms
+</pre>
+        <pre class="nb-execute-result">[47.2, 33.4, 21.8, 15.3]</pre>
+      </div>
+    </div>
+  </div>
+  <div class="nb-cell nb-markdown-cell">
+<hr />
+<h2>2. Plotting Computed Series with Annotation Cards</h2>
+<p>Remember that all <code>Charts</code> use a <strong>Bottom-Left <code>(x0, y0)</code></strong> coordinate anchor:</p>
+
+  </div>
+  <div class="nb-cell nb-code-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [2]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">show</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">categories</span><span class="o">=</span><span class="n">releases</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">66.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span>
+    <span class="n">bar_width_ratio</span><span class="o">=</span><span class="mf">0.58</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.1f}</span><span class="s2">"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Mean Rendering Latency by Release (ms)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Mean Latency"</span><span class="p">,</span> <span class="n">mean_latencies</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mf">15.0</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
+
+<span class="c1"># Summary Callout Card on the Right (Center Anchor)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">97.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">97.0</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="s2">"68</span><span class="si">% F</span><span class="s2">aster"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">13</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">97.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span> <span class="s2">"v0.3.8 -&gt; v0.3.11"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">97.0</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="s2">"15.4 ms avg"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+
+<span class="n">show</span><span class="p">()</span>
+</code></pre>
+      </div>
+    </div>
+    <div class="nb-output">
+      <div class="nb-prompt nb-out-prompt">Out [2]:</div>
+      <div class="nb-output-area">
+        <div class="nb-output-figure"><img src="../images/03_data_charts/03_live_release_benchmark.png" alt="Output [2]"></div>
+      </div>
+    </div>
+  </div>
+</div>
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

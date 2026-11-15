@@ -66,7 +66,7 @@ BUILTIN_SLIDE_CSS_PRESETS: Final[dict[str, dict[str, str]]] = {
 }
 
 
-CssTarget = Literal["html", "pdf", "slide", "site", "doc", "catalog"]
+CssTarget = Literal["html", "pdf", "slide", "site", "doc", "catalog", "jupyter"]
 
 
 def list_css(
@@ -75,7 +75,7 @@ def list_css(
     """Return metadata for built-in CSS presets for the specified target.
 
     Args:
-        target: Target format ('html', 'pdf', 'slide', 'site', 'doc', 'catalog'). Defaults to 'html'.
+        target: Target format ('html', 'pdf', 'slide', 'site', 'doc', 'catalog', 'jupyter'). Defaults to 'html'.
 
     Returns:
         List[Dict[str, str]]: List of dicts with keys 'name', 'file', and 'description'.
@@ -201,21 +201,22 @@ def get_css(
 
     parts: list[str] = [theme_content]
 
-    if target in {"html", "site", "doc", "pdf", "catalog"}:
-        parts.append(_read_template_resource("css", "components", "code.css"))
-        parts.append(_read_template_resource("css", "components", "markdown.css"))
-
-    if target in {"html", "site"}:
-        parts.append(_read_template_resource("css", "targets", "site.css"))
-    elif target == "catalog":
-        parts.append(_read_template_resource("css", "targets", "catalog.css"))
-    elif target == "doc":
-        parts.append(_read_template_resource("css", "targets", "doc.css"))
-    elif target == "pdf":
-        parts.append(_read_template_resource("css", "targets", "pdf.css"))
-    elif target == "slide":
-        parts.append(_read_template_resource("css", "components", "code.css"))
-        parts.append(_read_template_resource("css", "targets", "slide.css"))
+    target_layers: dict[str, tuple[tuple[str, ...], ...]] = {
+        "html": (("components", "code.css"), ("components", "markdown.css"), ("targets", "site.css")),
+        "site": (("components", "code.css"), ("components", "markdown.css"), ("targets", "site.css")),
+        "jupyter": (
+            ("components", "code.css"),
+            ("components", "markdown.css"),
+            ("targets", "site.css"),
+            ("targets", "jupyter.css"),
+        ),
+        "catalog": (("components", "code.css"), ("components", "markdown.css"), ("targets", "catalog.css")),
+        "doc": (("components", "code.css"), ("components", "markdown.css"), ("targets", "doc.css")),
+        "pdf": (("components", "code.css"), ("components", "markdown.css"), ("targets", "pdf.css")),
+        "slide": (("components", "code.css"), ("targets", "slide.css")),
+    }
+    for layer_subpath in target_layers.get(target, ()):
+        parts.append(_read_template_resource("css", *layer_subpath))
 
     combined = "\n\n".join(parts)
     return _apply_css_font_replacements(combined, lang=lang)

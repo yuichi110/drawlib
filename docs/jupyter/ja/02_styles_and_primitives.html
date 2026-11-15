@@ -1,0 +1,401 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02. スタイルトークン・50%+ ニュートラル原則・基本図形</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/jupyter/en/02_styles_and_primitives.html">
+    
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/jupyter/ja/02_styles_and_primitives.html">
+    
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/jupyter/en/02_styles_and_primitives.html">
+    
+    
+    
+    <meta name="description" content="Drawlib では視覚的階層を明確に保つため、要素の 50% 以上 をニュートラル系スタイル（Styles.Neutral、Styles.PrimaryNeutral、Styles.SecondaryNeutral）で配置し、高彩度な塗り（Styles.PrimaryFlat、Styles.AccentFlat）は…">
+    <link rel="canonical" href="https://www.drawlib.com/jupyter/ja/02_styles_and_primitives.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib Interactive Notebooks">
+    <meta property="og:title" content="02. スタイルトークン・50%+ ニュートラル原則・基本図形 — Drawlib Interactive Notebooks">
+    <meta property="og:description" content="Drawlib では視覚的階層を明確に保つため、要素の 50% 以上 をニュートラル系スタイル（Styles.Neutral、Styles.PrimaryNeutral、Styles.SecondaryNeutral）で配置し、高彩度な塗り（Styles.PrimaryFlat、Styles.AccentFlat）は…">
+    <meta property="og:url" content="https://www.drawlib.com/jupyter/ja/02_styles_and_primitives.html">
+    <meta property="og:image" content="https://www.drawlib.com/jupyter/_assets/ogp.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="02. スタイルトークン・50%+ ニュートラル原則・基本図形 — Drawlib Interactive Notebooks">
+    <meta name="twitter:description" content="Drawlib では視覚的階層を明確に保つため、要素の 50% 以上 をニュートラル系スタイル（Styles.Neutral、Styles.PrimaryNeutral、Styles.SecondaryNeutral）で配置し、高彩度な塗り（Styles.PrimaryFlat、Styles.AccentFlat）は…">
+    <meta name="twitter:image" content="https://www.drawlib.com/jupyter/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body>
+    <div class="demo-banner" role="region" aria-label="Portal Navigation">
+        <div class="demo-banner-inner">
+            <span class="demo-banner-badge">DRAWLIB OFFICIAL</span>
+            <span class="demo-banner-text">
+                Drawlib で構築された Jupyter / Colab ハンズオンノートブック（<code>type = "jupyter"</code>）
+            </span>
+            <span class="demo-banner-links">
+                <a href="../../ja/index.html">User Guide</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../api/ja/index.html">API Reference</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../architecture/index.html">Architecture</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../quickstart/ja/index.html">Quickstart</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../about-drawlib/ja/index.html">Slide Deck</a>
+                <span class="demo-banner-sep">·</span>
+                <strong>Jupyter / Colab</strong>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../reports/pni-full-audit/index.html">PNI501 Audit</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples ↗</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </span>
+        </div>
+    </div>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand" aria-label="Drawlib Interactive Notebooks">
+                    
+                    Drawlib Interactive Notebooks
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                
+                    <div class="sidebar-heading">Notebooks</div>
+                    <ul class="nav-list">
+                        
+                        <li class="nav-item ">
+                            <a href="01_quickstart_colab.html" >01. Jupyter &amp; Google Colab で始める Drawlib</a>
+                        </li>
+                        
+                        <li class="nav-item active">
+                            <a href="02_styles_and_primitives.html" >02. スタイルトークン・50%+ ニュートラル原則・基本図形</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="03_data_charts.html" >03. ノートブックでの定量データチャート描画</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="04_smartarts_and_tables.html" >04. SmartArts：KPI カード・パイプライン・テーブル</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="05_architecture_and_flows.html" >05. クラウド構成図とソフトウェアフロー図</a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a href="06_graph_auto_layout.html" >06. 自動グラフレイアウトソルバー（`get_layout()`）</a>
+                        </li>
+                        
+                    </ul>
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Notebooks</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">02. スタイルトークン・50%+ ニュートラル原則・基本図形</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../en/02_styles_and_primitives.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="02_styles_and_primitives.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <div class="jupyter-notebook">
+  <div class="nb-toolbar">
+    <a class="nb-btn nb-btn-colab" href="https://colab.research.google.com/github/yuichi110/drawlib/blob/main/docs/jupyter/ja/02_styles_and_primitives.ipynb" target="_blank" rel="noopener noreferrer"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+    <a class="nb-btn nb-btn-download" href="02_styles_and_primitives.ipynb" download="02_styles_and_primitives.ipynb">⬇ Download .ipynb</a>
+    <span class="nb-status-pill">✓ Dry-Run Verified (2 cells)</span>
+  </div>
+  <div class="nb-cell nb-markdown-cell">
+<h1>02. スタイルトークン・50%+ ニュートラル原則・基本図形</h1>
+<p>Drawlib では視覚的階層を明確に保つため、要素の <strong>50% 以上</strong> をニュートラル系スタイル（<code>Styles.Neutral</code>、<code>Styles.PrimaryNeutral</code>、<code>Styles.SecondaryNeutral</code>）で配置し、高彩度な塗り（<code>Styles.PrimaryFlat</code>、<code>Styles.AccentFlat</code>）は最重要の 1〜2 要素に限定します。</p>
+
+<figure class="drawlib-figure align-center">
+  <img src="../images/02_styles_and_primitives/02_hero_style_hierarchy.png" alt="視覚的階層：50% 以上のニュートラル基底と 1 つの注目要素" loading="lazy">
+  <figcaption>視覚的階層：50% 以上のニュートラル基底と 1 つの注目要素</figcaption>
+</figure>
+<details class="drawlib-code-fold">
+  <summary>View Drawlib Python Code</summary>
+  <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+    <span class="s2">"Design Token Discipline: 50%+ Neutral Baseline + 1 Focal Highlight"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">13</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="s2">"Ingest Queue"</span><span class="p">,</span> <span class="s2">"Styles.Neutral"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="s2">"Parser Worker"</span><span class="p">,</span> <span class="s2">"Styles.Neutral"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">61</span><span class="p">,</span> <span class="s2">"Policy Engine"</span><span class="p">,</span> <span class="s2">"Styles.PrimaryFlat"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="s2">"Audit Store"</span><span class="p">,</span> <span class="s2">"Styles.PrimaryNeutral"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">token_name</span><span class="p">,</span> <span class="n">box_style</span><span class="p">,</span> <span class="n">is_dark</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+    <span class="n">t_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_dark</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">s_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_dark</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span>
+    <span class="n">icon_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_dark</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">box_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">t_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">),</span> <span class="n">token_name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">s_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">26.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">NeutralBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">48.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">51.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">74.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Python セルで <code>Styles</code> と <code>Colors</code> を確認する</h2>
+<p>常に PascalCase の <code>from drawlib.styles import Colors, Styles</code> をインポートします。<code>.patch(...)</code> メソッドを使うと、グローバルトークンを汚染せずに角丸半径（<code>shape_r</code>）やフォントサイズ（<code>text_size</code>）を調整できます。</p>
+
+  </div>
+  <div class="nb-cell nb-code-cell nb-setup-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [setup]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-bash">!pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>drawlib
+</code></pre>
+      </div>
+    </div>
+  </div>
+  <div class="nb-cell nb-code-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [1]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+
+<span class="n">patched_card</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Primary RGB:"</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Patched radius:"</span><span class="p">,</span> <span class="n">patched_card</span><span class="o">.</span><span class="n">shape_r</span><span class="p">)</span>
+</code></pre>
+      </div>
+    </div>
+    <div class="nb-output">
+      <div class="nb-prompt nb-out-prompt">Out [1]:</div>
+      <div class="nb-output-area">
+        <pre class="nb-stream-stdout">Primary RGB: r=66 g=133 b=244 alpha=1.0
+Patched radius: 2.5
+</pre>
+      </div>
+    </div>
+  </div>
+  <div class="nb-cell nb-markdown-cell">
+<hr />
+<h2>2. 基本図形・曲線・Phosphor アイコンの組み合わせ</h2>
+<p>基本図形（<code>rectangle</code>、<code>circle</code>、<code>rhombus</code>、<code>cylinder</code>）、<code>text</code>、<code>phosphor</code> アイコンはすべて <strong>中心座標 <code>(cx, cy)</code></strong> をアンカーとして配置します。</p>
+
+  </div>
+  <div class="nb-cell nb-code-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [2]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">show</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">line_curved</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">cylinder</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="n">rhombus</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Left: Client Rectangle</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">laptop</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="s2">"Web Client"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+
+<span class="c1"># Center: API Rhombus (Focal Point)</span>
+<span class="n">rhombus</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="s2">"Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Right: Database Cylinder</span>
+<span class="n">cylinder</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="s2">"Primary DB"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">11</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">29.5</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="p">(</span><span class="mf">37.5</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">62.5</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="p">(</span><span class="mf">71.5</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line_curved</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">bend</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryDashed</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="s2">"Async Cache Invalidation"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="n">show</span><span class="p">()</span>
+</code></pre>
+      </div>
+    </div>
+    <div class="nb-output">
+      <div class="nb-prompt nb-out-prompt">Out [2]:</div>
+      <div class="nb-output-area">
+        <div class="nb-output-figure"><img src="../images/02_styles_and_primitives/02_primitives_playground.png" alt="Output [2]"></div>
+      </div>
+    </div>
+  </div>
+</div>
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

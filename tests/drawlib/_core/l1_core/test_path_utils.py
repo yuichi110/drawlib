@@ -21,6 +21,7 @@ from drawlib._core.l1_core._path_utils import (
     get_script_relative_path,
     is_path_under,
 )
+from drawlib.canvas import clear, setup
 
 
 class TestGetPackageRootPath:
@@ -90,6 +91,31 @@ class TestGetScriptPath:
             with pytest.raises(FileNotFoundError, match="Unable to detect call script file"):
                 get_script_path()
 
+    def test_get_script_path_cwd_mode(self):
+        """Test that setup(cwd=True) deterministically resolves script path to cwd/output.py and clear() resets it."""
+        try:
+            setup(width=100, height=50, cwd=True)
+            with (
+                patch(
+                    "drawlib._core.l1_core._path_utils.get_package_root_path",
+                    return_value="/Users/yuichi/GitHub/drawlib/src/drawlib",
+                ),
+                patch("inspect.stack", return_value=[]),
+            ):
+                assert get_script_path() == os.path.join(os.getcwd(), "output.py")
+            clear()
+            with (
+                patch(
+                    "drawlib._core.l1_core._path_utils.get_package_root_path",
+                    return_value="/Users/yuichi/GitHub/drawlib/src/drawlib",
+                ),
+                patch("inspect.stack", return_value=[]),
+            ):
+                with pytest.raises(FileNotFoundError, match="Unable to detect call script file"):
+                    get_script_path()
+        finally:
+            clear()
+
 
 class TestGetScriptRelativePath:
     """Test cases for get_script_relative_path."""
@@ -105,8 +131,21 @@ class TestGetScriptRelativePath:
         expected = os.path.join(os.path.dirname(os.path.abspath(__file__)), "some_file.png")
         assert resolved == os.path.realpath(expected)
 
+    def test_relative_path_cwd_mode(self, tmp_path):
+        """Test that setup(cwd=True) resolves relative paths against os.getcwd()."""
+        orig_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            setup(width=100, height=50, cwd=True)
+            resolved = get_script_relative_path("some_file.png")
+            assert resolved == os.path.realpath(os.path.join(str(tmp_path), "some_file.png"))
+        finally:
+            os.chdir(orig_cwd)
+            clear()
+
     def test_invalid_type_raises_value_error(self):
         """Test that passing a non-string raises a ValueError."""
         with pytest.raises(ValueError, match='Arg "path" must be str'):
             # Type ignore to test dynamic runtime validation
             get_script_relative_path(typing.cast(str, 42))
+

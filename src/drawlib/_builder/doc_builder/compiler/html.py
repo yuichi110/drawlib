@@ -190,6 +190,19 @@ def build_html(
     if manifest.i18n is None:
         raise ValueError(f'Invalid "{input_abs}/drawlib.toml": "[i18n]" configuration is required.')
 
+    if manifest.project.type == "jupyter":
+        from drawlib._builder.doc_builder.compiler.jupyter import build_jupyter  # noqa: PLC0415
+
+        return build_jupyter(
+            input_path=input_abs,
+            output_dir=out_dir_abs,
+            image_format=image_format,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            css_mode=css_mode,
+            workers=eff_workers,
+        )
     if manifest.project.type == "doc":
         return _build_i18n_doc_html(
             input_abs=input_abs,

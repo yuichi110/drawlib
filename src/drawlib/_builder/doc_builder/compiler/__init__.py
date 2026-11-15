@@ -13,12 +13,14 @@ from __future__ import annotations
 
 from drawlib._builder.doc_builder.compiler.docx import build_docx
 from drawlib._builder.doc_builder.compiler.html import build_html
+from drawlib._builder.doc_builder.compiler.jupyter import build_jupyter
 from drawlib._builder.doc_builder.compiler.markdown import build_markdown
 from drawlib._builder.doc_builder.compiler.pdf import build_pdf
 
 __all__ = [
     "build_docx",
     "build_html",
+    "build_jupyter",
     "build_markdown",
     "build_pdf",
 ]

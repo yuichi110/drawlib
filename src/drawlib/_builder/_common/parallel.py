@@ -652,6 +652,8 @@ def collect_standard_document_block_jobs(
             info_str = match.group(1).strip()
             code = match.group(2).strip()
             options = parse_block_info(info_str)
+            if options.cell == "code":
+                continue
             line_no = text_to_search[: match.start()].count("\n") + 1
             _, target_img_path = resolve_block_image_paths(
                 options=options,

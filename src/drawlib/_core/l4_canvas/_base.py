@@ -191,6 +191,7 @@ class CanvasBase:
     DEFAULT_DPI: Final[int] = 100
     DEFAULT_GRID: Final[bool] = False
     DEFAULT_GRID_ONLY: Final[bool] = False
+    DEFAULT_CWD: Final[bool] = False
     DEFAULT_GRID_STYLE: Final[Style] = Style(line_width=1, line_color=(128, 128, 128), line_style="dashed")
     DEFAULT_GRID_CENTERSTYLE: Final[Style] = Style(line_width=2, line_color=(128, 128, 128), line_style="dashed")
     FIGURE_WIDTH_INCHES: Final[float] = 10.0
@@ -206,6 +207,8 @@ class CanvasBase:
             None
 
         """
+        from drawlib._core.l1_core._settings import drawlib_settings  # noqa: PLC0415
+
         self._width = self.DEFAULT_WIDTH
         self._height = self.DEFAULT_HEIGHT
         self._dpi = self.DEFAULT_DPI
@@ -213,6 +216,8 @@ class CanvasBase:
         self._background_alpha: Alpha | None = None
         self._grid = self.DEFAULT_GRID
         self._grid_only = self.DEFAULT_GRID_ONLY
+        self._cwd = self.DEFAULT_CWD
+        drawlib_settings.set_cwd(self.DEFAULT_CWD)
         self._grid_style = self.DEFAULT_GRID_STYLE
         self._grid_centerstyle = self.DEFAULT_GRID_CENTERSTYLE
         self._grid_xpitch: PosInt | None = None
@@ -302,6 +307,7 @@ class CanvasBase:
         grid_centerstyle: Style | None = None,
         grid_xpitch: PosInt | None = None,
         grid_ypitch: PosInt | None = None,
+        cwd: bool | None = None,
     ) -> None:
         """Configure drawlib Canvas parameters.
 
@@ -325,6 +331,7 @@ class CanvasBase:
             grid_centerstyle (Style | None): Style of center grid lines.
             grid_xpitch (int | None): X-axis grid pitch.
             grid_ypitch (int | None): Y-axis grid pitch.
+            cwd (bool | None): Resolve relative file paths against ``os.getcwd()`` instead of script directory.
 
         Returns:
             None
@@ -337,9 +344,15 @@ class CanvasBase:
             may lead to unexpected behavior and should be avoided.
             Call `setup()` again after `clear()` if you wish to reconfigure canvas settings.
         """
+        from drawlib._core.l1_core._settings import drawlib_settings  # noqa: PLC0415
+
         if len(self._artists) != 0:
             self._artists.clear()
         self._geometry_warnings.clear()
+
+        if cwd is not None:
+            self._cwd = cwd
+            drawlib_settings.set_cwd(cwd)
 
         pyplot.close()
         self._setup_size_dpi(width=width, height=height, dpi=dpi)

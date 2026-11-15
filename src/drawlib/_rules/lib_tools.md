@@ -16,6 +16,7 @@ from drawlib.tools import (
     build_docx,
     build_html,
     build_image,
+    build_jupyter,
     build_markdown,
     build_pdf,
     build_pptx,

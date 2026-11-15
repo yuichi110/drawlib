@@ -215,6 +215,41 @@ build_image(
 
 - **戻り値（`list[str]`）**: 実行されたターゲットファイルパスのリスト。
 
+## `def` build_jupyter(input_dir, output_dir=None, *, ...)
+
+`i18n` 対応の `jupyter` プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` Markdown ソース）を、インプロセス AI ドライラン実行および `[Geometry Warning]` 検査付きの Jupyter Notebook（`<output_dir>/<lang>/**/*.ipynb`）へコンパイルします。
+
+```python
+from drawlib.tools import build_jupyter
+
+build_jupyter(
+    input_dir: str,
+    output_dir: str | None = None,
+    *,
+    image_format: str = "png",
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+    no_cache: bool = False,
+    execute: bool | None = None,
+    dry_run: bool = False,
+    workers: int | Literal["auto"] = "auto",
+) -> str
+```
+
+| パラメータ | 型 | デフォルト | 説明 |
+| :--- | :--- | :--- | :--- |
+| `input_dir` | `str` | *(必須)* | `drawlib.toml`（`type = "jupyter"`）と `<lang>/` Markdown ソースを含むプロジェクトルート。 |
+| `output_dir` | `str \| None` | `None` | 出力先ノートブックディレクトリ（省略時は `<base>_notebooks`）。 |
+| `image_format` | `str` | `"png"` | 埋め込み `drawlib` ブロックの画像出力形式（`"png"` または `"webp"`）。 |
+| `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
+| `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
+| `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
+| `execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を `.ipynb` に格納します。 |
+| `dry_run` | `bool` | `False` | `.ipynb` ファイルの書き出しを行わず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを実行します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
+
+- **戻り値（`str`）**: 生成されたノートブック出力ディレクトリの絶対パス。
+
 ## `def` build_markdown(input_dir, output_dir=None, *, ...)
 
 `i18n` 対応の `site`・`doc`・`catalog` プロジェクトディレクトリを GitHub 閲覧向けのレンダリング済み Markdown（`<output_dir>/<lang>/` + 共有 `<output_dir>/images/`）へコンパイルします（入力ソースの上書きは安全に拒否されます）。

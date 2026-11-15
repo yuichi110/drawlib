@@ -91,6 +91,7 @@ class Canvas(
         is_grid = self._grid or drawlib_settings.get_force_grid()
         if not is_grid:
             pyplot.show()
+            self._remove_artists_from_ax()
             return
 
         self._render_with_grid(zorder, pyplot.show)

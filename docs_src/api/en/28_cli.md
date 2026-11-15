@@ -110,8 +110,9 @@ drawlib build COMMAND [ARGS]...
 | Subcommand | Output Deliverable |
 | :--- | :--- |
 | [`drawlib build docx`](#drawlib-build-docx) | Editable Microsoft Word (`.docx`) document with high-DPI rasterized diagrams. |
-| [`drawlib build html`](#drawlib-build-html) | Static multi-page or single-page HTML documentation site (`site`, `catalog`, `doc`). |
+| [`drawlib build html`](#drawlib-build-html) | Static multi-page or single-page HTML documentation site (`site`, `catalog`, `doc`, `jupyter`). |
 | [`drawlib build image`](#drawlib-build-image) | Standalone `.png`, `.webp`, `.gif`, `.jpg`, or `.pdf` illustrations from `.py` scripts. |
+| [`drawlib build jupyter`](#drawlib-build-jupyter) | Interactive Jupyter Notebooks (`.ipynb`) with sequential in-process AI dry-run execution. |
 | [`drawlib build markdown`](#drawlib-build-markdown) | Rendered Markdown files with `drawlib` code fences replaced by `<img>` / `![]()` tags. |
 | [`drawlib build pdf`](#drawlib-build-pdf) | Print-ready vector PDF compiled via Headless Chromium (`doc`, `.md`, or `slide`). |
 | [`drawlib build pptx`](#drawlib-build-pptx) | Editable Microsoft PowerPoint (`.pptx`) presentation deck (`960×540 pt` 16:9). |
@@ -148,7 +149,7 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 
 ## `cmd` drawlib build html
 
-Compile a Markdown/HTML documentation source directory (`site`, `catalog`, or `doc`) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata.
+Compile a Markdown/HTML documentation source directory (`site`, `catalog`, `doc`, or `jupyter`) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata.
 
 ```bash
 drawlib build html [OPTIONS] DIR
@@ -193,6 +194,34 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 | `-g, --grid` | `bool` | `False` | Also save companion `*_grid.<ext>` files with the coordinate grid overlaid. |
 | `--disable-auto-clear` | `bool` | `False` | Disable automatic `clear()` between consecutive drawing script executions (forces sequential execution). |
 | `--enable-auto-initialize` | `bool` | `False` | Reset global `config()` state to library defaults before each drawing script. |
+| `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
+| `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
+
+---
+
+## `cmd` drawlib build jupyter
+
+Compile a `jupyter` project directory of Markdown files into Jupyter Notebooks (`<output>/<lang>/**/*.ipynb`) with sequential in-process cell execution, pre-populated `stdout`/`execute_result`/`display_data` (`image/png`) outputs, and `[Geometry Warning]` verification.
+
+```bash
+drawlib build jupyter [OPTIONS] DIR
+
+# Compile notebooks and populate execution outputs
+uv run drawlib build jupyter jupyter_src -o jupyter_notebooks
+
+# Run AI dry-run verification without writing .ipynb files
+uv run drawlib build jupyter jupyter_src --dry-run
+```
+
+| Argument / Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `DIR` | `str` *(required)* | — | Jupyter project root directory containing `drawlib.toml` (`type = "jupyter"`) and `<lang>/` Markdown files. |
+| `-o, --output` | `str \| None` | `None` | Output notebook directory path (defaults to `<base>_notebooks/`). |
+| `-f, --format` | `'png' \| 'webp'` | `'png'` | Default output format for `drawlib` diagram blocks. |
+| `-s, --styles` | `str \| None` | `None` | Path to Python `styles.py` script. |
+| `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
+| `--execute / --no-execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to execute code cells sequentially and embed outputs. |
+| `--dry-run` | `bool` | `False` | Execute all notebooks and verify zero errors / `[Geometry Warning]` without writing `.ipynb` files. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
 | `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
@@ -563,7 +592,8 @@ drawlib init project COMMAND [ARGS]...
 | [`drawlib init project doc`](#drawlib-init-project-doc) | `doc_src/` | Linear technical document (`HTML`, `PDF`, `.docx`, `Markdown`). |
 | [`drawlib init project image`](#drawlib-init-project-image) | `images_src/` | Singular alias for `drawlib init project images`. |
 | [`drawlib init project images`](#drawlib-init-project-images) | `images_src/` | Standalone Python illustration scripts repository. |
-| [`drawlib init project list`](#drawlib-init-project-list) | — | List all 5 project types and their generated deliverables. |
+| [`drawlib init project jupyter`](#drawlib-init-project-jupyter) | `jupyter_src/` | Interactive Jupyter & Google Colab notebooks (`.ipynb`, `HTML`). |
+| [`drawlib init project list`](#drawlib-init-project-list) | — | List all 6 project types and their generated deliverables. |
 | [`drawlib init project site`](#drawlib-init-project-site) | `docs_src/` | Multi-page documentation website with `navbar.md` sidebar. |
 | [`drawlib init project slide`](#drawlib-init-project-slide) | `slide_src/` | 16:9 presentation slide deck (`HTML`, `PDF`, `.pptx`). |
 
@@ -640,6 +670,25 @@ uv run drawlib init project images arch_diagrams -l ja -s google
 | `TARGET` | `str` | `'images'` | Base name for the illustrations repository and source folder (creates `<target>_src/`). |
 | `-s, --style` | `str \| None` | `None` | Style preset theme (`'default'`, `'google'`, `'monochrome'`) or custom CSS path. |
 | `-l, --lang` | `str` | `'en'` | Single language code (`'en'`, `'ja'`, `'zh-cn'`, `'ko'`, etc.) configuring CJK/locale fonts in `styles.py`. |
+| `-f, --force` | `bool` | `False` | Overwrite existing files in `<target>_src/`. |
+
+---
+
+## `cmd` drawlib init project jupyter
+
+Scaffold an interactive Jupyter & Google Colab notebook project (`project_type = "jupyter"`, creating `<target>_src/` with `drawlib.toml`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh`, `build_jupyter.sh`, `build_html.sh`, and `serve.sh`) compilable to `.ipynb` notebooks and notebook-styled HTML preview pages.
+
+```bash
+drawlib init project jupyter [OPTIONS] [TARGET]
+
+uv run drawlib init project jupyter tutorial -l en,ja -s google
+```
+
+| Argument / Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `TARGET` | `str` | `'jupyter'` | Base name for the notebook project (creates `<target>_src/`). |
+| `-s, --style` | `str \| None` | `None` | Style preset theme (`'default'`, `'google'`, `'monochrome'`) or custom CSS path. |
+| `-l, --lang` | `str` | `'en'` | Single locale code (`'en'`, `'ja'`) or comma-separated multi-locale codes (`'en,ja'`). |
 | `-f, --force` | `bool` | `False` | Overwrite existing files in `<target>_src/`. |
 
 ---

@@ -17,6 +17,7 @@ from drawlib._builder._common import (
     BuildImageCache,
     FileBuildProgress,
     I18nConfig,
+    JupyterConfig,
     ProjectManifest,
     ProjectMetadata,
     find_project_manifest,
@@ -27,6 +28,7 @@ from drawlib._builder._common import (
 from drawlib._builder.doc_builder.compiler import (
     build_docx,
     build_html,
+    build_jupyter,
     build_markdown,
     build_pdf,
 )
@@ -38,6 +40,14 @@ from drawlib._builder.doc_builder.detector import (
 from drawlib._builder.doc_builder.exporter_html import (
     get_default_css,
     render_html_document,
+)
+from drawlib._builder.doc_builder.exporter_jupyter import (
+    NotebookExecutionError,
+    NotebookExecutionResult,
+    build_ipynb_dict,
+    convert_save_to_show,
+    execute_notebook_cells,
+    parse_notebook_segments,
 )
 from drawlib._builder.doc_builder.exporter_md import write_rendered_markdown
 from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
@@ -86,12 +96,12 @@ def build_document(
     timestamp: bool = False,
     workers: int | Literal["auto"] = "auto",
 ) -> str:
-    """Compile input documentation directory into HTML, PDF, Word (.docx), or Markdown.
+    """Compile input documentation directory into HTML, PDF, Word (.docx), Jupyter, or Markdown.
 
     Args:
         input_dir (str): Directory containing documentation source files.
         output_path (Optional[str]): Output directory or destination file.
-        output_format (Optional[str]): 'html', 'pdf', 'docx', or 'markdown'. Defaults to 'html'.
+        output_format (Optional[str]): 'html', 'pdf', 'docx', 'jupyter', or 'markdown'. Defaults to 'html'.
         image_format (str): 'png' or 'webp'. Defaults to 'png'.
         css_mode (str): CSS mode for HTML ('external' or 'embed').
         styles_path (Optional[str]): Path to custom styles.py script.
@@ -109,11 +119,24 @@ def build_document(
             fmt = "pdf"
         elif output_path and output_path.endswith(".docx"):
             fmt = "docx"
+        elif output_path and output_path.endswith(".ipynb"):
+            fmt = "jupyter"
         elif output_path and output_path.endswith(".md"):
             fmt = "markdown"
         else:
             fmt = "html"
 
+    if fmt in {"jupyter", "ipynb"}:
+        return build_jupyter(
+            input_path=input_dir,
+            output_dir=output_path,
+            image_format=image_format,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            css_mode=css_mode,
+            workers=workers,
+        )
     if fmt == "markdown":
         return build_markdown(
             input_dir=input_dir,
@@ -163,18 +186,25 @@ __all__ = [
     "DrawlibBlockProcessor",
     "FileBuildProgress",
     "I18nConfig",
+    "JupyterConfig",
     "NavbarItem",
     "NavbarSection",
+    "NotebookExecutionError",
+    "NotebookExecutionResult",
     "ProjectManifest",
     "ProjectMetadata",
     "build_document",
     "build_docx",
     "build_html",
+    "build_ipynb_dict",
+    "build_jupyter",
     "build_markdown",
     "build_merged_html",
     "build_pdf",
     "check_document_output_duplicates",
+    "convert_save_to_show",
     "detect_document_type",
+    "execute_notebook_cells",
     "expand_input_files",
     "export_code_block",
     "export_css",
@@ -192,6 +222,7 @@ __all__ = [
     "load_styles_and_utils",
     "parse_markdown_to_html",
     "parse_navbar_markdown",
+    "parse_notebook_segments",
     "render_html_document",
     "resolve_navbar_for_page",
     "resolve_styles_and_utils",

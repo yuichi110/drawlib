@@ -8,6 +8,7 @@ This document covers the **universal project architecture, template selection, s
 - **Multi-Page Website (`site`)**: `uv run drawlib rules show project-site`
 - **Illustrated Catalog & Reference (`catalog`)**: `uv run drawlib rules show project-catalog`
 - **16:9 Slide Deck & PowerPoint (`slide`)**: `uv run drawlib rules show project-slide`
+- **Jupyter & Google Colab Notebooks (`jupyter`)**: `uv run drawlib rules show project-jupyter`
 - **3-Stage Review & Self-Correction Loop**: `uv run drawlib rules show review-guide`
 
 ---
@@ -21,6 +22,7 @@ This document covers the **universal project architecture, template selection, s
 > - **Multi-page documentation website** -> Scaffold a **`site`** project (`uv run drawlib init project site [-l <lang[,lang...]>] [-s <style>]`).
 > - **Illustrated catalog / API / CLI / schema reference** -> Scaffold a **`catalog`** project (`uv run drawlib init project catalog [-l <lang[,lang...]>] [-s <style>]`).
 > - **16:9 presentation slide deck / PowerPoint (`.pptx`)** -> Scaffold a **`slide`** project (`uv run drawlib init project slide [-l <lang[,lang...]>] [-s <style>]`).
+> - **Interactive Jupyter / Google Colab notebook (`.ipynb` + HTML)** -> Scaffold a **`jupyter`** project (`uv run drawlib init project jupyter [-l <lang[,lang...]>] [-s <style>]`).
 > - **Pass `--lang` for Non-English Labels**: When the user prompts in Japanese (or requires CJK/multilingual typography), pass `--lang ja` (or comma-separated `-l en,ja` for bilingual projects) to `drawlib init project` so `styles.py` automatically configures CJK-safe fonts.
 > - **Clean Up Starter Samples**: After scaffolding, replace or delete the generated starter sample files (`sample1.py`, `sample2.py`, etc.) so only the user's requested diagrams are built.
 
@@ -30,7 +32,7 @@ This document covers the **universal project architecture, template selection, s
 uv run drawlib init project list
 
 # Scaffold a project in the current directory:
-uv run drawlib init project <images|doc|site|catalog|slide> [target] [-l <lang[,lang...]>] [-s <style>] [-f]
+uv run drawlib init project <images|doc|site|catalog|slide|jupyter> [target] [-l <lang[,lang...]>] [-s <style>] [-f]
 
 # Examples:
 uv run drawlib init project images --lang ja -s google
@@ -38,22 +40,23 @@ uv run drawlib init project doc rbac -s google
 uv run drawlib init project site docs -l en,ja -s default
 uv run drawlib init project catalog api -l en,ja -s google
 uv run drawlib init project slide pitch -l en,ja -s google
+uv run drawlib init project jupyter tutorial -l en,ja -s google
 uv run drawlib init agent antigravity          # Generate per-agent AI rules (.agents/rules/drawlib.md, etc.)
 ```
 
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
-| `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc`, `site`, `catalog`, and `slide` projects (`images` is single-language only). |
+| `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc`, `site`, `catalog`, `slide`, and `jupyter` projects (`images` is single-language only). |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if the destination directory is not empty. |
 
 > **Pure Scaffolding Principle**: `drawlib init project` only creates template and configuration files; it never runs compilation automatically. To compile your project, run `./<target>_src/build.sh` (or `./<target>_src/build_*.sh`).
 
 ---
 
-## 2. Choosing Among the 5 Project Archetypes
+## 2. Choosing Among the 6 Project Archetypes
 
-Drawlib features 5 project starter templates tailored to distinct authoring and publishing workflows. All four Markdown-based archetypes (`doc`, `site`, `catalog`, `slide`) share a **unified `<src_dir>/<lang>/` locale layout** ($N \ge 1$ locales), so adding a second language later requires zero `git mv` file moves:
+Drawlib features 6 project starter templates tailored to distinct authoring and publishing workflows. All five Markdown-based archetypes (`doc`, `site`, `catalog`, `slide`, `jupyter`) share a **unified `<src_dir>/<lang>/` locale layout** ($N \ge 1$ locales), so adding a second language later requires zero `git mv` file moves:
 
 | Project Type | Source Folder | Generated Deliverables | When AI Agents Should Choose This | Dedicated Guide |
 | :--- | :--- | :--- | :--- | :--- |
@@ -62,6 +65,7 @@ Drawlib features 5 project starter templates tailored to distinct authoring and 
 | **`site`** | `docs_src/<lang>/**/*.md`<br>+ `<lang>/navbar.md` | `docs_html/` (`<lang>/` + root `index.html`)<br>`docs_markdown/` (`<lang>/` + root `index.md`)<br>`docs_images/` (Extracted PNGs) | User wants a **multi-page documentation website** with a persistent navigation sidebar (portals, guides, wikis). | `project-site` |
 | **`catalog`** | `catalog_src/<lang>/**/*.md`<br>*(no `navbar.md`)* | `catalog_html/` (`<lang>/` + root redirect)<br>`catalog_markdown/<lang>/` (GitHub MD)<br>`catalog_images/` (Extracted PNGs) | User wants an **enumerated 2-column catalog or API / CLI / schema / service reference** (`1 MD = 1 HTML`, `# H1` category + `## H2` item list + semantic badges + `/` filter). | `project-catalog` |
 | **`slide`** | `slide_src/<lang>/*.md` | `slide_html/` (`<lang>/index.html` + redirect)<br>`slide_<lang>.pdf` (16:9 vector PDF)<br>`slide_images/` (Extracted SVGs)<br>*(+ on-demand `slide_<lang>.pptx` via `build pptx`)* | User wants a **16:9 widescreen presentation deck** with `1920×1080` stage blocks, speaker notes, Presenter View, or editable MS PowerPoint `.pptx`. | `project-slide` |
+| **`jupyter`** | `jupyter_src/<lang>/**/*.md`<br>*(no `navbar.md`)* | `jupyter_notebooks/<lang>/**/*.ipynb`<br>`jupyter_html/` (`<lang>/` + root redirect)<br>`jupyter_images/` (Extracted PNGs) | User wants **interactive Jupyter / Google Colab notebooks** combining illustrated Markdown narratives with executable Python cells and AI dry-run verification. | `project-jupyter` |
 
 ```drawlib align=center code=fold file=project_archetypes_overview.png caption="Drawlib's Five Project Archetypes & Compilation Deliverables"
 from drawlib.canvas import save, setup

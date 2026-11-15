@@ -48,6 +48,7 @@ class DrawlibSettings:
         self._output_dir: str | None = None
         self._force_grid: bool = False
         self._suppress_save: bool = False
+        self._cwd: bool = False
 
     @validate_call
     def get_logging_mode(
@@ -274,6 +275,27 @@ class DrawlibSettings:
             None
         """
         self._suppress_save = suppress_save
+
+    @validate_call
+    def get_cwd(self) -> bool:
+        """Get whether relative paths are resolved against the current working directory.
+
+        Returns:
+            bool: True if relative paths use ``os.getcwd()``, False if they use caller script directory.
+        """
+        return self._cwd
+
+    @validate_call
+    def set_cwd(self, cwd: bool) -> None:
+        """Set whether relative paths are resolved against the current working directory.
+
+        Args:
+            cwd: True to resolve relative paths from ``os.getcwd()``, False to use caller script directory.
+
+        Returns:
+            None
+        """
+        self._cwd = cwd
 
 
 drawlib_settings = DrawlibSettings()

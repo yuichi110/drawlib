@@ -59,7 +59,7 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 ### 2.3. `docs` — Documentation Build & Preview Server
 ```bash
 ./dcli docs build [TARGET] [--all/-a] [--clean/--no-clean]
-./dcli docs serve [TARGET] [--port/-p 8000] [--no-browser] [--skip-check] [--check]
+./dcli docs serve [TARGET] [--port/-p 8000] [--no-browser] [--skip-check] [--check] [--lab]
 ```
 - **Available `TARGET` names**:
   - `site` *(default)*: Main documentation site (`docs_src/site/` -> `docs/`)
@@ -67,6 +67,7 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
   - `architecture`: Software architecture specification site (`docs_src/architecture/` -> `docs/architecture/`)
   - `quickstart`: Bilingual Quickstart Handbook (`docs_src/quickstart/` -> `docs/quickstart/`)
   - `about-drawlib` (alias `slide`): Bilingual 16:9 Showcase Slide Deck (`docs_src/about-drawlib/` -> `docs/about-drawlib/`)
+  - `jupyter`: Bilingual Interactive Jupyter & Google Colab Notebooks (`docs_src/jupyter/` -> `docs/jupyter/`)
   - `reports`: PNI501 Full Audit Report (`reports/full_audit_src/` -> `docs/reports/pni-full-audit/`)
   - `readme`: Standalone README illustration scripts (`docs_src/readme/` -> `docs/readme_images/`)
   - `logo`: Brand logo & favicon asset scripts (`docs_src/logo/` -> `docs/logo/`)

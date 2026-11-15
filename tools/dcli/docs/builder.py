@@ -103,6 +103,13 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         clean_paths=("docs/about-drawlib",),
     ),
     BuildTarget(
+        name="jupyter",
+        src_dir="docs_src/jupyter",
+        script_rel_path="docs_src/jupyter/build.sh",
+        description="Interactive Jupyter & Google Colab Notebooks (docs/jupyter/)",
+        clean_paths=("docs/jupyter",),
+    ),
+    BuildTarget(
         name="reports",
         src_dir="reports/full_audit_src",
         script_rel_path="reports/full_audit_src/build.sh",
@@ -162,7 +169,7 @@ def build_docs(
     Args:
         target_name: Specific target name (
             'site', 'api', 'architecture', 'quickstart', 'about-drawlib',
-            'reports', 'readme', 'logo', 'ogp', or 'all'
+            'jupyter', 'reports', 'readme', 'logo', 'ogp', or 'all'
         ).
         build_all: If True, build all available targets in sequence.
         clean: If True, remove previous build artifacts before building.

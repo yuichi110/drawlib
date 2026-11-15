@@ -164,6 +164,7 @@ def setup(
     grid_centerstyle: Style | None = None,
     grid_xpitch: PosInt | None = None,
     grid_ypitch: PosInt | None = None,
+    cwd: bool = False,
 ) -> None
 ```
 
@@ -182,6 +183,7 @@ def setup(
 | `grid_centerstyle` | `Style \| None` | Bold gray dashed | Line `Style` applied to center axes (`x = width / 2`, `y = height / 2`). |
 | `grid_xpitch` | `PosInt \| None` | `10` (or `width // 10`) | Horizontal spacing between vertical grid lines. |
 | `grid_ypitch` | `PosInt \| None` | `10` (or `height // 10`) | Vertical spacing between horizontal grid lines. |
+| `cwd` | `bool` | `False` | Resolve relative file paths (`save()`, `image()`, `Dimage()`) against `os.getcwd()` instead of the caller script directory when `True` (recommended in Jupyter/Colab notebooks). |
 
 ---
 

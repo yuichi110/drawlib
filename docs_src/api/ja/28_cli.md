@@ -110,8 +110,9 @@ drawlib build COMMAND [ARGS]...
 | サブコマンド | 生成される成果物 |
 | :--- | :--- |
 | [`drawlib build docx`](#drawlib-build-docx) | 高 DPI ラスタライズ図版を埋め込んだ編集可能な Microsoft Word（`.docx`）文書。 |
-| [`drawlib build html`](#drawlib-build-html) | 複数ページまたは単一ページの静的 HTML ドキュメントサイト（`site`・`catalog`・`doc`）。 |
+| [`drawlib build html`](#drawlib-build-html) | 複数ページまたは単一ページの静的 HTML ドキュメントサイト（`site`・`catalog`・`doc`・`jupyter`）。 |
 | [`drawlib build image`](#drawlib-build-image) | `.py` 描画スクリプトから生成される単体 `.png`・`.webp`・`.gif`・`.jpg`・`.pdf` 画像。 |
+| [`drawlib build jupyter`](#drawlib-build-jupyter) | インプロセス AI ドライラン実行付きのインタラクティブ Jupyter Notebook（`.ipynb`）。 |
 | [`drawlib build markdown`](#drawlib-build-markdown) | `drawlib` コードフェンスを画像リンクへ置換したレンダリング済み Markdown ファイル群。 |
 | [`drawlib build pdf`](#drawlib-build-pdf) | Headless Chromium で組版される印刷対応ベクター PDF（`doc`・`.md`・`slide`）。 |
 | [`drawlib build pptx`](#drawlib-build-pptx) | 編集可能な Microsoft PowerPoint（`.pptx`）ワイドスクリーン資料（`960×540 pt` 16:9）。 |
@@ -148,7 +149,7 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 
 ## `cmd` drawlib build html
 
-Markdown/HTML ドキュメントソースディレクトリ（`site`・`catalog`・`doc`）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。
+Markdown/HTML ドキュメントソースディレクトリ（`site`・`catalog`・`doc`・`jupyter`）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。
 
 ```bash
 drawlib build html [OPTIONS] DIR
@@ -193,6 +194,34 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 | `-g, --grid` | `bool` | `False` | 座標グリッドを重ねた確認用画像 `*_grid.<ext>` を併せて保存します。 |
 | `--disable-auto-clear` | `bool` | `False` | 連続するスクリプト実行間の自動 `clear()` 呼び出しを無効化します（逐次実行へ自動フォールバック）。 |
 | `--enable-auto-initialize` | `bool` | `False` | 各スクリプト実行前にグローバル `config()` 設定を初期状態へリセットします。 |
+| `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
+| `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
+
+---
+
+## `cmd` drawlib build jupyter
+
+`jupyter` プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・実行結果（`stdout`・`execute_result`・`display_data` `image/png`）の事前埋め込み・`[Geometry Warning]` 検査付きの Jupyter Notebook（`<output>/<lang>/**/*.ipynb`）へコンパイルします。
+
+```bash
+drawlib build jupyter [OPTIONS] DIR
+
+# ノートブックをコンパイルし、コードセルの実行結果を埋め込む
+uv run drawlib build jupyter jupyter_src -o jupyter_notebooks
+
+# .ipynb ファイルを書き出さずに AI ドライラン検証のみを実行
+uv run drawlib build jupyter jupyter_src --dry-run
+```
+
+| 引数 / オプション | 型 | デフォルト | 説明 |
+| :--- | :--- | :--- | :--- |
+| `DIR` | `str` *(必須)* | — | `drawlib.toml`（`type = "jupyter"`）と `<lang>/` Markdown ファイルを含むプロジェクトルート。 |
+| `-o, --output` | `str \| None` | `None` | 出力先ノートブックディレクトリパス（省略時は `<base>_notebooks/`）。 |
+| `-f, --format` | `'png' \| 'webp'` | `'png'` | `drawlib` ブロックのデフォルト出力画像フォーマット。 |
+| `-s, --styles` | `str \| None` | `None` | Python `styles.py` スクリプトのパス。 |
+| `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
+| `--execute / --no-execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を埋め込みます。 |
+| `--dry-run` | `bool` | `False` | `.ipynb` ファイルを書き出さず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを行います。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
 | `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
@@ -563,7 +592,8 @@ drawlib init project COMMAND [ARGS]...
 | [`drawlib init project doc`](#drawlib-init-project-doc) | `doc_src/` | 章立て技術ドキュメント（`HTML`・`PDF`・`.docx`・`Markdown`）。 |
 | [`drawlib init project image`](#drawlib-init-project-image) | `images_src/` | `drawlib init project images` の単数形エイリアス。 |
 | [`drawlib init project images`](#drawlib-init-project-images) | `images_src/` | 単体 Python イラストレーションスクリプト集。 |
-| [`drawlib init project list`](#drawlib-init-project-list) | — | 全 5 種類のプロジェクトタイプと生成成果物を一覧表示。 |
+| [`drawlib init project jupyter`](#drawlib-init-project-jupyter) | `jupyter_src/` | インタラクティブ Jupyter & Google Colab ノートブック（`.ipynb`・`HTML`）。 |
+| [`drawlib init project list`](#drawlib-init-project-list) | — | 全 6 種類のプロジェクトタイプと生成成果物を一覧表示。 |
 | [`drawlib init project site`](#drawlib-init-project-site) | `docs_src/` | `navbar.md` サイドバー付きのマルチページドキュメントサイト。 |
 | [`drawlib init project slide`](#drawlib-init-project-slide) | `slide_src/` | 16:9 プレゼンテーションスライドデッキ（`HTML`・`PDF`・`.pptx`）。 |
 
@@ -640,6 +670,25 @@ uv run drawlib init project images arch_diagrams -l ja -s google
 | `TARGET` | `str` | `'images'` | イラストレーションリポジトリおよびソースフォルダのベース名（`<target>_src/` を作成）。 |
 | `-s, --style` | `str \| None` | `None` | スタイルプリセットテーマ（`'default'`・`'google'`・`'monochrome'`）またはカスタム CSS パス。 |
 | `-l, --lang` | `str` | `'en'` | `styles.py` の CJK 等フォント設定に用いる単一言語コード（`'en'`・`'ja'`・`'zh-cn'`・`'ko'` 等）。 |
+| `-f, --force` | `bool` | `False` | `<target>_src/` 内の既存ファイルを上書きします。 |
+
+---
+
+## `cmd` drawlib init project jupyter
+
+`.ipynb` ノートブックおよびノートブックスタイルの HTML プレビューページへコンパイルできるインタラクティブ Jupyter & Google Colab ノートブックプロジェクト（`project_type = "jupyter"`、`drawlib.toml`・`styles.py`・`utils.py`・`style.css`・`template.html`・`build.sh`・`build_jupyter.sh`・`build_html.sh`・`serve.sh`）を `<target>_src/` に生成します。
+
+```bash
+drawlib init project jupyter [OPTIONS] [TARGET]
+
+uv run drawlib init project jupyter tutorial -l en,ja -s google
+```
+
+| 引数 / オプション | 型 | デフォルト | 説明 |
+| :--- | :--- | :--- | :--- |
+| `TARGET` | `str` | `'jupyter'` | ノートブックプロジェクトのベース名（`<target>_src/` を作成）。 |
+| `-s, --style` | `str \| None` | `None` | スタイルプリセットテーマ（`'default'`・`'google'`・`'monochrome'`）またはカスタム CSS パス。 |
+| `-l, --lang` | `str` | `'en'` | 単一言語コード（`'en'`・`'ja'`）またはカンマ区切りの多言語コード（`'en,ja'`）。 |
 | `-f, --force` | `bool` | `False` | `<target>_src/` 内の既存ファイルを上書きします。 |
 
 ---

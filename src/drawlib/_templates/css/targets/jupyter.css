@@ -1,0 +1,209 @@
+/* ==========================================================================
+ * Jupyter / Google Colab Notebook Target Layout (jupyter.css)
+ * ========================================================================== */
+
+.jupyter-notebook {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    margin-bottom: 2.5rem;
+}
+
+.nb-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.7rem 0.95rem;
+    background: var(--rtd-surface-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+}
+
+.nb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.85rem;
+    border-radius: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    line-height: 1.2;
+}
+
+.nb-btn:hover {
+    transform: translateY(-1px);
+}
+
+.nb-btn-colab {
+    background: transparent;
+    padding: 0;
+    border: none;
+}
+
+.nb-btn-colab img {
+    display: block;
+    height: 28px;
+    width: auto;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.nb-btn-download {
+    background: var(--rtd-content-bg);
+    color: var(--rtd-text-color) !important;
+    border: 1px solid var(--rtd-border-color);
+}
+
+.nb-btn-download:hover {
+    background: var(--rtd-sidebar-hover);
+    border-color: var(--rtd-brand-color);
+    color: var(--rtd-brand-color) !important;
+}
+
+.nb-status-pill {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #15803d;
+    background: rgba(22, 163, 74, 0.12);
+    border: 1px solid rgba(22, 163, 74, 0.28);
+}
+
+html[data-theme="dark"] .nb-status-pill {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.14);
+    border-color: rgba(74, 222, 128, 0.3);
+}
+
+.nb-cell {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.nb-markdown-cell,
+.nb-cell-markdown {
+    padding: 0.15rem 0;
+}
+
+.nb-code-cell,
+.nb-cell-code {
+    border: 1px solid var(--rtd-border-color);
+    background: var(--rtd-content-bg);
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.nb-setup-cell,
+.nb-cell-setup {
+    border-style: dashed;
+}
+
+.nb-input {
+    display: flex;
+    align-items: stretch;
+    background: var(--rtd-code-bg);
+}
+
+.nb-prompt {
+    flex: 0 0 5.4rem;
+    padding: 0.85rem 0.55rem 0.85rem 0.65rem;
+    font-family: var(--rtd-mono-font);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--rtd-muted-color);
+    user-select: none;
+    text-align: right;
+    border-right: 1px solid var(--rtd-border-color);
+    background: var(--rtd-surface-bg);
+}
+
+.nb-in-prompt,
+.nb-prompt-in {
+    color: var(--rtd-brand-color);
+}
+
+.nb-out-prompt,
+.nb-prompt-out {
+    color: #d97706;
+}
+
+.nb-code-area,
+.nb-source {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.nb-code-area pre,
+.nb-source pre {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 0.85rem 1rem !important;
+}
+
+.nb-output {
+    display: flex;
+    align-items: stretch;
+    border-top: 1px solid var(--rtd-border-color);
+    background: var(--rtd-content-bg);
+}
+
+.nb-output-area,
+.nb-output-body {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.nb-stream-stdout,
+.nb-stream,
+.nb-execute-result {
+    margin: 0 !important;
+    padding: 0.6rem 0.85rem !important;
+    font-family: var(--rtd-mono-font);
+    font-size: 0.84rem;
+    line-height: 1.5;
+    background: var(--rtd-surface-bg) !important;
+    border: 1px solid var(--rtd-border-color) !important;
+    border-radius: 6px !important;
+    color: var(--rtd-text-color) !important;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.nb-output-figure {
+    margin: 0.25rem 0 !important;
+    text-align: center;
+}
+
+.nb-output-figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+@media (max-width: 640px) {
+    .nb-prompt {
+        flex: 0 0 3.8rem;
+        font-size: 0.7rem;
+        padding: 0.65rem 0.35rem;
+    }
+    .nb-status-pill {
+        margin-left: 0;
+    }
+}

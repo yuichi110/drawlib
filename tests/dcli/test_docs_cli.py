@@ -46,9 +46,10 @@ def test_target_definitions() -> None:
     assert "quickstart" in TARGET_MAP
     assert "about-drawlib" in TARGET_MAP
     assert "slide" in TARGET_MAP
+    assert "jupyter" in TARGET_MAP
     assert "dogfooding" not in TARGET_MAP
     assert "slide-ddos" not in TARGET_MAP
-    assert len(ALL_TARGETS) == 9
+    assert len(ALL_TARGETS) == 10
 
 
 def test_docs_build_unknown_target() -> None:
@@ -81,6 +82,21 @@ def test_docs_serve_nonexistent_directory(tmp_path: Path) -> None:
     assert "does not exist" in result.output
 
 
+def test_docs_serve_lab_option(tmp_path: Path) -> None:
+    """Test serve --lab invokes JupyterLab via uvx."""
+    target_dir = tmp_path / "jupyter_out"
+    target_dir.mkdir(parents=True)
+    with patch("tools.dcli.docs.cli.run_command") as mock_run:
+        result = runner.invoke(app, ["serve", str(target_dir), "--lab", "--no-browser", "-p", "8888"])
+        assert result.exit_code == 0
+        mock_run.assert_called_once()
+        cmd = mock_run.call_args.args[0]
+        assert cmd[0] == "uvx"
+        assert "jupyterlab" in cmd
+        assert "--no-browser" in cmd
+        assert "--port=8888" in cmd
+
+
 def test_detect_portal_id() -> None:
     """Test portal identification from relative path parts."""
     assert detect_portal_id(("index.html",)) == "user_guide"
@@ -89,6 +105,7 @@ def test_detect_portal_id() -> None:
     assert detect_portal_id(("architecture", "en", "index.html")) == "architecture"
     assert detect_portal_id(("quickstart", "ja", "index.html")) == "quickstart"
     assert detect_portal_id(("about-drawlib", "en", "index.html")) == "about-drawlib"
+    assert detect_portal_id(("jupyter", "en", "index.html")) == "jupyter"
     assert detect_portal_id(("reports", "pni-full-audit", "index.html")) == "pni501"
 
 

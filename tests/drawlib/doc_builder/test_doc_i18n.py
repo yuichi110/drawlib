@@ -71,16 +71,16 @@ def test_project_manifest_parsing_and_ancestor_lookup(tmp_path: Path) -> None:
     assert slide_manifest.i18n.langs == ["en", "ja"]
     assert slide_manifest.i18n.labels == {"en": "EN", "ja": "JP"}
 
-    # Require [i18n] on doc, site, and slide
-    for req_type in ("doc", "site", "slide"):
+    # Require [i18n] on doc, site, slide, catalog, and jupyter
+    for req_type in ("doc", "site", "slide", "catalog", "jupyter"):
         missing_i18n = tmp_path / f"missing_i18n_{req_type}_src"
         missing_i18n.mkdir()
         (missing_i18n / "drawlib.toml").write_text(f'[project]\ntype = "{req_type}"\n', encoding="utf-8")
         with pytest.raises(ValueError, match=r'require an "\[i18n\]" table'):
             load_project_manifest(str(missing_i18n))
 
-    # Reject [project].lang on doc, site, and slide
-    for bad_proj_lang_type in ("doc", "site", "slide"):
+    # Reject [project].lang on doc, site, slide, catalog, and jupyter
+    for bad_proj_lang_type in ("doc", "site", "slide", "catalog", "jupyter"):
         bad_proj_lang = tmp_path / f"bad_proj_lang_{bad_proj_lang_type}_src"
         (bad_proj_lang / "en").mkdir(parents=True)
         (bad_proj_lang / "drawlib.toml").write_text(
@@ -107,7 +107,10 @@ def test_project_manifest_parsing_and_ancestor_lookup(tmp_path: Path) -> None:
         '[project]\ntype = "images"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
         encoding="utf-8",
     )
-    with pytest.raises(ValueError, match='only supported for "doc", "site", "slide", and "catalog" projects'):
+    with pytest.raises(
+        ValueError,
+        match='only supported for "doc", "site", "slide", "catalog", and "jupyter" projects',
+    ):
         load_project_manifest(str(bad_imgs))
 
     # Reject unknown project.type

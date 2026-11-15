@@ -97,20 +97,30 @@ def is_path_under(parent_path: str, child_path: str) -> bool:
 def get_script_path() -> str:
     """Retrieve the absolute path of the user script that calls this function.
 
+    When ``setup(..., cwd=True)`` (``drawlib_settings.get_cwd()``) is enabled, returns
+    ``os.path.join(os.getcwd(), "output.py")`` so default ``save()`` targets the current
+    working directory.
+
     Returns:
         str: Absolute path of the user script.
 
     Raises:
-        FileNotFoundError: If the script path cannot be determined.
+        FileNotFoundError: If the script path cannot be determined and ``cwd`` mode is disabled.
 
     """
+    from drawlib._core.l1_core._settings import drawlib_settings  # noqa: PLC0415
+
+    if drawlib_settings.get_cwd():
+        return os.path.join(os.getcwd(), "output.py")
+
     package_root = get_package_root_path()
     script_path = ""
-    for frame in inspect.stack():
+    frames = inspect.stack()
+    for frame in frames:
         file = frame.filename
         if not os.path.isfile(file):
             continue
-        is_document = file.lower().endswith((".md", ".markdown", ".html", ".htm"))
+        is_document = file.lower().endswith((".md", ".markdown", ".html", ".htm", ".ipynb"))
         if not is_document:
             if "site-packages" in file:
                 continue
@@ -127,10 +137,14 @@ def get_script_path() -> str:
 
 
 def get_script_relative_path(path: str) -> str:
-    """Construct the absolute file path from a script file path.
+    """Construct the absolute file path from a script-relative or cwd-relative file path.
+
+    By default, resolves ``path`` relative to the caller script's directory.
+    When ``setup(..., cwd=True)`` is enabled, resolves ``path`` strictly relative to
+    ``os.getcwd()``.
 
     Args:
-        path: Relative path from the user script.
+        path: Relative path from the user script (or current working directory when ``cwd=True``).
 
     Returns:
         str: Absolute file path.
@@ -145,6 +159,11 @@ def get_script_relative_path(path: str) -> str:
     if os.path.isabs(path):
         return path
 
+    from drawlib._core.l1_core._settings import drawlib_settings  # noqa: PLC0415
+
+    if drawlib_settings.get_cwd():
+        return os.path.realpath(os.path.join(os.getcwd(), path))
+
     script_path = get_script_path()
     script_parent_dir = os.path.dirname(script_path)
     merged_path = os.path.join(script_parent_dir, path)
@@ -158,3 +177,4 @@ def get_script_relative_path(path: str) -> str:
                 return os.path.realpath(cand)
             cur = os.path.dirname(cur)
     return os.path.realpath(merged_path)
+

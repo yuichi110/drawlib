@@ -350,7 +350,7 @@ def test_cli_init_conflict_and_force(tmp_path: Path) -> None:
 def test_python_api_init(tmp_path: Path) -> None:
     """Test Python programmatic API for project initialization."""
     types = list_project_types()
-    assert set(types.keys()) == {"doc", "site", "catalog", "slide", "images"}
+    assert set(types.keys()) == {"doc", "site", "catalog", "slide", "jupyter", "images"}
 
     target = tmp_path / "api_test"
     created = init_project("doc", destination=target)
@@ -544,7 +544,7 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     # Images multi-lang should fail cleanly
     res_bad = run_drawlib_cli(["init", "project", "images", "-l", "en,ja"], cwd=str(tmp_path))
     assert res_bad.returncode != 0
-    assert "supported for 'doc', 'site', 'slide', and 'catalog' projects, not 'images'" in res_bad.stderr
+    assert "supported for 'doc', 'site', 'slide', 'catalog', and 'jupyter' projects, not 'images'" in res_bad.stderr
 
 
 def test_cli_init_scripts_support_uvx_fallback(tmp_path: Path) -> None:
@@ -555,6 +555,7 @@ def test_cli_init_scripts_support_uvx_fallback(tmp_path: Path) -> None:
         "site": ["build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
         "catalog": ["build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
         "slide": ["build_html.sh", "build_pdf.sh", "build_pptx.sh", "build_image.sh", "serve.sh"],
+        "jupyter": ["build_jupyter.sh", "build_html.sh", "serve.sh"],
     }
     for proj_type, scripts in expected_scripts.items():
         res = run_drawlib_cli(["init", "project", proj_type, f"uvx_{proj_type}"], cwd=str(tmp_path))

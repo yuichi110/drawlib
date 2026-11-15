@@ -40,7 +40,7 @@ init_app = typer.Typer(
 
 project_app = typer.Typer(
     name="project",
-    help="Scaffold starter drawlib projects (doc, site, catalog, slide, images).",
+    help="Scaffold starter drawlib projects (doc, site, catalog, slide, jupyter, images).",
     epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
@@ -56,8 +56,8 @@ def _print_init_success(
     """Print initialization success message and next steps.
 
     Args:
-        project_type: Initialized project type ('doc', 'site', 'catalog', 'slide', 'images').
-        target: Target base name (e.g. 'doc', 'spec', 'docs', 'catalog').
+        project_type: Initialized project type ('doc', 'site', 'catalog', 'slide', 'jupyter', 'images').
+        target: Target base name (e.g. 'doc', 'spec', 'docs', 'catalog', 'jupyter').
         created: List of created file paths.
     """
     paths = resolve_project_paths(project_type=project_type, target=target)
@@ -83,7 +83,7 @@ def _print_init_success(
     elif project_type == "slide":
         print(f"  ./{rel_src_dir}/build_pptx.sh")
 
-    if project_type in {"site", "catalog", "doc", "slide"}:
+    if project_type in {"site", "catalog", "doc", "slide", "jupyter"}:
         print(f"  ./{rel_src_dir}/serve.sh")
 
 
@@ -97,7 +97,7 @@ def _run_init(
     """Common runner for project initialization subcommands.
 
     Args:
-        project_type: Project type ('doc', 'site', 'catalog', 'slide', 'images').
+        project_type: Project type ('doc', 'site', 'catalog', 'slide', 'jupyter', 'images').
         target: Base name for project folder and artifacts.
         style: Style preset theme or custom CSS path.
         lang: Starter template language code.
@@ -271,6 +271,43 @@ def cmd_init_slide(
 ) -> None:
     """Scaffold a 16:9 presentation slide deck (HTML, PDF, PowerPoint) in current directory."""
     _run_init(project_type="slide", target=target, style=style, lang=lang, force=force)
+
+
+@project_app.command("jupyter", epilog=HELP_EPILOG)
+def cmd_init_jupyter(
+    target: Annotated[
+        str,
+        typer.Argument(
+            help="Base name for the Jupyter notebook project and source folder (creates '<target>_src/').",
+        ),
+    ] = "jupyter",
+    style: Annotated[
+        str | None,
+        typer.Option(
+            "-s",
+            "--style",
+            help="Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS path.",
+        ),
+    ] = None,
+    lang: Annotated[
+        str,
+        typer.Option(
+            "-l",
+            "--lang",
+            help="Language code ('en', 'ja', etc.) or comma-separated codes for multi-locale notebooks ('en,ja').",
+        ),
+    ] = "en",
+    force: Annotated[
+        bool,
+        typer.Option(
+            "-f",
+            "--force",
+            help="Overwrite existing files in destination directory.",
+        ),
+    ] = False,
+) -> None:
+    """Scaffold an illustrated Jupyter Notebook (.ipynb) & Google Colab project in current directory."""
+    _run_init(project_type="jupyter", target=target, style=style, lang=lang, force=force)
 
 
 @project_app.command("images", epilog=HELP_EPILOG)

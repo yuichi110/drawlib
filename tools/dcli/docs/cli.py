@@ -36,7 +36,7 @@ def build(
         None,
         help=(
             "Target to build ('site', 'api', 'architecture', 'quickstart', 'about-drawlib', "
-            "'reports', 'readme', 'logo', 'ogp', or 'all'). Default: 'site'."
+            "'jupyter', 'reports', 'readme', 'logo', 'ogp', or 'all'). Default: 'site'."
         ),
     ),
     all_targets: bool = typer.Option(
@@ -67,6 +67,7 @@ SERVE_TARGET_MAP: dict[str, str] = {
     "quickstart": "docs/quickstart",
     "about-drawlib": "docs/about-drawlib",
     "slide": "docs/about-drawlib",
+    "jupyter": "docs/jupyter",
     "reports": "docs/reports/pni-full-audit",
     "report": "docs/reports/pni-full-audit",
 }
@@ -78,13 +79,18 @@ def serve(
         "site",
         help=(
             "Directory or target alias to serve "
-            "('site', 'api', 'architecture', 'quickstart', 'about-drawlib', 'reports', or path)."
+            "('site', 'api', 'architecture', 'quickstart', 'about-drawlib', 'jupyter', 'reports', or path)."
         ),
     ),
     port: int = typer.Option(8000, "--port", "-p", help="Port to serve the documentation on."),
     no_browser: bool = typer.Option(False, "--no-browser", help="Do not automatically open the browser."),
     skip_check: bool = typer.Option(False, "--skip-check", help="Skip pre-scan for broken links."),
     check: bool = typer.Option(False, "--check", help="Check for broken links and exit without starting server."),
+    lab: bool = typer.Option(
+        False,
+        "--lab",
+        help="Launch JupyterLab on the generated .ipynb notebooks instead of the static HTML preview server.",
+    ),
 ) -> None:
     """Serve documentation or slides locally via drawlib preview server.
 
@@ -94,6 +100,7 @@ def serve(
         no_browser: Whether to prevent opening the default browser.
         skip_check: Whether to skip pre-scan for broken links.
         check: Whether to check for broken links and exit.
+        lab: Whether to launch JupyterLab on the target directory instead of static HTML server.
     """
     serve_dir = SERVE_TARGET_MAP.get(target, target)
     target_path = PROJECT_ROOT / serve_dir if not Path(serve_dir).is_absolute() else Path(serve_dir)
@@ -104,6 +111,23 @@ def serve(
             f"Please run [bold]./dcli docs build {target}[/bold] first."
         )
         raise typer.Exit(code=1)
+
+    if lab:
+        cmd = [
+            "uvx",
+            "--from",
+            "jupyterlab",
+            "--with-editable",
+            str(PROJECT_ROOT),
+            "jupyter",
+            "lab",
+            str(target_path),
+            f"--port={port}",
+        ]
+        if no_browser:
+            cmd.append("--no-browser")
+        run_command(cmd, desc=f"Launching JupyterLab in {serve_dir} on http://localhost:{port}...")
+        return
 
     cmd = ["uv", "run", "python", "-m", "drawlib", "serve", str(target_path), "-p", str(port)]
     if no_browser:
