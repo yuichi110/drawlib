@@ -17,6 +17,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 
 from tools.dcli.common import PROJECT_ROOT, console, err_console
+from tools.dcli.docs.banner import inject_portal_banners
 
 
 @dataclass(frozen=True)
@@ -185,4 +186,5 @@ def build_docs(
         run_target_build(target)
         console.print()
 
+    inject_portal_banners()
     console.print("[bold green]All builds completed successfully![/bold green]")
