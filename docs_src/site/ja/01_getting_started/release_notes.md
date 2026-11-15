@@ -1,5 +1,28 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.11
+
+*リリース日: 2026/11/15*
+
+バージョン 0.3.11 では、第 6 のプロジェクトアーキタイプ **`jupyter`（「図解付き Jupyter Notebook / Google Colab as Code」＋ AI Dry-Run 自動実行検証エンジン）**、**`setup(..., cwd=True)` による決定論的なカレントディレクトリ基準パス解決**、および **日英バイリンガル全 6 章の対話型ハンズオン教材（`docs_src/jupyter/`）** を新搭載しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. 第 6 のプロジェクトアーキタイプ `jupyter` — 図解付き Jupyter / Google Colab ノートブック as Code（`doc_builder`, `_cli`, `tools`）
+- **単一 Markdown からの `.ipynb` & ノートブック風 HTML カタログ同時生成（`drawlib init project jupyter`, `drawlib build jupyter`, `build_jupyter()`）**: Git 管理しやすい Markdown（`*_src/<lang>/*.md`）から、nbformat v4.5 準拠の `.ipynb` ノートブック（`!pip install -q drawlib` セットアップセル・`Open in Colab` ヘッダーバッジ・`"attachment"` / `"url"` / `"relative"` 画像モード対応）と、`In [N]:` / `Out [N]:` セル表示・`.ipynb` ワンクリックダウンロード・Google Colab 直接起動ボタンを備えた 2 カラム HTML プレビューサイトを一括コンパイルします。
+- **2 種類のコードブロック制御（`cell=markdown | code`）**: ```` ```drawlib ```` ブロックはデフォルトでビルド時に描画された図解として Markdown セルへ埋め込まれ（`cell=markdown`）、`cell=code` 指定時は `save(...)` を `show()` に自動変換して実行可能なコードセルとして出力します。```` ```python ```` ブロックは実行可能な Python コードセル（`cell=markdown` 指定時は説明用コードブロック）に変換されます。
+- **In-Process AI Dry-Run 自動実行エンジン（`--dry-run` / `--no-dry-run`, `execute_notebook_cells`）**: ビルド時にノートブック内の全コードセルを先頭から共有 `globals` 名前空間（`styles.py`・`utils.py` 事前ロード済み）で順次実行し、`stdout`・末尾式の評価結果（`repr` / `Dimage`）・`show()` 描画画像（`image/png`）・`[Geometry Warning]` 警告を `.ipynb` の `outputs` と HTML の `Out [N]:` の双方へ自動記録します。エラー時はセル番号（`In [N]`）と Markdown 行番号を含む `NotebookExecutionError` で即座に検出できます。
+
+#### 2. `setup(..., cwd=True)` による決定論的なカレントディレクトリ基準パス解決（`l1_core`, `l4_canvas`）
+- **`canvas.setup()` への `cwd: bool = False` オプション追加**: 通常の `.py` スクリプトでは従来どおり呼び出し元スクリプトの場所基準で相対パス（`save()`・`image()`・`Dimage()`）を解決しますが、`setup(..., cwd=True)` を指定すると決定論的に `os.getcwd()` 基準へ切り替わり、JupyterLab・Google Colab・対話型 REPL セッション内でも一貫して相対パスおよびデフォルト `save()`（`<cwd>/output.png`）が機能します（`clear()` 時に `cwd=False` へリセット）。
+
+#### 3. 日英バイリンガル対話型ハンズオン教材（`docs_src/jupyter/` -> `docs/jupyter/`）と `dcli` 連携
+- **全 6 章の Google Colab / Jupyter チュートリアル（`en` / `ja`）**: Colab 連携と `setup(..., cwd=True)`、スタイルトークンと基本図形、データ集計と定量チャート、SmartArts、クラウド構成図・シーケンス図、`drawlib.graph` 自動レイアウトを網羅した日英ノートブック教材を追加し、`pytest` による自動 Dry-Run テストおよび `./dcli docs build/serve jupyter [--lab]` に対応しました。
+
+---
+
 ## バージョン 0.3.10
 
 *リリース日: 2026/11/13*

@@ -119,7 +119,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API リファレンス · v0.3.10</span>
+                    <span>API リファレンス · v0.3.11</span>
                 </a>
                 
                 
@@ -3723,7 +3723,7 @@
                             <svg class="catalog-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             <a href="27_tools.html" class="catalog-nav-cat-link">drawlib.tools（ビルド・キャッシュ・エージェント連携 API）</a>
                             
-                            <span class="catalog-nav-count">28</span>
+                            <span class="catalog-nav-count">29</span>
                             
                         </summary>
                         
@@ -3762,6 +3762,15 @@
                                     <span class="catalog-badge catalog-badge-def">def</span>
                                     
                                     <span class="catalog-nav-sym-text">build_image()</span>
+                                </a>
+                            </li>
+                            
+                            <li class="catalog-nav-subitem" data-sym="def build_jupyter()">
+                                <a href="27_tools.html#build-jupyter" class="catalog-nav-sublink">
+                                    
+                                    <span class="catalog-badge catalog-badge-def">def</span>
+                                    
+                                    <span class="catalog-nav-sym-text">build_jupyter()</span>
                                 </a>
                             </li>
                             
@@ -3990,7 +3999,7 @@
                             <svg class="catalog-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             <a href="28_cli.html" class="catalog-nav-cat-link is-prose-cat">CLI リファレンス (drawlib)</a>
                             
-                            <span class="catalog-nav-count">40</span>
+                            <span class="catalog-nav-count">42</span>
                             
                         </summary>
                         
@@ -4038,6 +4047,15 @@
                                     <span class="catalog-badge catalog-badge-cmd">cmd</span>
                                     
                                     <span class="catalog-nav-sym-text">drawlib build image</span>
+                                </a>
+                            </li>
+                            
+                            <li class="catalog-nav-subitem" data-sym="cmd drawlib build jupyter">
+                                <a href="#drawlib-build-jupyter" class="catalog-nav-sublink is-prose-sublink" data-target="drawlib-build-jupyter">
+                                    
+                                    <span class="catalog-badge catalog-badge-cmd">cmd</span>
+                                    
+                                    <span class="catalog-nav-sym-text">drawlib build jupyter</span>
                                 </a>
                             </li>
                             
@@ -4236,6 +4254,15 @@
                                     <span class="catalog-badge catalog-badge-cmd">cmd</span>
                                     
                                     <span class="catalog-nav-sym-text">drawlib init project images</span>
+                                </a>
+                            </li>
+                            
+                            <li class="catalog-nav-subitem" data-sym="cmd drawlib init project jupyter">
+                                <a href="#drawlib-init-project-jupyter" class="catalog-nav-sublink is-prose-sublink" data-target="drawlib-init-project-jupyter">
+                                    
+                                    <span class="catalog-badge catalog-badge-cmd">cmd</span>
+                                    
+                                    <span class="catalog-nav-sym-text">drawlib init project jupyter</span>
                                 </a>
                             </li>
                             
@@ -4589,11 +4616,15 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </tr>
 <tr>
 <td style="text-align:left"><a href="#drawlib-build-html"><code>drawlib build html</code></a></td>
-<td style="text-align:left">複数ページまたは単一ページの静的 HTML ドキュメントサイト（<code>site</code>・<code>catalog</code>・<code>doc</code>）。</td>
+<td style="text-align:left">複数ページまたは単一ページの静的 HTML ドキュメントサイト（<code>site</code>・<code>catalog</code>・<code>doc</code>・<code>jupyter</code>）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#drawlib-build-image"><code>drawlib build image</code></a></td>
 <td style="text-align:left"><code>.py</code> 描画スクリプトから生成される単体 <code>.png</code>・<code>.webp</code>・<code>.gif</code>・<code>.jpg</code>・<code>.pdf</code> 画像。</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#drawlib-build-jupyter"><code>drawlib build jupyter</code></a></td>
+<td style="text-align:left">インプロセス AI ドライラン実行付きのインタラクティブ Jupyter Notebook（<code>.ipynb</code>）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#drawlib-build-markdown"><code>drawlib build markdown</code></a></td>
@@ -4701,7 +4732,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </table>
 <hr />
 <h2 id="drawlib-build-html" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib build html</span></code><a class="header-anchor" href="#drawlib-build-html" aria-label="Permalink to drawlib build html">#</a></h2>
-<p>Markdown/HTML ドキュメントソースディレクトリ（<code>site</code>・<code>catalog</code>・<code>doc</code>）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。</p>
+<p>Markdown/HTML ドキュメントソースディレクトリ（<code>site</code>・<code>catalog</code>・<code>doc</code>・<code>jupyter</code>）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DIR
 
 <span class="c1"># docs_src/ を docs_html/ へコンパイル（WebP 図版フォーマット指定）</span>
@@ -4829,6 +4860,83 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">各スクリプト実行前にグローバル <code>config()</code> 設定を初期状態へリセットします。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--no-cache</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">SQLite ビルド画像キャッシュの読み書きを無効化します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>'auto'</code> は <code>DRAWLIB_BUILD_WORKERS</code> または <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>'1'</code> は逐次実行）。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="drawlib-build-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib build jupyter</span></code><a class="header-anchor" href="#drawlib-build-jupyter" aria-label="Permalink to drawlib build jupyter">#</a></h2>
+<p><code>jupyter</code> プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・実行結果（<code>stdout</code>・<code>execute_result</code>・<code>display_data</code> <code>image/png</code>）の事前埋め込み・<code>[Geometry Warning]</code> 検査付きの Jupyter Notebook（<code>&lt;output&gt;/&lt;lang&gt;/**/*.ipynb</code>）へコンパイルします。</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DIR
+
+<span class="c1"># ノートブックをコンパイルし、コードセルの実行結果を埋め込む</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src<span class="w"> </span>-o<span class="w"> </span>jupyter_notebooks
+
+<span class="c1"># .ipynb ファイルを書き出さずに AI ドライラン検証のみを実行</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src<span class="w"> </span>--dry-run
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">引数 / オプション</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>DIR</code></td>
+<td style="text-align:left"><code>str</code> <em>(必須)</em></td>
+<td style="text-align:left">—</td>
+<td style="text-align:left"><code>drawlib.toml</code>（<code>type = &quot;jupyter&quot;</code>）と <code>&lt;lang&gt;/</code> Markdown ファイルを含むプロジェクトルート。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-o, --output</code></td>
+<td style="text-align:left"><code>str | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">出力先ノートブックディレクトリパス（省略時は <code>&lt;base&gt;_notebooks/</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-f, --format</code></td>
+<td style="text-align:left"><code>'png' | 'webp'</code></td>
+<td style="text-align:left"><code>'png'</code></td>
+<td style="text-align:left"><code>drawlib</code> ブロックのデフォルト出力画像フォーマット。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-s, --styles</code></td>
+<td style="text-align:left"><code>str | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Python <code>styles.py</code> スクリプトのパス。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-u, --utils</code></td>
+<td style="text-align:left"><code>str | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Python <code>utils.py</code> スクリプトのパス。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--execute / --no-execute</code></td>
+<td style="text-align:left"><code>bool | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left"><code>drawlib.toml</code> の <code>[jupyter].execute</code> を上書きし、コードセルを順次実行して出力結果を埋め込みます。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--dry-run</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left"><code>.ipynb</code> ファイルを書き出さず、全ノートブックの実行検証および <code>[Geometry Warning]</code> 検査のみを行います。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--no-cache</code></td>
@@ -5650,9 +5758,14 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">単体 Python イラストレーションスクリプト集。</td>
 </tr>
 <tr>
+<td style="text-align:left"><a href="#drawlib-init-project-jupyter"><code>drawlib init project jupyter</code></a></td>
+<td style="text-align:left"><code>jupyter_src/</code></td>
+<td style="text-align:left">インタラクティブ Jupyter &amp; Google Colab ノートブック（<code>.ipynb</code>・<code>HTML</code>）。</td>
+</tr>
+<tr>
 <td style="text-align:left"><a href="#drawlib-init-project-list"><code>drawlib init project list</code></a></td>
 <td style="text-align:left">—</td>
-<td style="text-align:left">全 5 種類のプロジェクトタイプと生成成果物を一覧表示。</td>
+<td style="text-align:left">全 6 種類のプロジェクトタイプと生成成果物を一覧表示。</td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#drawlib-init-project-site"><code>drawlib init project site</code></a></td>
@@ -5828,6 +5941,49 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><code>'en'</code></td>
 <td style="text-align:left"><code>styles.py</code> の CJK 等フォント設定に用いる単一言語コード（<code>'en'</code>・<code>'ja'</code>・<code>'zh-cn'</code>・<code>'ko'</code> 等）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-f, --force</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left"><code>&lt;target&gt;_src/</code> 内の既存ファイルを上書きします。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="drawlib-init-project-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib init project jupyter</span></code><a class="header-anchor" href="#drawlib-init-project-jupyter" aria-label="Permalink to drawlib init project jupyter">#</a></h2>
+<p><code>.ipynb</code> ノートブックおよびノートブックスタイルの HTML プレビューページへコンパイルできるインタラクティブ Jupyter &amp; Google Colab ノートブックプロジェクト（<code>project_type = &quot;jupyter&quot;</code>、<code>drawlib.toml</code>・<code>styles.py</code>・<code>utils.py</code>・<code>style.css</code>・<code>template.html</code>・<code>build.sh</code>・<code>build_jupyter.sh</code>・<code>build_html.sh</code>・<code>serve.sh</code>）を <code>&lt;target&gt;_src/</code> に生成します。</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>TARGET<span class="o">]</span>
+
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span>tutorial<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">引数 / オプション</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>TARGET</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'jupyter'</code></td>
+<td style="text-align:left">ノートブックプロジェクトのベース名（<code>&lt;target&gt;_src/</code> を作成）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-s, --style</code></td>
+<td style="text-align:left"><code>str | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">スタイルプリセットテーマ（<code>'default'</code>・<code>'google'</code>・<code>'monochrome'</code>）またはカスタム CSS パス。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-l, --lang</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'en'</code></td>
+<td style="text-align:left">単一言語コード（<code>'en'</code>・<code>'ja'</code>）またはカンマ区切りの多言語コード（<code>'en,ja'</code>）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>-f, --force</code></td>

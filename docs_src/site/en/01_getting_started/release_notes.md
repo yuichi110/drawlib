@@ -1,5 +1,28 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.11
+
+*Release Date: 2026/11/15*
+
+Version 0.3.11 introduces the 6th project archetype **`jupyter` ("Illustrated Notebook & Google Colab as Code")** with an **in-process AI Dry-Run execution engine**, **deterministic `setup(..., cwd=True)` working-directory path resolution**, and **bilingual interactive Jupyter / Google Colab tutorial notebooks (`docs_src/jupyter/`)**.
+
+---
+
+### Highlights & New Features
+
+#### 1. 6th Project Archetype: `jupyter` — Illustrated Jupyter & Google Colab Notebooks as Code (`doc_builder`, `_cli`, `tools`)
+- **Single-Source `.ipynb` + Notebook-Styled HTML Compilation (`drawlib init project jupyter`, `drawlib build jupyter`, `build_jupyter()`)**: Author clean Markdown (`*_src/<lang>/*.md`) in Git and compile simultaneously into nbformat v4.5 `.ipynb` notebooks (with automatic `!pip install -q drawlib` setup cell, `Open in Colab` header badge, and `"attachment"` / `"url"` / `"relative"` diagram embedding) and a searchable 2-column HTML catalog preview featuring `In [N]:` / `Out [N]:` notebook cells, one-click `.ipynb` download, and direct Google Colab launch buttons.
+- **Dual Code Block Semantics (`cell=markdown | code`)**: ```` ```drawlib ```` blocks default to pre-rendered diagram illustrations embedded in Markdown cells (`cell=markdown`) or convert `save(...)` to `show()` as executable code cells (`cell=code`), while ```` ```python ```` blocks become executable notebook code cells (or static prose code blocks when `cell=markdown`).
+- **In-Process AI Dry-Run Execution Engine (`--dry-run` / `--no-dry-run`, `execute_notebook_cells`)**: Sequentially executes all code cells in a shared `globals` namespace (`styles.py` and `utils.py` preloaded), capturing `stdout`, trailing expression `repr` / `Dimage`, `show()` PNG figures (`display_data`), and non-fatal `[Geometry Warning]` diagnostics into both `.ipynb` `outputs` and HTML `Out [N]:` blocks, while raising `NotebookExecutionError` with exact cell index and Markdown line numbers on failure.
+
+#### 2. Deterministic Working-Directory Path Resolution (`setup(..., cwd=True)`, `l1_core`, `l4_canvas`)
+- **`cwd: bool = False` on `canvas.setup()`**: While standalone `.py` scripts continue to resolve relative paths (`save()`, `image()`, `Dimage()`) against the caller script's directory by default (`cwd=False`), passing `setup(..., cwd=True)` deterministically anchors all relative paths and default `save()` output (`<cwd>/output.png`) to `os.getcwd()`—providing reliable path resolution inside JupyterLab, Google Colab, and interactive REPL sessions. Calling `clear()` resets `cwd=False`.
+
+#### 3. Official Bilingual Interactive Tutorials (`docs_src/jupyter/` -> `docs/jupyter/`)
+- **6-Chapter Hands-On Colab & Jupyter Curriculum (`en` / `ja`)**: Added bilingual interactive notebooks covering Google Colab & `setup(..., cwd=True)` fundamentals, style tokens & primitives, quantitative data charts, executive SmartArts, architecture & sequence diagrams, and `drawlib.graph` auto-layout coordinate solvers, backed by automated `pytest` dry-run verification and `./dcli docs build/serve jupyter [--lab]`.
+
+---
+
 ## Version 0.3.10
 
 *Release Date: 2026/11/13*

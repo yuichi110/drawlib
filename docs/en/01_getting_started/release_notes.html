@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/13">
+    <meta name="description" content="Release Date: 2026/11/15">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/13">
+    <meta property="og:description" content="Release Date: 2026/11/15">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/13">
+    <meta name="twitter:description" content="Release Date: 2026/11/15">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.10</span>
+                    <span class="sidebar-version-text">v0.3.11</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -715,6 +715,26 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.11</h2>
+<p><em>Release Date: 2026/11/15</em></p>
+<p>Version 0.3.11 introduces the 6th project archetype <strong><code>jupyter</code> (&quot;Illustrated Notebook &amp; Google Colab as Code&quot;)</strong> with an <strong>in-process AI Dry-Run execution engine</strong>, <strong>deterministic <code>setup(..., cwd=True)</code> working-directory path resolution</strong>, and <strong>bilingual interactive Jupyter / Google Colab tutorial notebooks (<code>docs_src/jupyter/</code>)</strong>.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. 6th Project Archetype: <code>jupyter</code> — Illustrated Jupyter &amp; Google Colab Notebooks as Code (<code>doc_builder</code>, <code>_cli</code>, <code>tools</code>)</h4>
+<ul>
+<li><strong>Single-Source <code>.ipynb</code> + Notebook-Styled HTML Compilation (<code>drawlib init project jupyter</code>, <code>drawlib build jupyter</code>, <code>build_jupyter()</code>)</strong>: Author clean Markdown (<code>*_src/&lt;lang&gt;/*.md</code>) in Git and compile simultaneously into nbformat v4.5 <code>.ipynb</code> notebooks (with automatic <code>!pip install -q drawlib</code> setup cell, <code>Open in Colab</code> header badge, and <code>&quot;attachment&quot;</code> / <code>&quot;url&quot;</code> / <code>&quot;relative&quot;</code> diagram embedding) and a searchable 2-column HTML catalog preview featuring <code>In [N]:</code> / <code>Out [N]:</code> notebook cells, one-click <code>.ipynb</code> download, and direct Google Colab launch buttons.</li>
+<li><strong>Dual Code Block Semantics (<code>cell=markdown | code</code>)</strong>: <code>```drawlib</code> blocks default to pre-rendered diagram illustrations embedded in Markdown cells (<code>cell=markdown</code>) or convert <code>save(...)</code> to <code>show()</code> as executable code cells (<code>cell=code</code>), while <code>```python</code> blocks become executable notebook code cells (or static prose code blocks when <code>cell=markdown</code>).</li>
+<li><strong>In-Process AI Dry-Run Execution Engine (<code>--dry-run</code> / <code>--no-dry-run</code>, <code>execute_notebook_cells</code>)</strong>: Sequentially executes all code cells in a shared <code>globals</code> namespace (<code>styles.py</code> and <code>utils.py</code> preloaded), capturing <code>stdout</code>, trailing expression <code>repr</code> / <code>Dimage</code>, <code>show()</code> PNG figures (<code>display_data</code>), and non-fatal <code>[Geometry Warning]</code> diagnostics into both <code>.ipynb</code> <code>outputs</code> and HTML <code>Out [N]:</code> blocks, while raising <code>NotebookExecutionError</code> with exact cell index and Markdown line numbers on failure.</li>
+</ul>
+<h4>2. Deterministic Working-Directory Path Resolution (<code>setup(..., cwd=True)</code>, <code>l1_core</code>, <code>l4_canvas</code>)</h4>
+<ul>
+<li><strong><code>cwd: bool = False</code> on <code>canvas.setup()</code></strong>: While standalone <code>.py</code> scripts continue to resolve relative paths (<code>save()</code>, <code>image()</code>, <code>Dimage()</code>) against the caller script's directory by default (<code>cwd=False</code>), passing <code>setup(..., cwd=True)</code> deterministically anchors all relative paths and default <code>save()</code> output (<code>&lt;cwd&gt;/output.png</code>) to <code>os.getcwd()</code>—providing reliable path resolution inside JupyterLab, Google Colab, and interactive REPL sessions. Calling <code>clear()</code> resets <code>cwd=False</code>.</li>
+</ul>
+<h4>3. Official Bilingual Interactive Tutorials (<code>docs_src/jupyter/</code> -&gt; <code>docs/jupyter/</code>)</h4>
+<ul>
+<li><strong>6-Chapter Hands-On Colab &amp; Jupyter Curriculum (<code>en</code> / <code>ja</code>)</strong>: Added bilingual interactive notebooks covering Google Colab &amp; <code>setup(..., cwd=True)</code> fundamentals, style tokens &amp; primitives, quantitative data charts, executive SmartArts, architecture &amp; sequence diagrams, and <code>drawlib.graph</code> auto-layout coordinate solvers, backed by automated <code>pytest</code> dry-run verification and <code>./dcli docs build/serve jupyter [--lab]</code>.</li>
+</ul>
+<hr />
 <h2>Version 0.3.10</h2>
 <p><em>Release Date: 2026/11/13</em></p>
 <p>Version 0.3.10 introduces <strong>interactive animation range looping (<code>anim_pause=(0-3, 4-7)</code>) for 16:9 HTML slide decks</strong>, allowing presentations to continuously loop specific frame segments (such as steady-state data flows or request/response cycles) and advance immediately to the next phase on click, <code>A</code> key, or Presenter View's <code>⏭ Next Step</code> control, alongside <strong>documentation portal analytics and updated bilingual guides</strong>.</p>

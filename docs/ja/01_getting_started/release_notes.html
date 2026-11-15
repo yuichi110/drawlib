@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="リリース日: 2026/11/13">
+    <meta name="description" content="リリース日: 2026/11/15">
     <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib ドキュメント">
     <meta property="og:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta property="og:description" content="リリース日: 2026/11/13">
+    <meta property="og:description" content="リリース日: 2026/11/15">
     <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta name="twitter:description" content="リリース日: 2026/11/13">
+    <meta name="twitter:description" content="リリース日: 2026/11/15">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.10</span>
+                    <span class="sidebar-version-text">v0.3.11</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -715,6 +715,26 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.11</h2>
+<p><em>リリース日: 2026/11/15</em></p>
+<p>バージョン 0.3.11 では、第 6 のプロジェクトアーキタイプ <strong><code>jupyter</code>（「図解付き Jupyter Notebook / Google Colab as Code」＋ AI Dry-Run 自動実行検証エンジン）</strong>、<strong><code>setup(..., cwd=True)</code> による決定論的なカレントディレクトリ基準パス解決</strong>、および <strong>日英バイリンガル全 6 章の対話型ハンズオン教材（<code>docs_src/jupyter/</code>）</strong> を新搭載しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. 第 6 のプロジェクトアーキタイプ <code>jupyter</code> — 図解付き Jupyter / Google Colab ノートブック as Code（<code>doc_builder</code>, <code>_cli</code>, <code>tools</code>）</h4>
+<ul>
+<li><strong>単一 Markdown からの <code>.ipynb</code> &amp; ノートブック風 HTML カタログ同時生成（<code>drawlib init project jupyter</code>, <code>drawlib build jupyter</code>, <code>build_jupyter()</code>）</strong>: Git 管理しやすい Markdown（<code>*_src/&lt;lang&gt;/*.md</code>）から、nbformat v4.5 準拠の <code>.ipynb</code> ノートブック（<code>!pip install -q drawlib</code> セットアップセル・<code>Open in Colab</code> ヘッダーバッジ・<code>&quot;attachment&quot;</code> / <code>&quot;url&quot;</code> / <code>&quot;relative&quot;</code> 画像モード対応）と、<code>In [N]:</code> / <code>Out [N]:</code> セル表示・<code>.ipynb</code> ワンクリックダウンロード・Google Colab 直接起動ボタンを備えた 2 カラム HTML プレビューサイトを一括コンパイルします。</li>
+<li><strong>2 種類のコードブロック制御（<code>cell=markdown | code</code>）</strong>: <code>```drawlib</code> ブロックはデフォルトでビルド時に描画された図解として Markdown セルへ埋め込まれ（<code>cell=markdown</code>）、<code>cell=code</code> 指定時は <code>save(...)</code> を <code>show()</code> に自動変換して実行可能なコードセルとして出力します。<code>```python</code> ブロックは実行可能な Python コードセル（<code>cell=markdown</code> 指定時は説明用コードブロック）に変換されます。</li>
+<li><strong>In-Process AI Dry-Run 自動実行エンジン（<code>--dry-run</code> / <code>--no-dry-run</code>, <code>execute_notebook_cells</code>）</strong>: ビルド時にノートブック内の全コードセルを先頭から共有 <code>globals</code> 名前空間（<code>styles.py</code>・<code>utils.py</code> 事前ロード済み）で順次実行し、<code>stdout</code>・末尾式の評価結果（<code>repr</code> / <code>Dimage</code>）・<code>show()</code> 描画画像（<code>image/png</code>）・<code>[Geometry Warning]</code> 警告を <code>.ipynb</code> の <code>outputs</code> と HTML の <code>Out [N]:</code> の双方へ自動記録します。エラー時はセル番号（<code>In [N]</code>）と Markdown 行番号を含む <code>NotebookExecutionError</code> で即座に検出できます。</li>
+</ul>
+<h4>2. <code>setup(..., cwd=True)</code> による決定論的なカレントディレクトリ基準パス解決（<code>l1_core</code>, <code>l4_canvas</code>）</h4>
+<ul>
+<li><strong><code>canvas.setup()</code> への <code>cwd: bool = False</code> オプション追加</strong>: 通常の <code>.py</code> スクリプトでは従来どおり呼び出し元スクリプトの場所基準で相対パス（<code>save()</code>・<code>image()</code>・<code>Dimage()</code>）を解決しますが、<code>setup(..., cwd=True)</code> を指定すると決定論的に <code>os.getcwd()</code> 基準へ切り替わり、JupyterLab・Google Colab・対話型 REPL セッション内でも一貫して相対パスおよびデフォルト <code>save()</code>（<code>&lt;cwd&gt;/output.png</code>）が機能します（<code>clear()</code> 時に <code>cwd=False</code> へリセット）。</li>
+</ul>
+<h4>3. 日英バイリンガル対話型ハンズオン教材（<code>docs_src/jupyter/</code> -&gt; <code>docs/jupyter/</code>）と <code>dcli</code> 連携</h4>
+<ul>
+<li><strong>全 6 章の Google Colab / Jupyter チュートリアル（<code>en</code> / <code>ja</code>）</strong>: Colab 連携と <code>setup(..., cwd=True)</code>、スタイルトークンと基本図形、データ集計と定量チャート、SmartArts、クラウド構成図・シーケンス図、<code>drawlib.graph</code> 自動レイアウトを網羅した日英ノートブック教材を追加し、<code>pytest</code> による自動 Dry-Run テストおよび <code>./dcli docs build/serve jupyter [--lab]</code> に対応しました。</li>
+</ul>
+<hr />
 <h2>バージョン 0.3.10</h2>
 <p><em>リリース日: 2026/11/13</em></p>
 <p>バージョン 0.3.10 では、16:9 HTML スライドデッキ向けに <strong>アニメーションのフレーム範囲ループ制御（<code>anim_pause=(0-3, 4-7)</code>）</strong> を新搭載し、定常状態のデータフローやリクエスト／レスポンスのサイクルを特定フレーム範囲でループ再生させながら、クリック・<code>A</code> キー・発表者ビューの <code>⏭ Next Step</code> 操作で即座に次のフェーズへ進められるようにしたほか、<strong>ドキュメントポータルへの Google Analytics 導入と日英ガイド・AI ルールの拡充</strong> を実施しました。</p>
