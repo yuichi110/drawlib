@@ -1155,6 +1155,7 @@ Options are specified as space-delimited `key=value` pairs on the opening code f
 | **Cache Control** | `no_cache=true` | `False` | Forces this specific block to re-execute on every build, bypassing `.drawlib/cache.db`. |
 | **Slide Animation Controls** | `anim_trigger=auto\|click`, `anim_loop=once\|infinite`, `anim_pause=(2, 4)` or `(0-3, 4-7)` | `auto`, `infinite`, `()` | Controls interactive `<canvas>` animation playback (single-frame pauses and `start-end` loop ranges) in HTML slide decks (see [Slide Deck Project Guide](./project_slide.md)). |
 | **Static Frame Export** | `static_frame=first\|last\|<int>` | `last` (or CLI `--static-frame`) | Selects which frame (`first`, `last`, or 0-based/negative integer frame index) of an animated block is flattened into a static PNG when exporting to PDF (`drawlib build pdf`), Word (`drawlib build docx`), PowerPoint (`drawlib build pptx`), or browser print (`Ctrl+P` / `Cmd+P`). |
+| **Jupyter Cell Mode** | `cell=markdown\|code` | `markdown` (`drawlib`) / `code` (`python`) | In `jupyter` projects, controls whether a ```` ```drawlib ```` or ```` ```python ```` block compiles into a narrative `.ipynb` `markdown` cell or an executable `code` cell (`In [n]` / `Out[n]`; see [Jupyter & Colab Project Guide](./project_jupyter.md)). |
 
 > [!TIP]
 > **Best Practice for AI & Automation**:

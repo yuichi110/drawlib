@@ -831,13 +831,16 @@ drawlib build pdf doc_src/ -o manual.pdf --toc              # High-fidelity vect
 drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) document
 drawlib build slide slide_src/ -o slide_html/               # Interactive 16:9 HTML slide deck
 drawlib build pptx slide_src/ -o deck.pptx                  # Editable 16:9 MS PowerPoint (.pptx) deck
+drawlib build jupyter jupyter_src/ -o jupyter_jupyter/      # Bundled .ipynb + HTML preview (or --dry-run)
 drawlib build image scripts/ -o assets/ -g                  # Batch Python image rendering
 
 # Scaffolding & AI Agent Rules
-drawlib init project list                                  # List starter project templates (site, doc, slide, images)
+drawlib init project list                                  # List starter project templates (doc, site, catalog, slide, jupyter, images)
 drawlib init project doc my_doc                            # Scaffold linear document project (HTML, PDF, DOCX, MD, images)
 drawlib init project site my_site                          # Scaffold documentation site
+drawlib init project catalog my_api -s google              # Scaffold 2-column catalog & API reference site
 drawlib init project slide my_deck -s google               # Scaffold 16:9 presentation slide deck
+drawlib init project jupyter my_notebooks -s google        # Scaffold interactive Jupyter & Colab notebook project
 drawlib init project images my_images                      # Scaffold standalone images project (alias: image)
 drawlib init agent list                                    # List supported AI coding agent targets and output paths
 drawlib init agent antigravity                             # Generate AI agent rules (.agents/rules/drawlib.md, mode: auto)
@@ -1049,7 +1052,25 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --static-frame last
 | `--timestamp` | | `False` | Include current build timestamp in PowerPoint metadata instead of normalizing it. |
 | `--workers` | `-w` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8` or `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
-### 4.7 `drawlib build image`
+### 4.7 `drawlib build jupyter`
+Compiles Markdown notebook sources (`jupyter_src/<lang>/**/*.md`) into a unified bundle containing executable Jupyter Notebooks (`<lang>/*.ipynb`) and a 2-column HTML preview website (`<lang>/*.html` + root `index.html`) with in-process AI dry-run execution (capturing `stdout`, expression results, and `show()` / `save()` figures while verifying zero unhandled exceptions or `[Geometry Warning]`).
+
+```bash
+drawlib build jupyter jupyter_src/ -o jupyter_jupyter/
+drawlib build jupyter jupyter_src/ --dry-run
+```
+
+| Option | Shorthand | Default | Description |
+|---|---|---|---|
+| `--output` | `-o` | `<base>_jupyter/` | Destination output directory path (or `.ipynb` file path for single-file build). |
+| `--format` | `-f` | `png` | Image output format for embedded `drawlib` blocks (`png` or `webp`). |
+| `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py` (pre-loaded into notebook execution `globals`). |
+| `--execute` / `--no-execute` | | `None` (from `[jupyter].execute`) | Execute `code` cells sequentially in-process and populate `.ipynb` and HTML cell outputs. |
+| `--dry-run` | | `False` | Execute all cells and validate `[Geometry Warning]` without writing output files to disk. |
+| `--no-cache` | | `False` | Bypass `.drawlib/cache.db` and re-execute all diagram blocks. |
+| `--workers` | `-w` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8` or `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
+
+### 4.8 `drawlib build image`
 Batch executes standalone Python illustration scripts (`.py`) or extracts embedded drawing blocks from Markdown files (`.md`) to generate image assets.
 
 ```bash
@@ -1085,10 +1106,10 @@ drawlib init project <TYPE> [target] [OPTIONS]
 drawlib init project list
 ```
 
-- `<TYPE>`: Subcommand choosing project type: `doc`, `site`, `catalog`, `slide` (all initialized with unified `<src_dir>/<lang>/` locale directories and `[i18n]` in `drawlib.toml`), `images` (alias: `image`), or `list`.
-- `[target]`: Base name for the project and source folder (creates `<target>_src/`). Defaults: `doc` for `doc`, `docs` for `site`, `catalog` for `catalog`, `slide` for `slide`, `images` for `images`.
+- `<TYPE>`: Subcommand choosing project type: `doc`, `site`, `catalog`, `slide`, `jupyter` (all initialized with unified `<src_dir>/<lang>/` locale directories and `[i18n]` in `drawlib.toml`), `images` (alias: `image`), or `list`.
+- `[target]`: Base name for the project and source folder (creates `<target>_src/`). Defaults: `doc` for `doc`, `docs` for `site`, `catalog` for `catalog`, `slide` for `slide`, `jupyter` for `jupyter`, `images` for `images`.
 - `-s`, `--style <theme>`: Style preset theme (`default`, `google`, `monochrome`, etc.) synchronously configuring both `style.css` and `styles.py`.
-- `-l`, `--lang <code>`: Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.; supports comma-separated multi-locale codes such as `-l en,ja` on `doc`, `site`, `catalog`, and `slide`). Default: `en`.
+- `-l`, `--lang <code>`: Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.; supports comma-separated multi-locale codes such as `-l en,ja` on `doc`, `site`, `catalog`, `slide`, and `jupyter`). Default: `en`.
 - `-f`, `--force`: Overwrite existing files if destination directory already exists.
 
 ### 5.2 AI Coding Agent Instructions (`drawlib init agent`)
@@ -1202,10 +1223,11 @@ drawlib rules show overview                   # View Cartesian geometry principl
 drawlib rules show style-guide                # View 50%+ neutral baseline & semantic color rules
 drawlib rules show review-guide               # View 3-stage multimodal review loop & 720pt font math
 drawlib rules show anim-guide                 # View animation idioms across all modules
-drawlib rules show project-overview           # View 5 project archetypes & shared architecture
+drawlib rules show project-overview           # View 6 project archetypes & shared architecture
 drawlib rules show project-site               # View multi-page website authoring & navbar.md rules
 drawlib rules show project-catalog            # View 2-column catalog & semantic badge rules
 drawlib rules show project-slide              # View 1920x1080 slide authoring & stage rules
+drawlib rules show project-jupyter            # View Jupyter/Colab notebook & AI dry-run rules
 drawlib rules show lib-graph-overview         # View declarative graph layout solvers overview
 drawlib rules show lib-diagrams-overview --raw # Output raw Markdown without building/checking cache
 drawlib rules show lib-shapes-overview --rebuild # Force regenerate companion rule illustrations

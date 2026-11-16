@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/en/" target="_blank" rel="noopener noreferrer">Interactive Jupyter Notebooks<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_jupyter.html" >Jupyter Notebook Project (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
                             </li>
                             
@@ -785,6 +793,7 @@ If you generate multiple illustrations in a single Python script, always call <c
     <span class="n">grid_centerstyle</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">grid_xpitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">grid_ypitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cwd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <h4>Parameter Reference:</h4>
@@ -863,6 +872,12 @@ If you generate multiple illustrations in a single Python script, always call <c
 <td style="text-align:left"><code>int</code></td>
 <td style="text-align:left"><code>height / 10</code></td>
 <td style="text-align:left">Spacing between horizontal grid lines.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cwd</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">Resolve relative file paths (<code>image()</code>, <code>save()</code>) against <code>Path.cwd()</code> instead of the caller script directory (used automatically in Jupyter notebooks and REPL sessions).</td>
 </tr>
 </tbody>
 </table>

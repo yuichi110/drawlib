@@ -1,0 +1,1272 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupyter &amp; Colab Notebook Project Guide (`drawlib init project jupyter`)</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S9N5BZ1VRC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-S9N5BZ1VRC');
+    </script>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html">
+    
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_jupyter.html">
+    
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html">
+    
+    
+    
+    <meta name="description" content="The jupyter starter template brings &quot;Illustrated Notebook &amp; Google Colab as Code&quot; to Drawlib. Instead of versioning monolithic, diff-hostile .ipynb JSON…">
+    <link rel="canonical" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib Documentation">
+    <meta property="og:title" content="Jupyter &amp; Colab Notebook Project Guide (drawlib init project jupyter) — Drawlib Documentation">
+    <meta property="og:description" content="The jupyter starter template brings &quot;Illustrated Notebook &amp; Google Colab as Code&quot; to Drawlib. Instead of versioning monolithic, diff-hostile .ipynb JSON…">
+    <meta property="og:url" content="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html">
+    <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jupyter &amp; Colab Notebook Project Guide (drawlib init project jupyter) — Drawlib Documentation">
+    <meta name="twitter:description" content="The jupyter starter template brings &quot;Illustrated Notebook &amp; Google Colab as Code&quot; to Drawlib. Instead of versioning monolithic, diff-hostile .ipynb JSON…">
+    <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    <div class="demo-banner" role="region" aria-label="Portal Navigation">
+        <div class="demo-banner-inner">
+            <span class="demo-banner-badge">DRAWLIB OFFICIAL</span>
+            <span class="demo-banner-text">
+                Official User Guide (<code>type = "site"</code>) built with Drawlib
+            </span>
+            <span class="demo-banner-links">
+                <strong>User Guide</strong>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../api/index.html">API Reference</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../architecture/index.html">Architecture</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../quickstart/en/index.html">Quickstart</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../about-drawlib/en/index.html">Slide Deck</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../jupyter/en/index.html">Jupyter / Colab</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../reports/pni-full-audit/index.html">PNI501 Audit</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples ↗</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </span>
+        </div>
+    </div>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.12</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Why Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/uvx_any_project.html" >Zero-Install Workflow (`uvx`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project &amp; Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow &amp; Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes &amp; Migration</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/api/en/" target="_blank" rel="noopener noreferrer">API &amp; CLI Reference<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/quickstart/en/" target="_blank" rel="noopener noreferrer">Quickstart Handbook<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/about-drawlib/en/" target="_blank" rel="noopener noreferrer">About Drawlib Slide Deck<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/en/" target="_blank" rel="noopener noreferrer">Interactive Jupyter Notebooks<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives &amp; Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas &amp; Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic &amp; Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons &amp; Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows &amp; Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow &amp; Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges &amp; Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols &amp; Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines &amp; Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text &amp; Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts &amp; Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images &amp; Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles &amp; Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes &amp; Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design &amp; Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons &amp; Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >Cloud &amp; Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps &amp; Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >Network &amp; Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >Server, OS &amp; Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >Security &amp; Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >Data Center &amp; Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI &amp; Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >Data &amp; Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >Code, Languages &amp; Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >Enterprise Business &amp; FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT Services &amp; Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >Workspace &amp; Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >Social, Media &amp; Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >Client Devices &amp; Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >Axes, Scales &amp; Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/box.html" >Box &amp; Strip Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie &amp; Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap &amp; Thermal Overlay</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives &amp; Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder &amp; CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_catalog.html" >Catalog Project (`catalog`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="slide_layout_and_api.html" >Slide Stage Layout &amp; API</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="project_jupyter.html" >Jupyter Notebook Project (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="customization.html" >Templates &amp; CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="caching_and_cicd.html" >Caching Architecture &amp; CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents &amp; Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions &amp; Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout &amp; Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >Troubleshooting &amp; Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/architecture/" target="_blank" rel="noopener noreferrer">Internal Architecture<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Jupyter &amp; Colab Notebook Project Guide (`drawlib init project jupyter`)</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">English</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="project_jupyter.html" class="lang-option active" lang="en" hreflang="en" aria-current="page">
+                                <span>English</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                            <a href="../../ja/09_doc_builder_and_cli/project_jupyter.html" class="lang-option" lang="ja" hreflang="ja" >
+                                <span>日本語</span>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Jupyter &amp; Colab Notebook Project Guide (<code>drawlib init project jupyter</code>)</h1>
+<p>The <code>jupyter</code> starter template brings <strong>&quot;Illustrated Notebook &amp; Google Colab as Code&quot;</strong> to Drawlib. Instead of versioning monolithic, diff-hostile <code>.ipynb</code> JSON files with stale binary outputs, you author narrative prose, architectural diagrams (<code>```drawlib</code>), and interactive Python exercises (<code>```python</code> or <code>```drawlib cell=code</code>) in clean Markdown (<code>jupyter_src/&lt;lang&gt;/**/*.md</code>)—compiling simultaneously into a <strong>unified web &amp; notebook bundle (<code>jupyter_jupyter/</code> or <code>jupyter_html/</code>)</strong> containing <strong>executable Jupyter Notebooks (<code>&lt;lang&gt;/*.ipynb</code>)</strong> and a <strong>two-column HTML preview website (<code>&lt;lang&gt;/*.html</code> + root <code>index.html</code> with <code>In [n]</code> / <code>Out[n]</code> cells, <code>.ipynb</code> download, and Open in Colab)</strong> verified by an <strong>in-process AI Dry-Run engine</strong>:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/09_doc_builder_and_cli/project_jupyter/project_jupyter_compilation_pipeline.png" alt="project_jupyter_1" />
+  <figcaption class="drawlib-caption">How Markdown Notebook Sources Compile Through the In-Process AI Dry-Run Engine into a Unified .ipynb and HTML Preview Bundle</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Left: Markdown Notebook Source</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="s2">"jupyter_src/&lt;lang&gt;/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span>
+    <span class="s2">"01_tutorial.md</span><span class="se">\n</span><span class="s2">• Narrative + # H1 / ## H2</span><span class="se">\n</span><span class="s2">• ```drawlib (diagram)</span><span class="se">\n</span><span class="s2">• ```python (code cell)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"styles.py &amp; drawlib.toml"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Middle: In-Process AI Dry-Run Engine</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">63</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">play_circle</span><span class="p">((</span><span class="mf">50.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">65.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="s2">"AI Dry-Run Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span>
+    <span class="s2">"Sequential shared globals</span><span class="se">\n</span><span class="s2">• Executes code cells</span><span class="se">\n</span><span class="s2">• Captures stdout &amp; expr</span><span class="se">\n</span><span class="s2">• Captures show() / save()</span><span class="se">\n</span><span class="s2">• Fails on Geometry Warn"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mf">12.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"--dry-run Verification"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Right: Unified Output Bundle (jupyter_jupyter/ or jupyter_html/)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">81</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">folder_open</span><span class="p">((</span><span class="mf">92.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.2</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="s2">"jupyter_jupyter/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.ipynb"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Pre-populated Out[n] +</span><span class="se">\n</span><span class="s2">!pip install setup cell"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.html"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="s2">"In[n]/Out[n] preview +</span><span class="se">\n</span><span class="s2">Download &amp; Colab links"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Why Author Jupyter &amp; Colab Notebooks in Markdown?</h2>
+<p>Maintaining tutorials, data-science guides, and hands-on workshops directly inside <code>.ipynb</code> JSON files introduces friction for engineering teams and AI coding agents:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Challenge with Raw <code>.ipynb</code> Files</th>
+<th style="text-align:left">How Drawlib's <code>jupyter</code> Project Solves It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Noisy Git Diffs</strong>: Base64 PNG blobs and execution counters clutter pull requests.</td>
+<td style="text-align:left"><strong>Clean Markdown Source (<code>jupyter_src/&lt;lang&gt;/*.md</code>)</strong>: Author plain-text Markdown with fenced <code>```drawlib</code> and <code>```python</code> blocks; <code>.ipynb</code> and HTML outputs are deterministic build artifacts.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Broken Cells &amp; Stale Outputs</strong>: Out-of-order manual cell execution leaves hidden state bugs.</td>
+<td style="text-align:left"><strong>In-Process AI Dry-Run (<code>execute = true</code> / <code>--dry-run</code>)</strong>: Executes every notebook top-to-bottom in a fresh shared <code>globals</code> namespace on build, failing immediately on any exception or <code>[Geometry Warning]</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Separate Web Docs vs. Notebooks</strong>: Teams duplicate effort maintaining web tutorials and Colab notebooks.</td>
+<td style="text-align:left"><strong>Bundled <code>.ipynb</code> + HTML Output</strong>: A single build outputs <code>&lt;lang&gt;/*.html</code> and <code>&lt;lang&gt;/*.ipynb</code> side-by-side in the same folder (<code>jupyter_jupyter/</code> or <code>jupyter_html/</code>), so you can deploy directly to any custom domain without GitHub.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Multi-Locale Duplication</strong>: Translating <code>.ipynb</code> notebooks into English and Japanese is error-prone.</td>
+<td style="text-align:left"><strong>Native <code>[i18n]</code> Support (<code>-l en,ja</code>)</strong>: Unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> directories with automatic language switcher and per-locale <code>.ipynb</code> outputs.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Live Showcase:</strong> Explore Drawlib's own 6-chapter bilingual interactive tutorial built with <code>type = &quot;jupyter&quot;</code> at <a href="https://www.drawlib.com/jupyter/en/"><code>https://www.drawlib.com/jupyter/</code></a>.</p>
+</blockquote>
+<hr />
+<h2>2. Scaffolding &amp; Directory Layout</h2>
+<p>Initialize a single-locale or multi-locale <code>jupyter</code> project using <code>drawlib init project jupyter</code>:</p>
+<pre><code class="language-bash"><span class="c1"># Default English jupyter project (creates jupyter_src/en/):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter
+
+<span class="c1"># Custom target name + bilingual (en,ja) + Google theme:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span>tutorials<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+
+<span class="c1"># Fast AI Dry-Run verification (executes all cells, checks [Geometry Warning], writes no files):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
+
+<span class="c1"># Compile bundled .ipynb notebooks + HTML preview site into jupyter_jupyter/:</span>
+./jupyter_src/build.sh
+
+<span class="c1"># Validate HTML preview links and bundled .ipynb assets headlessly:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>jupyter_jupyter/<span class="w"> </span>--check
+</code></pre>
+<p>Scaffolded directory layout:</p>
+<pre><code class="language-text">jupyter_src/
+├── drawlib.toml               # [MANDATORY] Project manifest (type = "jupyter", [i18n], [jupyter], optional [seo])
+├── styles.py                  # Shared Drawlib Style / Color overrides (pre-loaded into notebook globals)
+├── utils.py                   # Reusable Python helpers imported across notebooks
+├── style.css                  # Responsive 2-column HTML preview stylesheet (includes In[n]/Out[n] cells)
+├── template.html              # Jinja2 HTML preview layout with Open in Colab &amp; .ipynb download bar
+├── _assets/                   # Static images/logos &amp; favicon.png (copied to output _assets/)
+├── en/                        # Locale notebook source directory (sorted naturally: 01_, 02_, ...)
+│   ├── 01_sample_notebook.md  # Notebook 1: Markdown narrative + drawlib diagrams + python code cells
+│   └── README.md              # Authoring guide (automatically excluded from notebook compilation)
+├── build.sh                   # Master build script (compiles bundled .ipynb + HTML into jupyter_jupyter/)
+├── build_jupyter.sh           # Compile bundled .ipynb + HTML preview -&gt; jupyter_jupyter/
+├── build_html.sh              # Alias for building bundled .ipynb + HTML preview -&gt; jupyter_jupyter/
+└── serve.sh                   # Local HTTP preview server (drawlib serve jupyter_jupyter/)
+</code></pre>
+<p>When compiled, the output directory (<code>jupyter_jupyter/</code> or <code>jupyter_html/</code>) bundles <code>.ipynb</code> files right alongside <code>.html</code> pages:</p>
+<pre><code class="language-text">jupyter_jupyter/               # Self-contained web &amp; notebook bundle (deployable to any domain)
+├── index.html                 # Root entry page (rebased from default_lang first notebook)
+├── en/
+│   ├── index.html
+│   ├── 01_sample_notebook.html  # 2-column HTML preview with "⬇ Download .ipynb" &amp; "Open in Colab"
+│   └── 01_sample_notebook.ipynb # Bundled executable Jupyter Notebook (linked relatively from HTML)
+├── images/                    # Shared diagram images across locales
+└── _assets/                   # Static assets &amp; favicon
+</code></pre>
+<hr />
+<h2>3. Dual Code Block Semantics (<code>cell=markdown</code> vs. <code>cell=code</code>)</h2>
+<p>Inside <code>jupyter_src/&lt;lang&gt;/**/*.md</code>, standard Markdown prose and headings (<code># H1</code>, <code>## H2</code>, tables, lists) become <code>.ipynb</code> <code>markdown</code> cells, while fenced code blocks are routed according to their language identifier (<code>drawlib</code> vs. <code>python</code>) and optional <code>cell=</code> attribute:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Fence Syntax in <code>.md</code> Source</th>
+<th style="text-align:left">Compiled <code>.ipynb</code> Cell Type</th>
+<th style="text-align:left">Compiled HTML Preview Output</th>
+<th style="text-align:left">Primary Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>```drawlib file=arch.png caption=&quot;...&quot;</code><br><em>(default <code>cell=markdown</code>)</em></td>
+<td style="text-align:left"><strong><code>markdown</code> cell</strong> containing the rendered diagram (<code>attachment:&lt;file&gt;.png</code>, <code>[seo].site_url</code> URL, or relative path)</td>
+<td style="text-align:left">Rendered <code>&lt;figure&gt;</code> diagram with optional <code>&lt;details&gt;</code> source fold (<code>code=fold</code>)</td>
+<td style="text-align:left">Explanatory architecture, flow, sequence, or concept diagrams accompanying narrative text.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>```drawlib cell=code file=exercise.png</code><br><em>(or <code>[jupyter].drawlib_cell_mode = &quot;code&quot;</code>)</em></td>
+<td style="text-align:left"><strong><code>code</code> cell</strong> with <code>save(...)</code> rewritten to <code>show()</code> and pre-populated <code>display_data</code> (<code>image/png</code>) output</td>
+<td style="text-align:left">Notebook <code>In [n]:</code> code cell + <code>Out[n]:</code> rendered figure</td>
+<td style="text-align:left">Hands-on Drawlib coding exercises where learners modify coordinates/styles and re-run the cell in Jupyter/Colab.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>```python</code><br><em>(default <code>cell=code</code>)</em></td>
+<td style="text-align:left"><strong><code>code</code> cell</strong> with pre-populated <code>stdout</code>, <code>execute_result</code>, and <code>display_data</code> outputs</td>
+<td style="text-align:left">Notebook <code>In [n]:</code> code cell + <code>Out[n]:</code> execution output</td>
+<td style="text-align:left">Live Python data preparation, state sharing across cells, or calling Drawlib APIs with <code>setup(..., cwd=True)</code> and <code>show()</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>```python cell=markdown</code></td>
+<td style="text-align:left"><strong><code>markdown</code> cell</strong> containing a static syntax-highlighted Python snippet</td>
+<td style="text-align:left">Standard static code block (not executed)</td>
+<td style="text-align:left">Non-executable reference pseudocode or configuration snippets.</td>
+</tr>
+</tbody>
+</table>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/09_doc_builder_and_cli/project_jupyter/project_jupyter_cell_routing.png" alt="project_jupyter_2" />
+  <figcaption class="drawlib-caption">Routing of drawlib and python Code Fences into .ipynb Cells and HTML Preview Blocks</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">66.0</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span>
+    <span class="s2">"Dual Code Block Routing: Narrative Diagrams (cell=markdown) vs. Live Code Cells (cell=code)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">tbl</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="n">cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">header_cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">header_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">border_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">has_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">set_style_cell_evenodd</span><span class="p">(</span>
+    <span class="n">even_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">even_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">odd_color</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">shape_fill_color</span> <span class="ow">or</span> <span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">odd_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">set_style_cell_header</span><span class="p">(</span>
+    <span class="n">background_color</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">shape_fill_color</span> <span class="ow">or</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">draw_flexible</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">),</span>
+    <span class="n">column_widths</span><span class="o">=</span><span class="p">[</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">],</span>
+    <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">8.2</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">],</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">[</span><span class="s2">"Markdown Fence"</span><span class="p">,</span> <span class="s2">".ipynb Cell Type"</span><span class="p">,</span> <span class="s2">"Dry-Run Execution"</span><span class="p">,</span> <span class="s2">"HTML Preview Rendering"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"```drawlib file=a.png"</span><span class="p">,</span> <span class="s2">"markdown cell (Image)"</span><span class="p">,</span> <span class="s2">"Sandboxed Diagram"</span><span class="p">,</span> <span class="s2">"&lt;figure&gt; + code=fold"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"```drawlib cell=code"</span><span class="p">,</span> <span class="s2">"code cell (show())"</span><span class="p">,</span> <span class="s2">"Shared Notebook Globals"</span><span class="p">,</span> <span class="s2">"In [n]: Code + Out[n]: PNG"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"```python"</span><span class="p">,</span> <span class="s2">"code cell"</span><span class="p">,</span> <span class="s2">"Shared Notebook Globals"</span><span class="p">,</span> <span class="s2">"In [n]: Code + Out[n]: Text/PNG"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"```python cell=markdown"</span><span class="p">,</span> <span class="s2">"markdown cell (Code)"</span><span class="p">,</span> <span class="s2">"Skipped (Static)"</span><span class="p">,</span> <span class="s2">"Syntax-Highlighted Block"</span><span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Markdown Notebook Authoring Example (<code>01_quickstart.md</code>):</h3>
+<pre><code class="language-markdown"><span class="gh"># Chapter 1: Drawlib Quickstart in Google Colab</span>
+
+Learn how to combine explanatory architecture diagrams with live, editable Python cells.
+
+<span class="sb">```drawlib</span><span class="w"> </span>align=center code=fold file=ch01_concept_arch.png caption="Explanatory Architecture Diagram (Rendered as a Markdown Cell)"
+<span class="s">from drawlib.canvas import save, setup</span>
+<span class="s">from drawlib.shapes import rectangle</span>
+<span class="s">from drawlib.styles import Styles</span>
+
+<span class="s">setup(width=100, height=32)</span>
+<span class="s">rectangle((50, 16), width=76, height=18, style=Styles.PrimaryNeutral, text="Narrative Architecture Figure")</span>
+<span class="s">save()</span>
+<span class="sb">```</span>
+
+<span class="gu">## 1. Shared State Across Executable Python Cells</span>
+
+Variables defined in one <span class="sb">`python`</span> cell remain live in subsequent cells:
+
+<span class="sb">```python</span>
+<span class="c1"># In [1]: Define shared layout metrics</span>
+<span class="n">CANVAS_W</span><span class="p">,</span> <span class="n">CANVAS_H</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">36</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ingest"</span><span class="p">,</span> <span class="s2">"Transform"</span><span class="p">,</span> <span class="s2">"Serve"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Configured </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> pipeline stages on </span><span class="si">{</span><span class="n">CANVAS_W</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">CANVAS_H</span><span class="si">}</span><span class="s2"> canvas"</span><span class="p">)</span>
+<span class="sb">```</span>
+
+<span class="sb">```python</span>
+<span class="c1"># In [2]: Render inline using setup(..., cwd=True) and show()</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">CANVAS_W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">CANVAS_H</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nodes</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mi">30</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span>
+    <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+<span class="sb">```</span>
+</code></pre>
+<hr />
+<h2>4. Configuring <code>[jupyter]</code> &amp; Google Colab Integration (<code>drawlib.toml</code>)</h2>
+<p>Configure notebook image embedding, default cell modes, <code>!pip install</code> setup cells, and <strong>Open in Colab</strong> links under <code>[jupyter]</code> in <code>jupyter_src/drawlib.toml</code>:</p>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
+<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Drawlib Interactive Notebooks"</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Interactive Jupyter &amp; Google Colab Hands-on Tutorials"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"google"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">]</span>
+
+<span class="k">[jupyter]</span>
+<span class="c1"># Base URL prefix (auto-appends /&lt;lang&gt;/&lt;stem&gt;.ipynb) or {path} URL template:</span>
+<span class="n">colab_base_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://colab.research.google.com/github/owner/repo/blob/main/jupyter_jupyter"</span>
+<span class="n">setup_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"drawlib"</span><span class="p">]</span><span class="w">               </span><span class="c1"># Prepends an auto-generated `!pip install -q drawlib` cell when non-empty</span>
+<span class="n">drawlib_cell_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="w">             </span><span class="c1"># Default for ```drawlib fences: "markdown" | "code"</span>
+<span class="n">image_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"attachment"</span><span class="w">                  </span><span class="c1"># "attachment" (self-contained) | "url" ([seo].site_url) | "relative"</span>
+<span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                             </span><span class="c1"># Sequentially dry-run all code cells during build and populate outputs</span>
+
+<span class="c1"># [seo]</span>
+<span class="c1"># site_url = "https://example.com/jupyter" # Used when image_mode = "url" (plus canonical/OGP/sitemap tags)</span>
+</code></pre>
+<h3>4.1. <code>[jupyter]</code> Reference Table</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>colab_base_url</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">Base URL or <code>{path}</code> URL template for the <strong>Open in Colab</strong> button injected into <code>.ipynb</code> notebooks and HTML preview pages:<ul><li><strong>Base URL Prefix</strong>: When set to a URL without <code>{path}</code> (e.g. <code>&quot;https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter&quot;</code>), Drawlib automatically appends <code>/&lt;lang&gt;/&lt;stem&gt;.ipynb</code>.</li><li><strong><code>{path}</code> URL Template (Non-GitHub / Custom Host)</strong>: Include <code>{path}</code> (e.g. <code>&quot;https://colab.example.com/open?notebook={path}&quot;</code>) to substitute <code>&lt;lang&gt;/&lt;stem&gt;.ipynb</code> at an arbitrary position.</li><li><strong>Empty (<code>&quot;&quot;</code>)</strong>: Omits the Colab button while keeping the relative <strong>⬇ Download .ipynb</strong> button active on all HTML pages.</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>setup_packages</code></td>
+<td style="text-align:left"><code>list[str]</code></td>
+<td style="text-align:left"><code>[&quot;drawlib&quot;]</code></td>
+<td style="text-align:left">When non-empty, prepends an executable setup cell (<code>!pip install -q drawlib</code>) at the top of each compiled <code>.ipynb</code> notebook so Google Colab users can run the notebook immediately with zero manual setup.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib_cell_mode</code></td>
+<td style="text-align:left"><code>&quot;markdown&quot; | &quot;code&quot;</code></td>
+<td style="text-align:left"><code>&quot;markdown&quot;</code></td>
+<td style="text-align:left">Project-wide default cell mode for <code>```drawlib</code> blocks when <code>cell=</code> is omitted on the fence.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_mode</code></td>
+<td style="text-align:left"><code>&quot;attachment&quot; | &quot;url&quot; | &quot;relative&quot;</code></td>
+<td style="text-align:left"><code>&quot;attachment&quot;</code></td>
+<td style="text-align:left">Controls how <code>cell=markdown</code> <code>```drawlib</code> diagrams are referenced inside <code>.ipynb</code> Markdown cells:<ul><li><strong><code>&quot;attachment&quot;</code></strong> <em>(default)</em>: Embeds base64 cell attachments (<code>attachment:&lt;file&gt;.png</code>) so every <code>.ipynb</code> file is 100% self-contained when downloaded or uploaded to Colab.</li><li><strong><code>&quot;url&quot;</code></strong>: Rewrites image URLs to <code>&lt;[seo].site_url&gt;/images/&lt;stem&gt;/&lt;file&gt;.png</code>—ideal when serving from a custom domain or GitHub Pages to keep <code>.ipynb</code> files compact without depending on GitHub raw URLs.</li><li><strong><code>&quot;relative&quot;</code></strong>: Uses relative <code>../images/&lt;stem&gt;/&lt;file&gt;.png</code> paths for local JupyterLab workspaces.</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>execute</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>true</code></td>
+<td style="text-align:left">When <code>true</code>, executes all <code>code</code> cells sequentially in-process during build and embeds <code>stdout</code>, expression results, and <code>show()</code> / <code>save()</code> figures into both <code>.ipynb</code> and HTML preview outputs.</td>
+</tr>
+</tbody>
+</table>
+<h3>4.2. Title &amp; Sidebar Brand Header Resolution (<code>drawlib.toml</code> vs. <code># H1</code>)</h3>
+<p>In the compiled HTML preview site (<code>jupyter_jupyter/</code> or <code>jupyter_html/</code>):</p>
+<ul>
+<li><strong>Left Sidebar Brand Header (<code>site_title</code>)</strong>: Prioritizes <code>drawlib.toml</code> <code>[project].title</code> -&gt; optional <code>&lt;lang&gt;/navbar.md</code> <code># H1</code> -&gt; <code>&quot;Notebooks&quot;</code>.</li>
+<li><strong>Browser Tab <code>&lt;title&gt;</code></strong>: Combines the current notebook's first <code># H1</code> heading and <code>site_title</code> as <code>&lt;Notebook H1&gt; — &lt;site_title&gt;</code>.</li>
+<li><strong>Sidebar Navigation Tree</strong>: Automatically extracted from each <code>.md</code> file's <code># H1</code> (notebook link) and <code>## H2</code> headings (section links) with an instant <code>/</code> filter—no manual <code>navbar.md</code> maintenance required.</li>
+</ul>
+<hr />
+<h2>5. Deterministic Path Resolution in Notebooks (<code>setup(..., cwd=True)</code>)</h2>
+<p>In standard <code>.py</code> scripts, <code>setup(width=..., height=...)</code> defaults to <code>cwd=False</code>, resolving relative paths (<code>save(&quot;chart.png&quot;)</code>, <code>image(&quot;logo.png&quot;)</code>, <code>Dimage(&quot;photo.png&quot;)</code>) relative to the directory of the calling Python script.</p>
+<p>In interactive <strong>JupyterLab</strong> or <strong>Google Colab</strong> notebooks, code cells execute inside a temporary kernel frame rather than a <code>.py</code> file on disk. Pass <strong><code>cwd=True</code></strong> to <code>setup()</code> inside notebook code cells so relative paths resolve deterministically against <code>os.getcwd()</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># Resolve all relative paths (save(), image(), Dimage()) against os.getcwd():</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Interactive Notebook Cell"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>  <span class="c1"># Displays inline in Jupyter/Colab and is captured by drawlib build jupyter</span>
+</code></pre>
+<ul>
+<li>When <code>setup(..., cwd=True)</code> is active:
+<ul>
+<li><code>save(&quot;out.png&quot;)</code> writes to <code>&lt;os.getcwd()&gt;/out.png</code> (and <code>save()</code> with no filename writes to <code>&lt;os.getcwd()&gt;/output.png</code>).</li>
+<li><code>image(&quot;data/pic.png&quot;)</code> and <code>Dimage(&quot;data/pic.png&quot;)</code> read from <code>&lt;os.getcwd()&gt;/data/pic.png</code>.</li>
+</ul>
+</li>
+<li>Calling <code>clear()</code> resets <code>cwd</code> back to <code>False</code>.</li>
+</ul>
+<hr />
+<h2>6. CLI Build &amp; In-Process AI Dry-Run Verification (<code>drawlib build jupyter</code>)</h2>
+<p>Compile bundled <code>.ipynb</code> + HTML preview directories or run fast dry-run verification via <code>drawlib build jupyter</code>:</p>
+<pre><code class="language-bash"><span class="c1"># 1. Fast in-process AI Dry-Run (executes all cells, checks [Geometry Warning], writes no files):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
+
+<span class="c1"># 2. Compile bundled .ipynb notebooks + HTML preview site into jupyter_jupyter/:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/
+
+<span class="c1"># 3. Or compile via drawlib build html (also bundles .ipynb alongside .html in jupyter_html/):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_html/
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Option</th>
+<th style="text-align:left">Shorthand</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>--output</code></td>
+<td style="text-align:left"><code>-o</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_jupyter/</code></td>
+<td style="text-align:left">Destination output directory path (or <code>.ipynb</code> file path for single-file build).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--format</code></td>
+<td style="text-align:left"><code>-f</code></td>
+<td style="text-align:left"><code>png</code></td>
+<td style="text-align:left">Image output format for embedded <code>drawlib</code> blocks (<code>png</code> or <code>webp</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--styles</code> / <code>--utils</code></td>
+<td style="text-align:left"><code>-s</code> / <code>-u</code></td>
+<td style="text-align:left">Auto-resolved</td>
+<td style="text-align:left">Path to <code>styles.py</code> and <code>utils.py</code> (pre-loaded into notebook execution <code>globals</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--execute</code> / <code>--no-execute</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>None</code> (from <code>[jupyter].execute</code>)</td>
+<td style="text-align:left">Execute <code>code</code> cells sequentially in-process and populate <code>.ipynb</code> and HTML cell outputs.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--dry-run</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">Execute all cells and validate <code>[Geometry Warning]</code> without writing output files to disk.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--no-cache</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">Bypass <code>.drawlib/cache.db</code> and re-execute all diagram blocks.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--workers</code></td>
+<td style="text-align:left"><code>-w</code></td>
+<td style="text-align:left"><code>auto</code></td>
+<td style="text-align:left">Parallel worker process count (<code>auto</code> uses <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>).</td>
+</tr>
+</tbody>
+</table>
+<h3>What the In-Process AI Dry-Run Engine Verifies:</h3>
+<ol>
+<li><strong>Shared State Across Cells</strong>: Cell 1's variables, functions, and imports are live in Cell 2, Cell 3, etc., matching real Jupyter/Colab kernel behavior (<code>styles.py</code> and <code>utils.py</code> are pre-loaded into the notebook namespace).</li>
+<li><strong>Zero Unhandled Exceptions</strong>: Any <code>SyntaxError</code>, <code>NameError</code>, <code>TypeError</code>, or Drawlib validation error halts the build and reports the exact notebook path, cell number (<code>In [n]</code>), and traceback.</li>
+<li><strong>Zero <code>[Geometry Warning]</code></strong>: Any canvas clipping, out-of-bounds artist, or overlap warning emitted during either <code>cell=markdown</code> diagram rendering or <code>cell=code</code> execution fails the build (<code>NotebookExecutionError</code>).</li>
+<li><strong>Captured Outputs (<code>In [n]</code> / <code>Out[n]</code>)</strong>: Standard output (<code>print(...)</code>), final cell expressions (<code>text/plain</code>), and <code>show()</code> / <code>save()</code> figures (<code>image/png</code>) are embedded into both the <code>.ipynb</code> cell <code>outputs</code> array and the HTML preview page so readers can inspect outputs immediately in the browser before launching Google Colab.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

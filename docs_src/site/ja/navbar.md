@@ -14,6 +14,7 @@
 - [API & CLI リファレンス](https://www.drawlib.com/api/ja/)
 - [クイックスタート・ハンドブック](https://www.drawlib.com/quickstart/ja/)
 - [About Drawlib スライドデッキ](https://www.drawlib.com/about-drawlib/ja/)
+- [対話型 Jupyter / Colab ノートブック](https://www.drawlib.com/jupyter/ja/)
 - [サンプル・ショーケース](https://examples.drawlib.com/)
 
 ## 2. 描画プリミティブとスタイル
@@ -122,6 +123,7 @@
 - [カタログプロジェクト (`catalog`)](./09_doc_builder_and_cli/project_catalog.md)
 - [スライドデッキプロジェクト (`slide`)](./09_doc_builder_and_cli/project_slide.md)
 - [スライドステージレイアウトと API](./09_doc_builder_and_cli/slide_layout_and_api.md)
+- [Jupyter ノートブックプロジェクト (`jupyter`)](./09_doc_builder_and_cli/project_jupyter.md)
 - [画像プロジェクト (`images`)](./09_doc_builder_and_cli/project_image.md)
 - [テンプレートと CSS カスタマイズ](./09_doc_builder_and_cli/customization.md)
 - [キャッシュ機構と CI/CD](./09_doc_builder_and_cli/caching_and_cicd.md)

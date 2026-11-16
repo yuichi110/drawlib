@@ -63,7 +63,7 @@ save()
 
 ```python
 from drawlib.tools import (
-    # Document, Slide, Office & Image Compilation
+    # Document, Slide, Office, Notebook & Image Compilation
     build_document,
     build_html,
     build_markdown,
@@ -71,6 +71,7 @@ from drawlib.tools import (
     build_docx,
     build_slide,
     build_pptx,
+    build_jupyter,
     build_image,
     detect_document_type,
     # Single Diagram Extraction & Desktop Preview
@@ -104,13 +105,14 @@ from drawlib.tools import (
 | **Compilation** | `build_docx(input_path=None, output_file=None, *, input_dir=None, title=None, page_break=True, generate_index=False, dpi=200, styles_path=None, utils_path=None, no_cache=False, timestamp=False, static_frame="last")` | Compile Markdown chapters or a single `.md` file into an editable MS Word (`.docx`) document with high-DPI static PNG diagrams. |
 | **Compilation** | `build_slide(input_dir, output_dir=None, *, title=None, theme=None, image_format="svg", static_frame=None, styles_path=None, utils_path=None, no_cache=False)` | Compile a `slide_src/` directory into an interactive 16:9 HTML slide deck (`index.html`). |
 | **Compilation** | `build_pptx(input_dir, output_file=None, *, title=None, theme=None, dpi=240, static_frame="last", styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | Compile a `slide_src/` directory into an editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) deck via headless Chromium layout measurement. |
+| **Compilation** | `build_jupyter(input_path, output_dir=None, *, image_format="png", styles_path=None, utils_path=None, no_cache=False, execute=None, dry_run=False, css_mode="external", workers="auto")` | Compile Markdown notebook sources (`jupyter_src/`) into bundled `.ipynb` notebooks and an HTML preview site with in-process AI dry-run execution. |
 | **Compilation** | `build_image(input_path, output_path=None, *, format=None, styles_path=None, utils_path=None, grid=False, disable_auto_clear=False, enable_auto_initialize=False, no_cache=False)` | Batch execute standalone `.py` scripts or extract `.md` blocks to image files. |
 | **Compilation** | `build_document(input_dir, output_path=None, output_format=None, ...)` | Unified dispatcher for `"html"`, `"markdown"`, `"pdf"`, or `"docx"` compilation. |
 | **Inspection** | `detect_document_type(file_path, content=None)` | Detect whether a file/directory is Markdown or HTML (`DocumentInputInfo`). |
 | **Extraction** | `export_code_block(file_path, target=None, output_path=None, styles_path=None, utils_path=None, grid=False, no_cache=False)` | Headlessly render a single ````drawlib```` block or `.py` script to disk (or list blocks when `target=None`). |
 | **Extraction** | `show_code_block(file_path, target=None, styles_path=None, utils_path=None, grid=False, no_cache=False)` | Preview a single ````drawlib```` block or `.py` script in a desktop GUI window. |
-| **Scaffolding** | `init_project(project_type, destination=".", target=None, force=False, lang="en", style=None)` | Scaffold a `"doc"`, `"site"`, `"slide"`, or `"images"` starter project. |
-| **Scaffolding** | `list_project_types()` | Return `dict[str, str]` mapping starter template names (`doc`, `site`, `slide`, `images`) to descriptions. |
+| **Scaffolding** | `init_project(project_type, destination=".", target=None, force=False, lang="en", style=None)` | Scaffold a `"doc"`, `"site"`, `"catalog"`, `"slide"`, `"jupyter"`, or `"images"` starter project. |
+| **Scaffolding** | `list_project_types()` | Return `dict[str, str]` mapping starter template names (`doc`, `site`, `catalog`, `slide`, `jupyter`, `images`) to descriptions. |
 | **Server & Audit** | `serve_docs(directory, port=8000, open_browser=True, skip_check=False, check_only=False)` | Run local HTTP preview server (`Cache-Control: no-store`) with pre-flight link checking. |
 | **Server & Audit** | `scan_broken_links(directory)` | Scan compiled HTML directory and return `(html_count, link_count, broken_links)`. |
 | **Cache** | `list_cache()`, `download_cache(all_assets=True, fonts=False, icons=False, maps=False, browser=False)`, `clear_cache()` | Inspect, pre-download (fonts, icons, maps, and headless Chromium browser), or purge cached packages. |

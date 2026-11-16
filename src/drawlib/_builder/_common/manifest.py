@@ -59,9 +59,7 @@ _CATALOG_ALLOWED_KEYS: frozenset[str] = frozenset(
 )
 _JUPYTER_ALLOWED_KEYS: frozenset[str] = frozenset(
     {
-        "github_repo",
-        "github_branch",
-        "notebook_dir_in_repo",
+        "colab_base_url",
         "setup_packages",
         "drawlib_cell_mode",
         "image_mode",
@@ -70,7 +68,6 @@ _JUPYTER_ALLOWED_KEYS: frozenset[str] = frozenset(
 )
 _UNSAFE_ATTR_CHARS: tuple[str, ...] = ("\r", "\n", "\x00", '"', "'", "<", ">")
 _TWITTER_HANDLE_RE = re.compile(r"^@?[A-Za-z0-9_]{1,30}$")
-_GITHUB_REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 _SCHEME_PREFIX_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:")
 _WIN_DRIVE_RE = re.compile(r"^[A-Za-z]:[\\/]")
 
@@ -211,10 +208,9 @@ class JupyterConfig(BaseModel):
     """Parsed configuration from the ``[jupyter]`` (or ``[colab]``) section of ``drawlib.toml``.
 
     Attributes:
-        github_repo: Optional GitHub ``owner/repo`` slug for generating ``Open in Colab`` URLs.
-        github_branch: Git branch name used in ``Open in Colab`` URLs (defaults to ``'main'``).
-        notebook_dir_in_repo: Relative directory path from the GitHub repository root where
-            built ``.ipynb`` files reside (e.g. ``'docs/jupyter'`` or ``'jupyter_html'``).
+        colab_base_url: Optional base URL or ``{path}`` URL template for ``Open in Colab`` links
+            (e.g. ``'https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter'``
+            or ``'https://colab.example.com/open?path={path}'``).
         setup_packages: Tuple of pip package names to install in an optional top setup cell
             (e.g. ``('drawlib',)``). Empty tuple disables automatic pip install cell injection.
         drawlib_cell_mode: Default conversion mode for ````drawlib```` blocks without an explicit
@@ -228,23 +224,21 @@ class JupyterConfig(BaseModel):
 
     model_config = ConfigDict(frozen=True)
 
-    github_repo: str = ""
-    github_branch: str = "main"
-    notebook_dir_in_repo: str = ""
+    colab_base_url: str = ""
     setup_packages: tuple[str, ...] = ("drawlib",)
     drawlib_cell_mode: JupyterCellMode = "markdown"
     image_mode: JupyterImageMode = "attachment"
     execute: bool = True
 
     def build_colab_url(self, rel_notebook_path: str) -> str:
-        """Construct a Google Colab ``https://colab.research.google.com/github/...`` URL if ``github_repo`` is set."""
-        if not self.github_repo:
+        """Construct an ``Open in Colab`` URL from ``colab_base_url`` if configured."""
+        if not self.colab_base_url:
             return ""
         rel_clean = rel_notebook_path.replace("\\", "/").lstrip("/")
-        prefix = self.notebook_dir_in_repo.replace("\\", "/").strip("/")
-        full_rel = f"{prefix}/{rel_clean}" if prefix else rel_clean
-        branch = self.github_branch.strip() or "main"
-        return f"https://colab.research.google.com/github/{self.github_repo}/blob/{branch}/{full_rel}"
+        base = self.colab_base_url.strip()
+        if "{path}" in base:
+            return base.replace("{path}", rel_clean)
+        return f"{base.rstrip('/')}/{rel_clean}"
 
 
 class ProjectManifest(BaseModel):
@@ -723,30 +717,25 @@ def _parse_jupyter_section(
     if unknown_keys:
         raise ValueError(f'Invalid "{cfg_path}": unknown key(s) {unknown_keys} in "[jupyter]".')
 
-    raw_repo = raw_jupyter.get("github_repo", "")
-    if not isinstance(raw_repo, str):
-        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].github_repo" must be a string.')
-    cleaned_repo = raw_repo.strip().strip("/")
-    if cleaned_repo and not _GITHUB_REPO_RE.match(cleaned_repo):
-        raise ValueError(
-            f'Invalid "{cfg_path}": "[jupyter].github_repo" must be in "owner/repo" format, got {raw_repo!r}.'
-        )
-
-    raw_branch = raw_jupyter.get("github_branch", "main")
-    if not isinstance(raw_branch, str) or not raw_branch.strip():
-        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].github_branch" must be a non-empty string.')
-    cleaned_branch = raw_branch.strip()
-    if any(ch in cleaned_branch for ch in (*_UNSAFE_ATTR_CHARS, " ", "\t")):
-        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].github_branch" contains unsafe characters.')
-
-    raw_nb_dir = raw_jupyter.get("notebook_dir_in_repo", "")
-    if not isinstance(raw_nb_dir, str):
-        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].notebook_dir_in_repo" must be a string.')
-    cleaned_nb_dir = raw_nb_dir.strip().replace("\\", "/").strip("/")
-    if any(ch in cleaned_nb_dir for ch in _UNSAFE_ATTR_CHARS) or ".." in cleaned_nb_dir.split("/"):
-        raise ValueError(
-            f'Invalid "{cfg_path}": "[jupyter].notebook_dir_in_repo" must be a safe relative repository path.'
-        )
+    raw_colab_base = raw_jupyter.get("colab_base_url", "")
+    if not isinstance(raw_colab_base, str):
+        raise ValueError(f'Invalid "{cfg_path}": "[jupyter].colab_base_url" must be a string.')
+    cleaned_colab_base = raw_colab_base.strip()
+    if cleaned_colab_base:
+        if any(ch in cleaned_colab_base for ch in (*_UNSAFE_ATTR_CHARS, " ", "\t")):
+            raise ValueError(f'Invalid "{cfg_path}": "[jupyter].colab_base_url" contains unsafe characters.')
+        if not cleaned_colab_base.lower().startswith(("http://", "https://")):
+            raise ValueError(
+                f'Invalid "{cfg_path}": "[jupyter].colab_base_url" must start with http:// or https://, '
+                f"got {raw_colab_base!r}."
+            )
+        parsed_colab = urllib.parse.urlsplit(cleaned_colab_base)
+        if not parsed_colab.netloc:
+            raise ValueError(
+                f'Invalid "{cfg_path}": "[jupyter].colab_base_url" URL is missing host: {raw_colab_base!r}.'
+            )
+        if "{path}" not in cleaned_colab_base:
+            cleaned_colab_base = cleaned_colab_base.rstrip("/")
 
     raw_pkgs = raw_jupyter.get("setup_packages", ["drawlib"])
     if not isinstance(raw_pkgs, list) or not all(isinstance(p, str) and p.strip() for p in raw_pkgs):
@@ -778,9 +767,7 @@ def _parse_jupyter_section(
         raise ValueError(f'Invalid "{cfg_path}": "[jupyter].execute" must be a boolean.')
 
     return JupyterConfig(
-        github_repo=cleaned_repo,
-        github_branch=cleaned_branch,
-        notebook_dir_in_repo=cleaned_nb_dir,
+        colab_base_url=cleaned_colab_base,
         setup_packages=setup_pkgs,
         drawlib_cell_mode=cell_mode,
         image_mode=image_mode,
@@ -997,15 +984,12 @@ def format_project_manifest_toml(
                     "[jupyter]",
                 ]
             )
-            if eff_jupyter.github_repo:
-                lines.append(f'github_repo = "{_esc(eff_jupyter.github_repo)}"')
+            if eff_jupyter.colab_base_url:
+                lines.append(f'colab_base_url = "{_esc(eff_jupyter.colab_base_url)}"')
             else:
-                lines.append('# github_repo = "owner/repo"')
-            lines.append(f'github_branch = "{_esc(eff_jupyter.github_branch)}"')
-            if eff_jupyter.notebook_dir_in_repo:
-                lines.append(f'notebook_dir_in_repo = "{_esc(eff_jupyter.notebook_dir_in_repo)}"')
-            else:
-                lines.append('# notebook_dir_in_repo = "jupyter_html"')
+                lines.append(
+                    f'# colab_base_url = "https://colab.research.google.com/github/owner/repo/blob/main/{_esc(name)}_jupyter"'
+                )
             lines.extend(
                 [
                     f"setup_packages = [{pkgs_literal}]",

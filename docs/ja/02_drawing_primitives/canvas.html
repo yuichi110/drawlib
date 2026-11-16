@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/ja/" target="_blank" rel="noopener noreferrer">対話型 Jupyter / Colab ノートブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">サンプル・ショーケース<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_jupyter.html" >Jupyter ノートブックプロジェクト (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
                             </li>
                             
@@ -785,6 +793,7 @@ Drawlib はアクティブな <code>canvas</code> シングルトンを保持し
     <span class="n">grid_centerstyle</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">grid_xpitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">grid_ypitch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cwd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
 <h4>パラメータリファレンス:</h4>
@@ -863,6 +872,12 @@ Drawlib はアクティブな <code>canvas</code> シングルトンを保持し
 <td style="text-align:left"><code>int</code></td>
 <td style="text-align:left"><code>height / 10</code></td>
 <td style="text-align:left">水平グリッド線の間隔。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cwd</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">相対ファイルパス（<code>image()</code>、<code>save()</code>）を呼び出し元スクリプトのディレクトリではなく <code>Path.cwd()</code> 基準で解決します（Jupyter ノートブックや対話型 REPL セッションで自動的に使用されます）。</td>
 </tr>
 </tbody>
 </table>

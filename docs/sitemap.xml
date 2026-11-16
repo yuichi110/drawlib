@@ -607,6 +607,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_image.html" />
   </url>
   <url>
+    <loc>https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_jupyter.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html" />
+  </url>
+  <url>
     <loc>https://www.drawlib.com/en/09_doc_builder_and_cli/project_site.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_site.html" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_site.html" />
@@ -1277,6 +1283,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_image.html" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_image.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_image.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/ja/09_doc_builder_and_cli/project_jupyter.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_jupyter.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html" />
   </url>
   <url>
     <loc>https://www.drawlib.com/ja/09_doc_builder_and_cli/project_site.html</loc>

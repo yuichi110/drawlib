@@ -63,7 +63,7 @@ save()
 
 ```python
 from drawlib.tools import (
-    # Document, Slide, Office & Image Compilation
+    # Document, Slide, Office, Notebook & Image Compilation
     build_document,
     build_html,
     build_markdown,
@@ -71,6 +71,7 @@ from drawlib.tools import (
     build_docx,
     build_slide,
     build_pptx,
+    build_jupyter,
     build_image,
     detect_document_type,
     # Single Diagram Extraction & Desktop Preview
@@ -104,13 +105,14 @@ from drawlib.tools import (
 | **コンパイル** | `build_docx(input_path=None, output_file=None, *, input_dir=None, title=None, page_break=True, generate_index=False, dpi=200, styles_path=None, utils_path=None, no_cache=False, timestamp=False, static_frame="last")` | Markdown 章ディレクトリまたは単一 `.md` ファイルを、高 DPI 静的 PNG ダイアグラム付きの編集可能な MS Word（`.docx`）文書へコンパイルします。 |
 | **コンパイル** | `build_slide(input_dir, output_dir=None, *, title=None, theme=None, image_format="svg", static_frame=None, styles_path=None, utils_path=None, no_cache=False)` | `slide_src/` ディレクトリをインタラクティブな 16:9 HTML スライドデッキ（`index.html`）へコンパイルします。 |
 | **コンパイル** | `build_pptx(input_dir, output_file=None, *, title=None, theme=None, dpi=240, static_frame="last", styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | ヘッドレス Chromium によるレイアウト計測を用いて、`slide_src/` ディレクトリを編集可能な 16:9（`960×540 pt`）MS PowerPoint（`.pptx`）プレゼンテーションへコンパイルします。 |
+| **コンパイル** | `build_jupyter(input_path, output_dir=None, *, image_format="png", styles_path=None, utils_path=None, no_cache=False, execute=None, dry_run=False, css_mode="external", workers="auto")` | Markdown ノートブックソース（`jupyter_src/`）をインプロセス AI ドライラン実行付きで `.ipynb` ノートブックと HTML プレビューサイトの統合バンドルへコンパイルします。 |
 | **コンパイル** | `build_image(input_path, output_path=None, *, format=None, styles_path=None, utils_path=None, grid=False, disable_auto_clear=False, enable_auto_initialize=False, no_cache=False)` | スタンドアロン `.py` スクリプトの一括実行、または `.md` 内の描画ブロックの画像ファイル抽出を行います。 |
 | **コンパイル** | `build_document(input_dir, output_path=None, output_format=None, ...)` | `"html"`、`"markdown"`、`"pdf"`、`"docx"` のコンパイルを振り分ける統合ディスパッチャです。 |
 | **種別判定** | `detect_document_type(file_path, content=None)` | 対象ファイルまたはディレクトリが Markdown か HTML かを自動判定します（`DocumentInputInfo`）。 |
 | **単体抽出** | `export_code_block(file_path, target=None, output_path=None, styles_path=None, utils_path=None, grid=False, no_cache=False)` | 単一の ````drawlib```` ブロックまたは `.py` スクリプトをヘッドレスでディスクへ書き出します（`target=None` の場合はブロック一覧を取得）。 |
 | **単体抽出** | `show_code_block(file_path, target=None, styles_path=None, utils_path=None, grid=False, no_cache=False)` | 単一の ````drawlib```` ブロックまたは `.py` スクリプトをデスクトップ GUI ウィンドウでプレビュー表示します。 |
-| **雛形生成** | `init_project(project_type, destination=".", target=None, force=False, lang="en", style=None)` | `"doc"`、`"site"`、`"slide"`、`"images"` のスタータープロジェクトを生成します。 |
-| **雛形生成** | `list_project_types()` | スターターテンプレート名（`doc`、`site`、`slide`、`images`）と説明文の対応辞書 `dict[str, str]` を返します。 |
+| **雛形生成** | `init_project(project_type, destination=".", target=None, force=False, lang="en", style=None)` | `"doc"`、`"site"`、`"catalog"`、`"slide"`、`"jupyter"`、`"images"` のスタータープロジェクトを生成します。 |
+| **雛形生成** | `list_project_types()` | スターターテンプレート名（`doc`、`site`、`catalog`、`slide`、`jupyter`、`images`）と説明文の対応辞書 `dict[str, str]` を返します。 |
 | **サーバー・監査** | `serve_docs(directory, port=8000, open_browser=True, skip_check=False, check_only=False)` | 事前リンクチェック機能付きのローカル HTTP プレビューサーバー（`Cache-Control: no-store`）を起動します。 |
 | **サーバー・監査** | `scan_broken_links(directory)` | コンパイル済み HTML ディレクトリを走査し、`(html_count, link_count, broken_links)` を返します。 |
 | **キャッシュ** | `list_cache()`, `download_cache(all_assets=True, fonts=False, icons=False, maps=False, browser=False)`, `clear_cache()` | キャッシュ済みパッケージ（フォント・アイコン・地図・ヘッドレス Chromium ブラウザ）の一覧確認・事前ダウンロード・削除を行います。 |

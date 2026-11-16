@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/en/" target="_blank" rel="noopener noreferrer">Interactive Jupyter Notebooks<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="project_jupyter.html" >Jupyter Notebook Project (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_image.html" >Image Project (`images`)</a>
                             </li>
                             
@@ -785,13 +793,16 @@ drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> 
 drawlib<span class="w"> </span>build<span class="w"> </span>docx<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>manual.docx<span class="w"> </span>--generate-index<span class="w"> </span><span class="c1"># Editable MS Word (.docx) document</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide_html/<span class="w">               </span><span class="c1"># Interactive 16:9 HTML slide deck</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w">                  </span><span class="c1"># Editable 16:9 MS PowerPoint (.pptx) deck</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">      </span><span class="c1"># Bundled .ipynb + HTML preview (or --dry-run)</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>scripts/<span class="w"> </span>-o<span class="w"> </span>assets/<span class="w"> </span>-g<span class="w">                  </span><span class="c1"># Batch Python image rendering</span>
 
 <span class="c1"># Scaffolding &amp; AI Agent Rules</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list<span class="w">                                  </span><span class="c1"># List starter project templates (site, doc, slide, images)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list<span class="w">                                  </span><span class="c1"># List starter project templates (doc, site, catalog, slide, jupyter, images)</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>my_doc<span class="w">                            </span><span class="c1"># Scaffold linear document project (HTML, PDF, DOCX, MD, images)</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>my_site<span class="w">                          </span><span class="c1"># Scaffold documentation site</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>catalog<span class="w"> </span>my_api<span class="w"> </span>-s<span class="w"> </span>google<span class="w">              </span><span class="c1"># Scaffold 2-column catalog &amp; API reference site</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w">               </span><span class="c1"># Scaffold 16:9 presentation slide deck</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span>my_notebooks<span class="w"> </span>-s<span class="w"> </span>google<span class="w">        </span><span class="c1"># Scaffold interactive Jupyter &amp; Colab notebook project</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>images<span class="w"> </span>my_images<span class="w">                      </span><span class="c1"># Scaffold standalone images project (alias: image)</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list<span class="w">                                    </span><span class="c1"># List supported AI coding agent targets and output paths</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w">                             </span><span class="c1"># Generate AI agent rules (.agents/rules/drawlib.md, mode: auto)</span>
@@ -1251,7 +1262,66 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 </tr>
 </tbody>
 </table>
-<h3>4.7 <code>drawlib build image</code></h3>
+<h3>4.7 <code>drawlib build jupyter</code></h3>
+<p>Compiles Markdown notebook sources (<code>jupyter_src/&lt;lang&gt;/**/*.md</code>) into a unified bundle containing executable Jupyter Notebooks (<code>&lt;lang&gt;/*.ipynb</code>) and a 2-column HTML preview website (<code>&lt;lang&gt;/*.html</code> + root <code>index.html</code>) with in-process AI dry-run execution (capturing <code>stdout</code>, expression results, and <code>show()</code> / <code>save()</code> figures while verifying zero unhandled exceptions or <code>[Geometry Warning]</code>).</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/
+drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Shorthand</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--output</code></td>
+<td><code>-o</code></td>
+<td><code>&lt;base&gt;_jupyter/</code></td>
+<td>Destination output directory path (or <code>.ipynb</code> file path for single-file build).</td>
+</tr>
+<tr>
+<td><code>--format</code></td>
+<td><code>-f</code></td>
+<td><code>png</code></td>
+<td>Image output format for embedded <code>drawlib</code> blocks (<code>png</code> or <code>webp</code>).</td>
+</tr>
+<tr>
+<td><code>--styles</code> / <code>--utils</code></td>
+<td><code>-s</code> / <code>-u</code></td>
+<td>Auto-resolved</td>
+<td>Path to <code>styles.py</code> and <code>utils.py</code> (pre-loaded into notebook execution <code>globals</code>).</td>
+</tr>
+<tr>
+<td><code>--execute</code> / <code>--no-execute</code></td>
+<td></td>
+<td><code>None</code> (from <code>[jupyter].execute</code>)</td>
+<td>Execute <code>code</code> cells sequentially in-process and populate <code>.ipynb</code> and HTML cell outputs.</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td></td>
+<td><code>False</code></td>
+<td>Execute all cells and validate <code>[Geometry Warning]</code> without writing output files to disk.</td>
+</tr>
+<tr>
+<td><code>--no-cache</code></td>
+<td></td>
+<td><code>False</code></td>
+<td>Bypass <code>.drawlib/cache.db</code> and re-execute all diagram blocks.</td>
+</tr>
+<tr>
+<td><code>--workers</code></td>
+<td><code>-w</code></td>
+<td><code>auto</code></td>
+<td>Parallel worker process count (<code>auto</code> uses <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> or <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
+</tbody>
+</table>
+<h3>4.8 <code>drawlib build image</code></h3>
 <p>Batch executes standalone Python illustration scripts (<code>.py</code>) or extracts embedded drawing blocks from Markdown files (<code>.md</code>) to generate image assets.</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/<span class="w"> </span>--grid
 </code></pre>
@@ -1328,10 +1398,10 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list
 </code></pre>
 <ul>
-<li><code>&lt;TYPE&gt;</code>: Subcommand choosing project type: <code>doc</code>, <code>site</code>, <code>catalog</code>, <code>slide</code> (all initialized with unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale directories and <code>[i18n]</code> in <code>drawlib.toml</code>), <code>images</code> (alias: <code>image</code>), or <code>list</code>.</li>
-<li><code>[target]</code>: Base name for the project and source folder (creates <code>&lt;target&gt;_src/</code>). Defaults: <code>doc</code> for <code>doc</code>, <code>docs</code> for <code>site</code>, <code>catalog</code> for <code>catalog</code>, <code>slide</code> for <code>slide</code>, <code>images</code> for <code>images</code>.</li>
+<li><code>&lt;TYPE&gt;</code>: Subcommand choosing project type: <code>doc</code>, <code>site</code>, <code>catalog</code>, <code>slide</code>, <code>jupyter</code> (all initialized with unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale directories and <code>[i18n]</code> in <code>drawlib.toml</code>), <code>images</code> (alias: <code>image</code>), or <code>list</code>.</li>
+<li><code>[target]</code>: Base name for the project and source folder (creates <code>&lt;target&gt;_src/</code>). Defaults: <code>doc</code> for <code>doc</code>, <code>docs</code> for <code>site</code>, <code>catalog</code> for <code>catalog</code>, <code>slide</code> for <code>slide</code>, <code>jupyter</code> for <code>jupyter</code>, <code>images</code> for <code>images</code>.</li>
 <li><code>-s</code>, <code>--style &lt;theme&gt;</code>: Style preset theme (<code>default</code>, <code>google</code>, <code>monochrome</code>, etc.) synchronously configuring both <code>style.css</code> and <code>styles.py</code>.</li>
-<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: Starter content and font configuration language (<code>en</code>, <code>ja</code>, <code>zh-cn</code>, <code>ko</code>, <code>th</code>, <code>hi</code>, etc.; supports comma-separated multi-locale codes such as <code>-l en,ja</code> on <code>doc</code>, <code>site</code>, <code>catalog</code>, and <code>slide</code>). Default: <code>en</code>.</li>
+<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: Starter content and font configuration language (<code>en</code>, <code>ja</code>, <code>zh-cn</code>, <code>ko</code>, <code>th</code>, <code>hi</code>, etc.; supports comma-separated multi-locale codes such as <code>-l en,ja</code> on <code>doc</code>, <code>site</code>, <code>catalog</code>, <code>slide</code>, and <code>jupyter</code>). Default: <code>en</code>.</li>
 <li><code>-f</code>, <code>--force</code>: Overwrite existing files if destination directory already exists.</li>
 </ul>
 <h3>5.2 AI Coding Agent Instructions (<code>drawlib init agent</code>)</h3>
@@ -1419,10 +1489,11 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w">
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>style-guide<span class="w">                </span><span class="c1"># View 50%+ neutral baseline &amp; semantic color rules</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>review-guide<span class="w">               </span><span class="c1"># View 3-stage multimodal review loop &amp; 720pt font math</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>anim-guide<span class="w">                 </span><span class="c1"># View animation idioms across all modules</span>
-drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-overview<span class="w">           </span><span class="c1"># View 5 project archetypes &amp; shared architecture</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-overview<span class="w">           </span><span class="c1"># View 6 project archetypes &amp; shared architecture</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-site<span class="w">               </span><span class="c1"># View multi-page website authoring &amp; navbar.md rules</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-catalog<span class="w">            </span><span class="c1"># View 2-column catalog &amp; semantic badge rules</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-slide<span class="w">              </span><span class="c1"># View 1920x1080 slide authoring &amp; stage rules</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-jupyter<span class="w">            </span><span class="c1"># View Jupyter/Colab notebook &amp; AI dry-run rules</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-graph-overview<span class="w">         </span><span class="c1"># View declarative graph layout solvers overview</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-diagrams-overview<span class="w"> </span>--raw<span class="w"> </span><span class="c1"># Output raw Markdown without building/checking cache</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-shapes-overview<span class="w"> </span>--rebuild<span class="w"> </span><span class="c1"># Force regenerate companion rule illustrations</span>

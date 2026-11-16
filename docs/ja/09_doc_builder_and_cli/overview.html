@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/ja/" target="_blank" rel="noopener noreferrer">対話型 Jupyter / Colab ノートブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">サンプル・ショーケース<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="project_jupyter.html" >Jupyter ノートブックプロジェクト (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_image.html" >画像プロジェクト (`images`)</a>
                             </li>
                             
@@ -783,7 +791,7 @@
 <span class="c1"># Right: Publishing Targets</span>
 <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="s2">"HTML &amp; Slide Deck"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">35.2</span><span class="p">,</span> <span class="s2">"GitHub Markdown"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">35.2</span><span class="p">,</span> <span class="s2">"MD &amp; Jupyter (.ipynb)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">22.8</span><span class="p">,</span> <span class="s2">"PDF / DOCX / PPTX"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="s2">"Standalone Images"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">),</span>
 <span class="p">]</span>
@@ -815,7 +823,7 @@
 <hr />
 <h2>2. 基本原則</h2>
 <ol>
-<li><strong>信頼できる唯一の情報源 (<code>&lt;name&gt;_src/</code>)</strong>: コンテンツの執筆は常にソースディレクトリ（<code>docs_src/</code>、<code>doc_src/</code>、<code>slide_src/</code>、<code>images_src/</code> など）内のみで行います。出力先フォルダ（<code>docs_html/</code>、<code>docs_markdown/</code>、<code>docs_images/</code>、<code>images/</code> など）はビルド成果物であり、手動で直接編集してはなりません。</li>
+<li><strong>信頼できる唯一の情報源 (<code>&lt;name&gt;_src/</code>)</strong>: コンテンツの執筆は常にソースディレクトリ（<code>docs_src/</code>、<code>doc_src/</code>、<code>catalog_src/</code>、<code>slide_src/</code>、<code>jupyter_src/</code>、<code>images_src/</code> など）内のみで行います。出力先フォルダ（<code>docs_html/</code>、<code>docs_markdown/</code>、<code>docs_images/</code>、<code>jupyter_jupyter/</code>、<code>images/</code> など）はビルド成果物であり、手動で直接編集してはなりません。</li>
 <li><strong>決定論的ビルドキャッシュ</strong>: Drawlib は埋め込まれた各コードブロック（<code>styles.py</code>、<code>utils.py</code>、および参照されているローカルアセットを含む）の SHA-256 ハッシュを計算します。変更のない図は <code>.drawlib/cache.db</code> から瞬時に復元されるため、大規模なマルチページサイトでも 1 秒未満の差分ビルドが可能です。</li>
 <li><strong>実行サンドボックスと分離</strong>: コードブロックごとにキャンバスのライフサイクルが自動的にクリアされるため、隣接する図同士で視覚的な副作用が発生することはありません。</li>
 <li><strong>マルチターゲットへのポータビリティ</strong>: 同一の Markdown ソースドキュメントから、以下の複数の出力形式へ同時にコンパイルできます。
@@ -824,6 +832,7 @@
 <li>画像ファイル付きの GitHub Flavored Markdown（<code>drawlib build markdown</code>）</li>
 <li>目次と表紙を備えた出版品質のベクター PDF（<code>drawlib build pdf</code>）</li>
 <li>ネイティブ編集可能な MS Word ドキュメント（<code>drawlib build docx</code>）および 16:9 MS PowerPoint スライドデッキ（<code>drawlib build pptx</code>）</li>
+<li>AI Dry-Run 自動実行検証済みの <code>In [n]</code> / <code>Out[n]</code> 出力入り対話型 Jupyter / Google Colab ノートブック（<code>drawlib build jupyter</code>）</li>
 <li>単体で抽出された図解画像ファイル（<code>drawlib build image</code>）</li>
 </ul>
 </li>
@@ -866,6 +875,12 @@
 <td>16:9 プレゼンテーションスライドデッキ（インタラクティブ Web スライド、印刷対応ベクター PDF、編集可能な PowerPoint）</td>
 </tr>
 <tr>
+<td><strong><code>jupyter</code></strong></td>
+<td><code>jupyter_src/&lt;lang&gt;/</code></td>
+<td><code>jupyter_jupyter/</code>（<code>&lt;lang&gt;/*.ipynb</code> + <code>&lt;lang&gt;/*.html</code> + <code>images/</code> を統合バンドル）</td>
+<td>解説図解（<code>cell=markdown</code>）と実行可能 Python セル（<code>cell=code</code>）を組み合わせた対話型 Jupyter / Google Colab ノートブック（インプロセス AI Dry-Run 検証付き）</td>
+</tr>
+<tr>
 <td><strong><code>images</code></strong> <em>（別名: <code>image</code>）</em></td>
 <td><code>images_src/</code></td>
 <td><code>images/*.png</code>（または <code>.webp</code>）</td>
@@ -875,7 +890,7 @@
 </table>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/overview/doc_builder_four_templates_matrix.png" alt="overview_3" />
-  <figcaption class="drawlib-caption">Drawlib のプロジェクトスターターテンプレートと出力形式の概要</figcaption>
+  <figcaption class="drawlib-caption">Drawlib の 6 種のプロジェクトスターターテンプレートと出力形式の概要</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -886,12 +901,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">82</span><span class="p">)</span>
 
 <span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span>
         <span class="mi">33</span><span class="p">,</span>
-        <span class="mf">41.5</span><span class="p">,</span>
+        <span class="mf">67.5</span><span class="p">,</span>
         <span class="s2">"1. doc (Linear Spec)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
@@ -902,19 +917,30 @@
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
-        <span class="mf">41.5</span><span class="p">,</span>
-        <span class="s2">"2. site / catalog (Web &amp; Ref)"</span><span class="p">,</span>
+        <span class="mf">67.5</span><span class="p">,</span>
+        <span class="s2">"2. site (Docs Website)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
-        <span class="s2">"docs_src/ or catalog_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
-        <span class="s2">"*_html/ &amp; *_markdown/</span><span class="se">\n</span><span class="s2">navbar or Auto H1/H2"</span><span class="p">,</span>
+        <span class="s2">"docs_src/&lt;lang&gt;/*.md</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
+        <span class="s2">"docs_html/ &amp;</span><span class="se">\n</span><span class="s2">docs_markdown/"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">33</span><span class="p">,</span>
-        <span class="mf">14.5</span><span class="p">,</span>
-        <span class="s2">"3. slide (16:9 Deck)"</span><span class="p">,</span>
+        <span class="mf">41.0</span><span class="p">,</span>
+        <span class="s2">"3. catalog (2-Col Ref)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">brackets_curly</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+        <span class="s2">"catalog_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"catalog_html/</span><span class="se">\n</span><span class="s2">Auto H1/H2 &amp; Badges"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">93</span><span class="p">,</span>
+        <span class="mf">41.0</span><span class="p">,</span>
+        <span class="s2">"4. slide (16:9 Deck)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span>
@@ -923,9 +949,20 @@
         <span class="s2">"slide_html/</span><span class="se">\n</span><span class="s2">_&lt;lang&gt;.pdf/.pptx"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
+        <span class="mi">33</span><span class="p">,</span>
+        <span class="mf">14.5</span><span class="p">,</span>
+        <span class="s2">"5. jupyter (Colab &amp; .ipynb)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+        <span class="s2">"jupyter_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"*.ipynb + _html/</span><span class="se">\n</span><span class="s2">AI Dry-Run &amp; Colab"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
         <span class="mf">14.5</span><span class="p">,</span>
-        <span class="s2">"4. images (Batch Py)"</span><span class="p">,</span>
+        <span class="s2">"6. images (Batch Py)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">,</span>
@@ -1005,6 +1042,13 @@
 <td style="text-align:left"><code>./slide_src/build.sh</code>（または <code>build pptx</code>）を実行し、<code>slide_&lt;lang&gt;.pdf</code> / <code>1920x1080</code> ステージを確認</td>
 </tr>
 <tr>
+<td style="text-align:left"><strong><code>jupyter</code></strong></td>
+<td style="text-align:left">ノートブックファイル（<code>jupyter_src/&lt;lang&gt;/01_intro.md</code>、<code>02_*.md</code> など）</td>
+<td style="text-align:left"><code>drawlib init project jupyter</code>、<code>drawlib.toml</code> の <code>[jupyter]</code>、<code>styles.py</code>、<code>utils.py</code>、章構成の設計</td>
+<td style="text-align:left">担当ノートブック（<code>cell=markdown</code> 図解 + <code>cell=code</code> セル）の執筆と Stage 1 + Stage 2 グリッド検証</td>
+<td style="text-align:left"><code>drawlib build jupyter --dry-run</code>、<code>./jupyter_src/build.sh</code>、<code>serve --check</code> を実行</td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>images</code></strong></td>
 <td style="text-align:left">スタンドアロン Python スクリプト（<code>images_src/&lt;name&gt;.py</code>）</td>
 <td style="text-align:left"><code>drawlib init project images</code>、<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code> の準備</td>
@@ -1023,13 +1067,14 @@
 <h2>5. 本章の構成</h2>
 <p>各ビルダサブシステムの詳細は、以下のページを参照してください。</p>
 <ul>
-<li><a href="./code_blocks.html">Markdown コードブロック構文</a>: コードフェンス構文、表示モード（<code>code=show</code>、<code>code=fold</code>）、配置、キャプション指定。</li>
-<li><a href="./cli_reference.html">CLI リファレンス</a>: <code>build</code>（<code>html</code>、<code>markdown</code>、<code>pdf</code>、<code>docx</code>、<code>slide</code>、<code>pptx</code>、<code>image</code>）、<code>serve</code>、<code>show</code>、<code>init</code>（<code>project</code>、<code>agent</code>）、<code>cache</code>、<code>css</code>、<code>colors</code>、<code>styles</code>、<code>rules</code> の完全リファレンス。</li>
+<li><a href="./code_blocks.html">Markdown コードブロック構文</a>: コードフェンス構文、表示モード（<code>code=show</code>、<code>code=fold</code>）、配置、キャプション、<code>cell=markdown|code</code>、<code>static_frame</code> 指定。</li>
+<li><a href="./cli_reference.html">CLI リファレンス</a>: <code>build</code>（<code>html</code>、<code>markdown</code>、<code>pdf</code>、<code>docx</code>、<code>slide</code>、<code>pptx</code>、<code>jupyter</code>、<code>image</code>）、<code>serve</code>、<code>show</code>、<code>init</code>（<code>project</code>、<code>agent</code>）、<code>cache</code>、<code>css</code>、<code>colors</code>、<code>styles</code>、<code>rules</code> の完全リファレンス。</li>
 <li><a href="./project_doc.html">リニアドキュメントプロジェクト (<code>doc</code>)</a>: RFC、仕様書、ホワイトペーパーなどのリニアドキュメント作成と、HTML / PDF / Word（<code>.docx</code>）出力。</li>
 <li><a href="./project_site.html">ドキュメントサイトプロジェクト (<code>site</code>)</a>: マルチページ構成のドキュメントサイト執筆、サイドバーカテゴリ設計、リンク検証。</li>
 <li><a href="./project_catalog.html">カタログプロジェクト (<code>catalog</code>)</a>: <code># H1</code> / <code>## H2</code> 自動サイドバー・セマンティックバッジ・<code>[catalog]</code> 設定を備えた 2 カラムのカタログ・リファレンス（API・CLI・スキーマ・サービス台帳・ランブック）構築。</li>
 <li><a href="./project_slide.html">スライドデッキプロジェクト (<code>slide</code>)</a>: インタラクティブ Web スライド、ベクター PDF、PowerPoint（<code>.pptx</code>）出力に対応した 16:9 プレゼンテーションスライドの作成。</li>
 <li><a href="./slide_layout_and_api.html">スライドステージレイアウトと API</a>: <code>1920x1080</code> 仮想ステージ座標系、<code>::: block</code> / <code>::: note</code> 構文、レイアウトテンプレート、<code>drawlib.slide</code> Python API。</li>
+<li><a href="./project_jupyter.html">Jupyter ノートブックプロジェクト (<code>jupyter</code>)</a>: 対話型 Jupyter Notebook（<code>.ipynb</code>）、Google Colab 連携、<code>cell=markdown</code> / <code>cell=code</code> デュアル構文、<code>setup(..., cwd=True)</code>、インプロセス AI Dry-Run 自動検証。</li>
 <li><a href="./project_image.html">画像プロジェクト (<code>images</code>)</a>: スタンドアロンスクリプトによる一括画像生成（<code>images_src/</code> ➔ <code>images/</code>）。</li>
 <li><a href="./customization.html">テンプレートと CSS カスタマイズ</a>: <code>template.html</code> や <code>style.css</code> のカスタマイズ、プロジェクト共通の <code>styles.py</code>・<code>utils.py</code> の注入。</li>
 <li><a href="./caching_and_cicd.html">キャッシュ機構と CI/CD</a>: 2 層キャッシュ構造（<code>.drawlib/cache.db</code> と <code>drawlib cache</code>）およびヘッドレス CI/CD パイプライン構築。</li>

@@ -4883,13 +4883,13 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </table>
 <hr />
 <h2 id="drawlib-build-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib build jupyter</span></code><a class="header-anchor" href="#drawlib-build-jupyter" aria-label="Permalink to drawlib build jupyter">#</a></h2>
-<p><code>jupyter</code> プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・実行結果（<code>stdout</code>・<code>execute_result</code>・<code>display_data</code> <code>image/png</code>）の事前埋め込み・<code>[Geometry Warning]</code> 検査付きの Jupyter Notebook（<code>&lt;output&gt;/&lt;lang&gt;/**/*.ipynb</code>）へコンパイルします。</p>
-<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DIR
+<p><code>jupyter</code> プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・実行結果（<code>stdout</code>・<code>execute_result</code>・<code>display_data</code> <code>image/png</code>）の事前埋め込み・<code>[Geometry Warning]</code> 検査付きの Jupyter Notebook（<code>&lt;output&gt;/&lt;lang&gt;/**/*.ipynb</code>）および HTML プレビューページ（<code>&lt;output&gt;/&lt;lang&gt;/**/*.html</code>）の統合バンドルへコンパイルします。</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 
-<span class="c1"># ノートブックをコンパイルし、コードセルの実行結果を埋め込む</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src<span class="w"> </span>-o<span class="w"> </span>jupyter_notebooks
+<span class="c1"># バンドル済みノートブック + HTML プレビューをコンパイルし、コードセルの実行結果を埋め込む</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter
 
-<span class="c1"># .ipynb ファイルを書き出さずに AI ドライラン検証のみを実行</span>
+<span class="c1"># 出力ファイルを書き出さずに AI ドライラン検証のみを実行</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src<span class="w"> </span>--dry-run
 </code></pre>
 <table>
@@ -4903,16 +4903,16 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>DIR</code></td>
+<td style="text-align:left"><code>INPUT</code></td>
 <td style="text-align:left"><code>str</code> <em>(必須)</em></td>
 <td style="text-align:left">—</td>
-<td style="text-align:left"><code>drawlib.toml</code>（<code>type = &quot;jupyter&quot;</code>）と <code>&lt;lang&gt;/</code> Markdown ファイルを含むプロジェクトルート。</td>
+<td style="text-align:left"><code>drawlib.toml</code>（<code>type = &quot;jupyter&quot;</code>）と <code>&lt;lang&gt;/</code> Markdown ファイルを含むプロジェクトルート、または単一 <code>.md</code> ファイル。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>-o, --output</code></td>
 <td style="text-align:left"><code>str | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">出力先ノートブックディレクトリパス（省略時は <code>&lt;base&gt;_notebooks/</code>）。</td>
+<td style="text-align:left">出力先ディレクトリパス（省略時は <code>&lt;base&gt;_jupyter/</code>、単一ファイル指定時は <code>.ipynb</code> ファイルパス）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>-f, --format</code></td>
@@ -4942,7 +4942,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>--dry-run</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
-<td style="text-align:left"><code>.ipynb</code> ファイルを書き出さず、全ノートブックの実行検証および <code>[Geometry Warning]</code> 検査のみを行います。</td>
+<td style="text-align:left">出力ファイルを書き出さず、全ノートブックの実行検証および <code>[Geometry Warning]</code> 検査のみを行います。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--no-cache</code></td>

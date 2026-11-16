@@ -1,0 +1,1272 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupyter・Colab ノートブックプロジェクトガイド (`drawlib init project jupyter`)</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S9N5BZ1VRC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-S9N5BZ1VRC');
+    </script>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html">
+    
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_jupyter.html">
+    
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_jupyter.html">
+    
+    
+    
+    <meta name="description" content="jupyter スターターテンプレートは、Drawlib に 「コードとしての図解付き Jupyter Notebook &amp; Google Colab（Illustrated Notebook as Code）」 をもたらします。Git diff が肥大化しやすい巨大な .ipynb JSON…">
+    <link rel="canonical" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_jupyter.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib ドキュメント">
+    <meta property="og:title" content="Jupyter・Colab ノートブックプロジェクトガイド (drawlib init project jupyter) — Drawlib ドキュメント">
+    <meta property="og:description" content="jupyter スターターテンプレートは、Drawlib に 「コードとしての図解付き Jupyter Notebook &amp; Google Colab（Illustrated Notebook as Code）」 をもたらします。Git diff が肥大化しやすい巨大な .ipynb JSON…">
+    <meta property="og:url" content="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_jupyter.html">
+    <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jupyter・Colab ノートブックプロジェクトガイド (drawlib init project jupyter) — Drawlib ドキュメント">
+    <meta name="twitter:description" content="jupyter スターターテンプレートは、Drawlib に 「コードとしての図解付き Jupyter Notebook &amp; Google Colab（Illustrated Notebook as Code）」 をもたらします。Git diff が肥大化しやすい巨大な .ipynb JSON…">
+    <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    <div class="demo-banner" role="region" aria-label="Portal Navigation">
+        <div class="demo-banner-inner">
+            <span class="demo-banner-badge">DRAWLIB OFFICIAL</span>
+            <span class="demo-banner-text">
+                Drawlib で構築された公式ユーザーガイド（<code>type = "site"</code>）
+            </span>
+            <span class="demo-banner-links">
+                <strong>User Guide</strong>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../api/ja/index.html">API Reference</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../architecture/index.html">Architecture</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../quickstart/ja/index.html">Quickstart</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../about-drawlib/ja/index.html">Slide Deck</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../jupyter/ja/index.html">Jupyter / Colab</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../reports/pni-full-audit/index.html">PNI501 Audit</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples ↗</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </span>
+        </div>
+    </div>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.12</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/uvx_any_project.html" >uvx ゼロインストール活用</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/api/ja/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/quickstart/ja/" target="_blank" rel="noopener noreferrer">クイックスタート・ハンドブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/about-drawlib/ja/" target="_blank" rel="noopener noreferrer">About Drawlib スライドデッキ<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/ja/" target="_blank" rel="noopener noreferrer">対話型 Jupyter / Colab ノートブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">サンプル・ショーケース<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/box.html" >Box &amp; Strip Chart（箱ひげ・ストリップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie &amp; Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap &amp; Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_catalog.html" >カタログプロジェクト (`catalog`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="project_jupyter.html" >Jupyter ノートブックプロジェクト (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/architecture/" target="_blank" rel="noopener noreferrer">内部アーキテクチャ仕様書<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Jupyter・Colab ノートブックプロジェクトガイド (`drawlib init project jupyter`)</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/09_doc_builder_and_cli/project_jupyter.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="project_jupyter.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Jupyter・Colab ノートブックプロジェクトガイド (<code>drawlib init project jupyter</code>)</h1>
+<p><code>jupyter</code> スターターテンプレートは、Drawlib に <strong>「コードとしての図解付き Jupyter Notebook &amp; Google Colab（Illustrated Notebook as Code）」</strong> をもたらします。Git diff が肥大化しやすい巨大な <code>.ipynb</code> JSON ファイルを直接手編集する代わりに、解説テキスト・アーキテクチャ図解（<code>```drawlib</code>）・対話型 Python 演習セル（<code>```python</code> または <code>```drawlib cell=code</code>）をクリーンな Markdown（<code>jupyter_src/&lt;lang&gt;/**/*.md</code>）で記述し、<strong>インプロセス AI Dry-Run エンジン</strong>による自動実行検証を経て、**実行結果入りの <code>.ipynb</code> ノートブック（<code>&lt;lang&gt;/*.ipynb</code>）**と <strong>2 カラム HTML プレビューサイト（<code>&lt;lang&gt;/*.html</code> + ルート <code>index.html</code>、<code>In [n]</code> / <code>Out[n]</code> 表示・<code>.ipynb</code> ダウンロード・Open in Colab 対応）</strong> を単一の出力ディレクトリ（<code>jupyter_jupyter/</code> または <code>jupyter_html/</code>）へ同時バンドル出力します。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/09_doc_builder_and_cli/project_jupyter/project_jupyter_compilation_pipeline.png" alt="project_jupyter_1" />
+  <figcaption class="drawlib-caption">Markdown ノートブックソースからインプロセス AI Dry-Run エンジンを経て .ipynb と HTML プレビューを同一ディレクトリへ一括生成するパイプライン</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Left: Markdown Notebook Source</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="s2">"jupyter_src/&lt;lang&gt;/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span>
+    <span class="s2">"01_tutorial.md</span><span class="se">\n</span><span class="s2">• Narrative + # H1 / ## H2</span><span class="se">\n</span><span class="s2">• ```drawlib (diagram)</span><span class="se">\n</span><span class="s2">• ```python (code cell)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"styles.py &amp; drawlib.toml"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Middle: In-Process AI Dry-Run Engine</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">63</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">play_circle</span><span class="p">((</span><span class="mf">50.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">65.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="s2">"AI Dry-Run Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span>
+    <span class="s2">"Sequential shared globals</span><span class="se">\n</span><span class="s2">• Executes code cells</span><span class="se">\n</span><span class="s2">• Captures stdout &amp; expr</span><span class="se">\n</span><span class="s2">• Captures show() / save()</span><span class="se">\n</span><span class="s2">• Fails on Geometry Warn"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mf">12.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"--dry-run Verification"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Right: Unified Output Bundle (jupyter_jupyter/ or jupyter_html/)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">81</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">folder_open</span><span class="p">((</span><span class="mf">92.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.2</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="s2">"jupyter_jupyter/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.ipynb"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Pre-populated Out[n] +</span><span class="se">\n</span><span class="s2">!pip install setup cell"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.html"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="s2">"In[n]/Out[n] preview +</span><span class="se">\n</span><span class="s2">Download &amp; Colab links"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. なぜ Jupyter / Colab ノートブックを Markdown で記述するのか？</h2>
+<p>チュートリアル・データ分析ガイド・ハンズオン教材を生の <code>.ipynb</code> JSON ファイルのまま管理すると、開発チームや AI コーディングエージェントにとって多くの課題が生じます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">生の <code>.ipynb</code> 管理における課題</th>
+<th style="text-align:left">Drawlib <code>jupyter</code> プロジェクトによる解決策</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Git Diff の肥大化</strong>: Base64 画像データや実行カウンタの差分で PR レビューが困難になる。</td>
+<td style="text-align:left"><strong>クリーンな Markdown ソース (<code>jupyter_src/&lt;lang&gt;/*.md</code>)</strong>: プレーンテキストの Markdown と <code>```drawlib</code> / <code>```python</code> ブロックで記述し、<code>.ipynb</code> と HTML は決定論的なビルド成果物として生成。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>セルの実行順序バグと古い出力</strong>: 手動でセルを順不同に実行したままコミットすると、最初から実行した際にエラーになる。</td>
+<td style="text-align:left"><strong>インプロセス AI Dry-Run (<code>execute = true</code> / <code>--dry-run</code>)</strong>: ビルド時に各ノートブックを先頭セルから順番に共有 <code>globals</code> 名前空間で自動実行し、例外や <code>[Geometry Warning]</code> があれば即座に検出。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Web ドキュメントとノートブックの二重管理</strong>: ブラウザ閲覧用の記事と Colab 用の <code>.ipynb</code> を別々に保守する手間が発生する。</td>
+<td style="text-align:left"><strong><code>.ipynb</code> と HTML の同一ディレクトリバンドル出力</strong>: 1 回のビルドで同一出力フォルダ（<code>jupyter_jupyter/</code> または <code>jupyter_html/</code>）内の <code>&lt;lang&gt;/</code> に <code>*.html</code> と <code>*.ipynb</code> を並べて出力するため、GitHub を使わずに独自ドメインから直接サーブ可能。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>多言語化の煩雑さ</strong>: 日英などの複数言語で <code>.ipynb</code> ファイルを個別に同期・保守するのが難しい。</td>
+<td style="text-align:left"><strong>ネイティブ <code>[i18n]</code> 対応 (<code>-l en,ja</code>)</strong>: 統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> 構造により、言語スイッチャー付き HTML とロケール別 <code>.ipynb</code> を一括生成。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>ライブショーケース:</strong> <code>type = &quot;jupyter&quot;</code> で構築された全 6 章の日英バイリンガル対話型ハンズオン教材を <a href="https://www.drawlib.com/jupyter/ja/"><code>https://www.drawlib.com/jupyter/</code></a> で実際に体験できます。</p>
+</blockquote>
+<hr />
+<h2>2. スキャフォールディングとディレクトリ構造</h2>
+<p><code>drawlib init project jupyter</code> コマンドで単一言語または多言語の <code>jupyter</code> プロジェクトを初期化します。</p>
+<pre><code class="language-bash"><span class="c1"># デフォルトの英語 jupyter プロジェクトを作成 (jupyter_src/en/ を生成):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter
+
+<span class="c1"># カスタムターゲット名 + 日英バイリンガル (en,ja) + Google テーマで作成:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span>tutorials<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+
+<span class="c1"># 高速 AI Dry-Run 検証 (全セルを順次実行し [Geometry Warning] を検査、ファイル出力なし):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
+
+<span class="c1"># .ipynb ノートブックと HTML プレビューサイトを jupyter_jupyter/ に一括ビルド:</span>
+./jupyter_src/build.sh
+
+<span class="c1"># 出力された HTML とバンドル済み .ipynb のリンク・アセット整合性をヘッドレス検証:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>jupyter_jupyter/<span class="w"> </span>--check
+</code></pre>
+<p>生成されるソースディレクトリ構造:</p>
+<pre><code class="language-text">jupyter_src/
+├── drawlib.toml               # [必須] プロジェクトマニフェスト (type = "jupyter", [i18n], [jupyter], 任意で [seo])
+├── styles.py                  # プロジェクト共通の Style / Color 定義 (ノートブック globals に自動プリロード)
+├── utils.py                   # ノートブック間で再利用する Python ヘルパー関数群
+├── style.css                  # 2カラム HTML プレビュー用スタイルシート (In[n]/Out[n] セル表示対応)
+├── template.html              # Open in Colab &amp; .ipynb ダウンロードバー付き Jinja2 レイアウト
+├── _assets/                   # 静的画像・ロゴ・favicon.png (出力先 _assets/ に自動コピー)
+├── en/                        # ロケール別ノートブックソース (01_, 02_, ... の自然順でソート)
+│   ├── 01_sample_notebook.md  # ノートブック 1: Markdown 解説 + drawlib 図解 + python コードセル
+│   └── README.md              # 執筆ガイド (ノートブックのコンパイル対象からは自動除外)
+├── build.sh                   # マスタービルドスクリプト (.ipynb と HTML を jupyter_jupyter/ に一括生成)
+├── build_jupyter.sh           # バンドル済み .ipynb + HTML プレビューのビルド -&gt; jupyter_jupyter/
+├── build_html.sh              # バンドル済み .ipynb + HTML プレビューのビルド (エイリアス) -&gt; jupyter_jupyter/
+└── serve.sh                   # ローカル HTTP プレビューサーバー (drawlib serve jupyter_jupyter/)
+</code></pre>
+<p>コンパイル後の出力ディレクトリ（<code>jupyter_jupyter/</code> または <code>jupyter_html/</code>）には、<code>.html</code> ページと同じ階層に <code>.ipynb</code> ファイルがバンドルされるため、そのまま任意の Web サーバーや独自ドメインに公開できます。</p>
+<pre><code class="language-text">jupyter_jupyter/               # 独自ドメインや任意のホスティングへそのまま配置可能な統合バンドル
+├── index.html                 # ルートエントリページ (default_lang の最初のノートブックから自動リベース)
+├── en/
+│   ├── index.html
+│   ├── 01_sample_notebook.html  # "⬇ Download .ipynb" と "Open in Colab" を備えた 2カラム HTML
+│   └── 01_sample_notebook.ipynb # 同一フォルダにバンドルされた実行可能 .ipynb (HTML から相対リンク)
+├── images/                    # ロケール間で共有される図解画像アセット
+└── _assets/                   # 静的アセットおよび favicon
+</code></pre>
+<hr />
+<h2>3. デュアルコードブロック構文 (<code>cell=markdown</code> vs. <code>cell=code</code>)</h2>
+<p><code>jupyter_src/&lt;lang&gt;/**/*.md</code> 内の通常の Markdown 散文や見出し（<code># H1</code>、<code>## H2</code>、表、リスト）は <code>.ipynb</code> の <code>markdown</code> セルに変換され、フェンス付きコードブロックは言語識別子（<code>drawlib</code> vs. <code>python</code>）および任意の <code>cell=</code> 属性に応じてルーティングされます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>.md</code> ソース内のフェンス構文</th>
+<th style="text-align:left">コンパイル後の <code>.ipynb</code> セル種別</th>
+<th style="text-align:left">HTML プレビューサイトの出力</th>
+<th style="text-align:left">主な用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>```drawlib file=arch.png caption=&quot;...&quot;</code><br><em>(デフォルト <code>cell=markdown</code>)</em></td>
+<td style="text-align:left">描画済み図解（<code>attachment:&lt;file&gt;.png</code>、<code>[seo].site_url</code> 公開 URL、または相対パス）を含む <strong><code>markdown</code> セル</strong></td>
+<td style="text-align:left">折りたたみソース（<code>code=fold</code>）付きの <code>&lt;figure&gt;</code> 図解</td>
+<td style="text-align:left">解説テキストに添えるアーキテクチャ図・フロー図・シーケンス図・概念図。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>```drawlib cell=code file=exercise.png</code><br><em>(または <code>[jupyter].drawlib_cell_mode = &quot;code&quot;</code>)</em></td>
+<td style="text-align:left"><code>save(...)</code> が <code>show()</code> に自動変換され、<code>display_data</code>（<code>image/png</code>）出力が事前格納された <strong><code>code</code> セル</strong></td>
+<td style="text-align:left">ノートブック形式の <code>In [n]:</code> コードセル + <code>Out[n]:</code> 描画画像</td>
+<td style="text-align:left">読者が Jupyter / Colab 上で座標やスタイルを書き換えて再実行するハンズオン演習。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>```python</code><br><em>(デフォルト <code>cell=code</code>)</em></td>
+<td style="text-align:left"><code>stdout</code>・<code>execute_result</code>・<code>display_data</code> 出力が事前格納された <strong><code>code</code> セル</strong></td>
+<td style="text-align:left">ノートブック形式の <code>In [n]:</code> コードセル + <code>Out[n]:</code> 実行結果</td>
+<td style="text-align:left">データの前処理、セル間の変数共有、または <code>setup(..., cwd=True)</code> と <code>show()</code> を用いた直接描画。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>```python cell=markdown</code></td>
+<td style="text-align:left">シンタックスハイライトされた静的 Python コードを含む <strong><code>markdown</code> セル</strong></td>
+<td style="text-align:left">通常の静的コードブロック（実行されない）</td>
+<td style="text-align:left">実行を伴わない擬似コードや設定スニペットの提示。</td>
+</tr>
+</tbody>
+</table>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/09_doc_builder_and_cli/project_jupyter/project_jupyter_cell_routing.png" alt="project_jupyter_2" />
+  <figcaption class="drawlib-caption">drawlib および python コードフェンスから .ipynb セルおよび HTML プレビューへのルーティング規則</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">66.0</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span>
+    <span class="s2">"Dual Code Block Routing: Narrative Diagrams (cell=markdown) vs. Live Code Cells (cell=code)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">tbl</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="n">cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">header_cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">header_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">border_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">has_header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">set_style_cell_evenodd</span><span class="p">(</span>
+    <span class="n">even_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">even_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">odd_color</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">shape_fill_color</span> <span class="ow">or</span> <span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">odd_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">set_style_cell_header</span><span class="p">(</span>
+    <span class="n">background_color</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">shape_fill_color</span> <span class="ow">or</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">tbl</span><span class="o">.</span><span class="n">draw_flexible</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">),</span>
+    <span class="n">column_widths</span><span class="o">=</span><span class="p">[</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">],</span>
+    <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">8.2</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">],</span>
+    <span class="n">data</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">[</span><span class="s2">"Markdown Fence"</span><span class="p">,</span> <span class="s2">".ipynb Cell Type"</span><span class="p">,</span> <span class="s2">"Dry-Run Execution"</span><span class="p">,</span> <span class="s2">"HTML Preview Rendering"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"```drawlib file=a.png"</span><span class="p">,</span> <span class="s2">"markdown cell (Image)"</span><span class="p">,</span> <span class="s2">"Sandboxed Diagram"</span><span class="p">,</span> <span class="s2">"&lt;figure&gt; + code=fold"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"```drawlib cell=code"</span><span class="p">,</span> <span class="s2">"code cell (show())"</span><span class="p">,</span> <span class="s2">"Shared Notebook Globals"</span><span class="p">,</span> <span class="s2">"In [n]: Code + Out[n]: PNG"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"```python"</span><span class="p">,</span> <span class="s2">"code cell"</span><span class="p">,</span> <span class="s2">"Shared Notebook Globals"</span><span class="p">,</span> <span class="s2">"In [n]: Code + Out[n]: Text/PNG"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"```python cell=markdown"</span><span class="p">,</span> <span class="s2">"markdown cell (Code)"</span><span class="p">,</span> <span class="s2">"Skipped (Static)"</span><span class="p">,</span> <span class="s2">"Syntax-Highlighted Block"</span><span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Markdown ノートブックの記述例 (<code>01_quickstart.md</code>):</h3>
+<pre><code class="language-markdown"><span class="gh"># 第1章: Google Colab で始める Drawlib クイックスタート</span>
+
+解説用のアーキテクチャ図解と、読者がその場で編集・実行できる Python コードセルを組み合わせて記述します。
+
+<span class="sb">```drawlib</span><span class="w"> </span>align=center code=fold file=ch01_concept_arch.png caption="解説用アーキテクチャ図解（Markdown セルとして出力）"
+<span class="s">from drawlib.canvas import save, setup</span>
+<span class="s">from drawlib.shapes import rectangle</span>
+<span class="s">from drawlib.styles import Styles</span>
+
+<span class="s">setup(width=100, height=32)</span>
+<span class="s">rectangle((50, 16), width=76, height=18, style=Styles.PrimaryNeutral, text="Narrative Architecture Figure")</span>
+<span class="s">save()</span>
+<span class="sb">```</span>
+
+<span class="gu">## 1. 実行可能な Python セル間での状態共有</span>
+
+前の <span class="sb">`python`</span> セルで定義した変数や関数は、後続のセルでもそのまま参照できます。
+
+<span class="sb">```python</span>
+<span class="c1"># In [1]: 共有レイアウト定数を定義</span>
+<span class="n">CANVAS_W</span><span class="p">,</span> <span class="n">CANVAS_H</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">36</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ingest"</span><span class="p">,</span> <span class="s2">"Transform"</span><span class="p">,</span> <span class="s2">"Serve"</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Configured </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> pipeline stages on </span><span class="si">{</span><span class="n">CANVAS_W</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">CANVAS_H</span><span class="si">}</span><span class="s2"> canvas"</span><span class="p">)</span>
+<span class="sb">```</span>
+
+<span class="sb">```python</span>
+<span class="c1"># In [2]: setup(..., cwd=True) と show() でインライン描画</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">CANVAS_W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">CANVAS_H</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nodes</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mi">30</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span>
+    <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+<span class="sb">```</span>
+</code></pre>
+<hr />
+<h2>4. <code>[jupyter]</code> マニフェスト設定と Google Colab 連携 (<code>drawlib.toml</code>)</h2>
+<p><code>jupyter_src/drawlib.toml</code> の <code>[jupyter]</code> セクションで、ノートブックへの画像埋め込み方式・デフォルトのセル種別・<code>!pip install</code> セットアップセルの自動挿入・<strong>Open in Colab</strong> リンクを設定できます。</p>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
+<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Drawlib Interactive Notebooks"</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Interactive Jupyter &amp; Google Colab Hands-on Tutorials"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"google"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">]</span>
+
+<span class="k">[jupyter]</span>
+<span class="c1"># ベース URL プレフィックス (末尾に /&lt;lang&gt;/&lt;stem&gt;.ipynb を自動付与) または {path} テンプレート:</span>
+<span class="n">colab_base_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://colab.research.google.com/github/owner/repo/blob/main/jupyter_jupyter"</span>
+<span class="n">setup_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"drawlib"</span><span class="p">]</span><span class="w">               </span><span class="c1"># 空でない場合、先頭に `!pip install -q drawlib` セルを自動挿入</span>
+<span class="n">drawlib_cell_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="w">             </span><span class="c1"># ```drawlib のデフォルト: "markdown" | "code"</span>
+<span class="n">image_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"attachment"</span><span class="w">                  </span><span class="c1"># "attachment" (単一ファイル完結) | "url" ([seo].site_url) | "relative"</span>
+<span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                             </span><span class="c1"># ビルド時に全コードセルを順次 Dry-Run 実行し出力を埋め込む</span>
+
+<span class="c1"># [seo]</span>
+<span class="c1"># site_url = "https://example.com/jupyter" # image_mode = "url" 時の画像配信ベース URL (および OGP / sitemap 用)</span>
+</code></pre>
+<h3>4.1. <code>[jupyter]</code> 設定キー一覧</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">キー</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">動作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>colab_base_url</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left"><code>.ipynb</code> ノートブックおよび HTML プレビューページに挿入される <strong>Open in Colab</strong> ボタンのベース URL または <code>{path}</code> URL テンプレート:<ul><li><strong>ベース URL プレフィックス指定</strong>: <code>{path}</code> を含まない URL（例: <code>&quot;https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter&quot;</code>）を指定すると、末尾に <code>/&lt;lang&gt;/&lt;stem&gt;.ipynb</code> が自動結合されます。</li><li><strong><code>{path}</code> テンプレート指定（GitHub 以外・社内環境対応）</strong>: URL 内に <code>{path}</code>（例: <code>&quot;https://colab.example.com/open?notebook={path}&quot;</code>）を含めると、任意の位置に <code>&lt;lang&gt;/&lt;stem&gt;.ipynb</code> が展開されます。</li><li><strong>未指定 (<code>&quot;&quot;</code>)</strong>: Colab バッジを非表示にしつつ、同一フォルダにバンドルされた <code>.ipynb</code> への <strong>⬇ Download .ipynb</strong> ボタンのみを表示します（GitHub を使わずに独自ドメインから直接配信する構成に最適）。</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>setup_packages</code></td>
+<td style="text-align:left"><code>list[str]</code></td>
+<td style="text-align:left"><code>[&quot;drawlib&quot;]</code></td>
+<td style="text-align:left">空でない場合、各 <code>.ipynb</code> ノートブックの先頭にセットアップ用コードセル（<code>!pip install -q drawlib</code>）を自動挿入し、Google Colab 上で開いてすぐ実行できるようにします。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib_cell_mode</code></td>
+<td style="text-align:left"><code>&quot;markdown&quot; | &quot;code&quot;</code></td>
+<td style="text-align:left"><code>&quot;markdown&quot;</code></td>
+<td style="text-align:left">コードフェンスで <code>cell=</code> 属性を省略した際の <code>```drawlib</code> ブロックのデフォルトセル種別。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_mode</code></td>
+<td style="text-align:left"><code>&quot;attachment&quot; | &quot;url&quot; | &quot;relative&quot;</code></td>
+<td style="text-align:left"><code>&quot;attachment&quot;</code></td>
+<td style="text-align:left"><code>cell=markdown</code> の <code>```drawlib</code> 図解を <code>.ipynb</code> の Markdown セルへ埋め込む方式:<ul><li><strong><code>&quot;attachment&quot;</code></strong> <em>(デフォルト)</em>: セル添付データ（<code>attachment:&lt;file&gt;.png</code>）として Base64 埋め込みを行い、<code>.ipynb</code> 単体でダウンロードや Colab アップロードが完結します。</li><li><strong><code>&quot;url&quot;</code></strong>: 画像リンクを <code>&lt;[seo].site_url&gt;/images/&lt;stem&gt;/&lt;file&gt;.png</code> に書き換えます。独自ドメインや GitHub Pages 等でホスティングする際に、GitHub raw URL に依存せず <code>.ipynb</code> のファイルサイズを軽量に保てます。</li><li><strong><code>&quot;relative&quot;</code></strong>: ローカルの JupyterLab ワークスペース向けに相対パス <code>../images/&lt;stem&gt;/&lt;file&gt;.png</code> を使用します。</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>execute</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>true</code></td>
+<td style="text-align:left"><code>true</code> の場合、ビルド時にすべての <code>code</code> セルをインプロセスで順次実行し、<code>stdout</code>・最終式の評価結果・<code>show()</code> / <code>save()</code> の描画画像を <code>.ipynb</code> と HTML プレビューの双方に埋め込みます。</td>
+</tr>
+</tbody>
+</table>
+<h3>4.2. タイトルおよび左サイドバーブランド名の解決ルール (<code>drawlib.toml</code> vs. <code># H1</code>)</h3>
+<p>コンパイルされた HTML プレビューサイト（<code>jupyter_jupyter/</code> または <code>jupyter_html/</code>）では、以下のようにタイトルが解決されます。</p>
+<ul>
+<li><strong>左サイドバーのブランドヘッダー (<code>site_title</code>)</strong>: <code>drawlib.toml</code> の <code>[project].title</code> → 任意の <code>&lt;lang&gt;/navbar.md</code> の先頭 <code># H1</code> → <code>&quot;Notebooks&quot;</code> の優先順で決定されます。</li>
+<li><strong>ブラウザタブの <code>&lt;title&gt;</code></strong>: 各ノートブックの先頭 <code># H1</code> 見出しと <code>site_title</code> を組み合わせた <code>&lt;Notebook H1&gt; — &lt;site_title&gt;</code> になります。</li>
+<li><strong>左サイドバーのナビゲーションツリー</strong>: 各 <code>.md</code> ファイルの <code># H1</code>（ノートブック名）と <code>## H2</code>（章内のセクションリンク）から自動抽出され、<code>/</code> キーによる即時フィルタリングにも対応するため、<code>navbar.md</code> の手動メンテナンスは不要です。</li>
+</ul>
+<hr />
+<h2>5. ノートブック内での決定論的な相対パス解決 (<code>setup(..., cwd=True)</code>)</h2>
+<p>通常の <code>.py</code> スクリプトでは、<code>setup(width=..., height=...)</code> はデフォルトで <code>cwd=False</code> となり、相対パス（<code>save(&quot;chart.png&quot;)</code>、<code>image(&quot;logo.png&quot;)</code>、<code>Dimage(&quot;photo.png&quot;)</code>）は実行中の Python スクリプトが存在するディレクトリ基準で解決されます。</p>
+<p>一方、対話型の <strong>JupyterLab</strong> や <strong>Google Colab</strong> のコードセルはディスク上の <code>.py</code> ファイルではなく一時カーネルフレーム内で実行されます。ノートブックのコードセル内では <code>setup()</code> に <strong><code>cwd=True</code></strong> を渡すことで、コールスタック推測に頼らずカレントワーキングディレクトリ（<code>os.getcwd()</code>）基準で 100% 決定論的に相対パスを解決できます。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># save(), image(), Dimage() のすべての相対パスを os.getcwd() 基準で決定論的に解決:</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Interactive Notebook Cell"</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>  <span class="c1"># Jupyter / Colab 上でインライン表示され、drawlib build jupyter でも自動キャプチャされる</span>
+</code></pre>
+<ul>
+<li><code>setup(..., cwd=True)</code> が有効な場合:
+<ul>
+<li><code>save(&quot;out.png&quot;)</code> は <code>&lt;os.getcwd()&gt;/out.png</code> に書き出されます（引数なしの <code>save()</code> は <code>&lt;os.getcwd()&gt;/output.png</code>）。</li>
+<li><code>image(&quot;data/pic.png&quot;)</code> および <code>Dimage(&quot;data/pic.png&quot;)</code> は <code>&lt;os.getcwd()&gt;/data/pic.png</code> を読み込みます。</li>
+</ul>
+</li>
+<li><code>clear()</code> を呼び出すと、<code>cwd</code> はデフォルトの <code>False</code> にリセットされます。</li>
+</ul>
+<hr />
+<h2>6. CLI ビルドとインプロセス AI Dry-Run 検証 (<code>drawlib build jupyter</code>)</h2>
+<p><code>drawlib build jupyter</code> コマンドで <code>.ipynb</code> と HTML プレビューの統合バンドル出力や高速な Dry-Run 検証を実行します。</p>
+<pre><code class="language-bash"><span class="c1"># 1. 高速インプロセス AI Dry-Run (全セルを実行し [Geometry Warning] を検査、ファイル書き出しなし):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
+
+<span class="c1"># 2. バンドル済み .ipynb + HTML プレビューサイトを jupyter_jupyter/ にコンパイル:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/
+
+<span class="c1"># 3. drawlib build html でも同様に .ipynb と .html が jupyter_html/ にバンドル出力される:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_html/
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">オプション</th>
+<th style="text-align:left">短縮形</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>--output</code></td>
+<td style="text-align:left"><code>-o</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_jupyter/</code></td>
+<td style="text-align:left">出力先ディレクトリパス（単一ファイル指定時は <code>.ipynb</code> ファイルパス）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--format</code></td>
+<td style="text-align:left"><code>-f</code></td>
+<td style="text-align:left"><code>png</code></td>
+<td style="text-align:left">埋め込み <code>drawlib</code> ブロックの画像出力フォーマット（<code>png</code> または <code>webp</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--styles</code> / <code>--utils</code></td>
+<td style="text-align:left"><code>-s</code> / <code>-u</code></td>
+<td style="text-align:left">自動解決</td>
+<td style="text-align:left"><code>styles.py</code> および <code>utils.py</code> のパス（ノートブック実行環境の <code>globals</code> にプリロードされる）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--execute</code> / <code>--no-execute</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>None</code> (<code>[jupyter].execute</code>)</td>
+<td style="text-align:left"><code>code</code> セルをインプロセスで順次実行し、<code>.ipynb</code> と HTML セルに出力を埋め込むかどうか。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--dry-run</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left">出力ファイルを書き出さずに全セルの実行と <code>[Geometry Warning]</code> の検証のみを行う。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--no-cache</code></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left"><code>.drawlib/cache.db</code> をバイパスしてすべての図解ブロックを再描画する。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--workers</code></td>
+<td style="text-align:left"><code>-w</code></td>
+<td style="text-align:left"><code>auto</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>auto</code> は <code>1 &lt;= (CPU コア数 - 1) &lt;= 8</code>）。</td>
+</tr>
+</tbody>
+</table>
+<h3>インプロセス AI Dry-Run エンジンが自動検証する項目:</h3>
+<ol>
+<li><strong>セル間の状態共有 (<code>globals</code>)</strong>: セル 1 で定義した変数・関数・インポートがセル 2、セル 3 へと引き継がれ、実際の Jupyter / Colab カーネルと同じ動作を再現します（<code>styles.py</code> と <code>utils.py</code> もノートブックの名前空間にプリロードされます）。</li>
+<li><strong>未処理例外ゼロの保証</strong>: <code>SyntaxError</code>、<code>NameError</code>、<code>TypeError</code>、または Drawlib のバリデーションエラーが発生するとビルドを即座に中断し、該当ノートブックのパス・セル番号（<code>In [n]</code>）・トレースバックを報告します。</li>
+<li><strong><code>[Geometry Warning]</code> ゼロの保証</strong>: <code>cell=markdown</code> の図解描画時および <code>cell=code</code> の実行時にキャンバスのクリッピングやはみ出し警告（<code>[Geometry Warning]</code>）が発生した場合、<code>NotebookExecutionError</code> として即座に検出します。</li>
+<li><strong>実行出力の事前埋め込み (<code>In [n]</code> / <code>Out[n]</code>)</strong>: 標準出力（<code>print(...)</code>）、セル末尾の式の評価値（<code>text/plain</code>）、および <code>show()</code> / <code>save()</code> の描画結果（<code>image/png</code>）を <code>.ipynb</code> の <code>outputs</code> 配列と HTML プレビューページの双方に格納するため、読者は Google Colab を起動する前でもブラウザ上で実行結果を確認できます。</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

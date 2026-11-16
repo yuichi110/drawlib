@@ -64,7 +64,7 @@ rectangle(
 # Right: Publishing Targets
 targets = [
     (47.5, "HTML & Slide Deck", Styles.PrimaryNeutral, phosphor.globe),
-    (35.2, "GitHub Markdown", Styles.Neutral, phosphor.file_code),
+    (35.2, "MD & Jupyter (.ipynb)", Styles.Neutral, phosphor.notebook),
     (22.8, "PDF / DOCX / PPTX", Styles.SecondaryNeutral, phosphor.file_pdf),
     (10.5, "Standalone Images", Styles.Neutral, phosphor.images),
 ]
@@ -883,7 +883,7 @@ save()
 
 ## 2. Core Principles
 
-1. **Source of Truth (`<name>_src/`)**: You author content exclusively in source directories (e.g. `docs_src/`, `doc_src/`, `slide_src/`, or `images_src/`). Output folders (`docs_html/`, `docs_markdown/`, `docs_images/`, `images/`, etc.) are build artifacts and should never be manually modified.
+1. **Source of Truth (`<name>_src/`)**: You author content exclusively in source directories (e.g. `docs_src/`, `doc_src/`, `catalog_src/`, `slide_src/`, `jupyter_src/`, or `images_src/`). Output folders (`docs_html/`, `docs_markdown/`, `docs_images/`, `jupyter_jupyter/`, `images/`, etc.) are build artifacts and should never be manually modified.
 2. **Deterministic Build Cache**: Drawlib computes a SHA-256 hash of each embedded code block (`styles.py`, `utils.py`, and referenced local assets included). Unaltered diagrams are restored instantly from `.drawlib/cache.db`, enabling sub-second incremental builds across massive multi-page sites.
 3. **Execution Sandbox & Isolation**: The canvas lifecycle automatically clears between separate code blocks, ensuring zero visual side effects between adjacent diagrams.
 4. **Target Portability**: The same Markdown source document can compile simultaneously to:
@@ -891,6 +891,7 @@ save()
    - GitHub-flavored Markdown with companion images (`drawlib build markdown`).
    - A publication-grade vector PDF with table of contents and cover page (`drawlib build pdf`).
    - Native editable MS Word documents (`drawlib build docx`) and 16:9 MS PowerPoint decks (`drawlib build pptx`).
+   - Interactive Jupyter & Google Colab notebooks (`.ipynb`) with pre-executed `In [n]` / `Out[n]` cells and AI dry-run verification (`drawlib build jupyter`).
    - Extracted standalone diagram images (`drawlib build image`).
 
 ---
@@ -905,9 +906,10 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 | **`site`** | `docs_src/<lang>/` | `docs_html/`, `docs_markdown/` (or `docs/`), `docs_images/` | Multi-page documentation websites with sidebar navigation (`<lang>/navbar.md`). |
 | **`catalog`** | `catalog_src/<lang>/` | `catalog_html/`, `catalog_markdown/`, `catalog_images/` | Structured catalogs & references for APIs, CLI flags, schemas, services, and runbooks (`1 MD = 1 HTML`, auto `# H1` / `## H2` sidebar, semantic badges & `/` filter). |
 | **`slide`** | `slide_src/<lang>/` | `slide_html/`, `slide_<lang>.pdf`, `slide_<lang>.pptx`, `slide_images/` | 16:9 presentation slide decks (interactive web deck, printable vector PDF, and editable PowerPoint). |
+| **`jupyter`** | `jupyter_src/<lang>/` | `jupyter_jupyter/` (bundled `<lang>/*.ipynb` + `<lang>/*.html` + `images/`) | Interactive Jupyter & Google Colab notebooks combining narrative diagrams (`cell=markdown`) and live Python cells (`cell=code`) with AI dry-run execution. |
 | **`images`** *(alias: `image`)* | `images_src/` | `images/*.png` (or `.webp`) | Batch rendering standalone Python drawing scripts to image assets. |
 
-```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Overview of the Drawlib Project Starter Templates and Their Outputs"
+```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Overview of the Six Drawlib Project Starter Templates and Their Outputs"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -915,12 +917,12 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=126, height=56)
+setup(width=126, height=82)
 
 cards = [
     (
         33,
-        41.5,
+        67.5,
         "1. doc (Linear Spec)",
         Styles.SecondaryNeutral,
         Styles.DarkBold,
@@ -931,19 +933,30 @@ cards = [
     ),
     (
         93,
-        41.5,
-        "2. site / catalog (Web & Ref)",
+        67.5,
+        "2. site (Docs Website)",
         Styles.PrimaryFlat,
         Styles.WhiteBold,
         phosphor.globe,
         Styles.WhiteBold,
-        "docs_src/ or catalog_src/\n<lang>/*.md",
-        "*_html/ & *_markdown/\nnavbar or Auto H1/H2",
+        "docs_src/<lang>/*.md\n+ navbar.md",
+        "docs_html/ &\ndocs_markdown/",
     ),
     (
         33,
-        14.5,
-        "3. slide (16:9 Deck)",
+        41.0,
+        "3. catalog (2-Col Ref)",
+        Styles.PrimaryNeutral,
+        Styles.DarkBold,
+        phosphor.brackets_curly,
+        Styles.PrimaryBold,
+        "catalog_src/\n<lang>/*.md",
+        "catalog_html/\nAuto H1/H2 & Badges",
+    ),
+    (
+        93,
+        41.0,
+        "4. slide (16:9 Deck)",
         Styles.PrimaryNeutral,
         Styles.DarkBold,
         phosphor.presentation_chart,
@@ -952,9 +965,20 @@ cards = [
         "slide_html/\n_<lang>.pdf/.pptx",
     ),
     (
+        33,
+        14.5,
+        "5. jupyter (Colab & .ipynb)",
+        Styles.SecondaryNeutral,
+        Styles.DarkBold,
+        phosphor.notebook,
+        Styles.PrimaryBold,
+        "jupyter_src/\n<lang>/*.md",
+        "*.ipynb + _html/\nAI Dry-Run & Colab",
+    ),
+    (
         93,
         14.5,
-        "4. images (Batch Py)",
+        "6. images (Batch Py)",
         Styles.SecondaryNeutral,
         Styles.DarkBold,
         phosphor.images,
@@ -1003,6 +1027,7 @@ Because every Drawlib project separates **shared configuration** (`drawlib.toml`
 | **`site`** | Topic page or section folder (`docs_src/<lang>/01_arch/*.md`, ...) | `drawlib init project site`, `styles.py`, `utils.py`, `<lang>/navbar.md`, `<lang>/index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & browser check |
 | **`catalog`** | Category/module page (`catalog_src/<lang>/01_users.md`, ...) | `drawlib init project catalog`, `[catalog]` in `drawlib.toml`, `styles.py`, `utils.py`, `<lang>/00_overview.md` | Author assigned catalog page(s) (`# H1` + `## H2` badges + diagrams) & Stage 1 + Stage 2 grid review | Run `./catalog_src/build.sh`, `serve --check`, & browser check |
 | **`slide`** | Slide file (`slide_src/<lang>/02_*.md`, ...) or section directory | `drawlib init project slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` (or `build pptx`) & inspect `slide_<lang>.pdf` / `1920x1080` stage |
+| **`jupyter`** | Notebook file (`jupyter_src/<lang>/01_intro.md`, `02_*.md`, ...) | `drawlib init project jupyter`, `[jupyter]` in `drawlib.toml`, `styles.py`, `utils.py`, notebook outline | Author assigned notebook(s) (`cell=markdown` diagrams + `cell=code` cells) & Stage 1 + Stage 2 grid review | Run `drawlib build jupyter --dry-run`, `./jupyter_src/build.sh`, & `serve --check` |
 | **`images`** | Standalone Python script (`images_src/<name>.py`) | `drawlib init project images`, `styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` | Run `./images_src/build.sh` & inspect `images/*.png` |
 
 ### Concurrency Guardrails for Subagents:
@@ -1015,13 +1040,14 @@ Because every Drawlib project separates **shared configuration** (`drawlib.toml`
 ## 5. Chapter Structure
 
 Dive deeper into each builder subsystem:
-- [Embedded Code Blocks](./code_blocks.md): Code fence syntax, display modes (`code=show`, `code=fold`), alignment, and captions.
-- [CLI Reference](./cli_reference.md): Complete guide to `build` (`html`, `markdown`, `pdf`, `docx`, `slide`, `pptx`, `image`), `serve`, `show`, `init` (`project`, `agent`), `cache`, `css`, `colors`, `styles`, and `rules`.
+- [Embedded Code Blocks](./code_blocks.md): Code fence syntax, display modes (`code=show`, `code=fold`), alignment, captions, `cell=markdown|code`, and `static_frame`.
+- [CLI Reference](./cli_reference.md): Complete guide to `build` (`html`, `markdown`, `pdf`, `docx`, `slide`, `pptx`, `jupyter`, `image`), `serve`, `show`, `init` (`project`, `agent`), `cache`, `css`, `colors`, `styles`, and `rules`.
 - [Linear Document Project Guide](./project_doc.md): Linear document RFCs, specifications, whitepapers, and HTML / PDF / Word (`.docx`) publishing.
 - [Doc Site Project Guide](./project_site.md): Multi-page website authoring, sidebar categories, and link validation.
 - [Catalog Project Guide](./project_catalog.md): Structured 2-column catalogs & references (APIs, CLI flags, schemas, services, runbooks) with auto `# H1` / `## H2` sidebars, semantic badges, and `[catalog]` manifest options.
 - [Slide Deck Project Guide](./project_slide.md): 16:9 presentation slide decks with interactive web deck, vector PDF, and PowerPoint (`.pptx`) export.
 - [Slide Stage Layout & API](./slide_layout_and_api.md): `1920x1080` virtual stage coordinates, `::: block` / `::: note` syntax, templates, and `drawlib.slide` Python API.
+- [Jupyter & Colab Project Guide](./project_jupyter.md): Interactive Jupyter Notebooks (`.ipynb`), Google Colab integration, dual `cell=markdown` / `cell=code` blocks, `setup(..., cwd=True)`, and in-process AI dry-run verification.
 - [Image Project Guide](./project_image.md): Standalone script automation (`images_src/` ➔ `images/`).
 - [Customization & Theming](./customization.md): Customizing `template.html`, `style.css`, and injecting project `styles.py` and `utils.py`.
 - [Caching Architecture & CI/CD](./caching_and_cicd.md): Two-tier caching (`.drawlib/cache.db` & `drawlib cache`) and headless CI/CD pipelines.

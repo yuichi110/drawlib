@@ -22,9 +22,7 @@ image_mode = "url"
 drawlib_cell_mode = "markdown"
 execute = true
 setup_packages = ["drawlib"]
-github_repo = "yuichi110/drawlib"
-github_branch = "main"
-notebook_dir_in_repo = "docs/jupyter"
+colab_base_url = "https://colab.research.google.com/github/yuichi110/drawlib/blob/main/docs/jupyter"
 
 [seo]
 site_url = "https://www.drawlib.com/jupyter"

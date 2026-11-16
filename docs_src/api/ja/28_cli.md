@@ -202,27 +202,27 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 
 ## `cmd` drawlib build jupyter
 
-`jupyter` プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・実行結果（`stdout`・`execute_result`・`display_data` `image/png`）の事前埋め込み・`[Geometry Warning]` 検査付きの Jupyter Notebook（`<output>/<lang>/**/*.ipynb`）へコンパイルします。
+`jupyter` プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・実行結果（`stdout`・`execute_result`・`display_data` `image/png`）の事前埋め込み・`[Geometry Warning]` 検査付きの Jupyter Notebook（`<output>/<lang>/**/*.ipynb`）および HTML プレビューページ（`<output>/<lang>/**/*.html`）の統合バンドルへコンパイルします。
 
 ```bash
-drawlib build jupyter [OPTIONS] DIR
+drawlib build jupyter [OPTIONS] INPUT
 
-# ノートブックをコンパイルし、コードセルの実行結果を埋め込む
-uv run drawlib build jupyter jupyter_src -o jupyter_notebooks
+# バンドル済みノートブック + HTML プレビューをコンパイルし、コードセルの実行結果を埋め込む
+uv run drawlib build jupyter jupyter_src -o jupyter_jupyter
 
-# .ipynb ファイルを書き出さずに AI ドライラン検証のみを実行
+# 出力ファイルを書き出さずに AI ドライラン検証のみを実行
 uv run drawlib build jupyter jupyter_src --dry-run
 ```
 
 | 引数 / オプション | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `DIR` | `str` *(必須)* | — | `drawlib.toml`（`type = "jupyter"`）と `<lang>/` Markdown ファイルを含むプロジェクトルート。 |
-| `-o, --output` | `str \| None` | `None` | 出力先ノートブックディレクトリパス（省略時は `<base>_notebooks/`）。 |
+| `INPUT` | `str` *(必須)* | — | `drawlib.toml`（`type = "jupyter"`）と `<lang>/` Markdown ファイルを含むプロジェクトルート、または単一 `.md` ファイル。 |
+| `-o, --output` | `str \| None` | `None` | 出力先ディレクトリパス（省略時は `<base>_jupyter/`、単一ファイル指定時は `.ipynb` ファイルパス）。 |
 | `-f, --format` | `'png' \| 'webp'` | `'png'` | `drawlib` ブロックのデフォルト出力画像フォーマット。 |
 | `-s, --styles` | `str \| None` | `None` | Python `styles.py` スクリプトのパス。 |
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
 | `--execute / --no-execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を埋め込みます。 |
-| `--dry-run` | `bool` | `False` | `.ipynb` ファイルを書き出さず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを行います。 |
+| `--dry-run` | `bool` | `False` | 出力ファイルを書き出さず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを行います。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
 | `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 

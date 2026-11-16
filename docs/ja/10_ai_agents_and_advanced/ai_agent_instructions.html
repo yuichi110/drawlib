@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/ja/" target="_blank" rel="noopener noreferrer">対話型 Jupyter / Colab ノートブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">サンプル・ショーケース<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_jupyter.html" >Jupyter ノートブックプロジェクト (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
                             </li>
                             
@@ -947,16 +955,17 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>review-guide<span class="w">         </span><span class="c1"># 3-stage multimodal review loop &amp; 720pt font math</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>anim-guide<span class="w">           </span><span class="c1"># Animation loop idioms &amp; component patterns</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>slide-guide<span class="w">          </span><span class="c1"># Slide deck story arc &amp; Dual-Layer rules</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-overview<span class="w">     </span><span class="c1"># 5 project archetypes &amp; decision matrix</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-overview<span class="w">     </span><span class="c1"># 6 project archetypes &amp; decision matrix</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-images<span class="w">       </span><span class="c1"># Standalone images project (images_src/*.py)</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-doc<span class="w">          </span><span class="c1"># Linear document &amp; PDF project (doc_src/*.md)</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-site<span class="w">         </span><span class="c1"># Multi-page documentation website (docs_src/**/*.md)</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-catalog<span class="w">      </span><span class="c1"># 2-column reference &amp; schema catalog (catalog_src/**/*.md)</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-slide<span class="w">        </span><span class="c1"># 1920x1080 slide stage authoring &amp; templates (slide_src/*.md)</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-jupyter<span class="w">      </span><span class="c1"># Interactive Jupyter &amp; Colab notebooks (jupyter_src/**/*.md)</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>api<span class="w">                  </span><span class="c1"># Complete API index &amp; symbol cheat sheet</span>
 </code></pre>
 <h3>3.1 <code>drawlib rules</code> トピックカタログ一覧</h3>
-<h4>全般ガイドライン（14トピック）:</h4>
+<h4>全般ガイドライン（15トピック）:</h4>
 <table>
 <thead>
 <tr>
@@ -991,7 +1000,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>project-overview</code></strong></td>
-<td style="text-align:left">5つのプロジェクトアーキタイプ（<code>images</code>、<code>doc</code>、<code>site</code>、<code>catalog</code>、<code>slide</code>）の構成、共通ファイル、キャッシュ機構。</td>
+<td style="text-align:left">6つのプロジェクトアーキタイプ（<code>images</code>、<code>doc</code>、<code>site</code>、<code>catalog</code>、<code>slide</code>、<code>jupyter</code>）の構成、共通ファイル、キャッシュ機構。</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>project-images</code></strong></td>
@@ -1012,6 +1021,10 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tr>
 <td style="text-align:left"><strong><code>project-slide</code></strong></td>
 <td style="text-align:left">16:9 スライドステージ（<code>1920x1080</code>）、<code>::: block</code> / <code>::: note</code> 構文、レイアウトテンプレート、発表者ビュー。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>project-jupyter</code></strong></td>
+<td style="text-align:left">対話型 Jupyter / Google Colab ノートブック（<code>jupyter_src/**/*.md</code> -&gt; <code>.ipynb</code>）、<code>cell=markdown|code</code>、AI ドライラン実行。</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>cli</code></strong></td>

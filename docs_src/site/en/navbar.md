@@ -14,6 +14,7 @@
 - [API & CLI Reference](https://www.drawlib.com/api/en/)
 - [Quickstart Handbook](https://www.drawlib.com/quickstart/en/)
 - [About Drawlib Slide Deck](https://www.drawlib.com/about-drawlib/en/)
+- [Interactive Jupyter Notebooks](https://www.drawlib.com/jupyter/en/)
 - [Examples Showcase](https://examples.drawlib.com/)
 
 ## 2. Drawing Primitives & Styles
@@ -122,6 +123,7 @@
 - [Catalog Project (`catalog`)](./09_doc_builder_and_cli/project_catalog.md)
 - [Slide Deck Project (`slide`)](./09_doc_builder_and_cli/project_slide.md)
 - [Slide Stage Layout & API](./09_doc_builder_and_cli/slide_layout_and_api.md)
+- [Jupyter Notebook Project (`jupyter`)](./09_doc_builder_and_cli/project_jupyter.md)
 - [Image Project (`images`)](./09_doc_builder_and_cli/project_image.md)
 - [Templates & CSS Customization](./09_doc_builder_and_cli/customization.md)
 - [Caching Architecture & CI/CD](./09_doc_builder_and_cli/caching_and_cicd.md)

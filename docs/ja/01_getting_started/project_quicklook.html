@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/ja/" target="_blank" rel="noopener noreferrer">対話型 Jupyter / Colab ノートブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">サンプル・ショーケース<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_jupyter.html" >Jupyter ノートブックプロジェクト (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
                             </li>
                             
@@ -750,12 +758,13 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <span class="c1"># Optional flags: --style (-s) for theme and --lang (-l) for single or multi-locale (e.g. en,ja)</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>rbac<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
 </code></pre>
-<p>Drawlib は 5 種類のスタータープロジェクトタイプをサポートしています（<code>doc</code>・<code>site</code>・<code>catalog</code>・<code>slide</code> は標準で <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> と <code>drawlib.toml</code> の <code>[i18n]</code> を使用します）。</p>
+<p>Drawlib は 6 種類のスタータープロジェクトタイプをサポートしています（<code>doc</code>・<code>site</code>・<code>catalog</code>・<code>slide</code>・<code>jupyter</code> は標準で <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> と <code>drawlib.toml</code> の <code>[i18n]</code> を使用します）。</p>
 <ul>
 <li><strong><code>doc</code></strong>: HTML（<code>doc_html/</code>）、PDF（<code>doc_&lt;lang&gt;.pdf</code>）、編集可能な MS Word（<code>doc_&lt;lang&gt;.docx</code>）、Markdown（<code>doc_markdown/</code>）、および図解画像（<code>doc_images/</code>）へコンパイルされる単一構成の技術文書・仕様書・RFC・レポート。</li>
 <li><strong><code>site</code></strong>: マルチページのドキュメントサイト（<code>docs_html/</code>）、Markdown サイト（<code>docs_markdown/</code>）、および図解画像（<code>docs_images/</code>）。</li>
 <li><strong><code>catalog</code></strong>: <code># H1</code> / <code>## H2</code> 自動サイドバー・セマンティックバッジ・<code>/</code> リアルタイム絞り込みを備えた図解付きカタログ &amp; リファレンスサイト（<code>catalog_html/</code>、<code>catalog_markdown/</code>、<code>catalog_images/</code>）。API・CLI リファレンスやデータスキーマ、サービス台帳に最適です。</li>
 <li><strong><code>slide</code></strong>: Web スライドデッキ（<code>slide_html/</code>）、ベクター PDF（<code>slide_&lt;lang&gt;.pdf</code>）、編集可能な MS PowerPoint（<code>slide_&lt;lang&gt;.pptx</code>）、および図解画像（<code>slide_images/</code>）へコンパイルされる 16:9 プレゼンテーションスライド。</li>
+<li><strong><code>jupyter</code></strong>: 解説図解（<code>cell=markdown</code>）と実行可能 Python セル（<code>cell=code</code>）を組み合わせ、インプロセス AI Dry-Run 検証を経て同一出力フォルダ（<code>jupyter_jupyter/</code> 内の <code>&lt;lang&gt;/*.ipynb</code> と <code>&lt;lang&gt;/*.html</code>）へバンドル生成される対話型 Jupyter / Google Colab ノートブックおよび 2 カラム HTML プレビューサイト。</li>
 <li><strong><code>images</code></strong>: 画像ファイル（<code>images/*.png</code> など）へ一括コンパイルされるスタンドアロンの Python 図解スクリプト群（<code>images_src/*.py</code>）。</li>
 </ul>
 <figure class="drawlib-image" style="text-align: center;">
@@ -821,6 +830,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>docx<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc.docx<span class="w"> </span>--generate-index<span class="w"> </span><span class="c1"># -&gt; doc_&lt;lang&gt;.docx</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide_html/
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w">              </span><span class="c1"># -&gt; slide_&lt;lang&gt;.pptx</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">   </span><span class="c1"># -&gt; &lt;lang&gt;/*.ipynb + *.html (or --dry-run)</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/
 
 <span class="c1"># Force a clean re-render bypassing the SQLite build cache (.drawlib/cache.db):</span>

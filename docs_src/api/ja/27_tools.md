@@ -219,15 +219,15 @@ build_image(
 
 - **戻り値（`list[str]`）**: 実行されたターゲットファイルパスのリスト。
 
-## `def` build_jupyter(input_dir, output_dir=None, *, ...)
+## `def` build_jupyter(input_path, output_dir=None, *, ...)
 
-`i18n` 対応の `jupyter` プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` Markdown ソース）を、インプロセス AI ドライラン実行および `[Geometry Warning]` 検査付きの Jupyter Notebook（`<output_dir>/<lang>/**/*.ipynb`）へコンパイルします。
+`i18n` 対応の `jupyter` プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` Markdown ソース）または単一の `.md` ファイルを、インプロセス AI ドライラン実行および `[Geometry Warning]` 検査付きの Jupyter Notebook（`<output_dir>/<lang>/**/*.ipynb`）および HTML プレビューページ（`<output_dir>/<lang>/**/*.html`）の統合バンドルへコンパイルします。
 
 ```python
 from drawlib.tools import build_jupyter
 
 build_jupyter(
-    input_dir: str,
+    input_path: str,
     output_dir: str | None = None,
     *,
     image_format: str = "png",
@@ -236,23 +236,25 @@ build_jupyter(
     no_cache: bool = False,
     execute: bool | None = None,
     dry_run: bool = False,
+    css_mode: str = "external",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(必須)* | `drawlib.toml`（`type = "jupyter"`）と `<lang>/` Markdown ソースを含むプロジェクトルート。 |
-| `output_dir` | `str \| None` | `None` | 出力先ノートブックディレクトリ（省略時は `<base>_notebooks`）。 |
+| `input_path` | `str` | *(必須)* | `drawlib.toml`（`type = "jupyter"`）と `<lang>/` Markdown ソースを含むプロジェクトルート、または単一 `.md` ファイル。 |
+| `output_dir` | `str \| None` | `None` | 出力先ディレクトリ（省略時は `<base>_jupyter`）。 |
 | `image_format` | `str` | `"png"` | 埋め込み `drawlib` ブロックの画像出力形式（`"png"` または `"webp"`）。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
-| `execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を `.ipynb` に格納します。 |
-| `dry_run` | `bool` | `False` | `.ipynb` ファイルの書き出しを行わず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを実行します。 |
+| `execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を `.ipynb` と HTML に格納します。 |
+| `dry_run` | `bool` | `False` | 出力ファイルの書き出しを行わず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを実行します。 |
+| `css_mode` | `str` | `"external"` | HTML プレビューの CSS リンクモード（`"external"` または `"embed"`）。 |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
-- **戻り値（`str`）**: 生成されたノートブック出力ディレクトリの絶対パス。
+- **戻り値（`str`）**: 生成された出力ディレクトリの絶対パス（単一ファイル指定時は `.ipynb` ファイルパス）。
 
 ## `def` build_markdown(input_dir, output_dir=None, *, ...)
 

@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/en/" target="_blank" rel="noopener noreferrer">Interactive Jupyter Notebooks<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_jupyter.html" >Jupyter Notebook Project (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
                             </li>
                             
@@ -750,12 +758,13 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <span class="c1"># Optional flags: --style (-s) for theme and --lang (-l) for single or multi-locale (e.g. en,ja)</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>rbac<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
 </code></pre>
-<p>Drawlib supports five starter project types (<code>doc</code>, <code>site</code>, <code>catalog</code>, and <code>slide</code> natively use <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> and <code>[i18n]</code> in <code>drawlib.toml</code>):</p>
+<p>Drawlib supports six starter project types (<code>doc</code>, <code>site</code>, <code>catalog</code>, <code>slide</code>, and <code>jupyter</code> natively use <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> and <code>[i18n]</code> in <code>drawlib.toml</code>):</p>
 <ul>
 <li><strong><code>doc</code></strong>: Linear technical document / spec / RFC / report compiled to HTML (<code>doc_html/</code>), PDF (<code>doc_&lt;lang&gt;.pdf</code>), editable MS Word (<code>doc_&lt;lang&gt;.docx</code>), Markdown (<code>doc_markdown/</code>), and diagrams (<code>doc_images/</code>).</li>
 <li><strong><code>site</code></strong>: Multi-page documentation website (<code>docs_html/</code>), Markdown site (<code>docs_markdown/</code>), and diagrams (<code>docs_images/</code>).</li>
 <li><strong><code>catalog</code></strong>: Illustrated catalog &amp; reference website (<code>catalog_html/</code>, <code>catalog_markdown/</code>, <code>catalog_images/</code>) with automatic <code># H1</code> / <code>## H2</code> sidebar extraction, semantic badges, and <code>/</code> live filtering for APIs, CLI flags, schemas, and service registries.</li>
 <li><strong><code>slide</code></strong>: 16:9 presentation slide deck compiled to web deck (<code>slide_html/</code>), vector PDF (<code>slide_&lt;lang&gt;.pdf</code>), editable MS PowerPoint (<code>slide_&lt;lang&gt;.pptx</code>), and diagrams (<code>slide_images/</code>).</li>
+<li><strong><code>jupyter</code></strong>: Interactive Jupyter &amp; Google Colab notebooks and 2-column HTML preview site bundled together (<code>jupyter_jupyter/</code> containing <code>&lt;lang&gt;/*.ipynb</code>, <code>&lt;lang&gt;/*.html</code>, and <code>images/</code>) combining narrative diagrams (<code>cell=markdown</code>) and live Python cells (<code>cell=code</code>) with in-process AI dry-run verification.</li>
 <li><strong><code>images</code></strong>: Standalone Python illustration scripts (<code>images_src/*.py</code>) batch-compiled to image files (<code>images/*.png</code>).</li>
 </ul>
 <figure class="drawlib-image" style="text-align: center;">
@@ -821,6 +830,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>docx<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc.docx<span class="w"> </span>--generate-index<span class="w"> </span><span class="c1"># -&gt; doc_&lt;lang&gt;.docx</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide_html/
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w">              </span><span class="c1"># -&gt; slide_&lt;lang&gt;.pptx</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">   </span><span class="c1"># -&gt; &lt;lang&gt;/*.ipynb + *.html (or --dry-run)</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/
 
 <span class="c1"># Force a clean re-render bypassing the SQLite build cache (.drawlib/cache.db):</span>

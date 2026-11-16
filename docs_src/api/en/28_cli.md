@@ -202,27 +202,27 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 
 ## `cmd` drawlib build jupyter
 
-Compile a `jupyter` project directory of Markdown files into Jupyter Notebooks (`<output>/<lang>/**/*.ipynb`) with sequential in-process cell execution, pre-populated `stdout`/`execute_result`/`display_data` (`image/png`) outputs, and `[Geometry Warning]` verification.
+Compile a `jupyter` project directory of Markdown files into a unified bundle of Jupyter Notebooks (`<output>/<lang>/**/*.ipynb`) and HTML preview pages (`<output>/<lang>/**/*.html`) with sequential in-process cell execution, pre-populated `stdout`/`execute_result`/`display_data` (`image/png`) outputs, and `[Geometry Warning]` verification.
 
 ```bash
-drawlib build jupyter [OPTIONS] DIR
+drawlib build jupyter [OPTIONS] INPUT
 
-# Compile notebooks and populate execution outputs
-uv run drawlib build jupyter jupyter_src -o jupyter_notebooks
+# Compile bundled notebooks + HTML preview and populate execution outputs
+uv run drawlib build jupyter jupyter_src -o jupyter_jupyter
 
-# Run AI dry-run verification without writing .ipynb files
+# Run AI dry-run verification without writing output files
 uv run drawlib build jupyter jupyter_src --dry-run
 ```
 
 | Argument / Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `DIR` | `str` *(required)* | — | Jupyter project root directory containing `drawlib.toml` (`type = "jupyter"`) and `<lang>/` Markdown files. |
-| `-o, --output` | `str \| None` | `None` | Output notebook directory path (defaults to `<base>_notebooks/`). |
+| `INPUT` | `str` *(required)* | — | Jupyter project root directory containing `drawlib.toml` (`type = "jupyter"`) and `<lang>/` Markdown files, or a single `.md` file. |
+| `-o, --output` | `str \| None` | `None` | Output directory path (defaults to `<base>_jupyter/`, or `.ipynb` file path for single-file build). |
 | `-f, --format` | `'png' \| 'webp'` | `'png'` | Default output format for `drawlib` diagram blocks. |
 | `-s, --styles` | `str \| None` | `None` | Path to Python `styles.py` script. |
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
 | `--execute / --no-execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to execute code cells sequentially and embed outputs. |
-| `--dry-run` | `bool` | `False` | Execute all notebooks and verify zero errors / `[Geometry Warning]` without writing `.ipynb` files. |
+| `--dry-run` | `bool` | `False` | Execute all notebooks and verify zero errors / `[Geometry Warning]` without writing output files. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
 | `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 

@@ -1155,6 +1155,7 @@ save()
 | **キャッシュ制御** | `no_cache=true` | `False` | `.drawlib/cache.db` をバイパスし、ビルドのたびに該当ブロックを強制的に再実行します。 |
 | **スライドアニメーション制御** | `anim_trigger=auto\|click`, `anim_loop=once\|infinite`, `anim_pause=(2, 4)` または `(0-3, 4-7)` | `auto`, `infinite`, `()` | HTML スライドデッキにおけるインタラクティブな `<canvas>` アニメーション再生（単一フレーム停止および `start-end` ループ範囲）を制御します（詳細は[スライドデッキプロジェクト (`slide`)](./project_slide.md)を参照）。 |
 | **静止画抽出フレーム指定** | `static_frame=first\|last\|<int>` | `last`（または CLI `--static-frame`） | PDF（`drawlib build pdf`）、Word（`drawlib build docx`）、PowerPoint（`drawlib build pptx`）、およびブラウザ印刷（`Ctrl+P` / `Cmd+P`）時に、アニメーションブロックのどのフレーム（`first`、`last`、または 0 始まり／負の整数番号）を静止画 PNG として抽出するかを指定します。 |
+| **Jupyter セル種別指定** | `cell=markdown\|code` | `markdown` (`drawlib`) / `code` (`python`) | `jupyter` プロジェクトにおいて、```` ```drawlib ```` または ```` ```python ```` ブロックを解説用の `.ipynb` `markdown` セルとして出力するか、実行可能な `code` セル（`In [n]` / `Out[n]`）として出力するかを切り替えます（詳細は[Jupyter ノートブックプロジェクト (`jupyter`)](./project_jupyter.md)を参照）。 |
 
 > [!TIP]
 > **AI エージェントおよび自動化におけるベストプラクティス**:

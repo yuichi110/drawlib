@@ -16,8 +16,10 @@ from pathlib import Path
 
 import pytest
 
+from drawlib._builder._common import JupyterConfig, load_project_manifest
 from drawlib._builder.doc_builder import (
     NotebookExecutionError,
+    build_html,
     build_ipynb_dict,
     build_jupyter,
     convert_save_to_show,
@@ -212,3 +214,48 @@ class TestInitAndBuildJupyterProject:
         assert "jupyter-notebook" in html_text
         assert "nb-code-cell" in html_text
         assert "01_sample_notebook.ipynb" in html_text
+
+        # 3. build_html on a jupyter project also bundles .ipynb alongside .html in <target>_html/
+        res_html_dir = Path(build_html(str(src_dir), workers=1))
+        assert res_html_dir == tmp_path / "tutorials_html"
+        assert (res_html_dir / "en" / "01_sample_notebook.html").is_file()
+        assert (res_html_dir / "en" / "01_sample_notebook.ipynb").is_file()
+        assert (res_html_dir / "ja" / "01_sample_notebook.html").is_file()
+        assert (res_html_dir / "ja" / "01_sample_notebook.ipynb").is_file()
+
+    def test_colab_base_url_prefix_and_path_template(self, tmp_path: Path) -> None:
+        cfg_empty = JupyterConfig()
+        assert cfg_empty.build_colab_url("en/01_intro.ipynb") == ""
+
+        cfg_prefix = JupyterConfig(
+            colab_base_url="https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter/"
+        )
+        assert (
+            cfg_prefix.build_colab_url("en/01_intro.ipynb")
+            == "https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter/en/01_intro.ipynb"
+        )
+
+        cfg_template = JupyterConfig(
+            colab_base_url="https://colab.example.com/open?notebook={path}&env=prod"
+        )
+        assert (
+            cfg_template.build_colab_url("ja/01_intro.ipynb")
+            == "https://colab.example.com/open?notebook=ja/01_intro.ipynb&env=prod"
+        )
+
+        # Verify manifest parsing of colab_base_url
+        proj_dir = tmp_path / "nb_src"
+        (proj_dir / "en").mkdir(parents=True)
+        (proj_dir / "drawlib.toml").write_text(
+            '[project]\nname = "nb"\ntype = "jupyter"\n\n'
+            '[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n\n'
+            '[jupyter]\ncolab_base_url = "https://colab.example.com/notebooks/{path}"\n',
+            encoding="utf-8",
+        )
+        manifest = load_project_manifest(str(proj_dir))
+        assert manifest is not None and manifest.jupyter is not None
+        assert (
+            manifest.jupyter.build_colab_url("en/01_intro.ipynb")
+            == "https://colab.example.com/notebooks/en/01_intro.ipynb"
+        )
+

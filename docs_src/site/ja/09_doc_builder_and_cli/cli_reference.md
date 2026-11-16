@@ -831,13 +831,16 @@ drawlib build pdf doc_src/ -o manual.pdf --toc              # High-fidelity vect
 drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) document
 drawlib build slide slide_src/ -o slide_html/               # Interactive 16:9 HTML slide deck
 drawlib build pptx slide_src/ -o deck.pptx                  # Editable 16:9 MS PowerPoint (.pptx) deck
+drawlib build jupyter jupyter_src/ -o jupyter_jupyter/      # Bundled .ipynb + HTML preview (or --dry-run)
 drawlib build image scripts/ -o assets/ -g                  # Batch Python image rendering
 
 # Scaffolding & AI Agent Rules
-drawlib init project list                                  # List starter project templates (site, doc, slide, images)
+drawlib init project list                                  # List starter project templates (doc, site, catalog, slide, jupyter, images)
 drawlib init project doc my_doc                            # Scaffold linear document project (HTML, PDF, DOCX, MD, images)
 drawlib init project site my_site                          # Scaffold documentation site
+drawlib init project catalog my_api -s google              # Scaffold 2-column catalog & API reference site
 drawlib init project slide my_deck -s google               # Scaffold 16:9 presentation slide deck
+drawlib init project jupyter my_notebooks -s google        # Scaffold interactive Jupyter & Colab notebook project
 drawlib init project images my_images                      # Scaffold standalone images project (alias: image)
 drawlib init agent list                                    # List supported AI coding agent targets and output paths
 drawlib init agent antigravity                             # Generate AI agent rules (.agents/rules/drawlib.md, mode: auto)
@@ -1049,7 +1052,25 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --static-frame last
 | `--timestamp` | | `False` | 正規化する代わりに、PowerPoint メタデータへ現在のビルド日時を記録します。 |
 | `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
-### 4.7 `drawlib build image`
+### 4.7 `drawlib build jupyter`
+Markdown ノートブックのソース（`jupyter_src/<lang>/**/*.md`）を、インプロセス AI ドライラン実行（`stdout`、式の評価結果、`show()` / `save()` の画像を自動キャプチャし、未処理例外と `[Geometry Warning]` がゼロであることを検証）を行いながら、実行可能な Jupyter ノートブック（`<lang>/*.ipynb`）および 2 カラム HTML プレビューサイト（`<lang>/*.html` + ルート `index.html`）の統合バンドルへコンパイルします。
+
+```bash
+drawlib build jupyter jupyter_src/ -o jupyter_jupyter/
+drawlib build jupyter jupyter_src/ --dry-run
+```
+
+| オプション | 短縮形 | デフォルト値 | 説明 |
+|---|---|---|---|
+| `--output` | `-o` | `<base>_jupyter/` | 出力先ディレクトリパス（単一ファイル指定時は `.ipynb` ファイルパス）。 |
+| `--format` | `-f` | `png` | 埋め込み `drawlib` ブロックの画像出力フォーマット（`png` または `webp`）。 |
+| `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス（ノートブック実行時の `globals` へ事前注入されます）。 |
+| `--execute` / `--no-execute` | | `None`（`[jupyter].execute`） | `code` セルをインプロセスで順番に実行し、出力を `.ipynb` と HTML セルへ記録します。 |
+| `--dry-run` | | `False` | 出力ファイルをディスクに書き出さず、全セルの実行と `[Geometry Warning]` の検証のみを行います。 |
+| `--no-cache` | | `False` | `.drawlib/cache.db` をバイパスし、すべての図解ブロックを再実行します。 |
+| `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
+
+### 4.8 `drawlib build image`
 スタンドアロンの Python 図解スクリプト（`.py`）を一括実行するか、Markdown ファイル（`.md`）内の埋め込み描画ブロックを抽出して、画像アセットを生成します。
 
 ```bash
@@ -1085,10 +1106,10 @@ drawlib init project <TYPE> [target] [OPTIONS]
 drawlib init project list
 ```
 
-- `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`catalog`、`slide`（すべて統一された `<src_dir>/<lang>/` ロケールディレクトリと `drawlib.toml` の `[i18n]` で初期化）、`images`（エイリアス: `image`）、または `list`。
-- `[target]`: プロジェクトおよびソースフォルダのベース名（`<target>_src/` を作成します）。デフォルト値: `doc` は `doc`、`site` は `docs`、`catalog` は `catalog`、`slide` は `slide`、`images` は `images`。
+- `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`catalog`、`slide`、`jupyter`（すべて統一された `<src_dir>/<lang>/` ロケールディレクトリと `drawlib.toml` の `[i18n]` で初期化）、`images`（エイリアス: `image`）、または `list`。
+- `[target]`: プロジェクトおよびソースフォルダのベース名（`<target>_src/` を作成します）。デフォルト値: `doc` は `doc`、`site` は `docs`、`catalog` は `catalog`、`slide` は `slide`、`jupyter` は `jupyter`、`images` は `images`。
 - `-s`, `--style <theme>`: スタイルプリセットテーマ（`default`、`google`、`monochrome` など）。`style.css` と `styles.py` の両方を同期して設定します。
-- `-l`, `--lang <code>`: スターターコンテンツおよびフォント設定の言語（`en`、`ja`、`zh-cn`、`ko`、`th`、`hi` など。`doc`、`site`、`catalog`、`slide` では `-l en,ja` のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: `en`。
+- `-l`, `--lang <code>`: スターターコンテンツおよびフォント設定の言語（`en`、`ja`、`zh-cn`、`ko`、`th`、`hi` など。`doc`、`site`、`catalog`、`slide`、`jupyter` では `-l en,ja` のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: `en`。
 - `-f`, `--force`: 出力先ディレクトリが既に存在する場合に既存ファイルを上書きします。
 
 ### 5.2 AI コーディングエージェント指示ファイル生成（`drawlib init agent`）
@@ -1202,10 +1223,11 @@ drawlib rules show overview                   # View Cartesian geometry principl
 drawlib rules show style-guide                # View 50%+ neutral baseline & semantic color rules
 drawlib rules show review-guide               # View 3-stage multimodal review loop & 720pt font math
 drawlib rules show anim-guide                 # View animation idioms across all modules
-drawlib rules show project-overview           # View 5 project archetypes & shared architecture
+drawlib rules show project-overview           # View 6 project archetypes & shared architecture
 drawlib rules show project-site               # View multi-page website authoring & navbar.md rules
 drawlib rules show project-catalog            # View 2-column catalog & semantic badge rules
 drawlib rules show project-slide              # View 1920x1080 slide authoring & stage rules
+drawlib rules show project-jupyter            # View Jupyter/Colab notebook & AI dry-run rules
 drawlib rules show lib-graph-overview         # View declarative graph layout solvers overview
 drawlib rules show lib-diagrams-overview --raw # Output raw Markdown without building/checking cache
 drawlib rules show lib-shapes-overview --rebuild # Force regenerate companion rule illustrations

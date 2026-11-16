@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/en/" target="_blank" rel="noopener noreferrer">Interactive Jupyter Notebooks<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_jupyter.html" >Jupyter Notebook Project (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
                             </li>
                             
@@ -778,7 +786,7 @@
 <hr />
 <h2>1. Module Overview &amp; Complete Exports (<code>drawlib.tools</code>)</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="c1"># Document, Slide, Office &amp; Image Compilation</span>
+    <span class="c1"># Document, Slide, Office, Notebook &amp; Image Compilation</span>
     <span class="n">build_document</span><span class="p">,</span>
     <span class="n">build_html</span><span class="p">,</span>
     <span class="n">build_markdown</span><span class="p">,</span>
@@ -786,6 +794,7 @@
     <span class="n">build_docx</span><span class="p">,</span>
     <span class="n">build_slide</span><span class="p">,</span>
     <span class="n">build_pptx</span><span class="p">,</span>
+    <span class="n">build_jupyter</span><span class="p">,</span>
     <span class="n">build_image</span><span class="p">,</span>
     <span class="n">detect_document_type</span><span class="p">,</span>
     <span class="c1"># Single Diagram Extraction &amp; Desktop Preview</span>
@@ -851,6 +860,11 @@
 </tr>
 <tr>
 <td style="text-align:left"><strong>Compilation</strong></td>
+<td style="text-align:left"><code>build_jupyter(input_path, output_dir=None, *, image_format=&quot;png&quot;, styles_path=None, utils_path=None, no_cache=False, execute=None, dry_run=False, css_mode=&quot;external&quot;, workers=&quot;auto&quot;)</code></td>
+<td style="text-align:left">Compile Markdown notebook sources (<code>jupyter_src/</code>) into bundled <code>.ipynb</code> notebooks and an HTML preview site with in-process AI dry-run execution.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compilation</strong></td>
 <td style="text-align:left"><code>build_image(input_path, output_path=None, *, format=None, styles_path=None, utils_path=None, grid=False, disable_auto_clear=False, enable_auto_initialize=False, no_cache=False)</code></td>
 <td style="text-align:left">Batch execute standalone <code>.py</code> scripts or extract <code>.md</code> blocks to image files.</td>
 </tr>
@@ -877,12 +891,12 @@
 <tr>
 <td style="text-align:left"><strong>Scaffolding</strong></td>
 <td style="text-align:left"><code>init_project(project_type, destination=&quot;.&quot;, target=None, force=False, lang=&quot;en&quot;, style=None)</code></td>
-<td style="text-align:left">Scaffold a <code>&quot;doc&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;slide&quot;</code>, or <code>&quot;images&quot;</code> starter project.</td>
+<td style="text-align:left">Scaffold a <code>&quot;doc&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;catalog&quot;</code>, <code>&quot;slide&quot;</code>, <code>&quot;jupyter&quot;</code>, or <code>&quot;images&quot;</code> starter project.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Scaffolding</strong></td>
 <td style="text-align:left"><code>list_project_types()</code></td>
-<td style="text-align:left">Return <code>dict[str, str]</code> mapping starter template names (<code>doc</code>, <code>site</code>, <code>slide</code>, <code>images</code>) to descriptions.</td>
+<td style="text-align:left">Return <code>dict[str, str]</code> mapping starter template names (<code>doc</code>, <code>site</code>, <code>catalog</code>, <code>slide</code>, <code>jupyter</code>, <code>images</code>) to descriptions.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Server &amp; Audit</strong></td>

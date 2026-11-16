@@ -860,6 +860,7 @@ setup(
     grid_centerstyle: Style | None = None,
     grid_xpitch: int | None = None,
     grid_ypitch: int | None = None,
+    cwd: bool | None = None,
 )
 ```
 
@@ -877,6 +878,7 @@ setup(
 | `grid_centerstyle`| `Style` | 太い灰色の破線 | 中心軸（`x = width / 2`, `y = height / 2`）のカスタム線スタイル。 |
 | `grid_xpitch` | `int` | `width / 10` | 垂直グリッド線の間隔。 |
 | `grid_ypitch` | `int` | `height / 10` | 水平グリッド線の間隔。 |
+| `cwd` | `bool` | `False` | 相対ファイルパス（`image()`、`save()`）を呼び出し元スクリプトのディレクトリではなく `Path.cwd()` 基準で解決します（Jupyter ノートブックや対話型 REPL セッションで自動的に使用されます）。 |
 
 ---
 

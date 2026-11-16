@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/ja/" target="_blank" rel="noopener noreferrer">対話型 Jupyter / Colab ノートブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">サンプル・ショーケース<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="project_jupyter.html" >Jupyter ノートブックプロジェクト (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_image.html" >画像プロジェクト (`images`)</a>
                             </li>
                             
@@ -938,6 +946,12 @@
 <td><code>static_frame=first|last|&lt;int&gt;</code></td>
 <td><code>last</code>（または CLI <code>--static-frame</code>）</td>
 <td>PDF（<code>drawlib build pdf</code>）、Word（<code>drawlib build docx</code>）、PowerPoint（<code>drawlib build pptx</code>）、およびブラウザ印刷（<code>Ctrl+P</code> / <code>Cmd+P</code>）時に、アニメーションブロックのどのフレーム（<code>first</code>、<code>last</code>、または 0 始まり／負の整数番号）を静止画 PNG として抽出するかを指定します。</td>
+</tr>
+<tr>
+<td><strong>Jupyter セル種別指定</strong></td>
+<td><code>cell=markdown|code</code></td>
+<td><code>markdown</code> (<code>drawlib</code>) / <code>code</code> (<code>python</code>)</td>
+<td><code>jupyter</code> プロジェクトにおいて、<code>```drawlib</code> または <code>```python</code> ブロックを解説用の <code>.ipynb</code> <code>markdown</code> セルとして出力するか、実行可能な <code>code</code> セル（<code>In [n]</code> / <code>Out[n]</code>）として出力するかを切り替えます（詳細は<a href="./project_jupyter.html">Jupyter ノートブックプロジェクト (<code>jupyter</code>)</a>を参照）。</td>
 </tr>
 </tbody>
 </table>

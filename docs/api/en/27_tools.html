@@ -4917,12 +4917,12 @@
 <ul>
 <li><strong>Returns (<code>list[str]</code>)</strong>: List of executed target file paths.</li>
 </ul>
-<h2 id="build-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_jupyter</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-jupyter" aria-label="Permalink to build_jupyter()">#</a></h2>
-<p>Compile an <code>i18n</code>-native <code>jupyter</code> project directory (<code>drawlib.toml</code> + <code>&lt;lang&gt;/</code> Markdown sources) into Jupyter Notebooks (<code>&lt;output_dir&gt;/&lt;lang&gt;/**/*.ipynb</code>) with sequential in-process AI dry-run execution and <code>[Geometry Warning]</code> verification.</p>
+<h2 id="build-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_jupyter</span><span class="catalog-sig-params">(input_path, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-jupyter" aria-label="Permalink to build_jupyter()">#</a></h2>
+<p>Compile an <code>i18n</code>-native <code>jupyter</code> project directory (<code>drawlib.toml</code> + <code>&lt;lang&gt;/</code> Markdown sources) or single <code>.md</code> file into a unified bundle of Jupyter Notebooks (<code>&lt;output_dir&gt;/&lt;lang&gt;/**/*.ipynb</code>) and HTML preview pages (<code>&lt;output_dir&gt;/&lt;lang&gt;/**/*.html</code>) with sequential in-process AI dry-run execution and <code>[Geometry Warning]</code> verification.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_jupyter</span>
 
 <span class="n">build_jupyter</span><span class="p">(</span>
-    <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">image_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"png"</span><span class="p">,</span>
@@ -4931,6 +4931,7 @@
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">execute</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">css_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"external"</span><span class="p">,</span>
     <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
@@ -4945,16 +4946,16 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>input_dir</code></td>
+<td style="text-align:left"><code>input_path</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><em>(required)</em></td>
-<td style="text-align:left">Project root directory containing <code>drawlib.toml</code> (<code>type = &quot;jupyter&quot;</code>) and <code>&lt;lang&gt;/</code> Markdown sources.</td>
+<td style="text-align:left">Project root directory containing <code>drawlib.toml</code> (<code>type = &quot;jupyter&quot;</code>) and <code>&lt;lang&gt;/</code> Markdown sources, or a single <code>.md</code> file.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>output_dir</code></td>
 <td style="text-align:left"><code>str | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Target notebook output directory (defaults to <code>&lt;base&gt;_notebooks</code>).</td>
+<td style="text-align:left">Target output directory (defaults to <code>&lt;base&gt;_jupyter</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>image_format</code></td>
@@ -4984,13 +4985,19 @@
 <td style="text-align:left"><code>execute</code></td>
 <td style="text-align:left"><code>bool | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Override <code>[jupyter].execute</code> in <code>drawlib.toml</code> to sequentially execute code cells and populate <code>.ipynb</code> outputs.</td>
+<td style="text-align:left">Override <code>[jupyter].execute</code> in <code>drawlib.toml</code> to sequentially execute code cells and populate <code>.ipynb</code> and HTML outputs.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>dry_run</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
-<td style="text-align:left">Execute all notebooks and verify zero errors / <code>[Geometry Warning]</code> without writing <code>.ipynb</code> files to disk.</td>
+<td style="text-align:left">Execute all notebooks and verify zero errors / <code>[Geometry Warning]</code> without writing output files to disk.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>css_mode</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;external&quot;</code></td>
+<td style="text-align:left">CSS linking mode for HTML preview (<code>&quot;external&quot;</code> or <code>&quot;embed&quot;</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>workers</code></td>
@@ -5001,7 +5008,7 @@
 </tbody>
 </table>
 <ul>
-<li><strong>Returns (<code>str</code>)</strong>: Absolute path of the generated notebook output directory.</li>
+<li><strong>Returns (<code>str</code>)</strong>: Absolute path of the generated output directory (or <code>.ipynb</code> file path in single-file mode).</li>
 </ul>
 <h2 id="build-markdown" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_markdown</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-markdown" aria-label="Permalink to build_markdown()">#</a></h2>
 <p>Compile an <code>i18n</code>-native <code>site</code>, <code>doc</code>, or <code>catalog</code> project directory into GitHub-Flavored Markdown (<code>&lt;output_dir&gt;/&lt;lang&gt;/</code> + shared <code>&lt;output_dir&gt;/images/</code>), refusing in-place source overwrites.</p>

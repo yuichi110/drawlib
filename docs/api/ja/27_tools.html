@@ -4919,12 +4919,12 @@
 <ul>
 <li><strong>戻り値（<code>list[str]</code>）</strong>: 実行されたターゲットファイルパスのリスト。</li>
 </ul>
-<h2 id="build-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_jupyter</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-jupyter" aria-label="Permalink to build_jupyter()">#</a></h2>
-<p><code>i18n</code> 対応の <code>jupyter</code> プロジェクトディレクトリ（<code>drawlib.toml</code> + <code>&lt;lang&gt;/</code> Markdown ソース）を、インプロセス AI ドライラン実行および <code>[Geometry Warning]</code> 検査付きの Jupyter Notebook（<code>&lt;output_dir&gt;/&lt;lang&gt;/**/*.ipynb</code>）へコンパイルします。</p>
+<h2 id="build-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_jupyter</span><span class="catalog-sig-params">(input_path, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-jupyter" aria-label="Permalink to build_jupyter()">#</a></h2>
+<p><code>i18n</code> 対応の <code>jupyter</code> プロジェクトディレクトリ（<code>drawlib.toml</code> + <code>&lt;lang&gt;/</code> Markdown ソース）または単一の <code>.md</code> ファイルを、インプロセス AI ドライラン実行および <code>[Geometry Warning]</code> 検査付きの Jupyter Notebook（<code>&lt;output_dir&gt;/&lt;lang&gt;/**/*.ipynb</code>）および HTML プレビューページ（<code>&lt;output_dir&gt;/&lt;lang&gt;/**/*.html</code>）の統合バンドルへコンパイルします。</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_jupyter</span>
 
 <span class="n">build_jupyter</span><span class="p">(</span>
-    <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">input_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">image_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"png"</span><span class="p">,</span>
@@ -4933,6 +4933,7 @@
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">execute</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">css_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"external"</span><span class="p">,</span>
     <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
@@ -4947,16 +4948,16 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code>input_dir</code></td>
+<td style="text-align:left"><code>input_path</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><em>(必須)</em></td>
-<td style="text-align:left"><code>drawlib.toml</code>（<code>type = &quot;jupyter&quot;</code>）と <code>&lt;lang&gt;/</code> Markdown ソースを含むプロジェクトルート。</td>
+<td style="text-align:left"><code>drawlib.toml</code>（<code>type = &quot;jupyter&quot;</code>）と <code>&lt;lang&gt;/</code> Markdown ソースを含むプロジェクトルート、または単一 <code>.md</code> ファイル。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>output_dir</code></td>
 <td style="text-align:left"><code>str | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">出力先ノートブックディレクトリ（省略時は <code>&lt;base&gt;_notebooks</code>）。</td>
+<td style="text-align:left">出力先ディレクトリ（省略時は <code>&lt;base&gt;_jupyter</code>）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>image_format</code></td>
@@ -4986,13 +4987,19 @@
 <td style="text-align:left"><code>execute</code></td>
 <td style="text-align:left"><code>bool | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left"><code>drawlib.toml</code> の <code>[jupyter].execute</code> を上書きし、コードセルを順次実行して出力結果を <code>.ipynb</code> に格納します。</td>
+<td style="text-align:left"><code>drawlib.toml</code> の <code>[jupyter].execute</code> を上書きし、コードセルを順次実行して出力結果を <code>.ipynb</code> と HTML に格納します。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>dry_run</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
-<td style="text-align:left"><code>.ipynb</code> ファイルの書き出しを行わず、全ノートブックの実行検証および <code>[Geometry Warning]</code> 検査のみを実行します。</td>
+<td style="text-align:left">出力ファイルの書き出しを行わず、全ノートブックの実行検証および <code>[Geometry Warning]</code> 検査のみを実行します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>css_mode</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;external&quot;</code></td>
+<td style="text-align:left">HTML プレビューの CSS リンクモード（<code>&quot;external&quot;</code> または <code>&quot;embed&quot;</code>）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>workers</code></td>
@@ -5003,7 +5010,7 @@
 </tbody>
 </table>
 <ul>
-<li><strong>戻り値（<code>str</code>）</strong>: 生成されたノートブック出力ディレクトリの絶対パス。</li>
+<li><strong>戻り値（<code>str</code>）</strong>: 生成された出力ディレクトリの絶対パス（単一ファイル指定時は <code>.ipynb</code> ファイルパス）。</li>
 </ul>
 <h2 id="build-markdown" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_markdown</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-markdown" aria-label="Permalink to build_markdown()">#</a></h2>
 <p><code>i18n</code> 対応の <code>site</code>・<code>doc</code>・<code>catalog</code> プロジェクトディレクトリを GitHub 閲覧向けのレンダリング済み Markdown（<code>&lt;output_dir&gt;/&lt;lang&gt;/</code> + 共有 <code>&lt;output_dir&gt;/images/</code>）へコンパイルします（入力ソースの上書きは安全に拒否されます）。</p>

@@ -219,15 +219,15 @@ build_image(
 
 - **Returns (`list[str]`)**: List of executed target file paths.
 
-## `def` build_jupyter(input_dir, output_dir=None, *, ...)
+## `def` build_jupyter(input_path, output_dir=None, *, ...)
 
-Compile an `i18n`-native `jupyter` project directory (`drawlib.toml` + `<lang>/` Markdown sources) into Jupyter Notebooks (`<output_dir>/<lang>/**/*.ipynb`) with sequential in-process AI dry-run execution and `[Geometry Warning]` verification.
+Compile an `i18n`-native `jupyter` project directory (`drawlib.toml` + `<lang>/` Markdown sources) or single `.md` file into a unified bundle of Jupyter Notebooks (`<output_dir>/<lang>/**/*.ipynb`) and HTML preview pages (`<output_dir>/<lang>/**/*.html`) with sequential in-process AI dry-run execution and `[Geometry Warning]` verification.
 
 ```python
 from drawlib.tools import build_jupyter
 
 build_jupyter(
-    input_dir: str,
+    input_path: str,
     output_dir: str | None = None,
     *,
     image_format: str = "png",
@@ -236,23 +236,25 @@ build_jupyter(
     no_cache: bool = False,
     execute: bool | None = None,
     dry_run: bool = False,
+    css_mode: str = "external",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(required)* | Project root directory containing `drawlib.toml` (`type = "jupyter"`) and `<lang>/` Markdown sources. |
-| `output_dir` | `str \| None` | `None` | Target notebook output directory (defaults to `<base>_notebooks`). |
+| `input_path` | `str` | *(required)* | Project root directory containing `drawlib.toml` (`type = "jupyter"`) and `<lang>/` Markdown sources, or a single `.md` file. |
+| `output_dir` | `str \| None` | `None` | Target output directory (defaults to `<base>_jupyter`). |
 | `image_format` | `str` | `"png"` | Image output format for embedded `drawlib` blocks (`"png"` or `"webp"`). |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build image cache. |
-| `execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to sequentially execute code cells and populate `.ipynb` outputs. |
-| `dry_run` | `bool` | `False` | Execute all notebooks and verify zero errors / `[Geometry Warning]` without writing `.ipynb` files to disk. |
+| `execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to sequentially execute code cells and populate `.ipynb` and HTML outputs. |
+| `dry_run` | `bool` | `False` | Execute all notebooks and verify zero errors / `[Geometry Warning]` without writing output files to disk. |
+| `css_mode` | `str` | `"external"` | CSS linking mode for HTML preview (`"external"` or `"embed"`). |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
-- **Returns (`str`)**: Absolute path of the generated notebook output directory.
+- **Returns (`str`)**: Absolute path of the generated output directory (or `.ipynb` file path in single-file mode).
 
 ## `def` build_markdown(input_dir, output_dir=None, *, ...)
 

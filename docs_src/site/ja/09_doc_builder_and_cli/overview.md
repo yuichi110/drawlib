@@ -64,7 +64,7 @@ rectangle(
 # Right: Publishing Targets
 targets = [
     (47.5, "HTML & Slide Deck", Styles.PrimaryNeutral, phosphor.globe),
-    (35.2, "GitHub Markdown", Styles.Neutral, phosphor.file_code),
+    (35.2, "MD & Jupyter (.ipynb)", Styles.Neutral, phosphor.notebook),
     (22.8, "PDF / DOCX / PPTX", Styles.SecondaryNeutral, phosphor.file_pdf),
     (10.5, "Standalone Images", Styles.Neutral, phosphor.images),
 ]
@@ -883,7 +883,7 @@ save()
 
 ## 2. 基本原則
 
-1. **信頼できる唯一の情報源 (`<name>_src/`)**: コンテンツの執筆は常にソースディレクトリ（`docs_src/`、`doc_src/`、`slide_src/`、`images_src/` など）内のみで行います。出力先フォルダ（`docs_html/`、`docs_markdown/`、`docs_images/`、`images/` など）はビルド成果物であり、手動で直接編集してはなりません。
+1. **信頼できる唯一の情報源 (`<name>_src/`)**: コンテンツの執筆は常にソースディレクトリ（`docs_src/`、`doc_src/`、`catalog_src/`、`slide_src/`、`jupyter_src/`、`images_src/` など）内のみで行います。出力先フォルダ（`docs_html/`、`docs_markdown/`、`docs_images/`、`jupyter_jupyter/`、`images/` など）はビルド成果物であり、手動で直接編集してはなりません。
 2. **決定論的ビルドキャッシュ**: Drawlib は埋め込まれた各コードブロック（`styles.py`、`utils.py`、および参照されているローカルアセットを含む）の SHA-256 ハッシュを計算します。変更のない図は `.drawlib/cache.db` から瞬時に復元されるため、大規模なマルチページサイトでも 1 秒未満の差分ビルドが可能です。
 3. **実行サンドボックスと分離**: コードブロックごとにキャンバスのライフサイクルが自動的にクリアされるため、隣接する図同士で視覚的な副作用が発生することはありません。
 4. **マルチターゲットへのポータビリティ**: 同一の Markdown ソースドキュメントから、以下の複数の出力形式へ同時にコンパイルできます。
@@ -891,6 +891,7 @@ save()
    - 画像ファイル付きの GitHub Flavored Markdown（`drawlib build markdown`）
    - 目次と表紙を備えた出版品質のベクター PDF（`drawlib build pdf`）
    - ネイティブ編集可能な MS Word ドキュメント（`drawlib build docx`）および 16:9 MS PowerPoint スライドデッキ（`drawlib build pptx`）
+   - AI Dry-Run 自動実行検証済みの `In [n]` / `Out[n]` 出力入り対話型 Jupyter / Google Colab ノートブック（`drawlib build jupyter`）
    - 単体で抽出された図解画像ファイル（`drawlib build image`）
 
 ---
@@ -905,9 +906,10 @@ save()
 | **`site`** | `docs_src/<lang>/` | `docs_html/`, `docs_markdown/`（または `docs/`）, `docs_images/` | サイドバーナビゲーション（`<lang>/navbar.md`）を備えたマルチページ構成のドキュメントサイト |
 | **`catalog`** | `catalog_src/<lang>/` | `catalog_html/`, `catalog_markdown/`, `catalog_images/` | API・CLI オプション・スキーマ・サービス台帳・ランブック向けのカタログ & リファレンス（`1 MD = 1 HTML`、`# H1` / `## H2` 自動サイドバー、バッジ、` / ` フィルタ） |
 | **`slide`** | `slide_src/<lang>/` | `slide_html/`, `slide_<lang>.pdf`, `slide_<lang>.pptx`, `slide_images/` | 16:9 プレゼンテーションスライドデッキ（インタラクティブ Web スライド、印刷対応ベクター PDF、編集可能な PowerPoint） |
+| **`jupyter`** | `jupyter_src/<lang>/` | `jupyter_jupyter/`（`<lang>/*.ipynb` + `<lang>/*.html` + `images/` を統合バンドル） | 解説図解（`cell=markdown`）と実行可能 Python セル（`cell=code`）を組み合わせた対話型 Jupyter / Google Colab ノートブック（インプロセス AI Dry-Run 検証付き） |
 | **`images`** *（別名: `image`）* | `images_src/` | `images/*.png`（または `.webp`） | スタンドアロンの Python 描画スクリプトから画像アセットを一括レンダリング |
 
-```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Drawlib のプロジェクトスターターテンプレートと出力形式の概要"
+```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Drawlib の 6 種のプロジェクトスターターテンプレートと出力形式の概要"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -915,12 +917,12 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=126, height=56)
+setup(width=126, height=82)
 
 cards = [
     (
         33,
-        41.5,
+        67.5,
         "1. doc (Linear Spec)",
         Styles.SecondaryNeutral,
         Styles.DarkBold,
@@ -931,19 +933,30 @@ cards = [
     ),
     (
         93,
-        41.5,
-        "2. site / catalog (Web & Ref)",
+        67.5,
+        "2. site (Docs Website)",
         Styles.PrimaryFlat,
         Styles.WhiteBold,
         phosphor.globe,
         Styles.WhiteBold,
-        "docs_src/ or catalog_src/\n<lang>/*.md",
-        "*_html/ & *_markdown/\nnavbar or Auto H1/H2",
+        "docs_src/<lang>/*.md\n+ navbar.md",
+        "docs_html/ &\ndocs_markdown/",
     ),
     (
         33,
-        14.5,
-        "3. slide (16:9 Deck)",
+        41.0,
+        "3. catalog (2-Col Ref)",
+        Styles.PrimaryNeutral,
+        Styles.DarkBold,
+        phosphor.brackets_curly,
+        Styles.PrimaryBold,
+        "catalog_src/\n<lang>/*.md",
+        "catalog_html/\nAuto H1/H2 & Badges",
+    ),
+    (
+        93,
+        41.0,
+        "4. slide (16:9 Deck)",
         Styles.PrimaryNeutral,
         Styles.DarkBold,
         phosphor.presentation_chart,
@@ -952,9 +965,20 @@ cards = [
         "slide_html/\n_<lang>.pdf/.pptx",
     ),
     (
+        33,
+        14.5,
+        "5. jupyter (Colab & .ipynb)",
+        Styles.SecondaryNeutral,
+        Styles.DarkBold,
+        phosphor.notebook,
+        Styles.PrimaryBold,
+        "jupyter_src/\n<lang>/*.md",
+        "*.ipynb + _html/\nAI Dry-Run & Colab",
+    ),
+    (
         93,
         14.5,
-        "4. images (Batch Py)",
+        "6. images (Batch Py)",
         Styles.SecondaryNeutral,
         Styles.DarkBold,
         phosphor.images,
@@ -1003,6 +1027,7 @@ save()
 | **`site`** | トピックページまたはセクションフォルダ（`docs_src/<lang>/01_arch/*.md` など） | `drawlib init project site`、`styles.py`、`utils.py`、`<lang>/navbar.md`、`<lang>/index.md` の設定 | 担当ページの執筆と、一意のスクラッチファイル名を用いた Stage 1 + Stage 2 グリッド検証 | `./docs_src/build.sh`、`serve --check`、およびブラウザ確認を実行 |
 | **`catalog`** | カテゴリ／モジュールページ（`catalog_src/<lang>/01_users.md` など） | `drawlib init project catalog`、`drawlib.toml` の `[catalog]`、`styles.py`、`utils.py`、`<lang>/00_overview.md` | 担当カタログページ（`# H1` + `## H2` バッジ + 図解）の執筆と Stage 1 + Stage 2 グリッド検証 | `./catalog_src/build.sh`、`serve --check`、およびブラウザ確認を実行 |
 | **`slide`** | スライドファイル（`slide_src/<lang>/02_*.md` など）またはセクションディレクトリ | `drawlib init project slide`、`styles.py`、`utils.py`、ストーリー構成とスライド連番の設計 | 担当スライド（`::: block` + `::: note`）の執筆と Stage 1 + Stage 2 グリッド検証 | `./slide_src/build.sh`（または `build pptx`）を実行し、`slide_<lang>.pdf` / `1920x1080` ステージを確認 |
+| **`jupyter`** | ノートブックファイル（`jupyter_src/<lang>/01_intro.md`、`02_*.md` など） | `drawlib init project jupyter`、`drawlib.toml` の `[jupyter]`、`styles.py`、`utils.py`、章構成の設計 | 担当ノートブック（`cell=markdown` 図解 + `cell=code` セル）の執筆と Stage 1 + Stage 2 グリッド検証 | `drawlib build jupyter --dry-run`、`./jupyter_src/build.sh`、`serve --check` を実行 |
 | **`images`** | スタンドアロン Python スクリプト（`images_src/<name>.py`） | `drawlib init project images`、`styles.py`、`utils.py`、`_assets/` の準備 | 担当 `.py` スクリプトの作成と `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` の実行 | `./images_src/build.sh` を実行し、`images/*.png` を確認 |
 
 ### サブエージェント並列実行時のガードレール:
@@ -1015,13 +1040,14 @@ save()
 ## 5. 本章の構成
 
 各ビルダサブシステムの詳細は、以下のページを参照してください。
-- [Markdown コードブロック構文](./code_blocks.md): コードフェンス構文、表示モード（`code=show`、`code=fold`）、配置、キャプション指定。
-- [CLI リファレンス](./cli_reference.md): `build`（`html`、`markdown`、`pdf`、`docx`、`slide`、`pptx`、`image`）、`serve`、`show`、`init`（`project`、`agent`）、`cache`、`css`、`colors`、`styles`、`rules` の完全リファレンス。
+- [Markdown コードブロック構文](./code_blocks.md): コードフェンス構文、表示モード（`code=show`、`code=fold`）、配置、キャプション、`cell=markdown|code`、`static_frame` 指定。
+- [CLI リファレンス](./cli_reference.md): `build`（`html`、`markdown`、`pdf`、`docx`、`slide`、`pptx`、`jupyter`、`image`）、`serve`、`show`、`init`（`project`、`agent`）、`cache`、`css`、`colors`、`styles`、`rules` の完全リファレンス。
 - [リニアドキュメントプロジェクト (`doc`)](./project_doc.md): RFC、仕様書、ホワイトペーパーなどのリニアドキュメント作成と、HTML / PDF / Word（`.docx`）出力。
 - [ドキュメントサイトプロジェクト (`site`)](./project_site.md): マルチページ構成のドキュメントサイト執筆、サイドバーカテゴリ設計、リンク検証。
 - [カタログプロジェクト (`catalog`)](./project_catalog.md): `# H1` / `## H2` 自動サイドバー・セマンティックバッジ・`[catalog]` 設定を備えた 2 カラムのカタログ・リファレンス（API・CLI・スキーマ・サービス台帳・ランブック）構築。
 - [スライドデッキプロジェクト (`slide`)](./project_slide.md): インタラクティブ Web スライド、ベクター PDF、PowerPoint（`.pptx`）出力に対応した 16:9 プレゼンテーションスライドの作成。
 - [スライドステージレイアウトと API](./slide_layout_and_api.md): `1920x1080` 仮想ステージ座標系、`::: block` / `::: note` 構文、レイアウトテンプレート、`drawlib.slide` Python API。
+- [Jupyter ノートブックプロジェクト (`jupyter`)](./project_jupyter.md): 対話型 Jupyter Notebook（`.ipynb`）、Google Colab 連携、`cell=markdown` / `cell=code` デュアル構文、`setup(..., cwd=True)`、インプロセス AI Dry-Run 自動検証。
 - [画像プロジェクト (`images`)](./project_image.md): スタンドアロンスクリプトによる一括画像生成（`images_src/` ➔ `images/`）。
 - [テンプレートと CSS カスタマイズ](./customization.md): `template.html` や `style.css` のカスタマイズ、プロジェクト共通の `styles.py`・`utils.py` の注入。
 - [キャッシュ機構と CI/CD](./caching_and_cicd.md): 2 層キャッシュ構造（`.drawlib/cache.db` と `drawlib cache`）およびヘッドレス CI/CD パイプライン構築。

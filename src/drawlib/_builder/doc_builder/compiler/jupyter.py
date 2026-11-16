@@ -51,7 +51,6 @@ from drawlib._builder.doc_builder.compiler.base import (
     validate_markdown_links,
 )
 from drawlib._builder.doc_builder.compiler.html import (
-    _resolve_default_html_out_dir,
     resolve_favicon_href,
     resolve_logo_hrefs,
 )
@@ -74,6 +73,15 @@ from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.progress import check_document_output_duplicates
 from drawlib._templates import get_css, get_html_readme, localize_css_for_language
 from drawlib._templates.langs import get_language_config
+
+
+def _resolve_default_jupyter_out_dir(input_abs: str, output_dir: str | None) -> str:
+    """Resolve output Jupyter directory path, defaulting to ``<parent>/<base>_jupyter``."""
+    if output_dir:
+        return os.path.abspath(output_dir)
+    dir_name = os.path.basename(input_abs.rstrip(os.sep))
+    base_name = dir_name[:-4] if dir_name.endswith("_src") and len(dir_name) > 4 else (dir_name or "jupyter")
+    return os.path.join(os.path.dirname(input_abs), f"{base_name}_jupyter")
 
 
 def _resolve_jupyter_template_and_css(
@@ -351,7 +359,7 @@ def build_jupyter(
             )
         return abs_in
 
-    out_dir_abs = _resolve_default_html_out_dir(abs_in, output_dir)
+    out_dir_abs = _resolve_default_jupyter_out_dir(abs_in, output_dir)
     if out_dir_abs == abs_in:
         raise ValueError(
             f'Refusing to build Jupyter project in-place inside source directory "{abs_in}". '

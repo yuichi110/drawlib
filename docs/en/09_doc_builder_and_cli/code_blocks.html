@@ -192,6 +192,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/en/" target="_blank" rel="noopener noreferrer">Interactive Jupyter Notebooks<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
@@ -616,6 +620,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="project_jupyter.html" >Jupyter Notebook Project (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_image.html" >Image Project (`images`)</a>
                             </li>
                             
@@ -938,6 +946,12 @@
 <td><code>static_frame=first|last|&lt;int&gt;</code></td>
 <td><code>last</code> (or CLI <code>--static-frame</code>)</td>
 <td>Selects which frame (<code>first</code>, <code>last</code>, or 0-based/negative integer frame index) of an animated block is flattened into a static PNG when exporting to PDF (<code>drawlib build pdf</code>), Word (<code>drawlib build docx</code>), PowerPoint (<code>drawlib build pptx</code>), or browser print (<code>Ctrl+P</code> / <code>Cmd+P</code>).</td>
+</tr>
+<tr>
+<td><strong>Jupyter Cell Mode</strong></td>
+<td><code>cell=markdown|code</code></td>
+<td><code>markdown</code> (<code>drawlib</code>) / <code>code</code> (<code>python</code>)</td>
+<td>In <code>jupyter</code> projects, controls whether a <code>```drawlib</code> or <code>```python</code> block compiles into a narrative <code>.ipynb</code> <code>markdown</code> cell or an executable <code>code</code> cell (<code>In [n]</code> / <code>Out[n]</code>; see <a href="./project_jupyter.html">Jupyter &amp; Colab Project Guide</a>).</td>
 </tr>
 </tbody>
 </table>
