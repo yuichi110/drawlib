@@ -231,6 +231,7 @@ def _consume_fenced_block(
                 opts.anim_trigger is not None
                 or opts.anim_loop is not None
                 or bool(opts.anim_pause)
+                or opts.static_frame is not None
                 or "Animation(" in body_joined
             )
         ):

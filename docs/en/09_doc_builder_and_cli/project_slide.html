@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.11</span>
+                    <span class="sidebar-version-text">v0.3.12</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -891,8 +891,9 @@ drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w
 <h2>5. Authoring Slides &amp; Stage Blocks</h2>
 <p>Each Markdown file in <code>slide_src/&lt;lang&gt;/</code> (and any nested chapter subdirectories such as <code>&lt;lang&gt;/01_intro/01_cover.md</code>) represents a single 16:9 slide (<code>1920x1080</code> stage), compiled in sorted relative-path order per locale.</p>
 <ul>
-<li><strong>Excluding Non-Slide Files (<code>_</code> Prefix)</strong>: Prefix any planning notes, outlines, or draft files/folders with an underscore <code>_</code> (e.g., <code>_planning.md</code>, <code>_drafts/</code>) to exclude them from slide compilation.</li>
+<li><strong>Non-Slide Files Excluded (<code>_</code> Prefix)</strong>: Prefix any planning notes, outlines, or draft files/folders with an underscore <code>_</code> (e.g., <code>_planning.md</code>, <code>_drafts/</code>) to exclude them from slide compilation.</li>
 <li><strong>Special Excluded Files</strong>: <code>README.md</code> and <code>navbar.md</code> are also automatically excluded from the slide deck.</li>
+<li><strong>Deck Title &amp; PDF Internal Metadata (<code>/Title</code>)</strong>: The browser tab <code>&lt;title&gt;</code>, PDF internal document metadata (<code>/Title</code>), and <code>.pptx</code> core title resolve in priority order: CLI <code>--title</code> -&gt; <code>drawlib.toml</code> <code>[project].title</code> -&gt; the first <code># H1</code> heading in the first slide (<code>01_title.md</code>) -&gt; <code>&quot;Drawlib Slide&quot;</code>.</li>
 </ul>
 <p>Use <code>::: block xy=(x, y) width=W height=H</code> containers alongside standard Markdown and helper components from <code>utils.py</code> (see <a href="./slide_layout_and_api.html">Slide Stage Layout &amp; API</a> for the complete stage coordinate reference, layout templates, and <code>drawlib.slide</code> API):</p>
 <pre><code class="language-markdown">::: block xy=(80, 40) width=1760 height=60
@@ -927,7 +928,7 @@ Uses headless Chromium to capture each locale's slides into a multi-page vector 
 <li><strong><code>build_pptx.sh</code> <em>(On-Demand)</em></strong>:
 Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (<code>960x540 pt</code>) <code>.pptx</code> file per locale (<code>slide_&lt;lang&gt;.pptx</code>, such as <code>slide_en.pptx</code>). Pre-scaffolded with <code>+x</code> permissions:<pre><code class="language-bash">./slide_src/build_pptx.sh
 <span class="c1"># Or with custom CLI options:</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--static-frame<span class="w"> </span>last
 </code></pre>
 </li>
 <li><strong><code>build_image.sh</code></strong>:
@@ -970,17 +971,18 @@ Runs standard HTML, PDF, and Image builds in sequence.</li>
 <li><strong>Right Middle (Control Bar)</strong>: <code>◀ Prev</code> / <code>Next ▶</code> navigation, <strong><code>▶ Play Animation</code> button</strong> (synchronized with the main window; automatically disabled/grayed out on slides without animations), and an elapsed presentation timer (<code>00:00</code>).</li>
 <li><strong>Right Bottom (Speaker Notes)</strong>: Compiled speaker notes with <code>A-</code> / <code>A+</code> font-size controls.</li>
 </ul>
-<h3>Interactive Animation Playback (<code>anim_trigger</code>, <code>anim_loop</code>, <code>anim_pause</code>):</h3>
-<p>When embedding APNG (<code>.png</code> / <code>.apng</code>) or Animated WebP (<code>.webp</code>) diagrams inside slides, you can attach playback control attributes to the <code>drawlib</code> code fence:</p>
-<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+<h3>Interactive Animation Playback &amp; Static Export (<code>anim_trigger</code>, <code>anim_loop</code>, <code>anim_pause</code>, <code>static_frame</code>):</h3>
+<p>When embedding APNG (<code>.png</code> / <code>.apng</code>) or Animated WebP (<code>.webp</code>) diagrams inside slides, you can attach playback and static-frame control attributes to the <code>drawlib</code> code fence:</p>
+<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2
 <span class="sb">```</span>
 </code></pre>
 <ul>
 <li><strong><code>anim_trigger=click</code></strong> (<code>auto</code> | <code>click</code>): Holds on Frame 0 until clicked by the presenter.</li>
 <li><strong><code>anim_loop=once</code></strong> (<code>once</code> | <code>infinite</code>): Stops on the final frame (<code>ENDED</code>); clicking again replays from Frame 0.</li>
 <li><strong><code>anim_pause=(2, 4)</code> or <code>anim_pause=(0-3, 4-7)</code></strong>: Single 0-based frame indices (<code>2</code>, <code>4</code>) pause statically at that frame (<code>PAUSED</code>), whereas hyphenated ranges (<code>0-3</code>, <code>4-7</code>) continuously loop frames <code>start..end</code> (<code>LOOPING</code>) until clicking or pressing <code>A</code> immediately advances to <code>end + 1</code>.</li>
-<li><strong>Vector PDF Export (<code>build_pdf.sh</code>)</strong>: Automatically renders Frame 0 onto the slide without the interactive play badge.</li>
-<li><strong>MS PowerPoint Export (<code>drawlib build pptx</code>)</strong>: Extracts a crisp static PNG at <code>--dpi 240</code> using the final frame by default (<code>--anim-frame last</code>), or the initial frame when <code>--anim-frame first</code> is specified.</li>
+<li><strong><code>static_frame=first | last | &lt;int&gt;</code></strong>: Selects which frame (<code>first</code>, <code>last</code>, or 0-based/negative integer frame index) is flattened into a static PNG for PDF, PowerPoint, and browser print exports (overrides <code>--static-frame</code>).</li>
+<li><strong>Vector PDF Export (<code>build_pdf.sh</code> / <code>drawlib build pdf</code>)</strong>: Automatically renders the static frame (<code>--static-frame last</code> by default, or the block's <code>static_frame=...</code> override) onto the slide without the interactive play badge.</li>
+<li><strong>MS PowerPoint Export (<code>drawlib build pptx</code>)</strong>: Extracts a crisp static PNG at <code>--dpi 240</code> using the final frame by default (<code>--static-frame last</code>), <code>--static-frame first</code> / <code>&lt;int&gt;</code>, or the block's <code>static_frame=...</code> override.</li>
 </ul>
 <hr />
 <h2>8. Parallel Multi-Agent Slide Deck Authoring</h2>

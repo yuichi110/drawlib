@@ -143,6 +143,7 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 | `-u, --utils` | `str \| None` | `None` | Path to custom `utils.py` script (auto-detected if present in `INPUT`). |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache (`.drawlib/cache.db`). |
 | `--timestamp` | `bool` | `False` | Include current build timestamp in OpenXML metadata instead of deterministic normalization. |
+| `--static-frame` | `str` | `'last'` | Default keyframe (`'first'`, `'last'`, or 0-based/negative integer frame index) extracted when flattening `Animation` blocks into static Word images. |
 | `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
@@ -274,18 +275,19 @@ uv run drawlib build pdf slide_src -o presentation.pdf
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
 | `--timestamp` | `bool` | `False` | Include current build timestamp in PDF `/CreationDate` and `/ModDate` metadata instead of normalizing. |
+| `--static-frame` | `str` | `'last'` | Default keyframe (`'first'`, `'last'`, or 0-based/negative integer frame index) extracted when flattening `Animation` blocks into static PDF images. |
 | `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
 
 ## `cmd` drawlib build pptx
 
-Compile a `slide` project directory into native, editable Microsoft PowerPoint (`.pptx`) widescreen decks (`960×540 pt`, mapped from the `1920×1080` HTML stage via Headless Chromium layout measurement). Multi-frame `Animation` diagrams are flattened to either their `'first'` or `'last'` frame.
+Compile a `slide` project directory into native, editable Microsoft PowerPoint (`.pptx`) widescreen decks (`960×540 pt`, mapped from the `1920×1080` HTML stage via Headless Chromium layout measurement). Multi-frame `Animation` diagrams are flattened to their `'first'`, `'last'`, or specified integer frame.
 
 ```bash
 drawlib build pptx [OPTIONS] DIR
 
-uv run drawlib build pptx slide_src -o deck.pptx --theme google --dpi 240 --anim-frame last
+uv run drawlib build pptx slide_src -o deck.pptx --theme google --dpi 240 --static-frame last
 ```
 
 | Argument / Option | Type | Default | Description |
@@ -295,7 +297,7 @@ uv run drawlib build pptx slide_src -o deck.pptx --theme google --dpi 240 --anim
 | `-t, --theme` | `str \| None` | `None` | Slide CSS theme override (`'google'`, `'default'`, `'google-dark'`, `'default-dark'`, `'monochrome'`). |
 | `--title` | `str \| None` | `None` | Presentation title override stored in PowerPoint metadata. |
 | `--dpi` | `int` | `240` | Rasterization DPI for embedded `drawlib` diagrams. |
-| `--anim-frame` | `'first' \| 'last'` | `'last'` | Keyframe extracted when flattening multi-frame `Animation` blocks into static slide images. |
+| `--static-frame` | `str` | `'last'` | Default keyframe (`'first'`, `'last'`, or 0-based/negative integer frame index) extracted when flattening multi-frame `Animation` blocks into static slide images. |
 | `-s, --styles` | `str \| None` | `None` | Path to Python `styles.py` script. |
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |

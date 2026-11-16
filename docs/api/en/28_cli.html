@@ -117,7 +117,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API Reference · v0.3.11</span>
+                    <span>API Reference · v0.3.12</span>
                 </a>
                 
                 
@@ -4721,6 +4721,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">Include current build timestamp in OpenXML metadata instead of deterministic normalization.</td>
 </tr>
 <tr>
+<td style="text-align:left"><code>--static-frame</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'last'</code></td>
+<td style="text-align:left">Default keyframe (<code>'first'</code>, <code>'last'</code>, or 0-based/negative integer frame index) extracted when flattening <code>Animation</code> blocks into static Word images.</td>
+</tr>
+<tr>
 <td style="text-align:left"><code>-w, --workers</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><code>'auto'</code></td>
@@ -5087,6 +5093,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">Include current build timestamp in PDF <code>/CreationDate</code> and <code>/ModDate</code> metadata instead of normalizing.</td>
 </tr>
 <tr>
+<td style="text-align:left"><code>--static-frame</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'last'</code></td>
+<td style="text-align:left">Default keyframe (<code>'first'</code>, <code>'last'</code>, or 0-based/negative integer frame index) extracted when flattening <code>Animation</code> blocks into static PDF images.</td>
+</tr>
+<tr>
 <td style="text-align:left"><code>-w, --workers</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><code>'auto'</code></td>
@@ -5096,10 +5108,10 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </table>
 <hr />
 <h2 id="drawlib-build-pptx" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib build pptx</span></code><a class="header-anchor" href="#drawlib-build-pptx" aria-label="Permalink to drawlib build pptx">#</a></h2>
-<p>Compile a <code>slide</code> project directory into native, editable Microsoft PowerPoint (<code>.pptx</code>) widescreen decks (<code>960×540 pt</code>, mapped from the <code>1920×1080</code> HTML stage via Headless Chromium layout measurement). Multi-frame <code>Animation</code> diagrams are flattened to either their <code>'first'</code> or <code>'last'</code> frame.</p>
+<p>Compile a <code>slide</code> project directory into native, editable Microsoft PowerPoint (<code>.pptx</code>) widescreen decks (<code>960×540 pt</code>, mapped from the <code>1920×1080</code> HTML stage via Headless Chromium layout measurement). Multi-frame <code>Animation</code> diagrams are flattened to their <code>'first'</code>, <code>'last'</code>, or specified integer frame.</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DIR
 
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w"> </span>--theme<span class="w"> </span>google<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w"> </span>--theme<span class="w"> </span>google<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--static-frame<span class="w"> </span>last
 </code></pre>
 <table>
 <thead>
@@ -5142,10 +5154,10 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">Rasterization DPI for embedded <code>drawlib</code> diagrams.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>--anim-frame</code></td>
-<td style="text-align:left"><code>'first' | 'last'</code></td>
+<td style="text-align:left"><code>--static-frame</code></td>
+<td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><code>'last'</code></td>
-<td style="text-align:left">Keyframe extracted when flattening multi-frame <code>Animation</code> blocks into static slide images.</td>
+<td style="text-align:left">Default keyframe (<code>'first'</code>, <code>'last'</code>, or 0-based/negative integer frame index) extracted when flattening multi-frame <code>Animation</code> blocks into static slide images.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>-s, --styles</code></td>

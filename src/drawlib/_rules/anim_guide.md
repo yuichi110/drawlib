@@ -320,16 +320,17 @@ save("graph_layer_steps.png")
 
 ---
 
-## 7. Slide Presentation Playback Controls (`anim_trigger`, `anim_loop`, `anim_pause`)
+## 7. Slide Presentation Playback & Static Export Controls (`anim_trigger`, `anim_loop`, `anim_pause`, `static_frame`)
 
-When embedding animated `.png` (APNG) or `.webp` blocks inside a `slide` presentation project (`drawlib build slide`), use code-fence options to control interactive `<canvas>` playback in `slide.js`:
+When embedding animated `.png` (APNG) or `.webp` blocks inside a `slide` presentation project (`drawlib build slide`), use code-fence options to control interactive `<canvas>` playback in `slide.js` as well as static frame extraction for PDF/PPTX/DOCX exports:
 
 ````markdown
-```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2
 ```
 ````
 
 - **`anim_trigger=auto | click`**: `click` holds on Frame 0 (`READY`) until the presenter clicks the diagram or presses `A`; `auto` starts playback on slide entry.
 - **`anim_loop=once | infinite`**: `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously.
 - **`anim_pause=<steps>`**: Tuple of 0-based frame indices or hyphenated `start-end` loop ranges (e.g. `anim_pause=(2, 4)` or `anim_pause=(0-3, 4-7)`). Single indices pause statically at that frame (`PAUSED`), whereas `start-end` ranges continuously loop `start..end` (`LOOPING`) until the next click or `A` keypress immediately advances to `end + 1`.
+- **`static_frame=first | last | <int>`**: Selects which frame of the animation (`"first"`, `"last"`, or 0-based/negative integer frame index) is flattened into a static PNG when exporting to PDF (`drawlib build pdf`), PowerPoint (`drawlib build pptx`), Word (`drawlib build docx`), or browser print (`Ctrl+P` / `Cmd+P`). Overrides the CLI `--static-frame` / API `static_frame` default (`"last"`).
 

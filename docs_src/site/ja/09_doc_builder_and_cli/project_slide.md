@@ -941,6 +941,7 @@ drawlib init project slide my_deck -s google -l en,ja
 `slide_src/<lang>/` 内（および `<lang>/01_intro/01_cover.md` のようなネストされた章サブディレクトリ内）の各 Markdown ファイルは、1 枚の 16:9 スライド（`1920x1080` ステージ）を表し、各ロケール内で相対パスのソート順にコンパイルされます。
 - **非スライドファイルの除外（`_` プレフィックス）**: 企画メモ、構成案、下書きファイルやフォルダの先頭にアンダースコア `_`（例: `_planning.md`、`_drafts/`）を付けると、スライドのコンパイル対象から除外されます。
 - **特別に除外されるファイル**: `README.md` および `navbar.md` もスライドデッキから自動的に除外されます。
+- **デッキタイトルと PDF 内部メタデータ（`/Title`）**: ブラウザタブの `<title>`、PDF の内部ドキュメントタイトル（`/Title`）、および `.pptx` のコアタイトルは、CLI の `--title` → `drawlib.toml` の `[project].title` → 先頭スライド（`01_title.md`）の最初の `# H1` 見出し → `"Drawlib Slide"` の優先順位で解決されます。
 
 標準の Markdown や `utils.py` のヘルパーコンポーネントとあわせて `::: block xy=(x, y) width=W height=H` コンテナを使用します（ステージ座標系の詳細リファレンス、レイアウトテンプレート、`drawlib.slide` API については [スライドステージレイアウトと API](./slide_layout_and_api.md) を参照してください）。
 
@@ -981,7 +982,7 @@ save()
   ```bash
   ./slide_src/build_pptx.sh
   # または任意の CLI オプションを指定して実行:
-  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --anim-frame last
+  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --static-frame last
   ```
 - **`build_image.sh`**:
   埋め込まれた ````drawlib```` ブロックを抽出し、`slide_images/` に単体の図解画像として出力します。
@@ -1032,19 +1033,20 @@ uv run drawlib serve slide_html/
 - **右中央（コントロールバー）**: `◀ Prev` / `Next ▶` ナビゲーション、メインウィンドウと同期する **`▶ Play Animation` ボタン**（アニメーションのないスライドでは自動的に無効化／グレーアウトされます）、およびプレゼンテーション経過タイマー（`00:00`）。
 - **右下ペイン（スピーカーノート）**: `A-` / `A+` フォントサイズ調整機能付きのコンパイル済みスピーカーノート。
 
-### インタラクティブなアニメーション再生制御 (`anim_trigger`, `anim_loop`, `anim_pause`):
-スライド内に APNG（`.png` / `.apng`）またはアニメーション WebP（`.webp`）の図解を埋め込む際、````drawlib```` コードフェンスに再生制御属性を指定できます。
+### インタラクティブなアニメーション再生制御と静止画抽出 (`anim_trigger`, `anim_loop`, `anim_pause`, `static_frame`):
+スライド内に APNG（`.png` / `.apng`）またはアニメーション WebP（`.webp`）の図解を埋め込む際、````drawlib```` コードフェンスに再生制御属性および静止画抽出フレーム属性を指定できます。
 
 ````markdown
-```drawlib file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+```drawlib file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2
 ```
 ````
 
 - **`anim_trigger=click`** (`auto` | `click`): 発表者がクリックするまでフレーム 0 で待機します。
 - **`anim_loop=once`** (`once` | `infinite`): 最終フレームで停止（`ENDED`）し、再度クリックするとフレーム 0 から再生し直します。
 - **`anim_pause=(2, 4)` または `anim_pause=(0-3, 4-7)`**: 単一の 0 始まりフレームインデックス（`2`、`4`）はそのフレームで静止一時停止（`PAUSED`）し、ハイフン区切りの範囲（`0-3`、`4-7`）は `start..end` のフレーム区間を連続ループ再生（`LOOPING`）しながら待機し、クリックや `A` キーで即座に次のステップ（`end + 1`）へ進みます。
-- **ベクター PDF エクスポート (`build_pdf.sh`)**: インタラクティブな再生バッジを表示せず、自動的にフレーム 0 をスライド上にレンダリングします。
-- **MS PowerPoint エクスポート (`drawlib build pptx`)**: デフォルトでは最終フレーム（`--anim-frame last`）、`--anim-frame first` 指定時は先頭フレームを使用して、`--dpi 240` の鮮明な静的 PNG を抽出・埋め込みます。
+- **`static_frame=first | last | <int>`**: PDF・PowerPoint・ブラウザ印刷時に静止画 PNG として抽出するフレーム（`first`、`last`、または 0 始まり／負の整数フレーム番号）をブロック単位で指定します（CLI の `--static-frame` より優先されます）。
+- **ベクター PDF エクスポート (`build_pdf.sh` / `drawlib build pdf`)**: インタラクティブな再生バッジを表示せず、指定された静止画フレーム（デフォルトは `--static-frame last`、またはブロックの `static_frame=...`）をスライド上にレンダリングします。
+- **MS PowerPoint エクスポート (`drawlib build pptx`)**: デフォルトでは最終フレーム（`--static-frame last`）、または `--static-frame first`／`<int>`・ブロック個別の `static_frame=...` を使用して、`--dpi 240` の鮮明な静的 PNG を抽出・埋め込みます。
 
 ---
 

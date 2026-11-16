@@ -534,7 +534,7 @@ def test_cli_build_docx_directory_and_single_file(tmp_path: Path) -> None:
     single_md.write_text("# Quick Note\n\nStandalone markdown file.", encoding="utf-8")
     out_note = tmp_path / "custom_note.docx"
     res_single = run_drawlib_cli(
-        ["build", "docx", str(single_md), "-o", str(out_note)],
+        ["build", "docx", str(single_md), "-o", str(out_note), "--static-frame", "first"],
         cwd=str(tmp_path),
     )
     assert res_single.returncode == 0, res_single.stderr
@@ -555,7 +555,7 @@ def test_cli_build_pptx(tmp_path: Path) -> None:
     )
 
     res = run_drawlib_cli(
-        ["build", "pptx", str(slide_dir), "--dpi", "120", "--anim-frame", "last"],
+        ["build", "pptx", str(slide_dir), "--dpi", "120", "--static-frame", "0"],
         cwd=str(tmp_path),
     )
     assert res.returncode == 0, res.stderr

@@ -20,7 +20,7 @@ import sys
 import tempfile
 import warnings
 from collections.abc import Callable
-from typing import Any
+from typing import Any, Literal
 
 import drawlib._core.l4_canvas
 import drawlib.canvas
@@ -271,6 +271,7 @@ class DrawlibBlockProcessor:
         target_file_path: str | None = None,
         no_cache: bool = False,
         dpi: int | None = None,
+        static_frame: Literal["first", "last"] | int | None = None,
     ) -> str:
         """Execute a single drawlib code block and return a base64 Data URL string."""
         if image_format == "svg":
@@ -296,6 +297,10 @@ class DrawlibBlockProcessor:
                 no_cache=no_cache,
                 dpi=dpi,
             )
+            if static_frame is not None:
+                from drawlib._slide.compiler import _flatten_slide_animation_in_place  # noqa: PLC0415
+
+                _flatten_slide_animation_in_place(tmp_file, static_frame)
             with open(tmp_file, "rb") as f:
                 b64_str = base64.b64encode(f.read()).decode("utf-8")
             return f"data:{mime};base64,{b64_str}"
@@ -354,6 +359,7 @@ class DrawlibBlockProcessor:
         source_filename: str = "<drawlib_block>",
         progress_callback: Callable[[int, int, bool], None] | None = None,
         shared_images_dir: str | None = None,
+        static_frame: Literal["first", "last"] | int | None = None,
     ) -> str:
         """Process Markdown text and replace ```drawlib blocks with rendered images."""
         masked_text, preserved = preserve_outer_fences(markdown_text)
@@ -386,6 +392,12 @@ class DrawlibBlockProcessor:
                 shared_images_dir=shared_images_dir,
             )
 
+            block_static_frame: Literal["first", "last"] | int | None = (
+                (options.static_frame if options.static_frame is not None else static_frame)
+                if static_frame is not None
+                else None
+            )
+
             if embed_images:
                 data_url = self.render_block_to_data_url(
                     code,
@@ -393,6 +405,7 @@ class DrawlibBlockProcessor:
                     source_filename=source_filename,
                     target_file_path=target_img_path,
                     no_cache=options.no_cache,
+                    static_frame=block_static_frame,
                 )
                 rel_img_path = data_url
             else:
@@ -402,6 +415,10 @@ class DrawlibBlockProcessor:
                     source_filename=source_filename,
                     no_cache=options.no_cache,
                 )
+                if block_static_frame is not None:
+                    from drawlib._slide.compiler import _flatten_slide_animation_in_place  # noqa: PLC0415
+
+                    _flatten_slide_animation_in_place(target_img_path, block_static_frame)
 
             if progress_callback is not None:
                 progress_callback(block_counter, total_blocks, block_counter == total_blocks)
@@ -443,6 +460,7 @@ class DrawlibBlockProcessor:
         source_filename: str = "<drawlib_block>",
         progress_callback: Callable[[int, int, bool], None] | None = None,
         shared_images_dir: str | None = None,
+        static_frame: Literal["first", "last"] | int | None = None,
     ) -> str:
         """Process HTML text and replace <script type="text/drawlib"> blocks with rendered images."""
         pattern_script = re.compile(
@@ -472,6 +490,12 @@ class DrawlibBlockProcessor:
                 shared_images_dir=shared_images_dir,
             )
 
+            block_static_frame: Literal["first", "last"] | int | None = (
+                (options.static_frame if options.static_frame is not None else static_frame)
+                if static_frame is not None
+                else None
+            )
+
             if embed_images:
                 data_url = self.render_block_to_data_url(
                     code,
@@ -479,6 +503,7 @@ class DrawlibBlockProcessor:
                     source_filename=source_filename,
                     target_file_path=target_img_path,
                     no_cache=options.no_cache,
+                    static_frame=block_static_frame,
                 )
                 rel_img_path = data_url
             else:
@@ -488,6 +513,10 @@ class DrawlibBlockProcessor:
                     source_filename=source_filename,
                     no_cache=options.no_cache,
                 )
+                if block_static_frame is not None:
+                    from drawlib._slide.compiler import _flatten_slide_animation_in_place  # noqa: PLC0415
+
+                    _flatten_slide_animation_in_place(target_img_path, block_static_frame)
 
             if progress_callback is not None:
                 progress_callback(block_counter, total_blocks, block_counter == total_blocks)

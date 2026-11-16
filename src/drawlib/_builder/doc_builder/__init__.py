@@ -90,6 +90,7 @@ def build_document(
     *,
     image_format: str = "png",
     css_mode: str = "external",
+    static_frame: Literal["first", "last"] | int = "last",
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -104,6 +105,8 @@ def build_document(
         output_format (Optional[str]): 'html', 'pdf', 'docx', 'jupyter', or 'markdown'. Defaults to 'html'.
         image_format (str): 'png' or 'webp'. Defaults to 'png'.
         css_mode (str): CSS mode for HTML ('external' or 'embed').
+        static_frame (Literal["first", "last"] | int): Frame ('first', 'last', or integer index)
+            extracted from animated diagrams in PDF/Word exports.
         styles_path (Optional[str]): Path to custom styles.py script.
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable image build caching.
@@ -151,6 +154,7 @@ def build_document(
         return build_pdf(
             input_dir=input_dir,
             output_file=output_path,
+            static_frame=static_frame,
             styles_path=styles_path,
             utils_path=utils_path,
             no_cache=no_cache,
@@ -161,6 +165,7 @@ def build_document(
         return build_docx(
             input_dir=input_dir,
             output_file=output_path,
+            static_frame=static_frame,
             styles_path=styles_path,
             utils_path=utils_path,
             no_cache=no_cache,

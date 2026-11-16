@@ -991,6 +991,7 @@ drawlib build pdf doc_src/ -o report.pdf --toc --page-break
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` をバイパスし、すべての図解を再レンダリングします。 |
 | `--timestamp` | | `False` | PDF メタデータに現在のビルド日時を記録します（決定論的ビルドのためデフォルトでは省略されます）。 |
+| `--static-frame` | | `last` | アニメーション図解から抽出するデフォルトフレーム（`first`、`last`、または 0 始まり／負の整数番号。ブロック個別の `static_frame=...` 属性が優先されます）。 |
 | `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 ### 4.4 `drawlib build docx`
@@ -1010,6 +1011,7 @@ drawlib build docx doc_src/ -o report.docx --generate-index --page-break
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` の読み書きを無効化します。 |
 | `--timestamp` | | `False` | 正規化する代わりに、Word メタデータへ現在のビルド日時を記録します。 |
+| `--static-frame` | | `last` | アニメーション図解から抽出するデフォルトフレーム（`first`、`last`、または 0 始まり／負の整数番号。ブロック個別の `static_frame=...` 属性が優先されます）。 |
 | `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 ### 4.5 `drawlib build slide`
@@ -1032,7 +1034,7 @@ drawlib build slide slide_src/ -o slide_html/ [OPTIONS]
 ヘッドレス Chromium で `1920×1080` スライドレイアウトと計算済み CSS スタイルを計測し、Markdown スライドファイルのディレクトリ（`slide_src/`）をロケール別にネイティブ編集可能な 16:9（`960×540 pt`）MS PowerPoint（`.pptx`）デッキへコンパイルします（`rgba` アルファ対応の `::: block` カード、テキストボックス、箇条書き・番号付きリスト、テーブル、インラインコード、`::: note` スピーカーノートを変換し、````drawlib```` 図解は高 DPI 静止画 PNG として埋め込みます）。
 
 ```bash
-drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
+drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --static-frame last
 ```
 
 | オプション | 短縮形 | デフォルト値 | 説明 |
@@ -1041,7 +1043,7 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
 | `--theme` | `-t` | 自動 / `default` | CSS テーマプリセット（`google`、`default`、`google-dark`、`default-dark`）。 |
 | `--title` | | デッキから自動抽出 | PowerPoint メタデータのプレゼンテーションタイトルを上書き指定します。 |
 | `--dpi` | | `240` | 埋め込み `drawlib` 図解のラスタライズ DPI。 |
-| `--anim-frame` | | `last` | アニメーション図解から抽出するフレーム（`first` または `last`）。 |
+| `--static-frame` | | `last` | アニメーション図解から抽出するデフォルトフレーム（`first`、`last`、または 0 始まり／負の整数番号。ブロック個別の `static_frame=...` 属性が優先されます）。 |
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` の読み書きを無効化します。 |
 | `--timestamp` | | `False` | 正規化する代わりに、PowerPoint メタデータへ現在のビルド日時を記録します。 |

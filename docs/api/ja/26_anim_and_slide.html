@@ -119,7 +119,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API リファレンス · v0.3.11</span>
+                    <span>API リファレンス · v0.3.12</span>
                 </a>
                 
                 
@@ -4725,7 +4725,7 @@
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">240</span><span class="p">,</span>
-    <span class="n">anim_frame</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"first"</span><span class="p">,</span> <span class="s2">"last"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"last"</span><span class="p">,</span>
+    <span class="n">static_frame</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"first"</span><span class="p">,</span> <span class="s2">"last"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="s2">"last"</span><span class="p">,</span>
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -4774,10 +4774,10 @@
 <td style="text-align:left">埋め込み <code>drawlib</code> 静的 PNG 図解のラスタライズ解像度（<code>&gt; 0</code>）。</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>anim_frame</code></td>
-<td style="text-align:left"><code>Literal[&quot;first&quot;, &quot;last&quot;]</code></td>
+<td style="text-align:left"><code>static_frame</code></td>
+<td style="text-align:left"><code>Literal[&quot;first&quot;, &quot;last&quot;] | int</code></td>
 <td style="text-align:left"><code>&quot;last&quot;</code></td>
-<td style="text-align:left"><a href="#animation"><code>Animation</code></a> を含むブロックから抽出する静的フレーム（先頭 <code>&quot;first&quot;</code> または最終 <code>&quot;last&quot;</code>）。</td>
+<td style="text-align:left"><a href="#animation"><code>Animation</code></a> を含むブロックから抽出するデフォルト静的フレーム（<code>&quot;first&quot;</code>、<code>&quot;last&quot;</code>、または 0 始まり／負の整数フレーム番号。ブロック個別の <code>static_frame=...</code> 属性が優先されます）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>styles_path</code></td>
@@ -4813,7 +4813,7 @@
 </table>
 <ul>
 <li><strong>戻り値（<code>str</code>）</strong>: 生成されたデフォルト言語の <code>&lt;stem&gt;_&lt;default_lang&gt;.pptx</code> ファイルの絶対パス。</li>
-<li><strong>送出例外</strong>: <code>input_dir</code> 不正・<code>drawlib.toml</code> 欠落・<code>dpi &lt;= 0</code>・<code>anim_frame</code> 不正・<code>workers</code> 不正時は <code>ValueError</code>、Playwright／Chromium／<code>python-pptx</code> 実行失敗時は <code>RuntimeError</code>。</li>
+<li><strong>送出例外</strong>: <code>input_dir</code> 不正・<code>drawlib.toml</code> 欠落・<code>dpi &lt;= 0</code>・<code>static_frame</code> 不正・<code>workers</code> 不正時は <code>ValueError</code>、Playwright／Chromium／<code>python-pptx</code> 実行失敗時は <code>RuntimeError</code>。</li>
 </ul>
 <h2 id="build-slide" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_slide</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-slide" aria-label="Permalink to build_slide()">#</a></h2>
 <p><code>i18n</code> 対応の Markdown <code>slide</code> プロジェクトディレクトリを、プレゼンタービュー（<code>?presenter=1</code>）・キーボード HUD・インライン SVG フォント自動バンドル・<code>&lt;canvas&gt;</code> アニメーション再生を備えた多言語 16:9 HTML スライドデッキへコンパイルします（<a href="27_tools.html"><code>drawlib.tools</code></a> からも再エクスポートされています）。</p>
@@ -4828,7 +4828,7 @@
     <span class="n">image_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"svg"</span><span class="p">,</span>
     <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">force_image_format</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">static_anim_frame</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"first"</span><span class="p">,</span> <span class="s2">"last"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">static_frame</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"first"</span><span class="p">,</span> <span class="s2">"last"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -4888,10 +4888,10 @@
 <td style="text-align:left"><code>True</code> の場合、明示指定されたブロック拡張子（<code>.svg</code> 等）も <code>image_format</code> へ強制変換します。</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>static_anim_frame</code></td>
-<td style="text-align:left"><code>Literal[&quot;first&quot;, &quot;last&quot;] | None</code></td>
+<td style="text-align:left"><code>static_frame</code></td>
+<td style="text-align:left"><code>Literal[&quot;first&quot;, &quot;last&quot;] | int | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left"><code>&quot;first&quot;</code> または <code>&quot;last&quot;</code> を指定すると、マルチフレームアニメーションを静的 PNG 画像へ平坦化します。</td>
+<td style="text-align:left"><code>&quot;first&quot;</code>、<code>&quot;last&quot;</code>、または整数フレーム番号を指定すると、マルチフレームアニメーションを静的 PNG 画像へ平坦化します。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>styles_path</code></td>

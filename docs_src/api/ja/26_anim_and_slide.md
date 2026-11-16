@@ -156,7 +156,7 @@ build_pptx(
     title: str | None = None,
     theme: str | None = None,
     dpi: int = 240,
-    anim_frame: Literal["first", "last"] = "last",
+    static_frame: Literal["first", "last"] | int = "last",
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -172,7 +172,7 @@ build_pptx(
 | `title` | `str \| None` | `None` | `.pptx` メタデータに設定するプレゼンテーションタイトルの上書き指定。 |
 | `theme` | `str \| None` | `None` | CSS テーマプリセットの上書き指定（`"google"`、`"default"`、`"google-dark"`、`"default-dark"`、`"monochrome"`）。 |
 | `dpi` | `int` | `240` | 埋め込み `drawlib` 静的 PNG 図解のラスタライズ解像度（`> 0`）。 |
-| `anim_frame` | `Literal["first", "last"]` | `"last"` | [`Animation`](#animation) を含むブロックから抽出する静的フレーム（先頭 `"first"` または最終 `"last"`）。 |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | [`Animation`](#animation) を含むブロックから抽出するデフォルト静的フレーム（`"first"`、`"last"`、または 0 始まり／負の整数フレーム番号。ブロック個別の `static_frame=...` 属性が優先されます）。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | `.drawlib/cache.db` の SQLite ビルド画像キャッシュを無効化します。 |
@@ -180,7 +180,7 @@ build_pptx(
 | `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成されたデフォルト言語の `<stem>_<default_lang>.pptx` ファイルの絶対パス。
-- **送出例外**: `input_dir` 不正・`drawlib.toml` 欠落・`dpi <= 0`・`anim_frame` 不正・`workers` 不正時は `ValueError`、Playwright／Chromium／`python-pptx` 実行失敗時は `RuntimeError`。
+- **送出例外**: `input_dir` 不正・`drawlib.toml` 欠落・`dpi <= 0`・`static_frame` 不正・`workers` 不正時は `ValueError`、Playwright／Chromium／`python-pptx` 実行失敗時は `RuntimeError`。
 
 ## `def` build_slide(input_dir, output_dir=None, *, ...)
 
@@ -198,7 +198,7 @@ build_slide(
     image_format: str = "svg",
     dpi: int | None = None,
     force_image_format: bool = False,
-    static_anim_frame: Literal["first", "last"] | None = None,
+    static_frame: Literal["first", "last"] | int | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -215,7 +215,7 @@ build_slide(
 | `image_format` | `str` | `"svg"` | 埋め込み `drawlib` ブロックのデフォルト画像形式（`"svg"`、`"webp"`、`"png"`）。 |
 | `dpi` | `int \| None` | `None` | ラスター画像出力時の DPI 上書き指定。 |
 | `force_image_format` | `bool` | `False` | `True` の場合、明示指定されたブロック拡張子（`.svg` 等）も `image_format` へ強制変換します。 |
-| `static_anim_frame` | `Literal["first", "last"] \| None` | `None` | `"first"` または `"last"` を指定すると、マルチフレームアニメーションを静的 PNG 画像へ平坦化します。 |
+| `static_frame` | `Literal["first", "last"] \| int \| None` | `None` | `"first"`、`"last"`、または整数フレーム番号を指定すると、マルチフレームアニメーションを静的 PNG 画像へ平坦化します。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュの読み書きを無効化します。 |

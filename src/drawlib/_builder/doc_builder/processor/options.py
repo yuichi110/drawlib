@@ -78,6 +78,7 @@ class DrawlibBlockOptions(BaseModel):
     anim_trigger: Literal["auto", "click"] | None = None
     anim_loop: Literal["once", "infinite"] | None = None
     anim_pause: list[int | tuple[int, int]] | None = None
+    static_frame: Literal["first", "last"] | int | None = None
 
 
 class ExtractedBlockInfo(BaseModel):
@@ -184,6 +185,15 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                     set(pauses),
                     key=lambda item: (item, item) if isinstance(item, int) else item,
                 )
+        elif key_lower == "static_frame":
+            val_sf = val_clean.strip().lower()
+            if val_sf == "first":
+                options.static_frame = "first"
+            elif val_sf == "last":
+                options.static_frame = "last"
+            elif val_sf:
+                with contextlib.suppress(ValueError):
+                    options.static_frame = int(val_sf)
 
     return options
 

@@ -117,7 +117,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API Reference · v0.3.11</span>
+                    <span>API Reference · v0.3.12</span>
                 </a>
                 
                 
@@ -4723,7 +4723,7 @@
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">240</span><span class="p">,</span>
-    <span class="n">anim_frame</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"first"</span><span class="p">,</span> <span class="s2">"last"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"last"</span><span class="p">,</span>
+    <span class="n">static_frame</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"first"</span><span class="p">,</span> <span class="s2">"last"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">=</span> <span class="s2">"last"</span><span class="p">,</span>
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -4772,10 +4772,10 @@
 <td style="text-align:left">Rasterization DPI for embedded <code>drawlib</code> static PNG diagrams (<code>&gt; 0</code>).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>anim_frame</code></td>
-<td style="text-align:left"><code>Literal[&quot;first&quot;, &quot;last&quot;]</code></td>
+<td style="text-align:left"><code>static_frame</code></td>
+<td style="text-align:left"><code>Literal[&quot;first&quot;, &quot;last&quot;] | int</code></td>
 <td style="text-align:left"><code>&quot;last&quot;</code></td>
-<td style="text-align:left">Frame extracted as a static PNG when a slide block uses <a href="#animation"><code>Animation</code></a>.</td>
+<td style="text-align:left">Default frame extracted as a static PNG when a slide block uses <a href="#animation"><code>Animation</code></a> (<code>&quot;first&quot;</code>, <code>&quot;last&quot;</code>, or 0-based/negative integer frame index; overridden by per-block <code>static_frame=...</code> fence attribute).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>styles_path</code></td>
@@ -4811,7 +4811,7 @@
 </table>
 <ul>
 <li><strong>Returns (<code>str</code>)</strong>: Absolute path to the generated default-locale <code>&lt;stem&gt;_&lt;default_lang&gt;.pptx</code> file.</li>
-<li><strong>Raises</strong>: <code>ValueError</code> if <code>input_dir</code> is invalid, lacks <code>drawlib.toml</code>, <code>dpi &lt;= 0</code>, <code>anim_frame</code> is invalid, or <code>workers</code> is invalid; <code>RuntimeError</code> if Playwright, Chromium, or <code>python-pptx</code> fails.</li>
+<li><strong>Raises</strong>: <code>ValueError</code> if <code>input_dir</code> is invalid, lacks <code>drawlib.toml</code>, <code>dpi &lt;= 0</code>, <code>static_frame</code> is invalid, or <code>workers</code> is invalid; <code>RuntimeError</code> if Playwright, Chromium, or <code>python-pptx</code> fails.</li>
 </ul>
 <h2 id="build-slide" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_slide</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-slide" aria-label="Permalink to build_slide()">#</a></h2>
 <p>Compile an <code>i18n</code>-native Markdown <code>slide</code> project directory into a standalone multi-locale 16:9 HTML presentation deck with Presenter View (<code>?presenter=1</code>), keyboard HUD controls, inline SVG font bundling, and <code>&lt;canvas&gt;</code> animation playback (also re-exported in <a href="27_tools.html"><code>drawlib.tools</code></a>).</p>
@@ -4826,7 +4826,7 @@
     <span class="n">image_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"svg"</span><span class="p">,</span>
     <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">force_image_format</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">static_anim_frame</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"first"</span><span class="p">,</span> <span class="s2">"last"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">static_frame</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"first"</span><span class="p">,</span> <span class="s2">"last"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -4886,10 +4886,10 @@
 <td style="text-align:left">When <code>True</code>, rewrite explicit block filenames (such as <code>.svg</code>) to <code>image_format</code>.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>static_anim_frame</code></td>
-<td style="text-align:left"><code>Literal[&quot;first&quot;, &quot;last&quot;] | None</code></td>
+<td style="text-align:left"><code>static_frame</code></td>
+<td style="text-align:left"><code>Literal[&quot;first&quot;, &quot;last&quot;] | int | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">If set (<code>&quot;first&quot;</code> or <code>&quot;last&quot;</code>), flatten multi-frame animations into static PNG images.</td>
+<td style="text-align:left">If set (<code>&quot;first&quot;</code>, <code>&quot;last&quot;</code>, or 0-based/negative integer frame index), flatten multi-frame animations into static PNG images.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>styles_path</code></td>

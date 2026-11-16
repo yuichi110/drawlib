@@ -1020,6 +1020,11 @@ llms_txt = true                      # Emit llmstxt.org Markdown index (llms.txt
 ```
 
 - **Per-Page `<head>` SEO & Open Graph Injection**: Automatically extracts each page's opening Markdown summary paragraph (falling back to `[i18n.descriptions]` and `[project].description`), emits `<meta name="description">`, `<link rel="canonical">`, `og:*` (`og:title`, `og:description`, `og:url`, `og:image`, `og:locale`, `og:locale:alternate`), and `twitter:*` tags, and copies local `og_image` assets into `<out_dir>/`.
+- **Title & Brand Header Resolution (`navbar.md` `# H1` vs. `drawlib.toml` `[project].title`)**:
+  - **Browser Tab `<title>` & Breadcrumb (`{{ title }}`)**: Extracted from each `.md` page's first `# H1` heading (falling back to the filename).
+  - **Left Sidebar Brand Header (`{{ site_title }}`)**: In `site` projects, resolved per locale from `<lang>/navbar.md`'s first `# H1` heading (falling back to `"drawlib"`; if `_assets/logo.png` is present, the logo image is displayed and `site_title` is used as its `alt` / `aria-label`). *(By contrast, in `catalog` projects where `navbar.md` is optional, `[project].title` in `drawlib.toml` takes precedence over `navbar.md` `# H1`.)*
+  - **Open Graph `og:site_name`**: Resolved from `<lang>/navbar.md` `# H1` -> `drawlib.toml` `[project].title` -> `index.md` `# H1`.
+  - **`llms.txt` Header & PDF Internal Metadata (`/Title`)**: Resolved from `drawlib.toml` `[project].title` -> `navbar.md` / first page `# H1`.
 - **Canonical `hreflang` Upgrade**: When `site_url` is set, `<link rel="alternate" hreflang="...">` tags in `<head>` automatically upgrade to full canonical `https://...` URLs while interactive UI language switcher links remain relative for offline `drawlib serve` previews.
 - **`sitemap.xml` & `robots.txt`**: Emits Sitemap 0.9 XML with `xhtml:link` multilingual alternate clusters and a matching `robots.txt` pointing crawlers to `<site_url>/sitemap.xml`.
 - **AI-Ready `llms.txt` (`llmstxt.org`)**: Generates a clean Markdown index (`docs_html/llms.txt`) organized by `navbar.md` categories (or `doc` chapters / `slide` sections) with 1-sentence page summaries and multi-locale entry points for LLM agents.

@@ -85,6 +85,7 @@ build_document(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
@@ -100,6 +101,7 @@ build_document(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite image build cache when `True`. |
 | `timestamp` | `bool` | `False` | Include current build timestamp in PDF or Word metadata when `True`. |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | Default animation frame extracted when compiling to `"pdf"` or `"docx"`. |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path of the generated output directory or file.
@@ -124,6 +126,7 @@ build_docx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
@@ -141,6 +144,7 @@ build_docx(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Disable reading and writing the `.drawlib/cache.db` SQLite image cache. |
 | `timestamp` | `bool` | `False` | Include current build timestamp in `.docx` metadata instead of deterministic normalization. |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | Default animation frame (`"first"`, `"last"`, or 0-based/negative integer frame index) extracted into static PNGs. |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path to the generated `.docx` file (or `default_lang` `.docx` for `doc` projects).
@@ -300,6 +304,7 @@ build_pdf(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
@@ -316,6 +321,7 @@ build_pdf(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build image cache. |
 | `timestamp` | `bool` | `False` | Include current build timestamp in PDF metadata instead of deterministic normalization. |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | Default animation frame (`"first"`, `"last"`, or 0-based/negative integer frame index) extracted into static PNGs. |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path of the generated PDF file (or `default_lang` PDF for project directories).
@@ -334,7 +340,7 @@ build_pptx(
     title: str | None = None,
     theme: str | None = None,
     dpi: int = 240,
-    anim_frame: Literal["first", "last"] = "last",
+    static_frame: Literal["first", "last"] | int = "last",
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -350,7 +356,7 @@ build_pptx(
 | `title` | `str \| None` | `None` | Presentation title override in `.pptx` metadata. |
 | `theme` | `str \| None` | `None` | CSS theme preset override (`"google"`, `"default"`, `"google-dark"`, `"default-dark"`). |
 | `dpi` | `int` | `240` | Rasterization DPI for embedded static PNG diagrams (`> 0`). |
-| `anim_frame` | `Literal["first", "last"]` | `"last"` | Frame extracted from animated blocks (`"first"` or `"last"`). |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | Default frame extracted from animated blocks (`"first"`, `"last"`, or 0-based/negative integer frame index). |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
@@ -375,7 +381,7 @@ build_slide(
     image_format: str = "svg",
     dpi: int | None = None,
     force_image_format: bool = False,
-    static_anim_frame: Literal["first", "last"] | None = None,
+    static_frame: Literal["first", "last"] | int | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -392,7 +398,7 @@ build_slide(
 | `image_format` | `str` | `"svg"` | Default embedded diagram format (`"svg"`, `"webp"`, or `"png"`). |
 | `dpi` | `int \| None` | `None` | Optional rasterization DPI override for raster diagrams. |
 | `force_image_format` | `bool` | `False` | Rewrite explicit diagram extensions to `image_format` when `True`. |
-| `static_anim_frame` | `Literal["first", "last"] \| None` | `None` | Flatten multi-frame animations into static PNGs using `"first"` or `"last"` frame. |
+| `static_frame` | `Literal["first", "last"] \| int \| None` | `None` | Flatten multi-frame animations into static PNGs using `"first"`, `"last"`, or 0-based/negative integer frame index. |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build cache. |

@@ -840,8 +840,8 @@ Drawlib presentation slides operate on a universal **16:9 widescreen stage (`192
 | `draw_section_header(...)` | Renders a full-bleed 16:9 section header slide (`192×108`) with 4 variants (`"split"`, `"centered"`, `"banner"`, `"minimal"`). | `draw_section_header(1, "Intro", "Overview", ["A", "B"], total_sections=4)` |
 | `BoundingBox` | Dataclass representing rectangular stage bounds `(x, y, width, height)` in `1920×1080` pixels. | `box = BoundingBox(x=100, y=200, width=800, height=600)` |
 | `SlideContext` | Slide execution state container (`index`, `total`). | Internal slide runtime context |
-| `build_slide(...)` | Programmatic multi-locale slide deck compiler (`input_dir`, `output_dir`, `image_format`, `workers="auto"`). | `build_slide("slide_src/", "slide_html/")` |
-| `build_pptx(...)` | Programmatic 16:9 editable MS PowerPoint (`<stem>_<lang>.pptx`) exporter (`input_dir`, `output_file`, `dpi=240`, `anim_frame="last"`, `workers="auto"`). | `build_pptx("slide_src/", "slide.pptx")` |
+| `build_slide(...)` | Programmatic multi-locale slide deck compiler (`input_dir`, `output_dir`, `image_format`, `static_frame=None`, `workers="auto"`). | `build_slide("slide_src/", "slide_html/")` |
+| `build_pptx(...)` | Programmatic 16:9 editable MS PowerPoint (`<stem>_<lang>.pptx`) exporter (`input_dir`, `output_file`, `dpi=240`, `static_frame="last"`, `workers="auto"`). | `build_pptx("slide_src/", "slide.pptx")` |
 
 ```python
 from drawlib.slide import draw_page_number, draw_section_header

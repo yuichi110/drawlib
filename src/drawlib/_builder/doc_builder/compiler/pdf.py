@@ -22,6 +22,7 @@ from drawlib._builder._common import (
     collect_standard_document_block_jobs,
     find_project_manifest,
     load_project_manifest,
+    parse_static_frame,
     prerender_document_blocks,
     resolve_build_workers,
     resolve_styles_and_utils,
@@ -50,6 +51,7 @@ def _build_i18n_doc_pdfs(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int = 1,
 ) -> str:
     """Compile all locales of a ``doc`` project into ``<base>_<lang>.pdf`` files."""
@@ -105,6 +107,7 @@ def _build_i18n_doc_pdfs(
             lang=lang,
             project_root=input_dir_abs,
             cache=cache,
+            static_frame=static_frame,
             workers=1,
         )
         dest_abs = resolve_multi_locale_dest(default_parent, base_name, output_file, lang, ".pdf")
@@ -126,6 +129,7 @@ def _build_i18n_slide_pdfs(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int = 1,
 ) -> str:
     """Compile all locales of a ``slide`` project into ``<stem>_<lang>.pdf`` files."""
@@ -142,6 +146,7 @@ def _build_i18n_slide_pdfs(
             input_dir_abs,
             output_dir=stage_dir,
             title=title,
+            static_frame=static_frame,
             styles_path=styles_path,
             utils_path=utils_path,
             no_cache=no_cache,
@@ -173,6 +178,7 @@ def _compile_single_file_pdf(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int = 1,
 ) -> str:
     """Compile a standalone ``.md`` or ``.html`` file into a vector PDF."""
@@ -203,6 +209,7 @@ def _compile_single_file_pdf(
         no_cache=no_cache,
         lang=doc_lang,
         project_root=proj_root,
+        static_frame=static_frame,
         workers=workers,
     )
 
@@ -228,6 +235,7 @@ def build_pdf(
     title: str | None = None,
     page_break: bool = True,
     generate_index: bool = False,
+    static_frame: Literal["first", "last"] | int = "last",
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -246,6 +254,8 @@ def build_pdf(
         title (Optional[str]): Document or presentation title override.
         page_break (bool): Insert CSS page breaks between merged chapters. Defaults to True.
         generate_index (bool): Generate a Table of Contents between 1st and 2nd documents.
+        static_frame (Literal["first", "last"] | int): Frame ('first', 'last', or integer index)
+            extracted from animated diagrams.
         styles_path (Optional[str]): Path to custom styles.py script.
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
@@ -259,6 +269,7 @@ def build_pdf(
         ValueError: If input_path does not exist, lacks ``drawlib.toml`` for directories, or has an unsupported type.
     """
     eff_workers = resolve_build_workers(workers)
+    resolved_static_frame = parse_static_frame(static_frame)
     resolved_input = input_path if input_path is not None else input_dir
     if not resolved_input:
         raise ValueError("No input directory or file specified for build_pdf.")
@@ -277,6 +288,7 @@ def build_pdf(
             utils_path=utils_path,
             no_cache=no_cache,
             timestamp=timestamp,
+            static_frame=resolved_static_frame,
             workers=eff_workers,
         )
 
@@ -321,6 +333,7 @@ def build_pdf(
             utils_path=utils_path,
             no_cache=no_cache,
             timestamp=timestamp,
+            static_frame=resolved_static_frame,
             workers=eff_workers,
         )
 
@@ -336,5 +349,6 @@ def build_pdf(
         utils_path=utils_path,
         no_cache=no_cache,
         timestamp=timestamp,
+        static_frame=resolved_static_frame,
         workers=eff_workers,
     )

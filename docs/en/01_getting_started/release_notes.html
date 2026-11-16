@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/15">
+    <meta name="description" content="Release Date: 2026/11/16">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/15">
+    <meta property="og:description" content="Release Date: 2026/11/16">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/15">
+    <meta name="twitter:description" content="Release Date: 2026/11/16">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.11</span>
+                    <span class="sidebar-version-text">v0.3.12</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -715,6 +715,22 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.12</h2>
+<p><em>Release Date: 2026/11/16</em></p>
+<p>Version 0.3.12 introduces <strong>unified static frame selection (<code>--static-frame</code> / <code>static_frame=...</code>)</strong> when exporting animated diagrams (<code>Animation()</code>) to static targets (<strong>PDF, MS PowerPoint <code>.pptx</code>, MS Word <code>.docx</code>, and browser print <code>Ctrl+P</code> / <code>Cmd+P</code></strong>), defaulting to the completed final frame (<code>&quot;last&quot;</code>) with support for <code>&quot;first&quot;</code>, 0-based/negative integer frame indices, and per-block code fence overrides, alongside <strong>expanded project title &amp; metadata resolution documentation (<code>drawlib.toml</code> <code>[project].title</code> vs. <code>navbar.md</code> <code># H1</code> vs. page <code># H1</code>)</strong>.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. Unified Static Frame Selection for Animated Diagrams (<code>--static-frame</code>, <code>static_frame</code>, <code>doc_builder</code>, <code>slide</code>, <code>_cli</code>)</h4>
+<ul>
+<li><strong>CLI Flag &amp; Python API (<code>--static-frame</code>, <code>static_frame: Literal[&quot;first&quot;, &quot;last&quot;] | int = &quot;last&quot;</code>)</strong>: Added <code>--static-frame &lt;first|last|int&gt;</code> across <code>drawlib build pdf</code>, <code>drawlib build docx</code>, <code>drawlib build slide</code>, and <code>drawlib build pptx</code> (and <code>static_frame</code> on <code>build_pdf()</code>, <code>build_docx()</code>, <code>build_slide()</code>, and <code>build_pptx()</code>). Static exports now default to extracting the completed final frame (<code>&quot;last&quot;</code>) of multi-frame <code>Animation</code> blocks, while supporting <code>&quot;first&quot;</code> and 0-based or negative integer frame indices (e.g. <code>2</code>, <code>-2</code>, clamped safely within <code>[0, n_frames - 1]</code>).</li>
+<li><strong>Per-Block Code Fence Override (<code>static_frame=first|last|&lt;int&gt;</code>)</strong>: Individual <code>```drawlib</code> blocks can specify <code>static_frame=first</code>, <code>static_frame=last</code>, or <code>static_frame=&lt;int&gt;</code> (or <code>static-frame=...</code>) on the opening code fence to override the project-wide <code>--static-frame</code> default for that specific diagram.</li>
+<li><strong>Browser Print Synchronization (<code>Ctrl+P</code> / <code>Cmd+P</code> in <code>slide.js</code>)</strong>: HTML slide <code>&lt;canvas&gt;</code> animations now embed <code>data-static-frame</code> and automatically switch to the resolved static frame on <code>beforeprint</code> (and restore the interactive playback state on <code>afterprint</code>), ensuring browser printouts match <code>drawlib build pdf</code> output.</li>
+</ul>
+<h4>2. Project Title, Sidebar Brand &amp; PDF Internal Metadata Documentation (<code>_rules/</code>, <code>docs_src/</code>)</h4>
+<ul>
+<li><strong>Documented Title Resolution Hierarchy (<code>project-overview</code>, <code>project-site</code>, <code>project-doc</code>, <code>project-slide</code>)</strong>: Clarified how <code>drawlib.toml</code> <code>[project].title</code>, <code>&lt;lang&gt;/navbar.md</code> <code># H1</code>, and page/slide <code># H1</code> headings resolve across browser <code>&lt;title&gt;</code>, left sidebar brand headers (<code>site_title</code>), PDF internal document metadata (<code>/Title</code>), Office <code>.docx</code>/<code>.pptx</code> core titles, Open Graph <code>og:site_name</code>, and <code>llms.txt</code>.</li>
+</ul>
+<hr />
 <h2>Version 0.3.11</h2>
 <p><em>Release Date: 2026/11/15</em></p>
 <p>Version 0.3.11 introduces the 6th project archetype <strong><code>jupyter</code> (&quot;Illustrated Notebook &amp; Google Colab as Code&quot;)</strong> with an <strong>in-process AI Dry-Run execution engine</strong>, <strong>deterministic <code>setup(..., cwd=True)</code> working-directory path resolution</strong>, and <strong>bilingual interactive Jupyter / Google Colab tutorial notebooks (<code>docs_src/jupyter/</code>)</strong>.</p>

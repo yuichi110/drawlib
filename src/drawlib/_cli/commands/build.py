@@ -43,6 +43,7 @@ def _handle_build_error(prefix: str, exc: Exception) -> None:
 _WORKERS_HELP = (
     "Number of parallel worker processes for diagram rendering ('auto' or positive integer; 1 = sequential)."
 )
+_STATIC_FRAME_HELP = "Frame ('first', 'last', or integer index) extracted from animated diagrams."
 
 
 @build_app.command("image", epilog=HELP_EPILOG)
@@ -280,6 +281,10 @@ def cmd_build_pdf(
         str | None,
         typer.Option("--title", help="Document title override for the merged PDF."),
     ] = None,
+    static_frame: Annotated[
+        str,
+        typer.Option("--static-frame", help=_STATIC_FRAME_HELP),
+    ] = "last",
     styles: Annotated[
         str | None,
         typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
@@ -306,16 +311,18 @@ def cmd_build_pdf(
 ) -> None:
     """Compile Markdown chapters, single Markdown file, or slide deck into a print-ready vector PDF."""
     try:
-        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
+        from drawlib._builder._common import parse_static_frame, resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.doc_builder import build_pdf  # noqa: PLC0415
 
         eff_workers = resolve_build_workers(workers)
+        eff_static_frame = parse_static_frame(static_frame)
         out_file = build_pdf(
             input_path=input_path,
             output_file=output,
             page_break=page_break,
             generate_index=generate_index,
             title=title,
+            static_frame=eff_static_frame,
             styles_path=styles,
             utils_path=utils,
             no_cache=no_cache,
@@ -364,6 +371,10 @@ def cmd_build_docx(
         int,
         typer.Option("--dpi", help="Rasterization DPI for embedded drawlib diagrams."),
     ] = 200,
+    static_frame: Annotated[
+        str,
+        typer.Option("--static-frame", help=_STATIC_FRAME_HELP),
+    ] = "last",
     styles: Annotated[
         str | None,
         typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
@@ -390,10 +401,11 @@ def cmd_build_docx(
 ) -> None:
     """Compile Markdown chapters or a single Markdown file into an editable MS Word (.docx) document."""
     try:
-        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
+        from drawlib._builder._common import parse_static_frame, resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.doc_builder import build_docx  # noqa: PLC0415
 
         eff_workers = resolve_build_workers(workers)
+        eff_static_frame = parse_static_frame(static_frame)
         out_file = build_docx(
             input_path=input_path,
             output_file=output,
@@ -401,6 +413,7 @@ def cmd_build_docx(
             generate_index=generate_index,
             title=title,
             dpi=dpi,
+            static_frame=eff_static_frame,
             styles_path=styles,
             utils_path=utils,
             no_cache=no_cache,
@@ -495,9 +508,9 @@ def cmd_build_pptx(
         int,
         typer.Option("--dpi", help="Rasterization DPI for embedded drawlib diagrams."),
     ] = 240,
-    anim_frame: Annotated[
-        Literal["first", "last"],
-        typer.Option("--anim-frame", help="Frame ('first' or 'last') extracted from animated diagrams."),
+    static_frame: Annotated[
+        str,
+        typer.Option("--static-frame", help=_STATIC_FRAME_HELP),
     ] = "last",
     styles: Annotated[
         str | None,
@@ -525,17 +538,18 @@ def cmd_build_pptx(
 ) -> None:
     """Compile a directory of Markdown slide files into an editable MS PowerPoint (.pptx) deck."""
     try:
-        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
+        from drawlib._builder._common import parse_static_frame, resolve_build_workers  # noqa: PLC0415
         from drawlib._slide import build_pptx  # noqa: PLC0415
 
         eff_workers = resolve_build_workers(workers)
+        eff_static_frame = parse_static_frame(static_frame)
         out_file = build_pptx(
             input_dir=input_dir,
             output_file=output,
             title=title,
             theme=theme,
             dpi=dpi,
-            anim_frame=anim_frame,
+            static_frame=eff_static_frame,
             styles_path=styles,
             utils_path=utils,
             no_cache=no_cache,

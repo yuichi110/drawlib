@@ -85,6 +85,7 @@ build_document(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
@@ -100,6 +101,7 @@ build_document(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` ファイルのパス。 |
 | `no_cache` | `bool` | `False` | `True` の場合、SQLite 画像ビルドキャッシュを無効化します。 |
 | `timestamp` | `bool` | `False` | `True` の場合、PDF や Word メタデータに現在時刻を記録します。 |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | `"pdf"` または `"docx"` 出力時にアニメーションブロックから抽出するデフォルト静止画フレーム。 |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された出力ディレクトリまたはファイルの絶対パス。
@@ -124,6 +126,7 @@ build_docx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
@@ -141,6 +144,7 @@ build_docx(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | `.drawlib/cache.db` の SQLite ビルド画像キャッシュを無効化します。 |
 | `timestamp` | `bool` | `False` | 決定論的正規化の代わりに現在時刻を `.docx` メタデータへ記録します。 |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | アニメーションブロックから抽出するデフォルト静的フレーム（`"first"`、`"last"`、または 0 始まり／負の整数フレーム番号）。 |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された `.docx` ファイル（`doc` プロジェクト時は `default_lang` の `.docx`）の絶対パス。
@@ -300,6 +304,7 @@ build_pdf(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
@@ -316,6 +321,7 @@ build_pdf(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
 | `timestamp` | `bool` | `False` | 決定論的正規化の代わりに現在時刻を PDF メタデータへ記録します。 |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | アニメーションブロックから抽出するデフォルト静的フレーム（`"first"`、`"last"`、または 0 始まり／負の整数フレーム番号）。 |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された PDF ファイル（プロジェクト指定時は `default_lang` の PDF）の絶対パス。
@@ -334,7 +340,7 @@ build_pptx(
     title: str | None = None,
     theme: str | None = None,
     dpi: int = 240,
-    anim_frame: Literal["first", "last"] = "last",
+    static_frame: Literal["first", "last"] | int = "last",
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -350,7 +356,7 @@ build_pptx(
 | `title` | `str \| None` | `None` | `.pptx` メタデータに設定するタイトルの上書き指定。 |
 | `theme` | `str \| None` | `None` | CSS テーマプリセットの上書き指定（`"google"`、`"default"`、`"google-dark"`、`"default-dark"`）。 |
 | `dpi` | `int` | `240` | 埋め込み静的 PNG 図解のラスタライズ DPI（`> 0`）。 |
-| `anim_frame` | `Literal["first", "last"]` | `"last"` | アニメーションブロックから抽出する静的フレーム（`"first"` または `"last"`）。 |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | アニメーションブロックから抽出するデフォルト静的フレーム（`"first"`、`"last"`、または 0 始まり／負の整数フレーム番号）。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
@@ -375,7 +381,7 @@ build_slide(
     image_format: str = "svg",
     dpi: int | None = None,
     force_image_format: bool = False,
-    static_anim_frame: Literal["first", "last"] | None = None,
+    static_frame: Literal["first", "last"] | int | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -392,7 +398,7 @@ build_slide(
 | `image_format` | `str` | `"svg"` | 埋め込み図解の標準フォーマット（`"svg"`、`"webp"`、`"png"`）。 |
 | `dpi` | `int \| None` | `None` | ラスター図解生成時の DPI 上書き指定。 |
 | `force_image_format` | `bool` | `False` | `True` の場合、ブロックで明示指定された拡張子も `image_format` へ書き換えます。 |
-| `static_anim_frame` | `Literal["first", "last"] \| None` | `None` | `"first"` または `"last"` 指定時、アニメーションを静的 PNG 画像へ平坦化します。 |
+| `static_frame` | `Literal["first", "last"] \| int \| None` | `None` | `"first"`、`"last"`、または整数フレーム番号指定時、アニメーションを静的 PNG 画像へ平坦化します。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite ビルドキャッシュを無効化します。 |

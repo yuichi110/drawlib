@@ -238,6 +238,7 @@ drawlib build pdf <INPUT> [OPTIONS]
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in PDF metadata instead of normalizing for deterministic builds. |
+| `--static-frame` | | `first \| last \| <int>` | `last` | Default frame extracted as a static PNG when a diagram block uses `Animation()` (supports `"first"`, `"last"`, or 0-based/negative integer frame index; per-block `static_frame=...` fence attribute takes priority). |
 | `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 > **Mandatory Files**: `doc` and `slide` directory builds require `drawlib.toml` (with `[i18n]`), plus `template.html` and `style.css` for `doc` projects. Run `drawlib init project <doc|slide>` to scaffold them.
@@ -285,6 +286,7 @@ drawlib build docx <INPUT> [OPTIONS]
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in `.docx` metadata instead of normalizing for deterministic builds. |
+| `--static-frame` | | `first \| last \| <int>` | `last` | Default frame extracted as a static PNG when a diagram block uses `Animation()` (supports `"first"`, `"last"`, or 0-based/negative integer frame index; per-block `static_frame=...` fence attribute takes priority). |
 | `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 #### Examples:
@@ -335,7 +337,7 @@ drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/
 
 ### 1.6 `drawlib build pptx` (Editable 16:9 MS PowerPoint `.pptx` Export)
 
-Measures the `1920x1080` slide DOM via headless Chromium for each locale in `[i18n].langs` and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`<stem>_<lang>.pptx`) decks using `python-pptx` (installed automatically as a standard dependency). Converts `::: block` cards (including `rgba` alpha backgrounds/borders), text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes into native PowerPoint shapes, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`).
+Measures the `1920x1080` slide DOM via headless Chromium for each locale in `[i18n].langs` and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`<stem>_<lang>.pptx`) decks using `python-pptx` (installed automatically as a standard dependency). Converts `::: block` cards (including `rgba` alpha backgrounds/borders), text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes into native PowerPoint shapes, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `static_frame="last"`).
 
 *(Note: Headless Chromium auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. `drawlib init project slide` scaffolds an executable `./slide_src/build_pptx.sh` script for on-demand `.pptx` export, while master `build.sh` compiles HTML, PDF, and Images.)*
 
@@ -354,7 +356,7 @@ drawlib build pptx <DIR> [OPTIONS]
 | `--theme` | `-t` | `<str>` | `None` | CSS theme preset override (`google`, `default`, `google-dark`, `default-dark`, etc.). |
 | `--title` | | `<str>` | Extracted from H1 | Presentation title override in `.pptx` metadata. |
 | `--dpi` | | `<int>` | `240` | Rasterization DPI for embedded ````drawlib```` static PNG diagrams. |
-| `--anim-frame` | | `first \| last` | `last` | Frame to render as a static PNG when a slide block uses `Animation()`. |
+| `--static-frame` | | `first \| last \| <int>` | `last` | Default frame to render as a static PNG when a slide block uses `Animation()` (supports `"first"`, `"last"`, or 0-based/negative integer frame index; per-block `static_frame=...` fence attribute takes priority). |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
@@ -367,7 +369,7 @@ drawlib build pptx <DIR> [OPTIONS]
 drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
 
 # Export with higher diagram DPI and first animation frame:
-drawlib build pptx slide_src/ -o slide.pptx --dpi 300 --anim-frame first
+drawlib build pptx slide_src/ -o slide.pptx --dpi 300 --static-frame first
 ```
 
 ---

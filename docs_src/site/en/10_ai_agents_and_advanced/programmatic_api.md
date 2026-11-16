@@ -100,10 +100,10 @@ from drawlib.tools import (
 | :--- | :--- | :--- |
 | **Compilation** | `build_html(input_dir, output_dir=None, *, image_format="png", styles_path=None, utils_path=None, no_cache=False, css_mode="external")` | Compile Markdown directory (`site` or `doc`) into static HTML. |
 | **Compilation** | `build_markdown(input_dir, output_dir=None, *, image_format="png", styles_path=None, utils_path=None, no_cache=False)` | Compile source Markdown into GitHub-Flavored Markdown + companion images. |
-| **Compilation** | `build_pdf(input_path=None, output_file=None, *, title=None, page_break=True, generate_index=False, styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | Merge Markdown chapters or slide deck into a vector PDF via headless Chromium. |
-| **Compilation** | `build_docx(input_path=None, output_file=None, *, input_dir=None, title=None, page_break=True, generate_index=False, dpi=200, styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | Compile Markdown chapters or a single `.md` file into an editable MS Word (`.docx`) document with high-DPI static PNG diagrams. |
-| **Compilation** | `build_slide(input_dir, output_dir=None, *, title=None, theme=None, image_format="svg", styles_path=None, utils_path=None, no_cache=False)` | Compile a `slide_src/` directory into an interactive 16:9 HTML slide deck (`index.html`). |
-| **Compilation** | `build_pptx(input_dir, output_file=None, *, title=None, theme=None, dpi=240, anim_frame="last", styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | Compile a `slide_src/` directory into an editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) deck via headless Chromium layout measurement. |
+| **Compilation** | `build_pdf(input_path=None, output_file=None, *, title=None, page_break=True, generate_index=False, styles_path=None, utils_path=None, no_cache=False, timestamp=False, static_frame="last")` | Merge Markdown chapters or slide deck into a vector PDF via headless Chromium. |
+| **Compilation** | `build_docx(input_path=None, output_file=None, *, input_dir=None, title=None, page_break=True, generate_index=False, dpi=200, styles_path=None, utils_path=None, no_cache=False, timestamp=False, static_frame="last")` | Compile Markdown chapters or a single `.md` file into an editable MS Word (`.docx`) document with high-DPI static PNG diagrams. |
+| **Compilation** | `build_slide(input_dir, output_dir=None, *, title=None, theme=None, image_format="svg", static_frame=None, styles_path=None, utils_path=None, no_cache=False)` | Compile a `slide_src/` directory into an interactive 16:9 HTML slide deck (`index.html`). |
+| **Compilation** | `build_pptx(input_dir, output_file=None, *, title=None, theme=None, dpi=240, static_frame="last", styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | Compile a `slide_src/` directory into an editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) deck via headless Chromium layout measurement. |
 | **Compilation** | `build_image(input_path, output_path=None, *, format=None, styles_path=None, utils_path=None, grid=False, disable_auto_clear=False, enable_auto_initialize=False, no_cache=False)` | Batch execute standalone `.py` scripts or extract `.md` blocks to image files. |
 | **Compilation** | `build_document(input_dir, output_path=None, output_format=None, ...)` | Unified dispatcher for `"html"`, `"markdown"`, `"pdf"`, or `"docx"` compilation. |
 | **Inspection** | `detect_document_type(file_path, content=None)` | Detect whether a file/directory is Markdown or HTML (`DocumentInputInfo`). |
@@ -185,7 +185,7 @@ build_pptx(
     output_file="slide.pptx",
     theme="google",
     dpi=240,                           # High-DPI static PNG rasterization for diagrams
-    anim_frame="last",                 # Extract "first" or "last" frame from animations
+    static_frame="last",               # Extract "first", "last", or <int> frame from animations
 )
 ```
 

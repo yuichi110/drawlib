@@ -211,7 +211,10 @@ def format_asset_markup(
     esc_alt = html.escape(alt_text, quote=True)
 
     has_anim_opts = options is not None and (
-        options.anim_trigger is not None or options.anim_loop is not None or bool(options.anim_pause)
+        options.anim_trigger is not None
+        or options.anim_loop is not None
+        or bool(options.anim_pause)
+        or options.static_frame is not None
     )
     if has_anim_opts and options is not None and file_name.lower().endswith((".png", ".apng", ".webp")):
         trigger = html.escape(options.anim_trigger or "auto", quote=True)
@@ -221,6 +224,11 @@ def format_asset_markup(
             for p in (options.anim_pause or [])
         ]
         pause_attr = f' data-anim-pause="{",".join(pause_tokens)}"' if pause_tokens else ""
+        static_frame_attr = (
+            f' data-static-frame="{html.escape(str(options.static_frame), quote=True)}"'
+            if options.static_frame is not None
+            else ""
+        )
         base64_attr = ""
         if output_abs:
             anim_disk = os.path.normpath(os.path.join(output_abs, file_name))
@@ -231,7 +239,7 @@ def format_asset_markup(
                     base64_attr = f' data-base64="{b64_data}"'
         return (
             f'\n<figure class="drawlib-image drawlib-anim-container" '
-            f'data-anim-trigger="{trigger}" data-anim-loop="{loop}"{pause_attr}>\n'
+            f'data-anim-trigger="{trigger}" data-anim-loop="{loop}"{pause_attr}{static_frame_attr}>\n'
             f'  <canvas class="drawlib-anim-canvas" data-src="{esc_href}"{base64_attr} '
             f'role="img" aria-label="{esc_alt}"></canvas>\n'
             f'  <div class="anim-play-badge" title="Click to play / continue animation">\n'

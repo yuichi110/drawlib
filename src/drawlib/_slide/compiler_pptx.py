@@ -15,7 +15,7 @@ import os
 import tempfile
 from typing import Literal
 
-from drawlib._builder._common import resolve_build_workers
+from drawlib._builder._common import parse_static_frame, resolve_build_workers
 from drawlib._slide.compiler import build_slide, require_slide_manifest
 
 
@@ -26,7 +26,7 @@ def build_pptx(
     title: str | None = None,
     theme: str | None = None,
     dpi: int = 240,
-    anim_frame: Literal["first", "last"] = "last",
+    static_frame: Literal["first", "last"] | int = "last",
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -45,7 +45,7 @@ def build_pptx(
         title: Optional presentation title override.
         theme: CSS theme preset name ('google', 'default', 'google-dark', 'default-dark', etc.).
         dpi: Rasterization DPI for embedded drawlib diagrams. Defaults to 240.
-        anim_frame: Frame ('first' or 'last') extracted from multi-frame Animation() diagrams.
+        static_frame: Frame ('first', 'last', or integer index) extracted from Animation() diagrams.
         styles_path: Optional path to custom styles.py script.
         utils_path: Optional path to custom utils.py script.
         no_cache: If True, disable reading/writing the SQLite build image cache.
@@ -56,7 +56,7 @@ def build_pptx(
         str: Absolute path to the generated default-language ``<stem>_<default_lang>.pptx`` file.
 
     Raises:
-        ValueError: If ``input_dir`` is invalid, lacks ``drawlib.toml``, ``dpi <= 0``, or ``anim_frame`` is invalid.
+        ValueError: If ``input_dir`` is invalid, lacks ``drawlib.toml``, ``dpi <= 0``, or ``static_frame`` is invalid.
         RuntimeError: If Playwright, Chromium, or python-pptx fails.
     """
     eff_workers = resolve_build_workers(workers)
@@ -67,8 +67,7 @@ def build_pptx(
         raise ValueError(f"Input directory does not exist: '{input_dir}'")
     if dpi <= 0:
         raise ValueError(f"dpi must be a positive integer, got {dpi}.")
-    if anim_frame not in {"first", "last"}:
-        raise ValueError(f"anim_frame must be 'first' or 'last', got '{anim_frame}'.")
+    resolved_static_frame = parse_static_frame(static_frame)
 
     manifest = require_slide_manifest(input_abs)
     assert manifest.i18n is not None  # noqa: S101
@@ -95,7 +94,7 @@ def build_pptx(
             image_format="png",
             dpi=dpi,
             force_image_format=True,
-            static_anim_frame=anim_frame,
+            static_frame=resolved_static_frame,
             styles_path=styles_path,
             utils_path=utils_path,
             no_cache=no_cache,
@@ -123,7 +122,7 @@ def build_pptx(
                 output_path=dest_abs,
                 scratch_dir=lang_scratch,
                 title=title,
-                anim_frame=anim_frame,
+                static_frame=resolved_static_frame,
                 timestamp=timestamp,
             )
             generated_paths[lang] = written_path

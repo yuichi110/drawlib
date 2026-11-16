@@ -939,8 +939,9 @@ A `slide` project produces presentation artifacts tailored for every scenario:
 ## 5. Authoring Slides & Stage Blocks
 
 Each Markdown file in `slide_src/<lang>/` (and any nested chapter subdirectories such as `<lang>/01_intro/01_cover.md`) represents a single 16:9 slide (`1920x1080` stage), compiled in sorted relative-path order per locale.
-- **Excluding Non-Slide Files (`_` Prefix)**: Prefix any planning notes, outlines, or draft files/folders with an underscore `_` (e.g., `_planning.md`, `_drafts/`) to exclude them from slide compilation.
+- **Non-Slide Files Excluded (`_` Prefix)**: Prefix any planning notes, outlines, or draft files/folders with an underscore `_` (e.g., `_planning.md`, `_drafts/`) to exclude them from slide compilation.
 - **Special Excluded Files**: `README.md` and `navbar.md` are also automatically excluded from the slide deck.
+- **Deck Title & PDF Internal Metadata (`/Title`)**: The browser tab `<title>`, PDF internal document metadata (`/Title`), and `.pptx` core title resolve in priority order: CLI `--title` -> `drawlib.toml` `[project].title` -> the first `# H1` heading in the first slide (`01_title.md`) -> `"Drawlib Slide"`.
 
 Use `::: block xy=(x, y) width=W height=H` containers alongside standard Markdown and helper components from `utils.py` (see [Slide Stage Layout & API](./slide_layout_and_api.md) for the complete stage coordinate reference, layout templates, and `drawlib.slide` API):
 
@@ -981,7 +982,7 @@ save()
   ```bash
   ./slide_src/build_pptx.sh
   # Or with custom CLI options:
-  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --anim-frame last
+  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --static-frame last
   ```
 - **`build_image.sh`**:
   Extracts embedded ````drawlib```` blocks into standalone diagram images in `slide_images/`.
@@ -1032,19 +1033,20 @@ Pressing **`P`** or **`S`** (or clicking the `🗒` button in the bottom-right c
 - **Right Middle (Control Bar)**: `◀ Prev` / `Next ▶` navigation, **`▶ Play Animation` button** (synchronized with the main window; automatically disabled/grayed out on slides without animations), and an elapsed presentation timer (`00:00`).
 - **Right Bottom (Speaker Notes)**: Compiled speaker notes with `A-` / `A+` font-size controls.
 
-### Interactive Animation Playback (`anim_trigger`, `anim_loop`, `anim_pause`):
-When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams inside slides, you can attach playback control attributes to the ````drawlib```` code fence:
+### Interactive Animation Playback & Static Export (`anim_trigger`, `anim_loop`, `anim_pause`, `static_frame`):
+When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams inside slides, you can attach playback and static-frame control attributes to the ````drawlib```` code fence:
 
 ````markdown
-```drawlib file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+```drawlib file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2
 ```
 ````
 
 - **`anim_trigger=click`** (`auto` | `click`): Holds on Frame 0 until clicked by the presenter.
 - **`anim_loop=once`** (`once` | `infinite`): Stops on the final frame (`ENDED`); clicking again replays from Frame 0.
 - **`anim_pause=(2, 4)` or `anim_pause=(0-3, 4-7)`**: Single 0-based frame indices (`2`, `4`) pause statically at that frame (`PAUSED`), whereas hyphenated ranges (`0-3`, `4-7`) continuously loop frames `start..end` (`LOOPING`) until clicking or pressing `A` immediately advances to `end + 1`.
-- **Vector PDF Export (`build_pdf.sh`)**: Automatically renders Frame 0 onto the slide without the interactive play badge.
-- **MS PowerPoint Export (`drawlib build pptx`)**: Extracts a crisp static PNG at `--dpi 240` using the final frame by default (`--anim-frame last`), or the initial frame when `--anim-frame first` is specified.
+- **`static_frame=first | last | <int>`**: Selects which frame (`first`, `last`, or 0-based/negative integer frame index) is flattened into a static PNG for PDF, PowerPoint, and browser print exports (overrides `--static-frame`).
+- **Vector PDF Export (`build_pdf.sh` / `drawlib build pdf`)**: Automatically renders the static frame (`--static-frame last` by default, or the block's `static_frame=...` override) onto the slide without the interactive play badge.
+- **MS PowerPoint Export (`drawlib build pptx`)**: Extracts a crisp static PNG at `--dpi 240` using the final frame by default (`--static-frame last`), `--static-frame first` / `<int>`, or the block's `static_frame=...` override.
 
 ---
 

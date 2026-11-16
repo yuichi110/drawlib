@@ -299,14 +299,15 @@ In slide projects, ````drawlib```` blocks default to **inline SVG** (`file=<name
    - Whenever a slide SVG diagram uses Drawlib fonts (`Font`, `FontRoboto`, `FontSourceCode`, CJK fonts, etc.) or font icons (`phosphor`, `font_icon`), Drawlib automatically embeds font metadata, copies the required `.ttf` / `.otf` files into `_assets/fonts/`, and injects `@font-face` rules into the compiled `style.css`.
    - Both browser viewing (`index.html`) and headless Chromium PDF export (`build_pdf.sh`) render custom fonts and Phosphor icons identically without requiring system-installed fonts.
 
-### 5.2. Interactive `<canvas>` Animations (`anim_trigger`, `anim_loop`, `anim_pause`)
-When a ````drawlib```` block outputs an animated image (**`.png` APNG recommended and default**, or `.apng` / `.webp`), Drawlib embeds its Base64 payload (`data-base64`) into an interactive `<canvas class="drawlib-anim-canvas">` player so it works seamlessly both over HTTP and when opened directly via `file://`. Control playback directly from the code fence attributes:
+### 5.2. Interactive `<canvas>` Animations & Static Export Frame (`anim_trigger`, `anim_loop`, `anim_pause`, `static_frame`)
+When a ````drawlib```` block outputs an animated image (**`.png` APNG recommended and default**, or `.apng` / `.webp`), Drawlib embeds its Base64 payload (`data-base64`) into an interactive `<canvas class="drawlib-anim-canvas">` player so it works seamlessly both over HTTP and when opened directly via `file://`. Control playback and static PDF/PPTX/print frame extraction directly from the code fence attributes:
 
 | Fence Attribute | Values | Default | Behavior |
 | :--- | :--- | :--- | :--- |
 | `anim_trigger=<mode>` | `auto` \| `click` | `auto` | `click` holds playback at Frame 0 (`READY` badge) until the user clicks the diagram, presses `A`, or clicks **Play Animation** in Presenter View. |
 | `anim_loop=<mode>` | `infinite` \| `once` | `infinite` | `once` stops at the final frame (`ENDED` badge); clicking again or pressing `A` resets to Frame 0 (`READY` state). |
 | `anim_pause=<steps>` | Tuple of 0-based indices or `start-end` loop ranges (e.g. `anim_pause=(2, 4)` or `anim_pause=(0-3, 4-7)`) | *(none)* | Single indices (`2`) pause statically at that frame (`PAUSED` badge); hyphenated ranges (`0-3`) continuously loop frames `0..3` (`LOOPING`) until click or `A` immediately jumps to `end + 1` (`4`). |
+| `static_frame=<spec>` | `first` \| `last` \| `<int>` (0-based or negative) | `last` (or CLI `--static-frame`) | Per-block static frame override extracted when exporting to PDF (`drawlib build pdf`), PowerPoint (`drawlib build pptx`), or browser print (`Ctrl+P` / `Cmd+P`). |
 
 #### Interactive Animation Example in a Slide:
 ````markdown
@@ -385,17 +386,18 @@ Use `from drawlib.slide import draw_page_number, draw_section_header` for standa
 
 # Or run individual CLI commands (passing -o slide.pdf emits slide_<lang>.pdf per locale):
 uv run drawlib build slide slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
-uv run drawlib build pdf slide_src/ -o slide.pdf -s slide_src/styles.py -u slide_src/utils.py
+uv run drawlib build pdf slide_src/ -o slide.pdf --static-frame last -s slide_src/styles.py -u slide_src/utils.py
 uv run drawlib serve slide_html/
 ```
 
+- **Deck Title & PDF Internal Metadata (`/Title`)**: The HTML `<title>`, PDF internal document metadata (`/Title`), and `.pptx` core title resolve in priority order: CLI `--title` -> `drawlib.toml` `[project].title` -> first slide (`01_title.md`) `# H1` heading -> `"Drawlib Slide"`.
 - **Offline / Air-Gapped / CI Environments**: Pre-download headless Chromium ahead of time via `uv run drawlib cache download --browser` (or `--all` to cache all fonts, icons, maps, and headless Chromium together).
 - **Minimal Linux Containers**: On minimal container images (such as `python:3.12-slim`) lacking OS shared libraries (`libnss3`, `libgbm1`, etc.), install system dependencies once via `uv run playwright install-deps chromium` (or `uv run playwright install --with-deps --only-shell chromium`).
 
 ### 7.3. On-Demand Editable 16:9 MS PowerPoint (`slide_<lang>.pptx`) Export
 While the scaffolded `slide_src/build.sh` compiles HTML, PDF, and standalone images by default, `drawlib init project slide` also scaffolds an executable `./slide_src/build_pptx.sh` script (`python-pptx` is installed out of the box) so any `slide` project can be exported on demand to native editable 16:9 (`960×540 pt`) PowerPoint presentations (`slide_<lang>.pptx` for every locale in `[i18n].langs`) via script, CLI, or Python.
 
-Drawlib renders and measures the `1920×1080` slide DOM via headless Chromium and translates it into native editable PowerPoint shapes (`::: block` cards including `rgba` alpha fills/borders, text boxes, bullet/numbered lists, tables, syntax-highlighted code blocks, and `::: note` speaker notes), while ````drawlib```` diagrams are embedded as crisp high-DPI static PNGs (`dpi=240`, `anim_frame="last"` by default):
+Drawlib renders and measures the `1920×1080` slide DOM via headless Chromium and translates it into native editable PowerPoint shapes (`::: block` cards including `rgba` alpha fills/borders, text boxes, bullet/numbered lists, tables, syntax-highlighted code blocks, and `::: note` speaker notes), while ````drawlib```` diagrams are embedded as crisp high-DPI static PNGs (`dpi=240`, `static_frame="last"` by default; individual blocks can also set `static_frame=first|last|<int>` on their code fence):
 
 ```bash
 # Pre-scaffolded executable script (+x permissions already set by drawlib init project slide):
@@ -404,9 +406,9 @@ Drawlib renders and measures the `1920×1080` slide DOM via headless Chromium an
 # Or direct CLI export (emits slide_<lang>.pptx):
 uv run drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
 
-# Customize theme preset, deck title, raster DPI, or animation frame ("first" | "last"):
+# Customize theme preset, deck title, raster DPI, or static animation frame ("first" | "last" | <int>):
 uv run drawlib build pptx slide_src/ -o slide.pptx \
-  -t dark --title "Architecture Review" --dpi 240 --anim-frame last \
+  -t dark --title "Architecture Review" --dpi 240 --static-frame last \
   -s slide_src/styles.py -u slide_src/utils.py --timestamp
 ```
 
@@ -421,7 +423,7 @@ default_pptx_path = build_pptx(
     title="Architecture Review",
     theme=None,
     dpi=240,
-    anim_frame="last",
+    static_frame="last",
     styles_path="slide_src/styles.py",
     utils_path="slide_src/utils.py",
 )

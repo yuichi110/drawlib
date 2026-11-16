@@ -991,6 +991,7 @@ drawlib build pdf doc_src/ -o report.pdf --toc --page-break
 | `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py`. |
 | `--no-cache` | | `False` | Bypass `.drawlib/cache.db` and re-render all diagrams. |
 | `--timestamp` | | `False` | Include current build timestamp in PDF metadata (omitted by default for deterministic builds). |
+| `--static-frame` | | `last` | Default frame (`first`, `last`, or 0-based/negative integer index) extracted from animated diagrams (overridden by per-block `static_frame=...` fence attribute). |
 | `--workers` | `-w` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8` or `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 ### 4.4 `drawlib build docx`
@@ -1010,6 +1011,7 @@ drawlib build docx doc_src/ -o report.docx --generate-index --page-break
 | `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py`. |
 | `--no-cache` | | `False` | Disable reading and writing `.drawlib/cache.db`. |
 | `--timestamp` | | `False` | Include current build timestamp in Word metadata instead of normalizing it. |
+| `--static-frame` | | `last` | Default frame (`first`, `last`, or 0-based/negative integer index) extracted from animated diagrams (overridden by per-block `static_frame=...` fence attribute). |
 | `--workers` | `-w` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8` or `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 ### 4.5 `drawlib build slide`
@@ -1032,7 +1034,7 @@ drawlib build slide slide_src/ -o slide_html/ [OPTIONS]
 Compiles a directory of Markdown slide files (`slide_src/`) into native editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) decks per locale by measuring the `1920×1080` slide layout and computed CSS styles via headless Chromium (`::: block` cards with `rgba` alpha, text boxes, bullet/numbered lists, tables, inline code, and `::: note` speaker notes), embedding ````drawlib```` diagrams as high-DPI static PNGs.
 
 ```bash
-drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
+drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --static-frame last
 ```
 
 | Option | Shorthand | Default | Description |
@@ -1041,7 +1043,7 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
 | `--theme` | `-t` | Auto / `default` | CSS theme preset (`google`, `default`, `google-dark`, `default-dark`). |
 | `--title` | | Extracted from deck | Presentation title override for PowerPoint metadata. |
 | `--dpi` | | `240` | Rasterization DPI for embedded `drawlib` diagrams. |
-| `--anim-frame` | | `last` | Frame (`first` or `last`) extracted from animated diagrams. |
+| `--static-frame` | | `last` | Default frame (`first`, `last`, or 0-based/negative integer index) extracted from animated diagrams (overridden by per-block `static_frame=...` fence attribute). |
 | `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py`. |
 | `--no-cache` | | `False` | Disable reading and writing `.drawlib/cache.db`. |
 | `--timestamp` | | `False` | Include current build timestamp in PowerPoint metadata instead of normalizing it. |

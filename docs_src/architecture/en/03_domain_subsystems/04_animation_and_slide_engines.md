@@ -151,7 +151,7 @@ Instead of introducing a separate scene-graph API for motion graphics, `Animatio
    - When `save()` executes on a canvas with an active `Animation`, `Canvas.save()` delegates to `anim._save(file_path, format=format)`:
      - **Lossless APNG (`.png` / `.apng`)**: Encoded via Pillow (`save_all=True`, `append_images=frames[1:]`, `compress_level=9`, `optimize=True`).
      - **Lossless Animated WebP (`.webp`)**: Encoded with `lossless=True`, `quality=100`, `method=4`, and `minimize_size=True` (`.svg` is rejected with `ValueError` because SVG does not host raster frame streams).
-   - For static print targets (`.pdf`, `.docx`, `.pptx`), the compiler supports deterministic single-frame extraction (`static_anim_frame="last"` or `"first"` or explicit frame index, plus `ensure_static_office_image()`) so multi-frame blocks degrade gracefully into sharp static illustrations.
+   - For static print targets (`.pdf`, `.docx`, `.pptx`), the compiler supports deterministic single-frame extraction (`static_frame="last"`, `"first"`, or explicit 0-based/negative integer frame index, plus `ensure_static_office_image()`) so multi-frame blocks degrade gracefully into sharp static illustrations.
 
 ### 1.2. Interactive `<canvas>` Playback & Offline APNG Parser
 
@@ -244,7 +244,7 @@ details = CardList(
 )
 details.add(
     "build_slide()",
-    "Static anim_frame\n& theme CSS stage",
+    "Static static_frame\n& theme CSS stage",
     icon=phosphor.browsers,
 )
 details.add(
@@ -273,7 +273,7 @@ save()
 ### Stage-by-Stage `.pptx` Compilation Mechanics
 
 1. **High-DPI Raster Staging (`build_pptx` -> `build_slide`)**:
-   - `build_pptx()` first compiles the slide project into a temporary stage with `image_format="png"`, `dpi=240`, `force_image_format=True`, and `static_anim_frame=anim_frame` (`"last"` by default). Pre-rasterizing diagrams at `240 DPI` (`ensure_static_office_image`) ensures PowerPoint displays crisp Retina-grade illustrations on Windows, macOS, and web viewers without SVG font mismatches.
+   - `build_pptx()` first compiles the slide project into a temporary stage with `image_format="png"`, `dpi=240`, `force_image_format=True`, and `static_frame=static_frame` (`"last"` by default). Pre-rasterizing diagrams at `240 DPI` (`ensure_static_office_image`) ensures PowerPoint displays crisp Retina-grade illustrations on Windows, macOS, and web viewers without SVG font mismatches.
 2. **Headless Chromium Computed DOM Extraction (`_pptx_dom.py`: `extract_deck_dom`)**:
    - Launches headless Playwright Chromium at an exact `1920×1080` viewport (`device_scale_factor=2`), injects `_STAGE_OVERRIDE_CSS` to lock stage scaling at `1:1`, and awaits `document.fonts.ready` plus full image decoding.
    - Executes `_JS_EXTRACT_SLIDE` inside each `<section.slide>` to measure live `getBoundingClientRect()` geometry, computed CSS backgrounds/borders/radii, `<table>` cell grids, inline code pills, list markers, and fine-grained DOM `Range` text runs—returning z-layer-sorted dataclasses (`PptxDeckSpec`, `PptxSlideSpec`, `PptxCard`, `PptxRule`, `PptxImage`, `PptxTable`, `PptxTextBox`, `PptxParagraph`, `PptxRun`, `PptxColor`).

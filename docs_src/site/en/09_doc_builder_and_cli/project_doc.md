@@ -996,7 +996,9 @@ A `doc` project compiles into 5 distinct target artifacts:
 Because a `doc` project does not use a `navbar.md` sidebar file, Drawlib merges all `.md` files in each `doc_src/<lang>/` directory (excluding `README.md` and `_`-prefixed files) into a single linear document for `doc_html/<lang>/index.html`, `doc_<lang>.pdf`, and `doc_<lang>.docx`:
 1. **Lexicographical Chapter Sorting**: Name your chapter files with numeric prefixes (`00_cover.md`, `01_overview.md`, `02_design.md`, `03_benchmarks.md`) inside `<lang>/` so they are merged in deterministic reading order.
 2. **Cover Page Convention (`00_cover.md`)**: The first file in sorted order acts as the document cover page. When `--toc` (`--generate-index`) is passed to `drawlib build pdf` or `--generate-index` is passed to `drawlib build docx`, the automated Table of Contents is inserted cleanly **between the 1st document (`00_cover.md`) and the 2nd document (`01_overview.md`)**.
-3. **Chapter Page Breaks (`--page-break`)**: By default in both PDF and Word (`.docx`) compilation (`--page-break`), each merged `.md` file begins on a new page. Pass `--no-page-break` if you prefer continuous flow without forced page breaks between files.
+3. **Document Title & PDF Internal Metadata (`/Title`)**: The merged HTML `<title>`, PDF internal document metadata (`/Title`), and `.docx` core title resolve in priority order: CLI `--title` -> `drawlib.toml` `[project].title` -> the first `# H1` heading in `00_cover.md` -> `"Drawlib Document"`.
+4. **Chapter Page Breaks (`--page-break`)**: By default in both PDF and Word (`.docx`) compilation (`--page-break`), each merged `.md` file begins on a new page. Pass `--no-page-break` if you prefer continuous flow without forced page breaks between files.
+5. **Static Frame Selection for Animated Blocks (`--static-frame` & `static_frame=`)**: When exporting animated ````drawlib```` blocks (`Animation()`) to PDF or `.docx`, Drawlib extracts the completed final frame (`--static-frame last`) by default. Pass `--static-frame first|last|<int>` on the CLI or set `static_frame=first|last|<int>` on individual code fences to override the extracted frame.
 
 ---
 

@@ -1,5 +1,25 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.12
+
+*リリース日: 2026/11/16*
+
+バージョン 0.3.12 では、アニメーション図解（`Animation()`）を静止画ターゲット（**PDF・MS PowerPoint `.pptx`・MS Word `.docx`・ブラウザ印刷 `Ctrl+P` / `Cmd+P`**）へ書き出す際の **統一静止画フレーム選択機能（`--static-frame` / `static_frame=...`）** を新搭載し、デフォルトで完成状態の最終フレーム（`"last"`）を抽出しつつ `"first"` や 0 始まり／負の整数フレーム番号、およびコードブロック単位の個別指定に対応したほか、**プロジェクト種別ごとのタイトル・ブランドヘッダー・PDF 内部メタデータ解決ルールのドキュメント整備** を実施しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. アニメーション図解の統一静止画フレーム選択（`--static-frame`, `static_frame`, `doc_builder`, `slide`, `_cli`）
+- **CLI オプションおよび Python API（`--static-frame`, `static_frame: Literal["first", "last"] | int = "last"`）**: `drawlib build pdf`・`drawlib build docx`・`drawlib build slide`・`drawlib build pptx`（および Python API の `build_pdf()`・`build_docx()`・`build_slide()`・`build_pptx()`）に `--static-frame <first|last|int>`（`static_frame`）を追加しました。静止画出力時はデフォルトでアニメーションの最終完成フレーム（`"last"`）を抽出し、`"first"` や 0 始まり／負の整数インデックス（例: `2`、`-2`、`[0, n_frames - 1]` の範囲へ安全にクランプ）も指定できます。
+- **コードブロック単位の個別オーバーライド（`static_frame=first|last|<int>`）**: 個別の ```` ```drawlib ```` コードフェンスに `static_frame=first`、`static_frame=last`、または `static_frame=<int>`（ハイフン記法 `static-frame=...` も可）を指定することで、全体の `--static-frame` 設定をその図解だけ上書きできます。
+- **ブラウザ印刷（`Ctrl+P` / `Cmd+P`）との同期（`slide.js`）**: HTML スライドの `<canvas>` アニメーションに `data-static-frame` 属性を出力し、`beforeprint` イベント時に指定された静止画フレームへ自動切り替え（`afterprint` で元の再生状態へ復帰）することで、ブラウザからの直接印刷でも `drawlib build pdf` と同じフレームが出力されるようになりました。
+
+#### 2. プロジェクトタイトル・サイドバーブランド・PDF 内部メタデータ解決仕様のドキュメント整備（`_rules/`, `docs_src/`）
+- **タイトル解決優先順位の明文化（`project-overview`, `project-site`, `project-doc`, `project-slide`）**: `drawlib.toml` の `[project].title`、`<lang>/navbar.md` の `# H1`、および各ページ／スライドの `# H1` 見出しが、ブラウザ `<title>`・左サイドバーブランドヘッダー（`site_title`）・PDF 内部ドキュメントタイトル（`/Title`）・Word / PowerPoint コアタイトル・Open Graph `og:site_name`・`llms.txt` のそれぞれでどのように解決されるかを日英ドキュメントおよび AI ルールに明記しました。
+
+---
+
 ## バージョン 0.3.11
 
 *リリース日: 2026/11/15*

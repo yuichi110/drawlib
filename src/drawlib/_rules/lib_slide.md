@@ -196,6 +196,7 @@ default_index_html = build_slide(
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` file (defaults to `<input_dir>/<lang>/styles.py` if present, else `<input_dir>/styles.py`). |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file (defaults to `<input_dir>/<lang>/utils.py` if present, else `<input_dir>/utils.py`). |
 | `no_cache` | `bool` | `False` | When `True`, bypasses the SQLite diagram build cache and forces re-execution of all ````drawlib```` blocks. |
+| `static_frame` | `Literal["first", "last"] \| int \| None` | `None` | When set (`"first"`, `"last"`, or 0-based/negative integer frame index), flattens multi-frame APNG/WebP animations to a single static PNG frame and embeds static `<img>` elements (overridden by per-block `static_frame=...` fence attribute). |
 
 **Returns**: `str` — Absolute filesystem path to `<output_dir>/<default_lang>/index.html` (an automatic root redirect `<output_dir>/index.html` is also generated).
 
@@ -211,7 +212,7 @@ When `build_slide()` runs, it performs the following steps automatically:
 
 ## 7. Programmatic MS PowerPoint Export API (`build_pptx`)
 
-`build_pptx()` (also re-exported from `drawlib.tools`) compiles each configured locale in `drawlib.toml`, measures the `1920x1080` slide DOM via headless Chromium, and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`<stem>_<lang>.pptx`) slides (`::: block` cards including `rgba` alpha, text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes), with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`):
+`build_pptx()` (also re-exported from `drawlib.tools`) compiles each configured locale in `drawlib.toml`, measures the `1920x1080` slide DOM via headless Chromium, and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`<stem>_<lang>.pptx`) slides (`::: block` cards including `rgba` alpha, text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes), with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `static_frame="last"`):
 
 ```python
 from drawlib.slide import build_pptx
@@ -222,7 +223,7 @@ output_pptx = build_pptx(
     title="Drawlib Presentation",
     theme="google",
     dpi=240,
-    anim_frame="last",
+    static_frame="last",
     styles_path=None,
     utils_path=None,
     no_cache=False,
@@ -239,7 +240,7 @@ output_pptx = build_pptx(
 | `title` | `str \| None` | `None` | Optional presentation title override in `.pptx` core properties (extracted from `drawlib.toml` or first `# Heading` if `None`). |
 | `theme` | `str \| None` | `None` | Optional CSS theme preset override (`data-theme` / built-in slide stylesheet). |
 | `dpi` | `int` | `240` | Rasterization DPI for embedded ````drawlib```` static PNG diagrams. |
-| `anim_frame` | `Literal["first", "last"]` | `"last"` | Frame extracted as a static PNG when a slide block uses `Animation()`. |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | Default frame extracted as a static PNG when a slide block uses `Animation()` (`"first"`, `"last"`, or 0-based/negative integer frame index; per-block `static_frame=...` fence attribute takes priority). |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` file (defaults to `<input_dir>/<lang>/styles.py` if present, else `<input_dir>/styles.py`). |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file (defaults to `<input_dir>/<lang>/utils.py` if present, else `<input_dir>/utils.py`). |
 | `no_cache` | `bool` | `False` | When `True`, bypasses the SQLite diagram build cache and forces re-execution of all ````drawlib```` blocks. |

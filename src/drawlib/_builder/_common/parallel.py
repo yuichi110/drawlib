@@ -151,7 +151,7 @@ class BlockRenderJob:
     utils_path: str | None
     project_root: str | None
     slide_ctx: tuple[int, int] | None
-    static_anim_frame: Literal["first", "last"] | None
+    static_frame: Literal["first", "last"] | int | None
     cache_key: str
     code_hash: str
     config_hash: str
@@ -310,7 +310,7 @@ def build_block_render_job(
     extra_config_hash: str = "",
     extra_cache_salt: str = "",
     slide_ctx: tuple[int, int] | None = None,
-    static_anim_frame: Literal["first", "last"] | None = None,
+    static_frame: Literal["first", "last"] | int | None = None,
     no_cache_global: bool = False,
     no_cache_block: bool = False,
 ) -> BlockRenderJob:
@@ -366,7 +366,7 @@ def build_block_render_job(
         utils_path=os.path.abspath(utils_path) if utils_path else None,
         project_root=eff_project_root,
         slide_ctx=slide_ctx,
-        static_anim_frame=static_anim_frame,
+        static_frame=static_frame,
         cache_key=cache_key,
         code_hash=code_hash,
         config_hash=config_hash,
@@ -442,10 +442,10 @@ def _execute_block_render_job(job: BlockRenderJob) -> BlockRenderResult:
                 try:
                     with open(atomic_tmp, "wb") as f_dst:
                         f_dst.write(unflattened_bytes)
-                    if job.static_anim_frame is not None:
+                    if job.static_frame is not None:
                         from drawlib._slide.compiler import _flatten_slide_animation_in_place  # noqa: PLC0415
 
-                        _flatten_slide_animation_in_place(atomic_tmp, job.static_anim_frame)
+                        _flatten_slide_animation_in_place(atomic_tmp, job.static_frame)
                     os.replace(atomic_tmp, job.target_abs_path)
                 except BaseException:
                     if os.path.exists(atomic_tmp):
@@ -554,16 +554,16 @@ def prerender_document_blocks(
             os.makedirs(os.path.dirname(hit_job.target_abs_path), exist_ok=True)
             with open(hit_job.target_abs_path, "wb") as f_out:
                 f_out.write(norm_bytes)
-            if hit_job.static_anim_frame is not None:
+            if hit_job.static_frame is not None:
                 from drawlib._slide.compiler import _flatten_slide_animation_in_place  # noqa: PLC0415
 
-                _flatten_slide_animation_in_place(hit_job.target_abs_path, hit_job.static_anim_frame)
+                _flatten_slide_animation_in_place(hit_job.target_abs_path, hit_job.static_frame)
             if grid_bytes is not None:
                 t_stem, t_ext = os.path.splitext(hit_job.target_abs_path)
                 with open(f"{t_stem}_grid{t_ext}", "wb") as f_grid:
                     f_grid.write(grid_bytes)
             cache.rendered_targets.add(hit_job.target_abs_path)
-        elif hit_job.static_anim_frame is None:
+        elif hit_job.static_frame is None:
             cache.prerendered_blobs[hit_job.prerender_key] = (norm_bytes, grid_bytes)
 
     if len(miss_jobs) <= 1:

@@ -119,7 +119,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API リファレンス · v0.3.11</span>
+                    <span>API リファレンス · v0.3.12</span>
                 </a>
                 
                 
@@ -4723,6 +4723,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">決定論的ビルド用の固定日時ではなく、現在時刻を OpenXML メタデータに記録します。</td>
 </tr>
 <tr>
+<td style="text-align:left"><code>--static-frame</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'last'</code></td>
+<td style="text-align:left"><code>Animation</code> ブロックを静止画化する際に抽出するデフォルトフレーム（<code>'first'</code>、<code>'last'</code>、または 0 始まり／負の整数フレーム番号）。</td>
+</tr>
+<tr>
 <td style="text-align:left"><code>-w, --workers</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><code>'auto'</code></td>
@@ -5089,6 +5095,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">PDF メタデータ（<code>/CreationDate</code>・<code>/ModDate</code>）の正規化を行わず現在時刻を記録します。</td>
 </tr>
 <tr>
+<td style="text-align:left"><code>--static-frame</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'last'</code></td>
+<td style="text-align:left"><code>Animation</code> ブロックを静止画化する際に抽出するデフォルトフレーム（<code>'first'</code>、<code>'last'</code>、または 0 始まり／負の整数フレーム番号）。</td>
+</tr>
+<tr>
 <td style="text-align:left"><code>-w, --workers</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><code>'auto'</code></td>
@@ -5098,10 +5110,10 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </table>
 <hr />
 <h2 id="drawlib-build-pptx" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib build pptx</span></code><a class="header-anchor" href="#drawlib-build-pptx" aria-label="Permalink to drawlib build pptx">#</a></h2>
-<p><code>slide</code> プロジェクトディレクトリを、Headless Chromium の <code>1920×1080</code> ステージ計測に基づいて <code>960×540 pt</code>（0.5 倍スケール）の編集可能なネイティブ Microsoft PowerPoint（<code>.pptx</code>）デッキへコンパイルします。複数フレームの <code>Animation</code> 図版は <code>'first'</code> または <code>'last'</code> フレームの静止画として埋め込まれます。</p>
+<p><code>slide</code> プロジェクトディレクトリを、Headless Chromium の <code>1920×1080</code> ステージ計測に基づいて <code>960×540 pt</code>（0.5 倍スケール）の編集可能なネイティブ Microsoft PowerPoint（<code>.pptx</code>）デッキへコンパイルします。複数フレームの <code>Animation</code> 図版は <code>'first'</code>・<code>'last'</code> または指定した整数フレームの静止画として埋め込まれます。</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DIR
 
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w"> </span>--theme<span class="w"> </span>google<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w"> </span>--theme<span class="w"> </span>google<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--static-frame<span class="w"> </span>last
 </code></pre>
 <table>
 <thead>
@@ -5144,10 +5156,10 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">埋め込み <code>drawlib</code> 図版のラスタライズ解像度（DPI）。</td>
 </tr>
 <tr>
-<td style="text-align:left"><code>--anim-frame</code></td>
-<td style="text-align:left"><code>'first' | 'last'</code></td>
+<td style="text-align:left"><code>--static-frame</code></td>
+<td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><code>'last'</code></td>
-<td style="text-align:left"><code>Animation</code> ブロックを静止画化する際に抽出するキーフレーム（先頭または最終フレーム）。</td>
+<td style="text-align:left"><code>Animation</code> ブロックを静止画化する際に抽出するデフォルトキーフレーム（<code>'first'</code>、<code>'last'</code>、または 0 始まり／負の整数フレーム番号）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>-s, --styles</code></td>

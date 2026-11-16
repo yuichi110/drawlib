@@ -256,8 +256,8 @@ save()
 | **連続モーション / トランジション**（移動パケット、`draw_ratio` によるチャート系列の伸長、カラーフェード、カメラのパン・ズーム） | `fps=8.0` – `12.0` | モーションフレームあたり `0.08s` – `0.14s`（またはデフォルトの `1 / fps`） | `duration=2.0` – `3.0` |
 | **ステップバイステップのアーキテクチャウォークスルー**（パイプライン段階、チャート系列、ダイアグラム / グラフのノードを 1 つずつ表示） | `fps=1.0` – `2.0` | 各ステップあたり `0.6s` – `1.0s` | `duration=2.5` – `3.0` |
 
-1. **ポスターフレームの原則（静止画・PDF との互換性）**:
-   標準の画像ビューアやベクター PDF エクスポートでは、**第 1 フレーム**が静止画フォールバックとして描画されます。第 1 フレームを完全に空白のままにせず、必ずベースラインとなる外枠コンテナや初期ノードを表示してください。
+1. **ポスターフレームと静止画エクスポートフレームの原則（`--static-frame` & `static_frame=`）**:
+   アニメーション非対応の標準画像ビューアでは**第 1 フレーム（`first`、インデックス `0`）**が静止画フォールバックとして表示されるため、第 1 フレームを完全に空白のままにせず、必ずベースラインとなる外枠コンテナや初期ノードを表示してください。一方、スライドやドキュメントを静止画ターゲット（`drawlib build pdf`、`drawlib build docx`、`drawlib build pptx`、およびブラウザ印刷 `Ctrl+P` / `Cmd+P`）へ出力する際は、デフォルトで**完成した最終フレーム（`--static-frame last`）**が抽出され、CLI の `--static-frame first|last|<int>` またはブロック単位の ```` ```drawlib file=flow.png static_frame=2 ```` で任意のフレームを指定できます。
 2. **完成した最終フレームの保持（ホールド）**:
    ループが再開する前に読み手が完成図を十分に把握できるよう、最終フレームには長めの `duration`（`2.0`〜`3.0` 秒）を設定してください。
 3. **埋め込み Markdown ブロックとの統合**:
@@ -274,7 +274,7 @@ save()
 16:9 プレゼンテーションスライドデッキ（`drawlib init project slide`）では、````drawlib```` フェンスの `<canvas>` 再生オプションを指定することで、アニメーション `.png`（APNG）や `.webp` ブロックをインタラクティブに制御できます。
 
 ````markdown
-```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2
 from drawlib.anim import Animation
 ...
 ```
@@ -285,6 +285,7 @@ from drawlib.anim import Animation
 | **`anim-trigger`** | `auto` \| `click` | `auto` | `auto` はスライド表示と同時に再生を開始し、`click` は発表者が図をクリックするまでフレーム 0（`READY`）で待機します。 |
 | **`anim-loop`** | `once` \| `infinite` | `infinite`（`anim-pause` 指定時は `once`） | `once` は最終フレームで停止し（`ENDED`、クリックするとフレーム 0 から再生）、`infinite` は連続ループ再生します。 |
 | **`anim-pause`** | カンマ区切りの 0 始まりフレーム番号または `start-end` ループ範囲（例: `(2, 4)` や `(0-3, 4-7)`） | `None` | 単一のフレーム番号はそのフレーム描画直後に一時停止（`PAUSED`）し、ハイフン区切りの `start-end` 範囲は `start..end` を連続ループ再生（`LOOPING`）しながら待機し、クリックや `A` キーで即座に `end + 1` へ進みます。 |
+| **`static-frame`** | `first` \| `last` \| `<int>`（0 始まりまたは負の整数） | `last`（または CLI `--static-frame`） | PDF（`drawlib build pdf`）、PowerPoint（`drawlib build pptx`）、Word（`drawlib build docx`）、およびブラウザ印刷（`Ctrl+P` / `Cmd+P`）時に静止画 PNG として抽出するフレームをブロック単位で指定します。 |
 
 ```drawlib code=fold align=center file=anim_overview_slide_playback_states.png caption="インタラクティブなスライドアニメーション再生ステートマシン (READY, PLAYING, PAUSED, ENDED)"
 from drawlib.canvas import save, setup

@@ -256,8 +256,8 @@ save()
 | **Continuous Motion / Transitions** (moving packets, growing chart series via `draw_ratio`, color fades, camera pan/zoom) | `fps=8.0` – `12.0` | `0.08s` – `0.14s` per motion frame (or default `1 / fps`) | `duration=2.0` – `3.0` |
 | **Step-by-Step Architectural Walkthrough** (revealing pipeline stages, chart series, or diagram/graph nodes one by one) | `fps=1.0` – `2.0` | `0.6s` – `1.0s` per step | `duration=2.5` – `3.0` |
 
-1. **Poster Frame Principle (Static & PDF Compatibility)**:
-   Standard image viewers and vector PDF exports render **Frame 1** as a static fallback image. Never leave Frame 1 completely blank—always show the baseline container or initial node on Frame 1.
+1. **Poster Frame & Static Export Frame Principle (`--static-frame` & `static_frame=`)**:
+   Standard non-animated image viewers render **Frame 0 (`first`)** as a static fallback image, so never leave Frame 0 completely blank—always show the baseline container or initial node on Frame 0. When exporting slides or documents to static targets (`drawlib build pdf`, `drawlib build docx`, `drawlib build pptx`, and browser print `Ctrl+P` / `Cmd+P`), Drawlib defaults to extracting the **completed final frame (`--static-frame last`)**, and lets you override it globally via `--static-frame first|last|<int>` or per block via ```` ```drawlib file=flow.png static_frame=2 ````.
 2. **Hold the Final Completed Frame**:
    To give readers time to absorb the completed diagram before the loop restarts, set an extended `duration` (`2.0` to `3.0` seconds) on the final frame.
 3. **Embedded Markdown Blocks**:
@@ -274,7 +274,7 @@ save()
 In 16:9 presentation slide decks (`drawlib init project slide`), animated `.png` (APNG) and `.webp` blocks can be controlled interactively via `<canvas>` playback options on the ````drawlib```` fence:
 
 ````markdown
-```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2
 from drawlib.anim import Animation
 ...
 ```
@@ -285,6 +285,7 @@ from drawlib.anim import Animation
 | **`anim-trigger`** | `auto` \| `click` | `auto` | `auto` starts playback as soon as the slide appears; `click` holds on Frame 0 (`READY`) until the presenter clicks the diagram. |
 | **`anim-loop`** | `once` \| `infinite` | `infinite` (`once` when `anim-pause` is set) | `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously. |
 | **`anim-pause`** | Comma-separated 0-based frame indices or `start-end` loop ranges (e.g. `(2, 4)` or `(0-3, 4-7)`) | `None` | Single frame indices pause playback (`PAUSED`) at that frame; hyphenated `start-end` ranges continuously loop frames `start..end` (`LOOPING`) until clicking or pressing `A` immediately jumps to `end + 1`. |
+| **`static-frame`** | `first` \| `last` \| `<int>` (0-based or negative) | `last` (or CLI `--static-frame`) | Per-block static frame override extracted when exporting to PDF (`drawlib build pdf`), PowerPoint (`drawlib build pptx`), Word (`drawlib build docx`), or browser print (`Ctrl+P` / `Cmd+P`). |
 
 ```drawlib code=fold align=center file=anim_overview_slide_playback_states.png caption="Interactive Slide Animation Playback State Machine (READY, PLAYING, PAUSED, ENDED)"
 from drawlib.canvas import save, setup

@@ -33,12 +33,14 @@ from drawlib._builder._common import (
     find_project_manifest,
     load_project_manifest,
     load_styles_and_utils,
+    parse_static_frame,
     prerender_document_blocks,
     render_seo_head_tags,
     resolve_build_workers,
     resolve_localized_description,
     resolve_public_page_url,
     resolve_styles_and_utils,
+    resolve_target_frame_index,
     upgrade_alternate_links,
     write_llms_txt,
     write_robots_txt,
@@ -82,7 +84,7 @@ class _SlideRenderOptions:
     default_format: str
     dpi: int | None
     force_image_format: bool
-    static_anim_frame: Literal["first", "last"] | None
+    static_frame: Literal["first", "last"] | int | None
 
 
 def _resolve_drawlib_filename(
@@ -119,19 +121,37 @@ def _resolve_drawlib_filename(
 
 def _flatten_slide_animation_in_place(
     target_path: str,
-    anim_frame: Literal["first", "last"],
+    static_frame: Literal["first", "last"] | int,
 ) -> None:
-    """Convert multi-frame animated images in-place into a single static PNG frame."""
-    from drawlib._builder._common.office import ensure_static_office_image  # noqa: PLC0415
+    """Flatten a multi-frame animated raster image in-place into a single static frame."""
+    if target_path.lower().endswith(".svg") or not os.path.isfile(target_path):
+        return
 
-    parent_dir = os.path.dirname(target_path) or "."
-    static_path, _, _ = ensure_static_office_image(
-        target_path,
-        parent_dir,
-        anim_frame=anim_frame,
-    )
-    if os.path.abspath(static_path) != os.path.abspath(target_path):
-        os.replace(static_path, target_path)
+    from PIL import Image  # noqa: PLC0415
+
+    resolved_spec = parse_static_frame(static_frame)
+    with Image.open(target_path) as img:
+        n_frames = int(getattr(img, "n_frames", 1) or 1)
+        is_animated = bool(getattr(img, "is_animated", False) and n_frames > 1)
+        if not is_animated:
+            return
+        target_idx = resolve_target_frame_index(n_frames, resolved_spec)
+        if target_idx > 0:
+            img.seek(target_idx)
+        converted = img.convert("RGBA")
+
+    ext_lower = os.path.splitext(target_path)[1].lower()
+    tmp_path = f"{target_path}.static_tmp"
+    try:
+        if ext_lower == ".webp":
+            converted.save(tmp_path, format="WEBP", lossless=True)
+        else:
+            converted.save(tmp_path, format="PNG")
+        os.replace(tmp_path, target_path)
+    except BaseException:
+        if os.path.exists(tmp_path):
+            os.unlink(tmp_path)
+        raise
 
 
 def require_slide_manifest(input_abs: str) -> ProjectManifest:
@@ -305,6 +325,7 @@ def _process_drawlib_blocks(
             options.anim_trigger is not None
             or options.anim_loop is not None
             or bool(options.anim_pause)
+            or options.static_frame is not None
             or "Animation(" in code
         )
         dl_file = _resolve_drawlib_filename(
@@ -323,6 +344,11 @@ def _process_drawlib_blocks(
 
         target_path = os.path.normpath(os.path.join(render_opts.output_abs, rel_asset_path))
         target_abs = os.path.abspath(target_path)
+        block_static_frame: Literal["first", "last"] | int | None = (
+            (options.static_frame if options.static_frame is not None else render_opts.static_frame)
+            if render_opts.static_frame is not None
+            else None
+        )
 
         if target_abs not in rendered_targets or not os.path.isfile(target_abs):
             os.makedirs(os.path.dirname(target_abs), exist_ok=True)
@@ -333,12 +359,12 @@ def _process_drawlib_blocks(
                 no_cache=options.no_cache,
                 dpi=render_opts.dpi,
             )
-            if render_opts.static_anim_frame is not None:
-                _flatten_slide_animation_in_place(target_abs, render_opts.static_anim_frame)
+            if block_static_frame is not None:
+                _flatten_slide_animation_in_place(target_abs, block_static_frame)
             if os.path.isfile(target_abs):
                 rendered_targets.add(target_abs)
 
-        markup_opts = None if render_opts.static_anim_frame is not None else options
+        markup_opts = None if block_static_frame is not None else options
         return format_asset_markup(
             rel_asset_path,
             "Illustration",
@@ -851,6 +877,7 @@ def _collect_slide_deck_jobs(
                     options.anim_trigger is not None
                     or options.anim_loop is not None
                     or bool(options.anim_pause)
+                    or options.static_frame is not None
                     or "Animation(" in code
                 )
                 dl_file = _resolve_drawlib_filename(
@@ -868,6 +895,11 @@ def _collect_slide_deck_jobs(
                 )
                 target_abs = os.path.abspath(os.path.normpath(os.path.join(render_opts.output_abs, rel_asset_path)))
                 ext_fmt = os.path.splitext(target_abs)[1].lower().lstrip(".") or "svg"
+                block_static_frame: Literal["first", "last"] | int | None = (
+                    (options.static_frame if options.static_frame is not None else render_opts.static_frame)
+                    if render_opts.static_frame is not None
+                    else None
+                )
 
                 jobs.append(
                     build_block_render_job(
@@ -884,7 +916,7 @@ def _collect_slide_deck_jobs(
                         project_root=input_abs,
                         extra_config_hash=extra_cfg_hash,
                         slide_ctx=(idx, total_slides),
-                        static_anim_frame=render_opts.static_anim_frame,
+                        static_frame=block_static_frame,
                         no_cache_global=no_cache,
                         no_cache_block=options.no_cache,
                     )
@@ -902,7 +934,7 @@ def build_slide(
     image_format: str = "svg",
     dpi: int | None = None,
     force_image_format: bool = False,
-    static_anim_frame: Literal["first", "last"] | None = None,
+    static_frame: Literal["first", "last"] | int | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -918,7 +950,7 @@ def build_slide(
         image_format: Default image format for embedded diagrams ('svg', 'webp', or 'png').
         dpi: Optional rasterization DPI override when generating raster diagrams.
         force_image_format: If True, rewrite explicit block filenames (e.g. .svg) to image_format.
-        static_anim_frame: If set ('first' or 'last'), flatten multi-frame animations into static PNGs.
+        static_frame: If set ('first', 'last', or integer frame index), flatten multi-frame animations.
         styles_path: Optional path to custom styles.py script.
         utils_path: Optional path to custom utils.py script.
         no_cache: If True, disable reading/writing build cache.
@@ -931,6 +963,9 @@ def build_slide(
         ValueError: If ``input_dir`` is invalid, lacks ``drawlib.toml``, or fails i18n parity checks.
     """
     eff_workers = resolve_build_workers(workers)
+    resolved_static_frame: Literal["first", "last"] | int | None = (
+        parse_static_frame(static_frame) if static_frame is not None else None
+    )
     input_abs = os.path.abspath(input_dir)
     if not os.path.isdir(input_abs):
         raise ValueError(f"Input directory does not exist: '{input_dir}'")
@@ -959,7 +994,7 @@ def build_slide(
         default_format=image_format,
         dpi=dpi,
         force_image_format=force_image_format,
-        static_anim_frame=static_anim_frame,
+        static_frame=resolved_static_frame,
     )
     cache = BuildImageCache(enabled=not no_cache)
     rendered_targets: set[str] = cache.rendered_targets

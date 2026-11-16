@@ -396,6 +396,7 @@
     const trigger = (container.getAttribute('data-anim-trigger') || 'auto').toLowerCase();
     const loopMode = (container.getAttribute('data-anim-loop') || 'infinite').toLowerCase();
     const rawPause = container.getAttribute('data-anim-pause') || '';
+    const rawStaticFrame = (container.getAttribute('data-static-frame') || 'last').trim().toLowerCase();
     const pauseFrames = new Set();
     const loopRanges = [];
     rawPause.split(',').forEach(token => {
@@ -624,6 +625,40 @@
       setState('READY');
     }
 
+    function resolveStaticFrameIndex() {
+      if (!frames.length) return 0;
+      if (rawStaticFrame === 'first') return 0;
+      if (rawStaticFrame === 'last') return frames.length - 1;
+      const parsed = parseInt(rawStaticFrame, 10);
+      if (isNaN(parsed)) return frames.length - 1;
+      const idx = parsed < 0 ? (frames.length + parsed) : parsed;
+      return Math.max(0, Math.min(frames.length - 1, idx));
+    }
+
+    let prePrintFrame = null;
+    let prePrintWasPlaying = false;
+
+    function onBeforePrint() {
+      if (!frames.length) return;
+      prePrintFrame = currentFrame;
+      prePrintWasPlaying = (state === 'PLAYING' || state === 'LOOPING');
+      clearTimer();
+      drawFrame(resolveStaticFrameIndex());
+    }
+
+    function onAfterPrint() {
+      if (!frames.length || prePrintFrame === null) return;
+      const restoreIdx = prePrintFrame;
+      const wasPlaying = prePrintWasPlaying;
+      prePrintFrame = null;
+      prePrintWasPlaying = false;
+      if (wasPlaying) {
+        stepToFrame(restoreIdx);
+      } else {
+        drawFrame(restoreIdx);
+      }
+    }
+
     container.addEventListener('click', (e) => handleClick(e, false));
 
     const readyPromise = decodeAnimationFrames(src, base64Data).then(decoded => {
@@ -644,6 +679,8 @@
       readyPromise,
       onSlideEnter,
       onSlideLeave,
+      onBeforePrint,
+      onAfterPrint,
       handleClick,
       getState: () => state
     };
@@ -1429,6 +1466,18 @@
   // Lifecycle initialization
   window.addEventListener('resize', updateScale);
   window.addEventListener('hashchange', initFromHash);
+  window.addEventListener('beforeprint', () => {
+    slideAnimPlayers.forEach(players => {
+      players.forEach(p => p.onBeforePrint());
+    });
+    syncOverviewCanvases();
+  });
+  window.addEventListener('afterprint', () => {
+    slideAnimPlayers.forEach(players => {
+      players.forEach(p => p.onAfterPrint());
+    });
+    syncOverviewCanvases();
+  });
   window.addEventListener('DOMContentLoaded', () => {
     initOverviewThumbs();
     if (isPresenterMode) {

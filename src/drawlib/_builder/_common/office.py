@@ -23,6 +23,62 @@ _NATIVE_OFFICE_IMAGE_EXTS: frozenset[str] = frozenset(
     {".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tif", ".tiff"}
 )
 
+StaticFrameSpec = Literal["first", "last"] | int
+
+
+def parse_static_frame(
+    value: Literal["first", "last"] | int | str,
+    *,
+    param_name: str = "static_frame",
+) -> StaticFrameSpec:
+    """Validate and normalize a static frame specification ('first', 'last', or int).
+
+    Args:
+        value: Frame selector ('first', 'last', integer index, or integer string).
+        param_name: Parameter name used in error messages.
+
+    Returns:
+        StaticFrameSpec: Normalized 'first', 'last', or integer frame index.
+
+    Raises:
+        ValueError: If value is not 'first', 'last', or a valid integer.
+    """
+    if isinstance(value, bool):
+        raise ValueError(f"{param_name} must be 'first', 'last', or an integer frame index.")
+    if isinstance(value, int):
+        return value
+    if isinstance(value, str):
+        cleaned = value.strip().lower()
+        if cleaned == "first":
+            return "first"
+        if cleaned == "last":
+            return "last"
+        try:
+            return int(cleaned)
+        except ValueError as e:
+            raise ValueError(f"{param_name} must be 'first', 'last', or an integer frame index.") from e
+    raise ValueError(f"{param_name} must be 'first', 'last', or an integer frame index.")
+
+
+def resolve_target_frame_index(n_frames: int, static_frame: StaticFrameSpec) -> int:
+    """Resolve a 0-based frame index within [0, max(0, n_frames - 1)].
+
+    Args:
+        n_frames: Total number of frames in the image (>= 1).
+        static_frame: 'first', 'last', or integer index (supports negative Python-style indexing).
+
+    Returns:
+        int: Clamped 0-based frame index.
+    """
+    if n_frames <= 1:
+        return 0
+    if isinstance(static_frame, str):
+        return (n_frames - 1) if static_frame == "last" else 0
+    idx = int(static_frame)
+    if idx < 0:
+        idx = n_frames + idx
+    return max(0, min(n_frames - 1, idx))
+
 
 def resolve_office_datetime(*, timestamp: bool = False) -> datetime.datetime:
     """Resolve UTC timestamp for OpenXML core_properties metadata.
@@ -83,7 +139,7 @@ def ensure_static_office_image(
     image_path: str,
     scratch_dir: str,
     *,
-    anim_frame: Literal["first", "last"] = "last",
+    static_frame: Literal["first", "last"] | int | str = "last",
 ) -> tuple[str, int, int]:
     """Ensure an image file is a single-frame Office-compatible raster image and return its dimensions.
 
@@ -94,13 +150,14 @@ def ensure_static_office_image(
     Args:
         image_path: Path to source image file.
         scratch_dir: Temporary directory for converted static PNG files.
-        anim_frame: Which frame ('first' or 'last') to extract when the image is animated.
+        static_frame: Which frame ('first', 'last', or integer index) to extract when animated.
 
     Returns:
         tuple[str, int, int]: (usable_image_path, pixel_width, pixel_height).
     """
     from PIL import Image  # noqa: PLC0415
 
+    resolved_frame = parse_static_frame(static_frame)
     abs_path = os.path.abspath(image_path)
     ext = os.path.splitext(abs_path)[1].lower()
 
@@ -112,7 +169,7 @@ def ensure_static_office_image(
         if not needs_conversion:
             return abs_path, int(img.width), int(img.height)
 
-        target_frame = (n_frames - 1) if (is_animated and anim_frame == "last") else 0
+        target_frame = resolve_target_frame_index(n_frames, resolved_frame) if is_animated else 0
         if is_animated and target_frame > 0:
             img.seek(target_frame)
 
@@ -120,7 +177,9 @@ def ensure_static_office_image(
         width, height = int(converted.width), int(converted.height)
 
         os.makedirs(scratch_dir, exist_ok=True)
-        digest = hashlib.sha256(f"{abs_path}:{anim_frame}:{os.path.getsize(abs_path)}".encode("utf-8")).hexdigest()[:12]
+        digest = hashlib.sha256(
+            f"{abs_path}:{resolved_frame}:{os.path.getsize(abs_path)}".encode("utf-8")
+        ).hexdigest()[:12]
         stem = os.path.splitext(os.path.basename(abs_path))[0]
         out_png = os.path.join(scratch_dir, f"{stem}_{digest}.png")
         converted.save(out_png, format="PNG")

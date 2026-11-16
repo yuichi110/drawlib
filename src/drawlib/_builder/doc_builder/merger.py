@@ -22,6 +22,7 @@ from drawlib._builder._common import (
     BlockRenderJob,
     BuildImageCache,
     collect_standard_document_block_jobs,
+    parse_static_frame,
     prerender_document_blocks,
     resolve_build_workers,
 )
@@ -161,6 +162,7 @@ def build_merged_html(
     toc_title: str | None = None,
     project_root: str | None = None,
     cache: BuildImageCache | None = None,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int | Literal["auto"] = "auto",
 ) -> tuple[str, list[str]]:
     """Compile and merge one or more Markdown/HTML inputs into a single standalone HTML document.
@@ -180,12 +182,14 @@ def build_merged_html(
         toc_title (Optional[str]): Optional explicit TOC heading override.
         project_root (Optional[str]): Optional root project directory for asset hashing/lookup.
         cache (Optional[BuildImageCache]): Optional shared build image cache across locales.
+        static_frame (Literal["first", "last"] | int): Frame extracted from animated diagrams.
         workers (int | Literal["auto"]): Number of parallel rendering worker processes ('auto' or int >= 1).
 
     Returns:
         tuple[str, List[str]]: (merged_full_html_string, ordered_source_files).
     """
     eff_workers = resolve_build_workers(workers)
+    resolved_static_frame = parse_static_frame(static_frame)
     if not inputs:
         raise ValueError("At least one input file or directory must be specified.")
 
@@ -347,6 +351,7 @@ def build_merged_html(
                     embed_images=True,
                     source_filename=src_abs,
                     progress_callback=progress.as_callback(),
+                    static_frame=resolved_static_frame,
                 )
                 chapter_body = parse_markdown_to_html(processed_md)
             elif doc_info.doc_type == "markdown":
@@ -367,6 +372,7 @@ def build_merged_html(
                     embed_images=True,
                     source_filename=src_abs,
                     progress_callback=progress.as_callback(),
+                    static_frame=resolved_static_frame,
                 )
                 chapter_body = _extract_html_body(processed_html) if doc_info.is_full_html else processed_html
             else:

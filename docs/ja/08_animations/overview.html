@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.11</span>
+                    <span class="sidebar-version-text">v0.3.12</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -1076,8 +1076,8 @@
 </tbody>
 </table>
 <ol>
-<li><strong>ポスターフレームの原則（静止画・PDF との互換性）</strong>:
-標準の画像ビューアやベクター PDF エクスポートでは、<strong>第 1 フレーム</strong>が静止画フォールバックとして描画されます。第 1 フレームを完全に空白のままにせず、必ずベースラインとなる外枠コンテナや初期ノードを表示してください。</li>
+<li><strong>ポスターフレームと静止画エクスポートフレームの原則（<code>--static-frame</code> &amp; <code>static_frame=</code>）</strong>:
+アニメーション非対応の標準画像ビューアでは**第 1 フレーム（<code>first</code>、インデックス <code>0</code>）<strong>が静止画フォールバックとして表示されるため、第 1 フレームを完全に空白のままにせず、必ずベースラインとなる外枠コンテナや初期ノードを表示してください。一方、スライドやドキュメントを静止画ターゲット（<code>drawlib build pdf</code>、<code>drawlib build docx</code>、<code>drawlib build pptx</code>、およびブラウザ印刷 <code>Ctrl+P</code> / <code>Cmd+P</code>）へ出力する際は、デフォルトで</strong>完成した最終フレーム（<code>--static-frame last</code>）**が抽出され、CLI の <code>--static-frame first|last|&lt;int&gt;</code> またはブロック単位の <code>```drawlib file=flow.png static_frame=2</code> で任意のフレームを指定できます。</li>
 <li><strong>完成した最終フレームの保持（ホールド）</strong>:
 ループが再開する前に読み手が完成図を十分に把握できるよう、最終フレームには長めの <code>duration</code>（<code>2.0</code>〜<code>3.0</code> 秒）を設定してください。</li>
 <li><strong>埋め込み Markdown ブロックとの統合</strong>:
@@ -1093,7 +1093,7 @@
 <hr />
 <h2>7. プレゼンテーションスライド (<code>slide</code>) におけるインタラクティブ再生制御</h2>
 <p>16:9 プレゼンテーションスライドデッキ（<code>drawlib init project slide</code>）では、<code>drawlib</code> フェンスの <code>&lt;canvas&gt;</code> 再生オプションを指定することで、アニメーション <code>.png</code>（APNG）や <code>.webp</code> ブロックをインタラクティブに制御できます。</p>
-<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2
 <span class="s">from drawlib.anim import Animation</span>
 <span class="s">...</span>
 <span class="sb">```</span>
@@ -1125,6 +1125,12 @@
 <td style="text-align:left">カンマ区切りの 0 始まりフレーム番号または <code>start-end</code> ループ範囲（例: <code>(2, 4)</code> や <code>(0-3, 4-7)</code>）</td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">単一のフレーム番号はそのフレーム描画直後に一時停止（<code>PAUSED</code>）し、ハイフン区切りの <code>start-end</code> 範囲は <code>start..end</code> を連続ループ再生（<code>LOOPING</code>）しながら待機し、クリックや <code>A</code> キーで即座に <code>end + 1</code> へ進みます。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>static-frame</code></strong></td>
+<td style="text-align:left"><code>first</code> | <code>last</code> | <code>&lt;int&gt;</code>（0 始まりまたは負の整数）</td>
+<td style="text-align:left"><code>last</code>（または CLI <code>--static-frame</code>）</td>
+<td style="text-align:left">PDF（<code>drawlib build pdf</code>）、PowerPoint（<code>drawlib build pptx</code>）、Word（<code>drawlib build docx</code>）、およびブラウザ印刷（<code>Ctrl+P</code> / <code>Cmd+P</code>）時に静止画 PNG として抽出するフレームをブロック単位で指定します。</td>
 </tr>
 </tbody>
 </table>

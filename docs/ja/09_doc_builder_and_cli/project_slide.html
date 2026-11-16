@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.11</span>
+                    <span class="sidebar-version-text">v0.3.12</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -893,6 +893,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w
 <ul>
 <li><strong>非スライドファイルの除外（<code>_</code> プレフィックス）</strong>: 企画メモ、構成案、下書きファイルやフォルダの先頭にアンダースコア <code>_</code>（例: <code>_planning.md</code>、<code>_drafts/</code>）を付けると、スライドのコンパイル対象から除外されます。</li>
 <li><strong>特別に除外されるファイル</strong>: <code>README.md</code> および <code>navbar.md</code> もスライドデッキから自動的に除外されます。</li>
+<li><strong>デッキタイトルと PDF 内部メタデータ（<code>/Title</code>）</strong>: ブラウザタブの <code>&lt;title&gt;</code>、PDF の内部ドキュメントタイトル（<code>/Title</code>）、および <code>.pptx</code> のコアタイトルは、CLI の <code>--title</code> → <code>drawlib.toml</code> の <code>[project].title</code> → 先頭スライド（<code>01_title.md</code>）の最初の <code># H1</code> 見出し → <code>&quot;Drawlib Slide&quot;</code> の優先順位で解決されます。</li>
 </ul>
 <p>標準の Markdown や <code>utils.py</code> のヘルパーコンポーネントとあわせて <code>::: block xy=(x, y) width=W height=H</code> コンテナを使用します（ステージ座標系の詳細リファレンス、レイアウトテンプレート、<code>drawlib.slide</code> API については <a href="./slide_layout_and_api.html">スライドステージレイアウトと API</a> を参照してください）。</p>
 <pre><code class="language-markdown">::: block xy=(80, 40) width=1760 height=60
@@ -927,7 +928,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w
 <li><strong><code>build_pptx.sh</code> <em>（オンデマンド）</em></strong>:
 ヘッドレス Chromium で <code>1920x1080</code> スライド DOM と計算済み CSS スタイルを計測し、ロケールごとにネイティブ編集可能な 16:9（<code>960x540 pt</code>）の <code>.pptx</code> ファイル（<code>slide_&lt;lang&gt;.pptx</code>、例: <code>slide_en.pptx</code>）をエクスポートします。実行権限（<code>+x</code>）付きで初期配置されています。<pre><code class="language-bash">./slide_src/build_pptx.sh
 <span class="c1"># または任意の CLI オプションを指定して実行:</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--static-frame<span class="w"> </span>last
 </code></pre>
 </li>
 <li><strong><code>build_image.sh</code></strong>:
@@ -970,17 +971,18 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <li><strong>右中央（コントロールバー）</strong>: <code>◀ Prev</code> / <code>Next ▶</code> ナビゲーション、メインウィンドウと同期する <strong><code>▶ Play Animation</code> ボタン</strong>（アニメーションのないスライドでは自動的に無効化／グレーアウトされます）、およびプレゼンテーション経過タイマー（<code>00:00</code>）。</li>
 <li><strong>右下ペイン（スピーカーノート）</strong>: <code>A-</code> / <code>A+</code> フォントサイズ調整機能付きのコンパイル済みスピーカーノート。</li>
 </ul>
-<h3>インタラクティブなアニメーション再生制御 (<code>anim_trigger</code>, <code>anim_loop</code>, <code>anim_pause</code>):</h3>
-<p>スライド内に APNG（<code>.png</code> / <code>.apng</code>）またはアニメーション WebP（<code>.webp</code>）の図解を埋め込む際、<code>drawlib</code> コードフェンスに再生制御属性を指定できます。</p>
-<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+<h3>インタラクティブなアニメーション再生制御と静止画抽出 (<code>anim_trigger</code>, <code>anim_loop</code>, <code>anim_pause</code>, <code>static_frame</code>):</h3>
+<p>スライド内に APNG（<code>.png</code> / <code>.apng</code>）またはアニメーション WebP（<code>.webp</code>）の図解を埋め込む際、<code>drawlib</code> コードフェンスに再生制御属性および静止画抽出フレーム属性を指定できます。</p>
+<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=workflow.webp anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2
 <span class="sb">```</span>
 </code></pre>
 <ul>
 <li><strong><code>anim_trigger=click</code></strong> (<code>auto</code> | <code>click</code>): 発表者がクリックするまでフレーム 0 で待機します。</li>
 <li><strong><code>anim_loop=once</code></strong> (<code>once</code> | <code>infinite</code>): 最終フレームで停止（<code>ENDED</code>）し、再度クリックするとフレーム 0 から再生し直します。</li>
 <li><strong><code>anim_pause=(2, 4)</code> または <code>anim_pause=(0-3, 4-7)</code></strong>: 単一の 0 始まりフレームインデックス（<code>2</code>、<code>4</code>）はそのフレームで静止一時停止（<code>PAUSED</code>）し、ハイフン区切りの範囲（<code>0-3</code>、<code>4-7</code>）は <code>start..end</code> のフレーム区間を連続ループ再生（<code>LOOPING</code>）しながら待機し、クリックや <code>A</code> キーで即座に次のステップ（<code>end + 1</code>）へ進みます。</li>
-<li><strong>ベクター PDF エクスポート (<code>build_pdf.sh</code>)</strong>: インタラクティブな再生バッジを表示せず、自動的にフレーム 0 をスライド上にレンダリングします。</li>
-<li><strong>MS PowerPoint エクスポート (<code>drawlib build pptx</code>)</strong>: デフォルトでは最終フレーム（<code>--anim-frame last</code>）、<code>--anim-frame first</code> 指定時は先頭フレームを使用して、<code>--dpi 240</code> の鮮明な静的 PNG を抽出・埋め込みます。</li>
+<li><strong><code>static_frame=first | last | &lt;int&gt;</code></strong>: PDF・PowerPoint・ブラウザ印刷時に静止画 PNG として抽出するフレーム（<code>first</code>、<code>last</code>、または 0 始まり／負の整数フレーム番号）をブロック単位で指定します（CLI の <code>--static-frame</code> より優先されます）。</li>
+<li><strong>ベクター PDF エクスポート (<code>build_pdf.sh</code> / <code>drawlib build pdf</code>)</strong>: インタラクティブな再生バッジを表示せず、指定された静止画フレーム（デフォルトは <code>--static-frame last</code>、またはブロックの <code>static_frame=...</code>）をスライド上にレンダリングします。</li>
+<li><strong>MS PowerPoint エクスポート (<code>drawlib build pptx</code>)</strong>: デフォルトでは最終フレーム（<code>--static-frame last</code>）、または <code>--static-frame first</code>／<code>&lt;int&gt;</code>・ブロック個別の <code>static_frame=...</code> を使用して、<code>--dpi 240</code> の鮮明な静的 PNG を抽出・埋め込みます。</li>
 </ul>
 <hr />
 <h2>8. マルチエージェントによる並列スライドデッキ執筆</h2>

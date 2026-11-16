@@ -28,6 +28,7 @@ from drawlib._builder._common import (
     collect_docx_chapter_block_jobs,
     ensure_static_office_image,
     normalize_opc_zip_timestamps,
+    parse_static_frame,
     prerender_document_blocks,
     resolve_build_workers,
     resolve_office_datetime,
@@ -159,11 +160,14 @@ class _DocxChapterRenderer:
         theme: DocxTheme,
         scratch_dir: str,
         chapter_anchors: dict[str, str],
+        *,
+        static_frame: Literal["first", "last"] | int = "last",
     ) -> None:
         self.doc = doc
         self.theme = theme
         self.scratch_dir = scratch_dir
         self.chapter_anchors = chapter_anchors
+        self.static_frame: Literal["first", "last"] | int = static_frame
         self.heading_anchors: dict[str, str] = {}
         self._bookmark_id_seq = 1
         self._md = MarkdownIt("gfm-like", {"html": True, "linkify": False, "typographer": True})
@@ -187,6 +191,7 @@ class _DocxChapterRenderer:
         align: str | None = "center",
         caption: str | None = None,
         is_diagram: bool = False,
+        static_frame: Literal["first", "last"] | int | None = None,
         pending_chapter_bookmark: str | None = None,
     ) -> bool:
         """Embed a static raster image paragraph and optional caption paragraph."""
@@ -196,7 +201,12 @@ class _DocxChapterRenderer:
         if not os.path.isfile(img_path):
             return False
 
-        static_path, px_w, px_h = ensure_static_office_image(img_path, self.scratch_dir)
+        eff_frame = static_frame if static_frame is not None else self.static_frame
+        static_path, px_w, px_h = ensure_static_office_image(
+            img_path,
+            self.scratch_dir,
+            static_frame=eff_frame,
+        )
         width_mm = _compute_image_width_mm(px_w, px_h, width_spec, is_diagram=is_diagram)
 
         p = self.doc.add_paragraph()
@@ -392,7 +402,11 @@ class _DocxChapterRenderer:
                     clean_ref = str(src_attr).split("#")[0].split("?")[0]
                     abs_img = os.path.abspath(os.path.join(src_dir, clean_ref))
                     if os.path.isfile(abs_img):
-                        static_path, px_w, px_h = ensure_static_office_image(abs_img, self.scratch_dir)
+                        static_path, px_w, px_h = ensure_static_office_image(
+                            abs_img,
+                            self.scratch_dir,
+                            static_frame=self.static_frame,
+                        )
                         w_mm = _compute_image_width_mm(px_w, px_h, None, is_diagram=False)
                         paragraph.add_run().add_picture(static_path, width=Mm(w_mm))
             elif ctype == "text":
@@ -806,6 +820,7 @@ class _DocxChapterRenderer:
                         align=options.align or "center",
                         caption=options.caption,
                         is_diagram=True,
+                        static_frame=options.static_frame if options.static_frame is not None else self.static_frame,
                         pending_chapter_bookmark=bookmark_pending,
                     )
                     if attached_img:
@@ -902,6 +917,7 @@ def export_chapters_to_docx(
     toc_title: str | None = None,
     project_root: str | None = None,
     cache: BuildImageCache | None = None,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int | Literal["auto"] = "auto",
 ) -> list[str]:
     """Compile and merge Markdown inputs into a single native MS Word (.docx) document.
@@ -922,6 +938,7 @@ def export_chapters_to_docx(
         toc_title: Optional explicit TOC heading override.
         project_root: Optional root project directory for asset hashing/lookup.
         cache: Optional shared build image cache across locales.
+        static_frame: Frame ('first', 'last', or integer index) extracted from animated diagrams.
         workers: Number of parallel rendering worker processes ('auto' or positive integer >= 1).
 
     Returns:
@@ -935,6 +952,7 @@ def export_chapters_to_docx(
     from drawlib._templates.langs import get_language_config
 
     eff_workers = resolve_build_workers(workers)
+    resolved_static_frame = parse_static_frame(static_frame)
     if not inputs:
         raise ValueError("At least one input file or directory must be specified.")
     if dpi <= 0:
@@ -1046,6 +1064,7 @@ def export_chapters_to_docx(
             theme=theme,
             scratch_dir=scratch_dir,
             chapter_anchors=chapter_anchors,
+            static_frame=resolved_static_frame,
         )
 
         for idx, (src_abs, disp_name, content, bm_name, doc_info) in enumerate(chapters_meta, start=1):

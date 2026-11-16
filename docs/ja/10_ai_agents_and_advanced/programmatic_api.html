@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.11</span>
+                    <span class="sidebar-version-text">v0.3.12</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -831,22 +831,22 @@
 </tr>
 <tr>
 <td style="text-align:left"><strong>コンパイル</strong></td>
-<td style="text-align:left"><code>build_pdf(input_path=None, output_file=None, *, title=None, page_break=True, generate_index=False, styles_path=None, utils_path=None, no_cache=False, timestamp=False)</code></td>
+<td style="text-align:left"><code>build_pdf(input_path=None, output_file=None, *, title=None, page_break=True, generate_index=False, styles_path=None, utils_path=None, no_cache=False, timestamp=False, static_frame=&quot;last&quot;)</code></td>
 <td style="text-align:left">ヘッドレス Chromium を用いて、複数の Markdown 章ファイルやスライドデッキをベクター PDF へ統合出力します。</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>コンパイル</strong></td>
-<td style="text-align:left"><code>build_docx(input_path=None, output_file=None, *, input_dir=None, title=None, page_break=True, generate_index=False, dpi=200, styles_path=None, utils_path=None, no_cache=False, timestamp=False)</code></td>
+<td style="text-align:left"><code>build_docx(input_path=None, output_file=None, *, input_dir=None, title=None, page_break=True, generate_index=False, dpi=200, styles_path=None, utils_path=None, no_cache=False, timestamp=False, static_frame=&quot;last&quot;)</code></td>
 <td style="text-align:left">Markdown 章ディレクトリまたは単一 <code>.md</code> ファイルを、高 DPI 静的 PNG ダイアグラム付きの編集可能な MS Word（<code>.docx</code>）文書へコンパイルします。</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>コンパイル</strong></td>
-<td style="text-align:left"><code>build_slide(input_dir, output_dir=None, *, title=None, theme=None, image_format=&quot;svg&quot;, styles_path=None, utils_path=None, no_cache=False)</code></td>
+<td style="text-align:left"><code>build_slide(input_dir, output_dir=None, *, title=None, theme=None, image_format=&quot;svg&quot;, static_frame=None, styles_path=None, utils_path=None, no_cache=False)</code></td>
 <td style="text-align:left"><code>slide_src/</code> ディレクトリをインタラクティブな 16:9 HTML スライドデッキ（<code>index.html</code>）へコンパイルします。</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>コンパイル</strong></td>
-<td style="text-align:left"><code>build_pptx(input_dir, output_file=None, *, title=None, theme=None, dpi=240, anim_frame=&quot;last&quot;, styles_path=None, utils_path=None, no_cache=False, timestamp=False)</code></td>
+<td style="text-align:left"><code>build_pptx(input_dir, output_file=None, *, title=None, theme=None, dpi=240, static_frame=&quot;last&quot;, styles_path=None, utils_path=None, no_cache=False, timestamp=False)</code></td>
 <td style="text-align:left">ヘッドレス Chromium によるレイアウト計測を用いて、<code>slide_src/</code> ディレクトリを編集可能な 16:9（<code>960×540 pt</code>）MS PowerPoint（<code>.pptx</code>）プレゼンテーションへコンパイルします。</td>
 </tr>
 <tr>
@@ -965,7 +965,7 @@
     <span class="n">output_file</span><span class="o">=</span><span class="s2">"slide.pptx"</span><span class="p">,</span>
     <span class="n">theme</span><span class="o">=</span><span class="s2">"google"</span><span class="p">,</span>
     <span class="n">dpi</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>                           <span class="c1"># High-DPI static PNG rasterization for diagrams</span>
-    <span class="n">anim_frame</span><span class="o">=</span><span class="s2">"last"</span><span class="p">,</span>                 <span class="c1"># Extract "first" or "last" frame from animations</span>
+    <span class="n">static_frame</span><span class="o">=</span><span class="s2">"last"</span><span class="p">,</span>               <span class="c1"># Extract "first", "last", or &lt;int&gt; frame from animations</span>
 <span class="p">)</span>
 </code></pre>
 <h3>2.4 <code>build_image()</code> と <code>download_cache()</code></h3>

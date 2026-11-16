@@ -103,7 +103,7 @@ save()
 
 | Command Group | Subcommands & Signature | Key Options & Architectural Behavior |
 | :--- | :--- | :--- |
-| **`build`** | `image`, `markdown`, `html`, `pdf`, `docx`, `slide`, `pptx` | Unified `-o/--output` target option (never `--output-dir`), `-s/--styles`, `-u/--utils`, `--no-cache`; `--dpi` on `docx` (`200`) and `pptx` (`240`); `--anim-frame first\|last` on `pptx`. |
+| **`build`** | `image`, `markdown`, `html`, `pdf`, `docx`, `slide`, `pptx` | Unified `-o/--output` target option (never `--output-dir`), `-s/--styles`, `-u/--utils`, `--no-cache`; `--dpi` on `docx` (`200`) and `pptx` (`240`); `--static-frame first\|last\|<int>` on `pdf`, `docx`, and `pptx`. |
 | **`show`** | `drawlib show <file> [block]` | Renders a `.py` script or a single embedded block from `.md`/`.html` interactively or to `-o/--output` with `-g/--grid` (`10`/`5`-unit review grid). Automatically falls back to `rules show <topic>` when `<file>` matches a known rule topic! |
 | **`serve`** | `drawlib serve [dir]` | Starts `_CustomHTTPServer` on `-p/--port 8000` (`--no-browser`), running `scan_broken_links()` preflight unless `--skip-check`, or exits headlessly via `--check`. |
 | **`init`** | `init project <doc\|site\|slide\|images\|list>`<br>`init agent [target\|all\|list]` | Scaffolds multi-locale `drawlib.toml` projects (`-l/--lang`, `-s/--style`), and provisions Drawlib skill/rule files across **9 AI coding agents** (`antigravity`, `claude`, `cursor`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`) via `_templates/_agent.py` (`--detect`, `--mode auto\|always`, `--global`). |

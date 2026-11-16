@@ -223,7 +223,7 @@ def _draw_image(
     slide: Slide,
     img: PptxImage,
     scratch_dir: str,
-    anim_frame: Literal["first", "last"],
+    static_frame: Literal["first", "last"] | int,
     pmod: dict[str, Any],
 ) -> None:
     """Embed a high-DPI raster diagram or image at exact object-fit: contain coordinates."""
@@ -231,7 +231,7 @@ def _draw_image(
     usable_path, _, _ = ensure_static_office_image(
         img.image_path,
         scratch_dir,
-        anim_frame=anim_frame,
+        static_frame=static_frame,
     )
     slide.shapes.add_picture(
         usable_path,
@@ -507,7 +507,7 @@ def _draw_slide_element(
     slide: Slide,
     elem: SlideElement,
     scratch_dir: str,
-    anim_frame: Literal["first", "last"],
+    static_frame: Literal["first", "last"] | int,
     pmod: dict[str, Any],
 ) -> None:
     """Dispatch a single SlideElement to its PowerPoint shape builder."""
@@ -516,7 +516,7 @@ def _draw_slide_element(
     elif isinstance(elem, PptxRule):
         _draw_rule(slide, elem, pmod)
     elif isinstance(elem, PptxImage):
-        _draw_image(slide, elem, scratch_dir, anim_frame, pmod)
+        _draw_image(slide, elem, scratch_dir, static_frame, pmod)
     elif isinstance(elem, PptxTable):
         _draw_table(slide, elem, pmod)
     elif isinstance(elem, PptxTextBox):
@@ -555,7 +555,7 @@ def write_deck_to_pptx(
     scratch_dir: str,
     *,
     title: str | None = None,
-    anim_frame: Literal["first", "last"] = "last",
+    static_frame: Literal["first", "last"] | int = "last",
     timestamp: bool = False,
 ) -> str:
     """Write a measured PptxDeckSpec to a 16:9 widescreen .pptx file.
@@ -565,7 +565,7 @@ def write_deck_to_pptx(
         output_path: Destination .pptx path.
         scratch_dir: Temporary directory for any converted static raster images.
         title: Optional presentation metadata title override.
-        anim_frame: Frame selection ('first' or 'last') for multi-frame animations.
+        static_frame: Frame selection ('first', 'last', or integer index) for multi-frame animations.
         timestamp: If True, keep current build timestamp; otherwise normalize deterministically.
 
     Returns:
@@ -587,7 +587,7 @@ def write_deck_to_pptx(
             slide_spec,
             deck.default_ea_font,
             scratch_dir,
-            anim_frame,
+            static_frame,
             pmod,
         )
 
@@ -617,12 +617,12 @@ def _render_single_slide(
     slide_spec: PptxSlideSpec,
     default_ea_font: str,
     scratch_dir: str,
-    anim_frame: Literal["first", "last"],
+    static_frame: Literal["first", "last"] | int,
     pmod: dict[str, Any],
 ) -> None:
     """Create and populate one PowerPoint slide from a PptxSlideSpec."""
     slide = prs.slides.add_slide(blank_layout)
     _set_slide_background(slide, slide_spec.bg, pmod)
     for elem in slide_spec.elements:
-        _draw_slide_element(slide, elem, scratch_dir, anim_frame, pmod)
+        _draw_slide_element(slide, elem, scratch_dir, static_frame, pmod)
     _write_speaker_notes(slide, slide_spec.notes_text, default_ea_font, pmod)

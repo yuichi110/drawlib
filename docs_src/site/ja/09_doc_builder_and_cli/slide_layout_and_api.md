@@ -1236,7 +1236,7 @@ save()
 | 出力フォーマット | フェンス構文 | `slide_html/`・`slide.pdf`・`slide.pptx` でのレンダリング動作 |
 | :--- | :--- | :--- |
 | **インラインベクター SVG** *（静的図解のデフォルト）* | ```` ```drawlib file=diagram.svg ```` | HTML および PDF では `<div class="slide-svg-container"><svg>...</svg></div>` として直接インライン展開されます（`.ttf`/`.otf` の `@font-face` ルールがバンドルされるため拡大しても劣化せず、`Ctrl+F` でのテキスト検索も可能です）。`drawlib build pptx` では高解像度の鮮明な静的 PNG（デフォルト `--dpi 240`）としてレンダリングされます。 |
-| **インタラクティブ `<canvas>` アニメーション** *（`Animation()` 使用時のデフォルト）* | ```` ```drawlib file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4) ```` | APNG（`.png`）またはアニメーション WebP（`.webp`）のペイロードを Base64 エンコードし、`http://` サーバー経由でもローカル HTML ファイル直接閲覧でも動作するインタラクティブな `<canvas class="drawlib-anim-canvas">` プレイヤー内に埋め込みます。PDF エクスポート（`build_pdf.sh`）ではフレーム 0 が静的ポスター画像として描画され、PowerPoint エクスポート（`drawlib build pptx`）では `--anim-frame last`（デフォルト）または `first` が `--dpi 240` で埋め込まれます。 |
+| **インタラクティブ `<canvas>` アニメーション** *（`Animation()` 使用時のデフォルト）* | ```` ```drawlib file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2 ```` | APNG（`.png`）またはアニメーション WebP（`.webp`）のペイロードを Base64 エンコードし、`http://` サーバー経由でもローカル HTML ファイル直接閲覧でも動作するインタラクティブな `<canvas class="drawlib-anim-canvas">` プレイヤー内に埋め込みます。PDF エクスポート（`build_pdf.sh` / `drawlib build pdf`）および PowerPoint エクスポート（`drawlib build pptx`）では、`--static-frame last`（デフォルト）・`first`・`<int>`、またはブロック個別の `static_frame=...` 属性のフレームが鮮明な静的 PNG として埋め込まれます。 |
 
 ---
 
@@ -1317,7 +1317,7 @@ pptx_path = build_pptx(
     title="System Architecture Deck",
     theme="google",
     dpi=240,
-    anim_frame="last",
+    static_frame="last",
     styles_path="slide_src/styles.py",
     utils_path="slide_src/utils.py",
     no_cache=False,

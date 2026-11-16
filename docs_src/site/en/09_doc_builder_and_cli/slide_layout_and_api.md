@@ -1236,7 +1236,7 @@ Use a single `xy=(0, 0) width=1920 height=1080` block with `setup(width=192, hei
 | Output Format | Fence Syntax | How It Renders in `slide_html/`, `slide.pdf`, and `slide.pptx` |
 | :--- | :--- | :--- |
 | **Inline Vector SVG** *(default for static diagrams)* | ```` ```drawlib file=diagram.svg ```` | Inlined directly as `<div class="slide-svg-container"><svg>...</svg></div>` in HTML and PDF (with bundled `.ttf`/`.otf` `@font-face` rules for infinite sharpness and `Ctrl+F` searchability). In `drawlib build pptx`, rendered as a crisp high-DPI static PNG (`--dpi 240` default). |
-| **Interactive `<canvas>` Animation** *(default when `Animation()` is used)* | ```` ```drawlib file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4) ```` | Encodes the APNG (`.png`) or Animated WebP (`.webp`) payload as Base64 inside an interactive `<canvas class="drawlib-anim-canvas">` player over both `http://` servers and local HTML files. In PDF export (`build_pdf.sh`), Frame 0 is rendered as a static poster image; in PowerPoint export (`drawlib build pptx`), `--anim-frame last` (default) or `first` is embedded at `--dpi 240`. |
+| **Interactive `<canvas>` Animation** *(default when `Animation()` is used)* | ```` ```drawlib file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4) static_frame=2 ```` | Encodes the APNG (`.png`) or Animated WebP (`.webp`) payload as Base64 inside an interactive `<canvas class="drawlib-anim-canvas">` player over both `http://` servers and local HTML files. In PDF export (`build_pdf.sh` / `drawlib build pdf`) and PowerPoint export (`drawlib build pptx`), `--static-frame last` (default), `first`, `<int>`, or the block's `static_frame=...` attribute is embedded as a crisp static PNG. |
 
 ---
 
@@ -1317,7 +1317,7 @@ pptx_path = build_pptx(
     title="System Architecture Deck",
     theme="google",
     dpi=240,
-    anim_frame="last",
+    static_frame="last",
     styles_path="slide_src/styles.py",
     utils_path="slide_src/utils.py",
     no_cache=False,

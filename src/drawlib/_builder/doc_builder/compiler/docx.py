@@ -21,6 +21,7 @@ from drawlib._builder._common import (
     collect_docx_chapter_block_jobs,
     find_project_manifest,
     load_project_manifest,
+    parse_static_frame,
     prerender_document_blocks,
     resolve_build_workers,
     resolve_styles_and_utils,
@@ -57,6 +58,7 @@ def _build_i18n_doc_docx(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int = 1,
 ) -> str:
     """Compile all locales of a ``doc`` project into ``<base>_<lang>.docx`` files."""
@@ -118,6 +120,7 @@ def _build_i18n_doc_docx(
             lang=lang,
             project_root=input_dir_abs,
             cache=cache,
+            static_frame=static_frame,
             workers=1,
         )
         generated_paths[lang] = dest_abs
@@ -137,6 +140,7 @@ def _compile_single_file_docx(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    static_frame: Literal["first", "last"] | int = "last",
     workers: int = 1,
 ) -> str:
     """Compile a standalone Markdown file into a native MS Word (.docx) document."""
@@ -172,6 +176,7 @@ def _compile_single_file_docx(
         timestamp=timestamp,
         lang=doc_lang,
         project_root=proj_root,
+        static_frame=static_frame,
         workers=workers,
     )
     return dest_abs
@@ -186,6 +191,7 @@ def build_docx(
     page_break: bool = True,
     generate_index: bool = False,
     dpi: int = 200,
+    static_frame: Literal["first", "last"] | int = "last",
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -205,6 +211,8 @@ def build_docx(
         page_break (bool): Insert page breaks between merged chapters. Defaults to True.
         generate_index (bool): Generate a Table of Contents between 1st and 2nd documents.
         dpi (int): Rasterization DPI for embedded drawlib diagrams. Defaults to 200.
+        static_frame (Literal["first", "last"] | int): Frame ('first', 'last', or integer index)
+            extracted from animated diagrams.
         styles_path (Optional[str]): Path to custom styles.py script.
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
@@ -218,6 +226,7 @@ def build_docx(
         ValueError: If input_path does not exist, lacks ``drawlib.toml`` for directories, or has an unsupported type.
     """
     eff_workers = resolve_build_workers(workers)
+    resolved_static_frame = parse_static_frame(static_frame)
     resolved_input = input_path if input_path is not None else input_dir
     if not resolved_input:
         raise ValueError("No input directory or file specified for build_docx.")
@@ -239,6 +248,7 @@ def build_docx(
             utils_path=utils_path,
             no_cache=no_cache,
             timestamp=timestamp,
+            static_frame=resolved_static_frame,
             workers=eff_workers,
         )
 
@@ -292,5 +302,6 @@ def build_docx(
         utils_path=utils_path,
         no_cache=no_cache,
         timestamp=timestamp,
+        static_frame=resolved_static_frame,
         workers=eff_workers,
     )

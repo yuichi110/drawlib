@@ -156,7 +156,7 @@ build_pptx(
     title: str | None = None,
     theme: str | None = None,
     dpi: int = 240,
-    anim_frame: Literal["first", "last"] = "last",
+    static_frame: Literal["first", "last"] | int = "last",
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -172,7 +172,7 @@ build_pptx(
 | `title` | `str \| None` | `None` | Presentation title override written to `.pptx` core metadata. |
 | `theme` | `str \| None` | `None` | CSS theme preset override (`"google"`, `"default"`, `"google-dark"`, `"default-dark"`, `"monochrome"`). |
 | `dpi` | `int` | `240` | Rasterization DPI for embedded `drawlib` static PNG diagrams (`> 0`). |
-| `anim_frame` | `Literal["first", "last"]` | `"last"` | Frame extracted as a static PNG when a slide block uses [`Animation`](#animation). |
+| `static_frame` | `Literal["first", "last"] \| int` | `"last"` | Default frame extracted as a static PNG when a slide block uses [`Animation`](#animation) (`"first"`, `"last"`, or 0-based/negative integer frame index; overridden by per-block `static_frame=...` fence attribute). |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass reading and writing the `.drawlib/cache.db` SQLite image cache. |
@@ -180,7 +180,7 @@ build_pptx(
 | `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially in-process). |
 
 - **Returns (`str`)**: Absolute path to the generated default-locale `<stem>_<default_lang>.pptx` file.
-- **Raises**: `ValueError` if `input_dir` is invalid, lacks `drawlib.toml`, `dpi <= 0`, `anim_frame` is invalid, or `workers` is invalid; `RuntimeError` if Playwright, Chromium, or `python-pptx` fails.
+- **Raises**: `ValueError` if `input_dir` is invalid, lacks `drawlib.toml`, `dpi <= 0`, `static_frame` is invalid, or `workers` is invalid; `RuntimeError` if Playwright, Chromium, or `python-pptx` fails.
 
 ## `def` build_slide(input_dir, output_dir=None, *, ...)
 
@@ -198,7 +198,7 @@ build_slide(
     image_format: str = "svg",
     dpi: int | None = None,
     force_image_format: bool = False,
-    static_anim_frame: Literal["first", "last"] | None = None,
+    static_frame: Literal["first", "last"] | int | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -215,7 +215,7 @@ build_slide(
 | `image_format` | `str` | `"svg"` | Default output format (`"svg"`, `"webp"`, or `"png"`) for embedded `drawlib` blocks. |
 | `dpi` | `int \| None` | `None` | Optional rasterization DPI override when generating raster diagrams. |
 | `force_image_format` | `bool` | `False` | When `True`, rewrite explicit block filenames (such as `.svg`) to `image_format`. |
-| `static_anim_frame` | `Literal["first", "last"] \| None` | `None` | If set (`"first"` or `"last"`), flatten multi-frame animations into static PNG images. |
+| `static_frame` | `Literal["first", "last"] \| int \| None` | `None` | If set (`"first"`, `"last"`, or 0-based/negative integer frame index), flatten multi-frame animations into static PNG images. |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass reading and writing the SQLite diagram build cache. |

@@ -307,6 +307,9 @@ with anim.frame(duration=0.2):
     rectangle((40, 20), width=80, height=40, style=Styles.WhiteFlat.patch(shape_fill_color=(220, 30, 30)))
 
 with anim.frame(duration=0.2):
+    rectangle((40, 20), width=80, height=40, style=Styles.WhiteFlat.patch(shape_fill_color=(30, 180, 60)))
+
+with anim.frame(duration=0.2):
     rectangle((40, 20), width=80, height=40, style=Styles.WhiteFlat.patch(shape_fill_color=(30, 80, 220)))
 
 save()
@@ -316,9 +319,11 @@ save()
             encoding="utf-8",
         )
 
-        first_pptx = Path(build_pptx(str(slide_dir), str(tmp_path / "first.pptx"), dpi=100, anim_frame="first"))
-        last_pptx = Path(build_pptx(str(slide_dir), str(tmp_path / "last.pptx"), dpi=100, anim_frame="last"))
+        first_pptx = Path(build_pptx(str(slide_dir), str(tmp_path / "first.pptx"), dpi=100, static_frame="first"))
+        mid_pptx = Path(build_pptx(str(slide_dir), str(tmp_path / "mid.pptx"), dpi=100, static_frame=1))
+        last_pptx = Path(build_pptx(str(slide_dir), str(tmp_path / "last.pptx"), dpi=100, static_frame="last"))
         assert first_pptx == tmp_path / "first_en.pptx"
+        assert mid_pptx == tmp_path / "mid_en.pptx"
         assert last_pptx == tmp_path / "last_en.pptx"
 
         def _center_rgb(pptx_file: Path) -> tuple[int, int, int]:
@@ -330,10 +335,12 @@ save()
                 rgba = im.convert("RGB")
                 return rgba.getpixel((rgba.width // 2, rgba.height // 2))
 
-        r_first, _, b_first = _center_rgb(first_pptx)
-        r_last, _, b_last = _center_rgb(last_pptx)
-        assert r_first > 180 and b_first < 80
-        assert b_last > 180 and r_last < 80
+        r_first, g_first, b_first = _center_rgb(first_pptx)
+        r_mid, g_mid, b_mid = _center_rgb(mid_pptx)
+        r_last, g_last, b_last = _center_rgb(last_pptx)
+        assert r_first > 180 and g_first < 80 and b_first < 80
+        assert g_mid > 140 and r_mid < 80 and b_mid < 100
+        assert b_last > 180 and r_last < 80 and g_last < 120
 
     def test_deterministic_pptx_archive_and_validation(
         self,

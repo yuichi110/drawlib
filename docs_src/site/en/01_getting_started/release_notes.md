@@ -1,5 +1,25 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.12
+
+*Release Date: 2026/11/16*
+
+Version 0.3.12 introduces **unified static frame selection (`--static-frame` / `static_frame=...`)** when exporting animated diagrams (`Animation()`) to static targets (**PDF, MS PowerPoint `.pptx`, MS Word `.docx`, and browser print `Ctrl+P` / `Cmd+P`**), defaulting to the completed final frame (`"last"`) with support for `"first"`, 0-based/negative integer frame indices, and per-block code fence overrides, alongside **expanded project title & metadata resolution documentation (`drawlib.toml` `[project].title` vs. `navbar.md` `# H1` vs. page `# H1`)**.
+
+---
+
+### Highlights & New Features
+
+#### 1. Unified Static Frame Selection for Animated Diagrams (`--static-frame`, `static_frame`, `doc_builder`, `slide`, `_cli`)
+- **CLI Flag & Python API (`--static-frame`, `static_frame: Literal["first", "last"] | int = "last"`)**: Added `--static-frame <first|last|int>` across `drawlib build pdf`, `drawlib build docx`, `drawlib build slide`, and `drawlib build pptx` (and `static_frame` on `build_pdf()`, `build_docx()`, `build_slide()`, and `build_pptx()`). Static exports now default to extracting the completed final frame (`"last"`) of multi-frame `Animation` blocks, while supporting `"first"` and 0-based or negative integer frame indices (e.g. `2`, `-2`, clamped safely within `[0, n_frames - 1]`).
+- **Per-Block Code Fence Override (`static_frame=first|last|<int>`)**: Individual ```` ```drawlib ```` blocks can specify `static_frame=first`, `static_frame=last`, or `static_frame=<int>` (or `static-frame=...`) on the opening code fence to override the project-wide `--static-frame` default for that specific diagram.
+- **Browser Print Synchronization (`Ctrl+P` / `Cmd+P` in `slide.js`)**: HTML slide `<canvas>` animations now embed `data-static-frame` and automatically switch to the resolved static frame on `beforeprint` (and restore the interactive playback state on `afterprint`), ensuring browser printouts match `drawlib build pdf` output.
+
+#### 2. Project Title, Sidebar Brand & PDF Internal Metadata Documentation (`_rules/`, `docs_src/`)
+- **Documented Title Resolution Hierarchy (`project-overview`, `project-site`, `project-doc`, `project-slide`)**: Clarified how `drawlib.toml` `[project].title`, `<lang>/navbar.md` `# H1`, and page/slide `# H1` headings resolve across browser `<title>`, left sidebar brand headers (`site_title`), PDF internal document metadata (`/Title`), Office `.docx`/`.pptx` core titles, Open Graph `og:site_name`, and `llms.txt`.
+
+---
+
 ## Version 0.3.11
 
 *Release Date: 2026/11/15*

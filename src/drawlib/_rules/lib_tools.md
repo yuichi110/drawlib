@@ -96,6 +96,7 @@ pdf_path = build_pdf(
     generate_index=True,
     styles_path=None,
     utils_path=None,
+    static_frame="last",
     workers="auto",
 )
 
@@ -125,6 +126,7 @@ output_docx = build_docx(
     utils_path=None,
     no_cache=False,
     timestamp=False,
+    static_frame="last",
     workers="auto",
 )
 ```
@@ -149,7 +151,7 @@ output_pptx = build_pptx(
     title=None,
     theme=None,
     dpi=240,
-    anim_frame="last",           # "first" or "last" for animated blocks
+    static_frame="last",         # "first", "last", or 0-based/negative int for animated blocks
     styles_path=None,
     utils_path=None,
     no_cache=False,

@@ -46,9 +46,12 @@ from drawlib._builder._common.manifest import (
     load_project_manifest,
 )
 from drawlib._builder._common.office import (
+    StaticFrameSpec,
     ensure_static_office_image,
     normalize_opc_zip_timestamps,
+    parse_static_frame,
     resolve_office_datetime,
+    resolve_target_frame_index,
 )
 from drawlib._builder._common.parallel import (
     DEFAULT_AUTO_MAX_WORKERS,
@@ -128,6 +131,7 @@ __all__ = [
     "ScriptSavedFile",
     "SeoConfig",
     "SitemapEntry",
+    "StaticFrameSpec",
     "TwitterCardType",
     "WorkersSpec",
     "build_block_render_job",
@@ -157,6 +161,7 @@ __all__ = [
     "load_styles_and_utils",
     "load_utils",
     "normalize_opc_zip_timestamps",
+    "parse_static_frame",
     "prerender_document_blocks",
     "render_seo_head_tags",
     "resolve_build_workers",
@@ -166,6 +171,7 @@ __all__ = [
     "resolve_processor_project_root",
     "resolve_public_page_url",
     "resolve_styles_and_utils",
+    "resolve_target_frame_index",
     "to_og_locale",
     "upgrade_alternate_links",
     "write_llms_txt",

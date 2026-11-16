@@ -19,7 +19,9 @@ import pytest
 from PIL import Image
 
 import drawlib.slide as slide_module
+from drawlib._builder._common.office import parse_static_frame, resolve_target_frame_index
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
+from drawlib._builder.doc_builder.processor.options import parse_block_info
 from drawlib._http_server._link_scanner import scan_broken_links
 from drawlib._slide import (
     BoundingBox,
@@ -1163,3 +1165,73 @@ save()
         assert html_count == 3
         assert total_links > 5
         assert broken_errors == []
+
+    def test_static_frame_parsing_and_per_block_override(self, tmp_path: Path) -> None:
+        """Verify parse_static_frame, resolve_target_frame_index, and per-block static_frame override."""
+        assert parse_static_frame("first") == "first"
+        assert parse_static_frame("LAST") == "last"
+        assert parse_static_frame("2") == 2
+        assert parse_static_frame("-1") == -1
+        assert parse_static_frame(0) == 0
+        with pytest.raises(ValueError, match="static_frame"):
+            parse_static_frame(True)
+        with pytest.raises(ValueError, match="static_frame"):
+            parse_static_frame("middle")
+
+        assert resolve_target_frame_index(4, "first") == 0
+        assert resolve_target_frame_index(4, "last") == 3
+        assert resolve_target_frame_index(4, 1) == 1
+        assert resolve_target_frame_index(4, 99) == 3
+        assert resolve_target_frame_index(4, -1) == 3
+        assert resolve_target_frame_index(4, -2) == 2
+        assert resolve_target_frame_index(4, -99) == 0
+
+        opts_int = parse_block_info("drawlib file=anim.png static_frame=1")
+        assert opts_int.static_frame == 1
+        opts_first = parse_block_info("drawlib file=anim.png static_frame=first")
+        assert opts_first.static_frame == "first"
+
+        src_dir = tmp_path / "static_frame_src"
+        en_dir = _write_slide_manifest(src_dir, name="static_frame")
+        anim_code = """from drawlib.anim import Animation
+from drawlib.canvas import clear, save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+clear()
+setup(width=40, height=20)
+anim = Animation(fps=4.0, loop=0)
+with anim.frame(duration=0.2):
+    rectangle((20, 10), width=40, height=20, style=Styles.WhiteFlat.patch(shape_fill_color=(220, 30, 30)))
+with anim.frame(duration=0.2):
+    rectangle((20, 10), width=40, height=20, style=Styles.WhiteFlat.patch(shape_fill_color=(30, 180, 60)))
+with anim.frame(duration=0.2):
+    rectangle((20, 10), width=40, height=20, style=Styles.WhiteFlat.patch(shape_fill_color=(30, 80, 220)))
+save()"""
+
+        (en_dir / "01_anim.md").write_text(
+            f"# Static Frame Deck\n\n"
+            f"```drawlib file=default_last.png\n{anim_code}\n```\n\n"
+            f"```drawlib file=override_mid.png static_frame=1\n{anim_code}\n```\n",
+            encoding="utf-8",
+        )
+
+        # 1. Interactive HTML build (static_frame=None): emits data-static-frame="1" on override_mid
+        out_interactive = tmp_path / "interactive_html"
+        build_slide(str(src_dir), str(out_interactive), no_cache=True, workers=1)
+        html_interactive = (out_interactive / "en" / "index.html").read_text(encoding="utf-8")
+        assert 'data-static-frame="1"' in html_interactive
+
+        # 2. Static build (static_frame="last", as used by PDF/PPTX):
+        #    default_last.png uses "last" (blue), override_mid.png uses frame 1 (green)
+        out_static = tmp_path / "static_html"
+        build_slide(str(src_dir), str(out_static), static_frame="last", no_cache=True, workers=1)
+        img_dir = out_static / "images" / "01_anim"
+        with Image.open(img_dir / "default_last.png") as im_last:
+            assert not getattr(im_last, "is_animated", False)
+            r_l, g_l, b_l = im_last.convert("RGB").getpixel((im_last.width // 2, im_last.height // 2))
+        with Image.open(img_dir / "override_mid.png") as im_mid:
+            assert not getattr(im_mid, "is_animated", False)
+            r_m, g_m, b_m = im_mid.convert("RGB").getpixel((im_mid.width // 2, im_mid.height // 2))
+        assert b_l > 180 and r_l < 80
+        assert g_m > 140 and r_m < 80 and b_m < 100

@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.11</span>
+                    <span class="sidebar-version-text">v0.3.12</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -911,7 +911,9 @@ drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w
 <ol>
 <li><strong>辞書順による章のソート</strong>: <code>&lt;lang&gt;/</code> 内の章ファイルには数値プレフィックス（<code>00_cover.md</code>、<code>01_overview.md</code>、<code>02_design.md</code>、<code>03_benchmarks.md</code>）を付与し、常に決定論的な読書順で結合されるようにします。</li>
 <li><strong>表紙の規約 (<code>00_cover.md</code>)</strong>: ソート順で先頭となるファイルがドキュメントの表紙として機能します。<code>drawlib build pdf</code> に <code>--toc</code>（または <code>--generate-index</code>）、あるいは <code>drawlib build docx</code> に <code>--generate-index</code> を指定すると、自動生成された目次が <strong>1 番目のドキュメント（<code>00_cover.md</code>）と 2 番目のドキュメント（<code>01_overview.md</code>）の間</strong> に美しく挿入されます。</li>
+<li><strong>ドキュメントタイトルと PDF 内部メタデータ（<code>/Title</code>）</strong>: 結合 HTML の <code>&lt;title&gt;</code>、PDF の内部ドキュメントタイトル（<code>/Title</code>）、および <code>.docx</code> のコアタイトルは、CLI の <code>--title</code> → <code>drawlib.toml</code> の <code>[project].title</code> → <code>00_cover.md</code> の最初の <code># H1</code> 見出し → <code>&quot;Drawlib Document&quot;</code> の優先順位で解決されます。</li>
 <li><strong>章ごとの改ページ (<code>--page-break</code>)</strong>: PDF と Word（<code>.docx</code>）の両方のコンパイルにおいて、デフォルト（<code>--page-break</code>）では結合された各 <code>.md</code> ファイルが新しいページから始まります。ファイル間で強制改ページを行わず連続配置したい場合は <code>--no-page-break</code> を指定してください。</li>
+<li><strong>アニメーションブロックの静止画抽出フレーム指定（<code>--static-frame</code> &amp; <code>static_frame=</code>）</strong>: <code>Animation()</code> を含む <code>drawlib</code> ブロックを PDF や <code>.docx</code> にエクスポートする際は、デフォルトで完成した最終フレーム（<code>--static-frame last</code>）が静止画 PNG として抽出されます。CLI の <code>--static-frame first|last|&lt;int&gt;</code> または各コードフェンスの <code>static_frame=first|last|&lt;int&gt;</code> で抽出フレームを切り替えられます。</li>
 </ol>
 <hr />
 <h2>6. モジュール化されたビルドスクリプト構成</h2>

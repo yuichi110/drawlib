@@ -996,7 +996,9 @@ drawlib init project doc my_report -s google -l en,ja
 `doc` プロジェクトではサイドバー用の `navbar.md` ファイルを使用しないため、Drawlib は各 `doc_src/<lang>/` 内のすべての `.md` ファイル（`README.md` と `_` 始まりのファイルを除く）を単一のリニアドキュメントに結合して `doc_html/<lang>/index.html`、`doc_<lang>.pdf`、`doc_<lang>.docx` を生成します。
 1. **辞書順による章のソート**: `<lang>/` 内の章ファイルには数値プレフィックス（`00_cover.md`、`01_overview.md`、`02_design.md`、`03_benchmarks.md`）を付与し、常に決定論的な読書順で結合されるようにします。
 2. **表紙の規約 (`00_cover.md`)**: ソート順で先頭となるファイルがドキュメントの表紙として機能します。`drawlib build pdf` に `--toc`（または `--generate-index`）、あるいは `drawlib build docx` に `--generate-index` を指定すると、自動生成された目次が **1 番目のドキュメント（`00_cover.md`）と 2 番目のドキュメント（`01_overview.md`）の間** に美しく挿入されます。
-3. **章ごとの改ページ (`--page-break`)**: PDF と Word（`.docx`）の両方のコンパイルにおいて、デフォルト（`--page-break`）では結合された各 `.md` ファイルが新しいページから始まります。ファイル間で強制改ページを行わず連続配置したい場合は `--no-page-break` を指定してください。
+3. **ドキュメントタイトルと PDF 内部メタデータ（`/Title`）**: 結合 HTML の `<title>`、PDF の内部ドキュメントタイトル（`/Title`）、および `.docx` のコアタイトルは、CLI の `--title` → `drawlib.toml` の `[project].title` → `00_cover.md` の最初の `# H1` 見出し → `"Drawlib Document"` の優先順位で解決されます。
+4. **章ごとの改ページ (`--page-break`)**: PDF と Word（`.docx`）の両方のコンパイルにおいて、デフォルト（`--page-break`）では結合された各 `.md` ファイルが新しいページから始まります。ファイル間で強制改ページを行わず連続配置したい場合は `--no-page-break` を指定してください。
+5. **アニメーションブロックの静止画抽出フレーム指定（`--static-frame` & `static_frame=`）**: `Animation()` を含む ````drawlib```` ブロックを PDF や `.docx` にエクスポートする際は、デフォルトで完成した最終フレーム（`--static-frame last`）が静止画 PNG として抽出されます。CLI の `--static-frame first|last|<int>` または各コードフェンスの `static_frame=first|last|<int>` で抽出フレームを切り替えられます。
 
 ---
 

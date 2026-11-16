@@ -1020,6 +1020,11 @@ llms_txt = true                      # llmstxt.org 準拠の Markdown インデ�
 ```
 
 - **ページ単位の `<head>` SEO・OGP 自動注入**: 各ページの先頭 Markdown 段落から要約テキストを自動抽出し（未記載時は `[i18n.descriptions]` および `[project].description` へフォールバック）、`<meta name="description">`、`<link rel="canonical">`、`og:*`（`og:title`、`og:description`、`og:url`、`og:image`、`og:locale`、`og:locale:alternate`）、`twitter:*` タグを出力するとともに、ローカルの `og_image` アセットを `<out_dir>/` へ自動コピーします。
+- **タイトルおよびブランドヘッダーの解決ルール（`navbar.md` の `# H1` と `drawlib.toml` の `[project].title`）**:
+  - **ブラウザタブ `<title>` とパンくずリスト（`{{ title }}`）**: 各 `.md` ページ内の最初の `# H1` 見出しから抽出されます（未記載時はファイル名）。
+  - **左サイドバー上部のブランドヘッダー（`{{ site_title }}`）**: `site` プロジェクトでは、ロケールごとに `<lang>/navbar.md` の最初の `# H1` 見出しから取得されます（未記載時は `"drawlib"`。`_assets/logo.png` が存在する場合はロゴ画像が表示され、`site_title` は `alt` / `aria-label` に使用されます。なお、`navbar.md` が任意である `catalog` プロジェクトでは `drawlib.toml` の `[project].title` が最優先されます）。
+  - **Open Graph の `og:site_name`**: `<lang>/navbar.md` の `# H1` → `drawlib.toml` の `[project].title` → `index.md` の `# H1` の優先順位で解決されます。
+  - **`llms.txt` 見出しと PDF 内部タイトル（`/Title`）**: `drawlib.toml` の `[project].title` → `navbar.md` または先頭ページの `# H1` の順で解決されます。
 - **正規 URL への `hreflang` 自動アップグレード**: `site_url` を設定すると、`<head>` 内の `<link rel="alternate" hreflang="...">` タグは自動的に正規の `https://...` 絶対 URL へ変換される一方、画面上の言語スイッチャー UI リンクはオフラインの `drawlib serve` でも動作するよう相対パスのまま維持されます。
 - **`sitemap.xml` と `robots.txt` の自動生成**: 多言語の `xhtml:link` 代替リンクを備えた Sitemap 0.9 準拠の `sitemap.xml` と、`<site_url>/sitemap.xml` を案内する `robots.txt` を出力します。
 - **AI エージェント向け `llms.txt` (`llmstxt.org`)**: `navbar.md` のカテゴリ構造（`doc` の章や `slide` の各スライド）に沿って 1 文の要約と多言語エントリポイントを整理した Markdown インデックス（`docs_html/llms.txt`）を自動生成します。

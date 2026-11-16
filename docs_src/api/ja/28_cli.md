@@ -143,6 +143,7 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 | `-u, --utils` | `str \| None` | `None` | カスタム `utils.py` のパス（`INPUT` 内に存在する場合は自動検出）。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュ（`.drawlib/cache.db`）の読み書きを無効化します。 |
 | `--timestamp` | `bool` | `False` | 決定論的ビルド用の固定日時ではなく、現在時刻を OpenXML メタデータに記録します。 |
+| `--static-frame` | `str` | `'last'` | `Animation` ブロックを静止画化する際に抽出するデフォルトフレーム（`'first'`、`'last'`、または 0 始まり／負の整数フレーム番号）。 |
 | `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
@@ -274,18 +275,19 @@ uv run drawlib build pdf slide_src -o presentation.pdf
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
 | `--timestamp` | `bool` | `False` | PDF メタデータ（`/CreationDate`・`/ModDate`）の正規化を行わず現在時刻を記録します。 |
+| `--static-frame` | `str` | `'last'` | `Animation` ブロックを静止画化する際に抽出するデフォルトフレーム（`'first'`、`'last'`、または 0 始まり／負の整数フレーム番号）。 |
 | `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
 
 ## `cmd` drawlib build pptx
 
-`slide` プロジェクトディレクトリを、Headless Chromium の `1920×1080` ステージ計測に基づいて `960×540 pt`（0.5 倍スケール）の編集可能なネイティブ Microsoft PowerPoint（`.pptx`）デッキへコンパイルします。複数フレームの `Animation` 図版は `'first'` または `'last'` フレームの静止画として埋め込まれます。
+`slide` プロジェクトディレクトリを、Headless Chromium の `1920×1080` ステージ計測に基づいて `960×540 pt`（0.5 倍スケール）の編集可能なネイティブ Microsoft PowerPoint（`.pptx`）デッキへコンパイルします。複数フレームの `Animation` 図版は `'first'`・`'last'` または指定した整数フレームの静止画として埋め込まれます。
 
 ```bash
 drawlib build pptx [OPTIONS] DIR
 
-uv run drawlib build pptx slide_src -o deck.pptx --theme google --dpi 240 --anim-frame last
+uv run drawlib build pptx slide_src -o deck.pptx --theme google --dpi 240 --static-frame last
 ```
 
 | 引数 / オプション | 型 | デフォルト | 説明 |
@@ -295,7 +297,7 @@ uv run drawlib build pptx slide_src -o deck.pptx --theme google --dpi 240 --anim
 | `-t, --theme` | `str \| None` | `None` | スライド CSS テーマの上書き（`'google'`・`'default'`・`'google-dark'`・`'default-dark'`・`'monochrome'`）。 |
 | `--title` | `str \| None` | `None` | PowerPoint メタデータに設定するプレゼンテーションタイトル。 |
 | `--dpi` | `int` | `240` | 埋め込み `drawlib` 図版のラスタライズ解像度（DPI）。 |
-| `--anim-frame` | `'first' \| 'last'` | `'last'` | `Animation` ブロックを静止画化する際に抽出するキーフレーム（先頭または最終フレーム）。 |
+| `--static-frame` | `str` | `'last'` | `Animation` ブロックを静止画化する際に抽出するデフォルトキーフレーム（`'first'`、`'last'`、または 0 始まり／負の整数フレーム番号）。 |
 | `-s, --styles` | `str \| None` | `None` | Python `styles.py` スクリプトのパス。 |
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
