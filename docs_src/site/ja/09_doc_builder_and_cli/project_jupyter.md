@@ -1,6 +1,6 @@
 # Jupyter・Colab ノートブックプロジェクトガイド (`drawlib init project jupyter`)
 
-`jupyter` スターターテンプレートは、Drawlib に **「コードとしての図解付き Jupyter Notebook & Google Colab（Illustrated Notebook as Code）」** をもたらします。Git diff が肥大化しやすい巨大な `.ipynb` JSON ファイルを直接手編集する代わりに、解説テキスト・アーキテクチャ図解（```` ```drawlib ````）・対話型 Python 演習セル（```` ```python ```` または ```` ```drawlib cell=code ````）をクリーンな Markdown（`jupyter_src/<lang>/**/*.md`）で記述し、**インプロセス AI Dry-Run エンジン**による自動実行検証を経て、**実行結果入りの `.ipynb` ノートブック（`<lang>/*.ipynb`）**と **2 カラム HTML プレビューサイト（`<lang>/*.html` + ルート `index.html`、`In [n]` / `Out[n]` 表示・`.ipynb` ダウンロード・Open in Colab 対応）** を単一の出力ディレクトリ（`jupyter_jupyter/` または `jupyter_html/`）へ同時バンドル出力します。
+`jupyter` スターターテンプレートは、Drawlib に **「コードとしての図解付き Jupyter Notebook & Google Colab（Illustrated Notebook as Code）」** をもたらします。Git diff が肥大化しやすい巨大な `.ipynb` JSON ファイルを直接手編集する代わりに、解説テキスト・アーキテクチャ図解（```` ```drawlib ````）・対話型 Python 演習セル（```` ```python ```` または ```` ```drawlib cell=code ````）をクリーンな Markdown（`jupyter_src/<lang>/**/*.md`）で記述し、**インプロセス AI Dry-Run エンジン**による自動実行検証を経て、**クリーンな未実行状態の `.ipynb` ノートブック（`<lang>/*.ipynb`）**と **実行結果入りの 2 カラム HTML プレビューサイト（`<lang>/*.html` + ルート `index.html`、`In [n]` / `Out[n]` 表示・`.ipynb` ダウンロード・Open in Colab 対応）** を単一の出力ディレクトリ（`jupyter_jupyter/` または `jupyter_html/`）へ同時バンドル出力します。
 
 ```drawlib code=fold align=center file=project_jupyter_compilation_pipeline.png caption="Markdown ノートブックソースからインプロセス AI Dry-Run エンジンを経て .ipynb と HTML プレビューを同一ディレクトリへ一括生成するパイプライン"
 from drawlib.canvas import save, setup
@@ -58,7 +58,7 @@ text((108.2, 48.0), "jupyter_jupyter/", style=Styles.DarkBold.patch(text_size=10
 rectangle((106, 35.5), width=31, height=15.0, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
 phosphor.notebook((94.0, 39.2), width=3.8, style=Styles.PrimaryBold)
 text((108.0, 39.2), "<lang>/*.ipynb", style=Styles.DarkBold.patch(text_size=10.2))
-text((106, 32.0), "Pre-populated Out[n] +\n!pip install setup cell", style=Styles.Dark.patch(text_size=9.8))
+text((106, 32.0), "Clean unexecuted cells +\n!pip install setup cell", style=Styles.Dark.patch(text_size=9.8))
 
 rectangle((106, 16.5), width=31, height=15.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
 phosphor.globe((94.0, 20.2), width=3.8, style=Styles.PrimaryBold)
@@ -147,8 +147,8 @@ jupyter_jupyter/               # 独自ドメインや任意のホスティン�
 | `.md` ソース内のフェンス構文 | コンパイル後の `.ipynb` セル種別 | HTML プレビューサイトの出力 | 主な用途 |
 | :--- | :--- | :--- | :--- |
 | ```` ```drawlib file=arch.png caption="..." ````<br>*(デフォルト `cell=markdown`)* | 描画済み図解（`attachment:<file>.png`、`[seo].site_url` 公開 URL、または相対パス）を含む **`markdown` セル** | 折りたたみソース（`code=fold`）付きの `<figure>` 図解 | 解説テキストに添えるアーキテクチャ図・フロー図・シーケンス図・概念図。 |
-| ```` ```drawlib cell=code file=exercise.png ````<br>*(または `[jupyter].drawlib_cell_mode = "code"`)* | `save(...)` が `show()` に自動変換され、`display_data`（`image/png`）出力が事前格納された **`code` セル** | ノートブック形式の `In [n]:` コードセル + `Out[n]:` 描画画像 | 読者が Jupyter / Colab 上で座標やスタイルを書き換えて再実行するハンズオン演習。 |
-| ```` ```python ````<br>*(デフォルト `cell=code`)* | `stdout`・`execute_result`・`display_data` 出力が事前格納された **`code` セル** | ノートブック形式の `In [n]:` コードセル + `Out[n]:` 実行結果 | データの前処理、セル間の変数共有、または `setup(..., cwd=True)` と `show()` を用いた直接描画。 |
+| ```` ```drawlib cell=code file=exercise.png ````<br>*(または `[jupyter].drawlib_cell_mode = "code"`)* | `save(...)` が `show()` に自動変換された未実行状態（`outputs: []`）の **`code` セル** | ノートブック形式の `In [n]:` コードセル + `Out[n]:` 描画画像 | 読者が Jupyter / Colab 上で座標やスタイルを書き換えて実行するハンズオン演習。 |
+| ```` ```python ````<br>*(デフォルト `cell=code`)* | 対話実行向けにクリーンな未実行状態（`outputs: []`）で出力される **`code` セル** | ノートブック形式の `In [n]:` コードセル + `Out[n]:` 実行結果 | データの前処理、セル間の変数共有、または `setup(..., cwd=True)` と `show()` を用いた直接描画。 |
 | ```` ```python cell=markdown ```` | シンタックスハイライトされた静的 Python コードを含む **`markdown` セル** | 通常の静的コードブロック（実行されない） | 実行を伴わない擬似コードや設定スニペットの提示。 |
 
 ```drawlib code=fold align=center file=project_jupyter_cell_routing.png caption="drawlib および python コードフェンスから .ipynb セルおよび HTML プレビューへのルーティング規則"
@@ -271,7 +271,7 @@ colab_base_url = "https://colab.research.google.com/github/owner/repo/blob/main/
 setup_packages = ["drawlib"]               # 空でない場合、先頭に `!pip install -q drawlib` セルを自動挿入
 drawlib_cell_mode = "markdown"             # ```drawlib のデフォルト: "markdown" | "code"
 image_mode = "attachment"                  # "attachment" (単一ファイル完結) | "url" ([seo].site_url) | "relative"
-execute = true                             # ビルド時に全コードセルを順次 Dry-Run 実行し出力を埋め込む
+execute = true                             # ビルド時に全コードセルを順次 Dry-Run 実行し HTML プレビューに Out[n] を出力
 
 # [seo]
 # site_url = "https://example.com/jupyter" # image_mode = "url" 時の画像配信ベース URL (および OGP / sitemap 用)
@@ -285,7 +285,7 @@ execute = true                             # ビルド時に全コードセル�
 | `setup_packages` | `list[str]` | `["drawlib"]` | 空でない場合、各 `.ipynb` ノートブックの先頭にセットアップ用コードセル（`!pip install -q drawlib`）を自動挿入し、Google Colab 上で開いてすぐ実行できるようにします。 |
 | `drawlib_cell_mode` | `"markdown" \| "code"` | `"markdown"` | コードフェンスで `cell=` 属性を省略した際の ```` ```drawlib ```` ブロックのデフォルトセル種別。 |
 | `image_mode` | `"attachment" \| "url" \| "relative"` | `"attachment"` | `cell=markdown` の ```` ```drawlib ```` 図解を `.ipynb` の Markdown セルへ埋め込む方式:<ul><li>**`"attachment"`** *(デフォルト)*: セル添付データ（`attachment:<file>.png`）として Base64 埋め込みを行い、`.ipynb` 単体でダウンロードや Colab アップロードが完結します。</li><li>**`"url"`**: 画像リンクを `<[seo].site_url>/images/<stem>/<file>.png` に書き換えます。独自ドメインや GitHub Pages 等でホスティングする際に、GitHub raw URL に依存せず `.ipynb` のファイルサイズを軽量に保てます。</li><li>**`"relative"`**: ローカルの JupyterLab ワークスペース向けに相対パス `../images/<stem>/<file>.png` を使用します。</li></ul> |
-| `execute` | `bool` | `true` | `true` の場合、ビルド時にすべての `code` セルをインプロセスで順次実行し、`stdout`・最終式の評価結果・`show()` / `save()` の描画画像を `.ipynb` と HTML プレビューの双方に埋め込みます。 |
+| `execute` | `bool` | `true` | `true` の場合、ビルド時にすべての `code` セルをインプロセスで順次実行検証し、`stdout`・最終式の評価結果・`show()` / `save()` の描画画像を HTML プレビュー（`Out [n]`）に出力します（`.ipynb` 側のコードセル出力はハンズオン向けに空の未実行状態に保たれます）。 |
 
 ### 4.2. タイトルおよび左サイドバーブランド名の解決ルール (`drawlib.toml` vs. `# H1`)
 
@@ -340,7 +340,7 @@ uv run drawlib build html jupyter_src/ -o jupyter_html/
 | `--output` | `-o` | `<base>_jupyter/` | 出力先ディレクトリパス（単一ファイル指定時は `.ipynb` ファイルパス）。 |
 | `--format` | `-f` | `png` | 埋め込み `drawlib` ブロックの画像出力フォーマット（`png` または `webp`）。 |
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` のパス（ノートブック実行環境の `globals` にプリロードされる）。 |
-| `--execute` / `--no-execute` | | `None` (`[jupyter].execute`) | `code` セルをインプロセスで順次実行し、`.ipynb` と HTML セルに出力を埋め込むかどうか。 |
+| `--execute` / `--no-execute` | | `None` (`[jupyter].execute`) | `code` セルをインプロセスで順次実行し、HTML プレビューに出力を描画するかどうか（`.ipynb` 側のコードセル出力は空に保たれる）。 |
 | `--dry-run` | | `False` | 出力ファイルを書き出さずに全セルの実行と `[Geometry Warning]` の検証のみを行う。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` をバイパスしてすべての図解ブロックを再描画する。 |
 | `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPU コア数 - 1) <= 8`）。 |
@@ -349,4 +349,4 @@ uv run drawlib build html jupyter_src/ -o jupyter_html/
 1. **セル間の状態共有 (`globals`)**: セル 1 で定義した変数・関数・インポートがセル 2、セル 3 へと引き継がれ、実際の Jupyter / Colab カーネルと同じ動作を再現します（`styles.py` と `utils.py` もノートブックの名前空間にプリロードされます）。
 2. **未処理例外ゼロの保証**: `SyntaxError`、`NameError`、`TypeError`、または Drawlib のバリデーションエラーが発生するとビルドを即座に中断し、該当ノートブックのパス・セル番号（`In [n]`）・トレースバックを報告します。
 3. **`[Geometry Warning]` ゼロの保証**: `cell=markdown` の図解描画時および `cell=code` の実行時にキャンバスのクリッピングやはみ出し警告（`[Geometry Warning]`）が発生した場合、`NotebookExecutionError` として即座に検出します。
-4. **実行出力の事前埋め込み (`In [n]` / `Out[n]`)**: 標準出力（`print(...)`）、セル末尾の式の評価値（`text/plain`）、および `show()` / `save()` の描画結果（`image/png`）を `.ipynb` の `outputs` 配列と HTML プレビューページの双方に格納するため、読者は Google Colab を起動する前でもブラウザ上で実行結果を確認できます。
+4. **HTML 専用出力レンダリング（`.ipynb` はクリーンな未実行状態）**: 標準出力（`print(...)`）、セル末尾の式の評価値（`text/plain`）、および `show()` / `save()` の描画結果（`image/png`）は HTML プレビューページ（`In [n]` / `Out[n]`）にのみ出力され、`.ipynb` 側のコードセルは未実行状態（`outputs: []`, `execution_count: null`）に保たれるため、ブラウザ上での即時確認と Google Colab 上での快適なハンズオン実行を両立できます。

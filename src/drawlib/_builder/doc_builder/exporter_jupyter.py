@@ -615,7 +615,6 @@ def _resolve_public_diagram_url(
 def build_ipynb_dict(
     segments: list[NotebookSegment],
     *,
-    execution_result: NotebookExecutionResult | None = None,
     image_mode: JupyterImageMode = "attachment",
     colab_url: str = "",
     setup_packages: tuple[str, ...] = ("drawlib",),
@@ -625,11 +624,15 @@ def build_ipynb_dict(
 ) -> dict[str, Any]:
     """Assemble a valid ``nbformat v4.5`` Jupyter/Colab notebook dictionary.
 
+    Code cells are always emitted in a clean, unexecuted state (``outputs: []``,
+    ``execution_count: None``) so interactive Google Colab and JupyterLab sessions
+    start fresh, while dry-run execution outputs are rendered exclusively in the
+    companion HTML preview pages.
+
     Args:
         segments: Ordered notebook segments.
-        execution_result: Optional dry-run execution results for code cells.
         image_mode: ``'attachment'``, ``'url'``, or ``'relative'``.
-        colab_url: Optional ``https://colab.research.google.com/github/...`` URL for top badge.
+        colab_url: Optional ``Open in Colab`` URL for top badge.
         setup_packages: Packages for automatic ``!pip install -q ...`` setup cell (empty disables).
         site_url: Public base URL used when ``image_mode == 'url'``.
         lang: Locale code used when resolving public image URLs.
@@ -643,7 +646,6 @@ def build_ipynb_dict(
     md_attachments: dict[str, dict[str, str]] = {}
     badge_injected = False
     setup_injected = False
-    exec_counter = 0
 
     colab_badge_md = (
         f"[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]({colab_url})"
@@ -702,7 +704,7 @@ def build_ipynb_dict(
         badge_injected = True
         _flush_md_cell()
 
-    for seg_idx, seg in enumerate(segments):
+    for seg in segments:
         if seg.kind == "markdown":
             md_parts.append(seg.source)
             continue
@@ -727,54 +729,19 @@ def build_ipynb_dict(
             md_parts.append(img_md)
             continue
 
-        # Code cell (either ```python or ```drawlib cell=code)
+        # Code cell (either ```python or ```drawlib cell=code) — emitted clean without pre-filled outputs
         _flush_md_cell()
         _inject_setup_cell_if_needed()
 
-        exec_counter += 1
         cell_code = convert_save_to_show(seg.source) if seg.kind == "drawlib" else seg.source
-        cell_out = execution_result.cell_outputs.get(seg_idx) if execution_result is not None else None
-
-        outputs_list: list[dict[str, Any]] = []
-        if cell_out is not None:
-            if cell_out.stdout:
-                outputs_list.append(
-                    {
-                        "name": "stdout",
-                        "output_type": "stream",
-                        "text": _to_ipynb_lines(cell_out.stdout),
-                    }
-                )
-            if cell_out.result_repr is not None:
-                outputs_list.append(
-                    {
-                        "data": {"text/plain": _to_ipynb_lines(cell_out.result_repr)},
-                        "execution_count": cell_out.execution_count,
-                        "metadata": {},
-                        "output_type": "execute_result",
-                    }
-                )
-            if cell_out.figures:
-                for fig_bytes in cell_out.figures:
-                    b64_fig = base64.b64encode(fig_bytes).decode("ascii")
-                    outputs_list.append(
-                        {
-                            "data": {
-                                "image/png": b64_fig,
-                                "text/plain": ["<Figure size rendered by drawlib>"],
-                            },
-                            "metadata": {},
-                            "output_type": "display_data",
-                        }
-                    )
 
         cells.append(
             {
                 "cell_type": "code",
-                "execution_count": cell_out.execution_count if cell_out is not None else None,
+                "execution_count": None,
                 "id": f"cell-{len(cells) + 1}",
                 "metadata": {},
-                "outputs": outputs_list,
+                "outputs": [],
                 "source": _to_ipynb_lines(cell_code),
             }
         )

@@ -48,13 +48,14 @@ def test_official_jupyter_docs_build_outputs(tmp_path: Path) -> None:
             # Second cell is !pip install -q drawlib setup cell
             setup_src = "".join(nb["cells"][1]["source"])
             assert "!pip install -q drawlib" in setup_src
-            # At least one executed code cell has embedded image/png output
-            has_png_output = any(
-                cell["cell_type"] == "code"
-                and any(
-                    out.get("output_type") == "display_data" and "image/png" in out.get("data", {})
-                    for out in cell.get("outputs", [])
-                )
-                for cell in nb["cells"]
-            )
-            assert has_png_output, f"{ipynb_path.name} missing rendered display_data image/png output"
+            # All code cells in .ipynb must be clean/unexecuted (outputs rendered in HTML only)
+            for cell in nb["cells"]:
+                if cell["cell_type"] == "code":
+                    assert cell["outputs"] == []
+                    assert cell["execution_count"] is None
+
+            # Companion HTML preview must contain rendered Out[n] figures
+            html_path = ipynb_path.with_suffix(".html")
+            assert html_path.is_file()
+            html_text = html_path.read_text(encoding="utf-8")
+            assert "nb-output-figure" in html_text, f"{html_path.name} missing rendered output figure in HTML"

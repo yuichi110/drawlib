@@ -442,7 +442,7 @@ drawlib build jupyter <INPUT> [OPTIONS]
 | `--format` | `-f` | `png \| webp` | `png` | Image output format for embedded `drawlib` blocks. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`, pre-loaded into notebook execution `globals`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`, pre-loaded into notebook execution `globals`). |
-| `--execute / --no-execute` | | flag | `None` (`[jupyter].execute`) | Sequentially execute notebook code cells in-process and embed outputs into `.ipynb` and HTML. |
+| `--execute / --no-execute` | | flag | `None` (`[jupyter].execute`) | Sequentially execute notebook code cells in-process and render outputs in HTML preview (`.ipynb` code cells stay clean). |
 | `--dry-run` | | flag | `False` | Execute all notebook cells in-process to verify zero errors or `[Geometry Warning]` without writing output files. |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
 | `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`). |

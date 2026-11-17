@@ -244,7 +244,6 @@ def _build_single_jupyter_file(
         site_url = manifest.seo.site_url if (manifest and manifest.seo) else ""
         ipynb_dict = build_ipynb_dict(
             segments,
-            execution_result=exec_result,
             image_mode=jupyter_cfg.image_mode,
             colab_url=colab_url,
             setup_packages=jupyter_cfg.setup_packages,
@@ -591,7 +590,6 @@ def _compile_jupyter_locales(
                 colab_url = jupyter_cfg.build_colab_url(rel_nb_in_out)
                 ipynb_dict = build_ipynb_dict(
                     segments,
-                    execution_result=exec_result,
                     image_mode=jupyter_cfg.image_mode,
                     colab_url=colab_url,
                     setup_packages=jupyter_cfg.setup_packages,

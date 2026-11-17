@@ -785,7 +785,7 @@
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.ipynb"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Pre-populated Out[n] +</span><span class="se">\n</span><span class="s2">!pip install setup cell"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Clean unexecuted cells +</span><span class="se">\n</span><span class="s2">!pip install setup cell"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
@@ -892,13 +892,13 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </tr>
 <tr>
 <td style="text-align:left"><code>```drawlib cell=code file=exercise.png</code><br><em>(or <code>[jupyter].drawlib_cell_mode = &quot;code&quot;</code>)</em></td>
-<td style="text-align:left"><strong><code>code</code> cell</strong> with <code>save(...)</code> rewritten to <code>show()</code> and pre-populated <code>display_data</code> (<code>image/png</code>) output</td>
+<td style="text-align:left">Clean unexecuted <strong><code>code</code> cell</strong> (<code>outputs: []</code>) with <code>save(...)</code> rewritten to <code>show()</code></td>
 <td style="text-align:left">Notebook <code>In [n]:</code> code cell + <code>Out[n]:</code> rendered figure</td>
-<td style="text-align:left">Hands-on Drawlib coding exercises where learners modify coordinates/styles and re-run the cell in Jupyter/Colab.</td>
+<td style="text-align:left">Hands-on Drawlib coding exercises where learners modify coordinates/styles and run the cell in Jupyter/Colab.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>```python</code><br><em>(default <code>cell=code</code>)</em></td>
-<td style="text-align:left"><strong><code>code</code> cell</strong> with pre-populated <code>stdout</code>, <code>execute_result</code>, and <code>display_data</code> outputs</td>
+<td style="text-align:left">Clean unexecuted <strong><code>code</code> cell</strong> (<code>outputs: []</code>) ready for interactive execution</td>
 <td style="text-align:left">Notebook <code>In [n]:</code> code cell + <code>Out[n]:</code> execution output</td>
 <td style="text-align:left">Live Python data preparation, state sharing across cells, or calling Drawlib APIs with <code>setup(..., cwd=True)</code> and <code>show()</code>.</td>
 </tr>
@@ -1028,7 +1028,7 @@ Variables defined in one <span class="sb">`python`</span> cell remain live in su
 <span class="n">setup_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"drawlib"</span><span class="p">]</span><span class="w">               </span><span class="c1"># Prepends an auto-generated `!pip install -q drawlib` cell when non-empty</span>
 <span class="n">drawlib_cell_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="w">             </span><span class="c1"># Default for ```drawlib fences: "markdown" | "code"</span>
 <span class="n">image_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"attachment"</span><span class="w">                  </span><span class="c1"># "attachment" (self-contained) | "url" ([seo].site_url) | "relative"</span>
-<span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                             </span><span class="c1"># Sequentially dry-run all code cells during build and populate outputs</span>
+<span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                             </span><span class="c1"># Sequentially dry-run all code cells during build and render Out[n] in HTML preview</span>
 
 <span class="c1"># [seo]</span>
 <span class="c1"># site_url = "https://example.com/jupyter" # Used when image_mode = "url" (plus canonical/OGP/sitemap tags)</span>
@@ -1072,7 +1072,7 @@ Variables defined in one <span class="sb">`python`</span> cell remain live in su
 <td style="text-align:left"><code>execute</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>true</code></td>
-<td style="text-align:left">When <code>true</code>, executes all <code>code</code> cells sequentially in-process during build and embeds <code>stdout</code>, expression results, and <code>show()</code> / <code>save()</code> figures into both <code>.ipynb</code> and HTML preview outputs.</td>
+<td style="text-align:left">When <code>true</code>, executes all <code>code</code> cells sequentially in-process during build and renders <code>stdout</code>, expression results, and <code>show()</code> / <code>save()</code> figures in the HTML preview (<code>Out [n]</code>), while keeping <code>.ipynb</code> code cells clean (<code>outputs: []</code>) for hands-on execution.</td>
 </tr>
 </tbody>
 </table>
@@ -1149,7 +1149,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>--execute</code> / <code>--no-execute</code></td>
 <td style="text-align:left"></td>
 <td style="text-align:left"><code>None</code> (from <code>[jupyter].execute</code>)</td>
-<td style="text-align:left">Execute <code>code</code> cells sequentially in-process and populate <code>.ipynb</code> and HTML cell outputs.</td>
+<td style="text-align:left">Execute <code>code</code> cells sequentially in-process and render outputs in the HTML preview (<code>.ipynb</code> code cells remain clean).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--dry-run</code></td>
@@ -1176,7 +1176,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <li><strong>Shared State Across Cells</strong>: Cell 1's variables, functions, and imports are live in Cell 2, Cell 3, etc., matching real Jupyter/Colab kernel behavior (<code>styles.py</code> and <code>utils.py</code> are pre-loaded into the notebook namespace).</li>
 <li><strong>Zero Unhandled Exceptions</strong>: Any <code>SyntaxError</code>, <code>NameError</code>, <code>TypeError</code>, or Drawlib validation error halts the build and reports the exact notebook path, cell number (<code>In [n]</code>), and traceback.</li>
 <li><strong>Zero <code>[Geometry Warning]</code></strong>: Any canvas clipping, out-of-bounds artist, or overlap warning emitted during either <code>cell=markdown</code> diagram rendering or <code>cell=code</code> execution fails the build (<code>NotebookExecutionError</code>).</li>
-<li><strong>Captured Outputs (<code>In [n]</code> / <code>Out[n]</code>)</strong>: Standard output (<code>print(...)</code>), final cell expressions (<code>text/plain</code>), and <code>show()</code> / <code>save()</code> figures (<code>image/png</code>) are embedded into both the <code>.ipynb</code> cell <code>outputs</code> array and the HTML preview page so readers can inspect outputs immediately in the browser before launching Google Colab.</li>
+<li><strong>HTML-Only Execution Outputs (<code>.ipynb</code> Kept Clean)</strong>: Standard output (<code>print(...)</code>), final cell expressions (<code>text/plain</code>), and <code>show()</code> / <code>save()</code> figures (<code>image/png</code>) are rendered into the HTML preview page (<code>In [n]</code> / <code>Out[n]</code>) so browser readers can inspect outputs immediately, while <code>.ipynb</code> code cells start in a clean unexecuted state (<code>outputs: []</code>, <code>execution_count: null</code>) for hands-on Google Colab / JupyterLab execution.</li>
 </ol>
 
             </main>

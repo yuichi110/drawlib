@@ -1065,7 +1065,7 @@ drawlib build jupyter jupyter_src/ --dry-run
 | `--output` | `-o` | `<base>_jupyter/` | Destination output directory path (or `.ipynb` file path for single-file build). |
 | `--format` | `-f` | `png` | Image output format for embedded `drawlib` blocks (`png` or `webp`). |
 | `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py` (pre-loaded into notebook execution `globals`). |
-| `--execute` / `--no-execute` | | `None` (from `[jupyter].execute`) | Execute `code` cells sequentially in-process and populate `.ipynb` and HTML cell outputs. |
+| `--execute` / `--no-execute` | | `None` (from `[jupyter].execute`) | Execute `code` cells sequentially in-process and render outputs in the HTML preview (`.ipynb` code cells remain clean). |
 | `--dry-run` | | `False` | Execute all cells and validate `[Geometry Warning]` without writing output files to disk. |
 | `--no-cache` | | `False` | Bypass `.drawlib/cache.db` and re-execute all diagram blocks. |
 | `--workers` | `-w` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8` or `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |

@@ -202,12 +202,12 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 
 ## `cmd` drawlib build jupyter
 
-`jupyter` プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・実行結果（`stdout`・`execute_result`・`display_data` `image/png`）の事前埋め込み・`[Geometry Warning]` 検査付きの Jupyter Notebook（`<output>/<lang>/**/*.ipynb`）および HTML プレビューページ（`<output>/<lang>/**/*.html`）の統合バンドルへコンパイルします。
+`jupyter` プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・HTML プレビューへの実行結果（`stdout`・`execute_result`・描画画像）描画・`[Geometry Warning]` 検査付きのクリーンな未実行 Jupyter Notebook（`<output>/<lang>/**/*.ipynb`）および HTML プレビューページ（`<output>/<lang>/**/*.html`）の統合バンドルへコンパイルします。
 
 ```bash
 drawlib build jupyter [OPTIONS] INPUT
 
-# バンドル済みノートブック + HTML プレビューをコンパイルし、コードセルの実行結果を埋め込む
+# バンドル済みノートブック + HTML プレビューを Dry-Run 検証付きでコンパイル
 uv run drawlib build jupyter jupyter_src -o jupyter_jupyter
 
 # 出力ファイルを書き出さずに AI ドライラン検証のみを実行
@@ -221,7 +221,7 @@ uv run drawlib build jupyter jupyter_src --dry-run
 | `-f, --format` | `'png' \| 'webp'` | `'png'` | `drawlib` ブロックのデフォルト出力画像フォーマット。 |
 | `-s, --styles` | `str \| None` | `None` | Python `styles.py` スクリプトのパス。 |
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
-| `--execute / --no-execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を埋め込みます。 |
+| `--execute / --no-execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を HTML プレビューに描画します。 |
 | `--dry-run` | `bool` | `False` | 出力ファイルを書き出さず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを行います。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
 | `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |

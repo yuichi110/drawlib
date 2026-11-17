@@ -595,7 +595,7 @@ def cmd_build_jupyter(
         bool | None,
         typer.Option(
             "--execute/--no-execute",
-            help="Execute notebook code cells sequentially in-process and embed outputs into .ipynb and HTML.",
+            help="Execute notebook code cells sequentially in-process and render outputs in HTML preview.",
         ),
     ] = None,
     dry_run: Annotated[

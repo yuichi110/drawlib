@@ -19,8 +19,8 @@ Inside `jupyter_src/<lang>/**/*.md`, Markdown prose and headings (`# H1`, `## H2
 | Fence Syntax in `.md` Source | Compiled `.ipynb` Cell Type | Compiled HTML Preview Output | Primary Use Case |
 | :--- | :--- | :--- | :--- |
 | ```` ```drawlib file=arch.png caption="..." ````<br>*(default `cell=markdown`)* | **`markdown` cell** containing the rendered diagram (`attachment:<file>.png`, `[seo].site_url` URL, or relative path) | Rendered `<figure>` diagram with optional `<details>` source fold (`code=fold`) | Explanatory architecture, flow, sequence, or concept diagrams accompanying narrative text. |
-| ```` ```drawlib cell=code file=exercise.png ````<br>*(or `[jupyter].drawlib_cell_mode = "code"`)* | **`code` cell** with `save(...)` rewritten to `show()` and pre-populated `display_data` (`image/png`) output | Notebook `In [n]:` code cell + `Out[n]:` rendered figure | Hands-on Drawlib coding exercises where learners modify coordinates/styles and re-run the cell in Jupyter/Colab. |
-| ```` ```python ````<br>*(default `cell=code`)* | **`code` cell** with pre-populated `stdout`, `execute_result`, and `display_data` outputs | Notebook `In [n]:` code cell + `Out[n]:` execution output | Live Python data preparation, state sharing across cells, or calling Drawlib APIs directly. |
+| ```` ```drawlib cell=code file=exercise.png ````<br>*(or `[jupyter].drawlib_cell_mode = "code"`)* | Clean unexecuted **`code` cell** (`outputs: []`) with `save(...)` rewritten to `show()` | Notebook `In [n]:` code cell + `Out[n]:` rendered figure | Hands-on Drawlib coding exercises where learners modify coordinates/styles and run the cell in Jupyter/Colab. |
+| ```` ```python ````<br>*(default `cell=code`)* | Clean unexecuted **`code` cell** (`outputs: []`) ready for interactive execution | Notebook `In [n]:` code cell + `Out[n]:` execution output | Live Python data preparation, state sharing across cells, or calling Drawlib APIs directly. |
 | ```` ```python cell=markdown ```` | **`markdown` cell** containing a static syntax-highlighted Python snippet | Standard static code block (not executed) | Non-executable reference pseudocode or configuration snippets. |
 
 ```drawlib align=center code=fold file=project_jupyter_pipeline.png caption="Jupyter & Google Colab Compilation Pipeline and AI Dry-Run Engine"
@@ -150,7 +150,7 @@ langs = ["en", "ja"]
 setup_packages = ["drawlib"]         # Prepends an auto-generated `!pip install -q drawlib` cell when non-empty
 drawlib_cell_mode = "markdown"       # Default for ```drawlib fences: "markdown" | "code"
 image_mode = "attachment"            # "attachment" (self-contained .ipynb) | "url" ([seo].site_url) | "relative"
-execute = true                       # Sequentially dry-run all code cells during build and populate outputs
+execute = true                       # Sequentially dry-run all code cells during build and render Out[n] in HTML preview
 ```
 
 - **Configuring `colab_base_url`**:
@@ -183,4 +183,4 @@ uv run drawlib serve jupyter_jupyter/ --check
 1. **Shared State Across Cells**: Cell 1's variables, functions, and imports are live in Cell 2, Cell 3, etc., matching real Jupyter/Colab kernel behavior (`styles.py` and `utils.py` are pre-loaded into the notebook namespace).
 2. **Zero Unhandled Exceptions**: Any `SyntaxError`, `NameError`, `TypeError`, or Drawlib validation error halts the build and reports the exact notebook path, cell number (`In [n]`), and traceback.
 3. **Zero `[Geometry Warning]`**: Any canvas clipping, out-of-bounds artist, or overlap warning emitted during either `cell=markdown` diagram rendering or `cell=code` execution fails the dry-run (`NotebookExecutionError`).
-4. **Captured Outputs (`In [n]` / `Out[n]`)**: Standard output (`print(...)`), final cell expressions, and `show()` / `save()` figures are embedded into both the `.ipynb` cell `outputs` array and the HTML preview page so readers can inspect outputs without running a Python kernel first.
+4. **HTML-Only Execution Outputs (`.ipynb` Kept Clean)**: Standard output (`print(...)`), final cell expressions, and `show()` / `save()` figures are rendered into the HTML preview page (`In [n]` / `Out[n]`), while `.ipynb` code cells remain clean and unexecuted (`outputs: []`, `execution_count: null`) for hands-on Colab/Jupyter execution.

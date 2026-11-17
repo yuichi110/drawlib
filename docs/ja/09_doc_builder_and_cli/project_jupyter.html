@@ -723,7 +723,7 @@
             </header>
             <main class="main-content">
                 <h1>Jupyter・Colab ノートブックプロジェクトガイド (<code>drawlib init project jupyter</code>)</h1>
-<p><code>jupyter</code> スターターテンプレートは、Drawlib に <strong>「コードとしての図解付き Jupyter Notebook &amp; Google Colab（Illustrated Notebook as Code）」</strong> をもたらします。Git diff が肥大化しやすい巨大な <code>.ipynb</code> JSON ファイルを直接手編集する代わりに、解説テキスト・アーキテクチャ図解（<code>```drawlib</code>）・対話型 Python 演習セル（<code>```python</code> または <code>```drawlib cell=code</code>）をクリーンな Markdown（<code>jupyter_src/&lt;lang&gt;/**/*.md</code>）で記述し、<strong>インプロセス AI Dry-Run エンジン</strong>による自動実行検証を経て、**実行結果入りの <code>.ipynb</code> ノートブック（<code>&lt;lang&gt;/*.ipynb</code>）**と <strong>2 カラム HTML プレビューサイト（<code>&lt;lang&gt;/*.html</code> + ルート <code>index.html</code>、<code>In [n]</code> / <code>Out[n]</code> 表示・<code>.ipynb</code> ダウンロード・Open in Colab 対応）</strong> を単一の出力ディレクトリ（<code>jupyter_jupyter/</code> または <code>jupyter_html/</code>）へ同時バンドル出力します。</p>
+<p><code>jupyter</code> スターターテンプレートは、Drawlib に <strong>「コードとしての図解付き Jupyter Notebook &amp; Google Colab（Illustrated Notebook as Code）」</strong> をもたらします。Git diff が肥大化しやすい巨大な <code>.ipynb</code> JSON ファイルを直接手編集する代わりに、解説テキスト・アーキテクチャ図解（<code>```drawlib</code>）・対話型 Python 演習セル（<code>```python</code> または <code>```drawlib cell=code</code>）をクリーンな Markdown（<code>jupyter_src/&lt;lang&gt;/**/*.md</code>）で記述し、<strong>インプロセス AI Dry-Run エンジン</strong>による自動実行検証を経て、**クリーンな未実行状態の <code>.ipynb</code> ノートブック（<code>&lt;lang&gt;/*.ipynb</code>）**と <strong>実行結果入りの 2 カラム HTML プレビューサイト（<code>&lt;lang&gt;/*.html</code> + ルート <code>index.html</code>、<code>In [n]</code> / <code>Out[n]</code> 表示・<code>.ipynb</code> ダウンロード・Open in Colab 対応）</strong> を単一の出力ディレクトリ（<code>jupyter_jupyter/</code> または <code>jupyter_html/</code>）へ同時バンドル出力します。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/project_jupyter/project_jupyter_compilation_pipeline.png" alt="project_jupyter_1" />
   <figcaption class="drawlib-caption">Markdown ノートブックソースからインプロセス AI Dry-Run エンジンを経て .ipynb と HTML プレビューを同一ディレクトリへ一括生成するパイプライン</figcaption>
@@ -785,7 +785,7 @@
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.ipynb"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Pre-populated Out[n] +</span><span class="se">\n</span><span class="s2">!pip install setup cell"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Clean unexecuted cells +</span><span class="se">\n</span><span class="s2">!pip install setup cell"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
@@ -892,13 +892,13 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </tr>
 <tr>
 <td style="text-align:left"><code>```drawlib cell=code file=exercise.png</code><br><em>(または <code>[jupyter].drawlib_cell_mode = &quot;code&quot;</code>)</em></td>
-<td style="text-align:left"><code>save(...)</code> が <code>show()</code> に自動変換され、<code>display_data</code>（<code>image/png</code>）出力が事前格納された <strong><code>code</code> セル</strong></td>
+<td style="text-align:left"><code>save(...)</code> が <code>show()</code> に自動変換された未実行状態（<code>outputs: []</code>）の <strong><code>code</code> セル</strong></td>
 <td style="text-align:left">ノートブック形式の <code>In [n]:</code> コードセル + <code>Out[n]:</code> 描画画像</td>
-<td style="text-align:left">読者が Jupyter / Colab 上で座標やスタイルを書き換えて再実行するハンズオン演習。</td>
+<td style="text-align:left">読者が Jupyter / Colab 上で座標やスタイルを書き換えて実行するハンズオン演習。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>```python</code><br><em>(デフォルト <code>cell=code</code>)</em></td>
-<td style="text-align:left"><code>stdout</code>・<code>execute_result</code>・<code>display_data</code> 出力が事前格納された <strong><code>code</code> セル</strong></td>
+<td style="text-align:left">対話実行向けにクリーンな未実行状態（<code>outputs: []</code>）で出力される <strong><code>code</code> セル</strong></td>
 <td style="text-align:left">ノートブック形式の <code>In [n]:</code> コードセル + <code>Out[n]:</code> 実行結果</td>
 <td style="text-align:left">データの前処理、セル間の変数共有、または <code>setup(..., cwd=True)</code> と <code>show()</code> を用いた直接描画。</td>
 </tr>
@@ -1028,7 +1028,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <span class="n">setup_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"drawlib"</span><span class="p">]</span><span class="w">               </span><span class="c1"># 空でない場合、先頭に `!pip install -q drawlib` セルを自動挿入</span>
 <span class="n">drawlib_cell_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="w">             </span><span class="c1"># ```drawlib のデフォルト: "markdown" | "code"</span>
 <span class="n">image_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"attachment"</span><span class="w">                  </span><span class="c1"># "attachment" (単一ファイル完結) | "url" ([seo].site_url) | "relative"</span>
-<span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                             </span><span class="c1"># ビルド時に全コードセルを順次 Dry-Run 実行し出力を埋め込む</span>
+<span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                             </span><span class="c1"># ビルド時に全コードセルを順次 Dry-Run 実行し HTML プレビューに Out[n] を出力</span>
 
 <span class="c1"># [seo]</span>
 <span class="c1"># site_url = "https://example.com/jupyter" # image_mode = "url" 時の画像配信ベース URL (および OGP / sitemap 用)</span>
@@ -1072,7 +1072,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>execute</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>true</code></td>
-<td style="text-align:left"><code>true</code> の場合、ビルド時にすべての <code>code</code> セルをインプロセスで順次実行し、<code>stdout</code>・最終式の評価結果・<code>show()</code> / <code>save()</code> の描画画像を <code>.ipynb</code> と HTML プレビューの双方に埋め込みます。</td>
+<td style="text-align:left"><code>true</code> の場合、ビルド時にすべての <code>code</code> セルをインプロセスで順次実行検証し、<code>stdout</code>・最終式の評価結果・<code>show()</code> / <code>save()</code> の描画画像を HTML プレビュー（<code>Out [n]</code>）に出力します（<code>.ipynb</code> 側のコードセル出力はハンズオン向けに空の未実行状態に保たれます）。</td>
 </tr>
 </tbody>
 </table>
@@ -1149,7 +1149,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>--execute</code> / <code>--no-execute</code></td>
 <td style="text-align:left"></td>
 <td style="text-align:left"><code>None</code> (<code>[jupyter].execute</code>)</td>
-<td style="text-align:left"><code>code</code> セルをインプロセスで順次実行し、<code>.ipynb</code> と HTML セルに出力を埋め込むかどうか。</td>
+<td style="text-align:left"><code>code</code> セルをインプロセスで順次実行し、HTML プレビューに出力を描画するかどうか（<code>.ipynb</code> 側のコードセル出力は空に保たれる）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--dry-run</code></td>
@@ -1176,7 +1176,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <li><strong>セル間の状態共有 (<code>globals</code>)</strong>: セル 1 で定義した変数・関数・インポートがセル 2、セル 3 へと引き継がれ、実際の Jupyter / Colab カーネルと同じ動作を再現します（<code>styles.py</code> と <code>utils.py</code> もノートブックの名前空間にプリロードされます）。</li>
 <li><strong>未処理例外ゼロの保証</strong>: <code>SyntaxError</code>、<code>NameError</code>、<code>TypeError</code>、または Drawlib のバリデーションエラーが発生するとビルドを即座に中断し、該当ノートブックのパス・セル番号（<code>In [n]</code>）・トレースバックを報告します。</li>
 <li><strong><code>[Geometry Warning]</code> ゼロの保証</strong>: <code>cell=markdown</code> の図解描画時および <code>cell=code</code> の実行時にキャンバスのクリッピングやはみ出し警告（<code>[Geometry Warning]</code>）が発生した場合、<code>NotebookExecutionError</code> として即座に検出します。</li>
-<li><strong>実行出力の事前埋め込み (<code>In [n]</code> / <code>Out[n]</code>)</strong>: 標準出力（<code>print(...)</code>）、セル末尾の式の評価値（<code>text/plain</code>）、および <code>show()</code> / <code>save()</code> の描画結果（<code>image/png</code>）を <code>.ipynb</code> の <code>outputs</code> 配列と HTML プレビューページの双方に格納するため、読者は Google Colab を起動する前でもブラウザ上で実行結果を確認できます。</li>
+<li><strong>HTML 専用出力レンダリング（<code>.ipynb</code> はクリーンな未実行状態）</strong>: 標準出力（<code>print(...)</code>）、セル末尾の式の評価値（<code>text/plain</code>）、および <code>show()</code> / <code>save()</code> の描画結果（<code>image/png</code>）は HTML プレビューページ（<code>In [n]</code> / <code>Out[n]</code>）にのみ出力され、<code>.ipynb</code> 側のコードセルは未実行状態（<code>outputs: []</code>, <code>execution_count: null</code>）に保たれるため、ブラウザ上での即時確認と Google Colab 上での快適なハンズオン実行を両立できます。</li>
 </ol>
 
             </main>

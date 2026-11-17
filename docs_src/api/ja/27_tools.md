@@ -249,7 +249,7 @@ build_jupyter(
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
-| `execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を `.ipynb` と HTML に格納します。 |
+| `execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を HTML プレビューに格納します（`.ipynb` 側のコードセルは空の未実行状態）。 |
 | `dry_run` | `bool` | `False` | 出力ファイルの書き出しを行わず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを実行します。 |
 | `css_mode` | `str` | `"external"` | HTML プレビューの CSS リンクモード（`"external"` または `"embed"`）。 |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |

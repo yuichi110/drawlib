@@ -249,7 +249,7 @@ build_jupyter(
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build image cache. |
-| `execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to sequentially execute code cells and populate `.ipynb` and HTML outputs. |
+| `execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to sequentially execute code cells and render outputs in HTML preview (`.ipynb` code cells stay clean). |
 | `dry_run` | `bool` | `False` | Execute all notebooks and verify zero errors / `[Geometry Warning]` without writing output files to disk. |
 | `css_mode` | `str` | `"external"` | CSS linking mode for HTML preview (`"external"` or `"embed"`). |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |

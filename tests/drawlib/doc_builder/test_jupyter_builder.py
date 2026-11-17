@@ -120,7 +120,6 @@ class TestNotebookDryRunAndExport:
 
         ipynb = build_ipynb_dict(
             segments,
-            execution_result=exec_res,
             image_mode="attachment",
             colab_url="https://colab.research.google.com/github/example/repo/blob/main/notebook.ipynb",
             setup_packages=("drawlib",),
@@ -132,6 +131,10 @@ class TestNotebookDryRunAndExport:
         assert "colab-badge.svg" in "".join(cells[0]["source"])
         assert cells[1]["cell_type"] == "code"
         assert "!pip install -q drawlib" in "".join(cells[1]["source"])
+        for c in cells:
+            if c["cell_type"] == "code":
+                assert c["outputs"] == []
+                assert c["execution_count"] is None
 
         # Find markdown cell with attachment
         att_cells = [c for c in cells if c["cell_type"] == "markdown" and "attachments" in c]
@@ -205,14 +208,17 @@ class TestInitAndBuildJupyterProject:
         nb_data = json.loads((out_dir / "en" / "01_sample_notebook.ipynb").read_text(encoding="utf-8"))
         assert nb_data["nbformat"] == 4
         code_cells = [c for c in nb_data["cells"] if c["cell_type"] == "code"]
-        # 1 setup cell + 1 python cell + 1 drawlib cell=code cell
+        # 1 setup cell + 1 python cell + 1 drawlib cell=code cell — all clean/unexecuted in .ipynb
         assert len(code_cells) == 3
-        assert len(code_cells[1]["outputs"]) >= 1
-        assert len(code_cells[2]["outputs"]) >= 1
+        for code_cell in code_cells:
+            assert code_cell["outputs"] == []
+            assert code_cell["execution_count"] is None
 
         html_text = (out_dir / "en" / "01_sample_notebook.html").read_text(encoding="utf-8")
         assert "jupyter-notebook" in html_text
         assert "nb-code-cell" in html_text
+        assert "nb-output" in html_text
+        assert "nb-output-figure" in html_text
         assert "01_sample_notebook.ipynb" in html_text
 
         # 3. build_html on a jupyter project also bundles .ipynb alongside .html in <target>_html/
