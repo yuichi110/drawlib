@@ -1,5 +1,28 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.13
+
+*Release Date: 2026/11/17*
+
+Version 0.3.13 refines the **`jupyter` ("Illustrated Notebook & Google Colab as Code")** project workflow by **replacing GitHub-coupled Colab keys with a unified `[jupyter].colab_base_url` option**, **rendering AI Dry-Run cell outputs exclusively in HTML previews while keeping `.ipynb` code cells clean and unexecuted**, and adding **comprehensive bilingual `jupyter` project User Guide documentation**.
+
+---
+
+### Highlights & Improvements
+
+#### 1. Unified `[jupyter].colab_base_url` for GitHub & Custom Colab Environments (`manifest.py`)
+- **Single Flexible URL Option (`colab_base_url`)**: Replaced the three legacy GitHub-specific `[jupyter]` keys (`github_repo`, `github_branch`, `notebook_dir_in_repo`) in `drawlib.toml` with `colab_base_url`.
+- **Prefix & `{path}` Template Support**: Supports both base URL prefixes (automatically appending `/<lang>/<stem>.ipynb`, e.g. `"https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter"`) and `{path}` URL templates (e.g. `"https://colab.example.com/open?notebook={path}"`) for non-GitHub hosting and internal/enterprise notebook services, while omitting the Colab badge cleanly when unset (`""`).
+
+#### 2. HTML-Only Execution Outputs & Clean Unexecuted `.ipynb` Code Cells (`exporter_jupyter.py`, `compiler/jupyter.py`)
+- **Clean Hands-On `.ipynb` Notebooks (`outputs: []`, `execution_count: null`)**: In-process AI Dry-Run cell execution (`execute = true`) now renders captured `stdout`, trailing expression values, and `show()` / `save()` PNG figures exclusively in the companion HTML preview (`In [n]` / `Out [n]`), while keeping all `.ipynb` `code` cells (` ```python ` and ` ```drawlib cell=code `) in a clean, unexecuted state. This prevents pre-filled output confusion in Google Colab / JupyterLab and reduces `.ipynb` file sizes and Git diffs dramatically (while narrative `cell=markdown` diagrams remain embedded in Markdown cells).
+- **Consistent Default Output Directory (`<base>_jupyter/`)**: `drawlib build jupyter <src_dir>` now defaults to `<base>_jupyter/` when `-o` is omitted, matching scaffolded `build.sh` / `serve.sh` scripts, with `.ipynb` and `.html` files bundled side-by-side in both `build_jupyter()` and `build_html()`.
+
+#### 3. Bilingual `jupyter` Project User Guide & Reference Updates (`docs_src/`, `_rules/`)
+- **New User Guide Chapter (`09_doc_builder_and_cli/project_jupyter.md`)**: Added full English and Japanese User Guide documentation covering `jupyter` project scaffolding, bundled `.ipynb` + HTML deployment without GitHub, `cell=markdown` vs. `cell=code` routing, `colab_base_url`, `setup(..., cwd=True)`, and AI Dry-Run verification, alongside updated CLI/API references and embedded AI rules.
+
+---
+
 ## Version 0.3.12
 
 *Release Date: 2026/11/16*

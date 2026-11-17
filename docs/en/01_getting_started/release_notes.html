@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/16">
+    <meta name="description" content="Release Date: 2026/11/17">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/16">
+    <meta property="og:description" content="Release Date: 2026/11/17">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/16">
+    <meta name="twitter:description" content="Release Date: 2026/11/17">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.12</span>
+                    <span class="sidebar-version-text">v0.3.13</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -723,6 +723,26 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.13</h2>
+<p><em>Release Date: 2026/11/17</em></p>
+<p>Version 0.3.13 refines the <strong><code>jupyter</code> (&quot;Illustrated Notebook &amp; Google Colab as Code&quot;)</strong> project workflow by <strong>replacing GitHub-coupled Colab keys with a unified <code>[jupyter].colab_base_url</code> option</strong>, <strong>rendering AI Dry-Run cell outputs exclusively in HTML previews while keeping <code>.ipynb</code> code cells clean and unexecuted</strong>, and adding <strong>comprehensive bilingual <code>jupyter</code> project User Guide documentation</strong>.</p>
+<hr />
+<h3>Highlights &amp; Improvements</h3>
+<h4>1. Unified <code>[jupyter].colab_base_url</code> for GitHub &amp; Custom Colab Environments (<code>manifest.py</code>)</h4>
+<ul>
+<li><strong>Single Flexible URL Option (<code>colab_base_url</code>)</strong>: Replaced the three legacy GitHub-specific <code>[jupyter]</code> keys (<code>github_repo</code>, <code>github_branch</code>, <code>notebook_dir_in_repo</code>) in <code>drawlib.toml</code> with <code>colab_base_url</code>.</li>
+<li><strong>Prefix &amp; <code>{path}</code> Template Support</strong>: Supports both base URL prefixes (automatically appending <code>/&lt;lang&gt;/&lt;stem&gt;.ipynb</code>, e.g. <code>&quot;https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter&quot;</code>) and <code>{path}</code> URL templates (e.g. <code>&quot;https://colab.example.com/open?notebook={path}&quot;</code>) for non-GitHub hosting and internal/enterprise notebook services, while omitting the Colab badge cleanly when unset (<code>&quot;&quot;</code>).</li>
+</ul>
+<h4>2. HTML-Only Execution Outputs &amp; Clean Unexecuted <code>.ipynb</code> Code Cells (<code>exporter_jupyter.py</code>, <code>compiler/jupyter.py</code>)</h4>
+<ul>
+<li><strong>Clean Hands-On <code>.ipynb</code> Notebooks (<code>outputs: []</code>, <code>execution_count: null</code>)</strong>: In-process AI Dry-Run cell execution (<code>execute = true</code>) now renders captured <code>stdout</code>, trailing expression values, and <code>show()</code> / <code>save()</code> PNG figures exclusively in the companion HTML preview (<code>In [n]</code> / <code>Out [n]</code>), while keeping all <code>.ipynb</code> <code>code</code> cells (<code>```python</code> and <code>```drawlib cell=code</code>) in a clean, unexecuted state. This prevents pre-filled output confusion in Google Colab / JupyterLab and reduces <code>.ipynb</code> file sizes and Git diffs dramatically (while narrative <code>cell=markdown</code> diagrams remain embedded in Markdown cells).</li>
+<li><strong>Consistent Default Output Directory (<code>&lt;base&gt;_jupyter/</code>)</strong>: <code>drawlib build jupyter &lt;src_dir&gt;</code> now defaults to <code>&lt;base&gt;_jupyter/</code> when <code>-o</code> is omitted, matching scaffolded <code>build.sh</code> / <code>serve.sh</code> scripts, with <code>.ipynb</code> and <code>.html</code> files bundled side-by-side in both <code>build_jupyter()</code> and <code>build_html()</code>.</li>
+</ul>
+<h4>3. Bilingual <code>jupyter</code> Project User Guide &amp; Reference Updates (<code>docs_src/</code>, <code>_rules/</code>)</h4>
+<ul>
+<li><strong>New User Guide Chapter (<code>09_doc_builder_and_cli/project_jupyter.md</code>)</strong>: Added full English and Japanese User Guide documentation covering <code>jupyter</code> project scaffolding, bundled <code>.ipynb</code> + HTML deployment without GitHub, <code>cell=markdown</code> vs. <code>cell=code</code> routing, <code>colab_base_url</code>, <code>setup(..., cwd=True)</code>, and AI Dry-Run verification, alongside updated CLI/API references and embedded AI rules.</li>
+</ul>
+<hr />
 <h2>Version 0.3.12</h2>
 <p><em>Release Date: 2026/11/16</em></p>
 <p>Version 0.3.12 introduces <strong>unified static frame selection (<code>--static-frame</code> / <code>static_frame=...</code>)</strong> when exporting animated diagrams (<code>Animation()</code>) to static targets (<strong>PDF, MS PowerPoint <code>.pptx</code>, MS Word <code>.docx</code>, and browser print <code>Ctrl+P</code> / <code>Cmd+P</code></strong>), defaulting to the completed final frame (<code>&quot;last&quot;</code>) with support for <code>&quot;first&quot;</code>, 0-based/negative integer frame indices, and per-block code fence overrides, alongside <strong>expanded project title &amp; metadata resolution documentation (<code>drawlib.toml</code> <code>[project].title</code> vs. <code>navbar.md</code> <code># H1</code> vs. page <code># H1</code>)</strong>.</p>

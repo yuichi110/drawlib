@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="リリース日: 2026/11/16">
+    <meta name="description" content="リリース日: 2026/11/17">
     <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib ドキュメント">
     <meta property="og:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta property="og:description" content="リリース日: 2026/11/16">
+    <meta property="og:description" content="リリース日: 2026/11/17">
     <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta name="twitter:description" content="リリース日: 2026/11/16">
+    <meta name="twitter:description" content="リリース日: 2026/11/17">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.12</span>
+                    <span class="sidebar-version-text">v0.3.13</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -723,6 +723,26 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.13</h2>
+<p><em>リリース日: 2026/11/17</em></p>
+<p>バージョン 0.3.13 では、<strong><code>jupyter</code>（「図解付き Jupyter Notebook &amp; Google Colab as Code」）</strong> プロジェクトの実運用性を高め、<strong>GitHub 専用だった Colab 設定キーを汎用的な <code>[jupyter].colab_base_url</code> へ統合</strong>したほか、<strong>AI Dry-Run の実行結果（<code>Out [n]</code>）を HTML プレビュー専用出力として <code>.ipynb</code> 側のコードセルをクリーンな未実行状態に保つ改善</strong>、および <strong>日英バイリンガルの <code>jupyter</code> プロジェクトユーザーガイド追加</strong> を実施しました。</p>
+<hr />
+<h3>ハイライトと改善点</h3>
+<h4>1. GitHub および独自環境に対応する統一設定 <code>[jupyter].colab_base_url</code>（<code>manifest.py</code>）</h4>
+<ul>
+<li><strong>単一の柔軟な URL 設定（<code>colab_base_url</code>）</strong>: <code>drawlib.toml</code> の <code>[jupyter]</code> セクションにおける従来の GitHub 専用 3 キー（<code>github_repo</code>・<code>github_branch</code>・<code>notebook_dir_in_repo</code>）を廃止し、<code>colab_base_url</code> に一本化しました。</li>
+<li><strong>プレフィックス方式および <code>{path}</code> テンプレート方式の両対応</strong>: ベース URL プレフィックス（末尾に <code>/&lt;lang&gt;/&lt;stem&gt;.ipynb</code> を自動付与、例: <code>&quot;https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter&quot;</code>）に加え、GitHub 以外のホスティングや社内ノートブック基盤向けに任意の位置へパスを展開できる <code>{path}</code> テンプレート（例: <code>&quot;https://colab.example.com/open?notebook={path}&quot;</code>）をサポートします（未指定 <code>&quot;&quot;</code> の場合は Colab バッジを非表示にし、独自ドメインからの <code>.ipynb</code> 直接配信に対応）。</li>
+</ul>
+<h4>2. HTML 専用出力レンダリングとクリーンな未実行 <code>.ipynb</code> コードセル（<code>exporter_jupyter.py</code>, <code>compiler/jupyter.py</code>）</h4>
+<ul>
+<li><strong>ハンズオンに最適化された軽量 <code>.ipynb</code>（<code>outputs: []</code>, <code>execution_count: null</code>）</strong>: インプロセス AI Dry-Run（<code>execute = true</code>）でキャプチャした <code>stdout</code>・末尾式の評価値・<code>show()</code> / <code>save()</code> 描画画像を HTML プレビュー（<code>In [n]</code> / <code>Out [n]</code>）にのみ出力し、<code>.ipynb</code> 内のすべての <code>code</code> セル（<code>```python</code> および <code>```drawlib cell=code</code>）をクリーンな未実行状態で出力するよう変更しました。Google Colab / JupyterLab で開いた際の「実行済み」との誤認を防ぎつつ、<code>.ipynb</code> のファイルサイズと Git diff を劇的に削減します（解説用の <code>cell=markdown</code> 図解は従来どおり Markdown セル内に表示されます）。</li>
+<li><strong>デフォルト出力先ディレクトリの統一（<code>&lt;base&gt;_jupyter/</code>）</strong>: <code>drawlib build jupyter &lt;src_dir&gt;</code> で <code>-o</code> を省略した際のデフォルト出力先を <code>build.sh</code> / <code>serve.sh</code> と一致する <code>&lt;base&gt;_jupyter/</code> に統一しました（<code>build_jupyter()</code>・<code>build_html()</code> ともに同一フォルダへ <code>.ipynb</code> と <code>.html</code> をバンドル出力します）。</li>
+</ul>
+<h4>3. 日英バイリンガル <code>jupyter</code> プロジェクトガイドおよびリファレンス拡充（<code>docs_src/</code>, <code>_rules/</code>）</h4>
+<ul>
+<li><strong>ユーザーガイド新章追加（<code>09_doc_builder_and_cli/project_jupyter.md</code>）</strong>: <code>jupyter</code> プロジェクトの初期化、GitHub を使わない独自ドメインでの <code>.ipynb</code> + HTML バンドル配信、<code>cell=markdown</code> / <code>cell=code</code> の使い分け、<code>colab_base_url</code>、<code>setup(..., cwd=True)</code>、AI Dry-Run 検証を網羅した日英ガイドを追加し、CLI / API リファレンスおよび組み込み AI ルールを更新しました。</li>
+</ul>
+<hr />
 <h2>バージョン 0.3.12</h2>
 <p><em>リリース日: 2026/11/16</em></p>
 <p>バージョン 0.3.12 では、アニメーション図解（<code>Animation()</code>）を静止画ターゲット（<strong>PDF・MS PowerPoint <code>.pptx</code>・MS Word <code>.docx</code>・ブラウザ印刷 <code>Ctrl+P</code> / <code>Cmd+P</code></strong>）へ書き出す際の <strong>統一静止画フレーム選択機能（<code>--static-frame</code> / <code>static_frame=...</code>）</strong> を新搭載し、デフォルトで完成状態の最終フレーム（<code>&quot;last&quot;</code>）を抽出しつつ <code>&quot;first&quot;</code> や 0 始まり／負の整数フレーム番号、およびコードブロック単位の個別指定に対応したほか、<strong>プロジェクト種別ごとのタイトル・ブランドヘッダー・PDF 内部メタデータ解決ルールのドキュメント整備</strong> を実施しました。</p>

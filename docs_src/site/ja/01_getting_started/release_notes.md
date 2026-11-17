@@ -1,5 +1,28 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.13
+
+*リリース日: 2026/11/17*
+
+バージョン 0.3.13 では、**`jupyter`（「図解付き Jupyter Notebook & Google Colab as Code」）** プロジェクトの実運用性を高め、**GitHub 専用だった Colab 設定キーを汎用的な `[jupyter].colab_base_url` へ統合**したほか、**AI Dry-Run の実行結果（`Out [n]`）を HTML プレビュー専用出力として `.ipynb` 側のコードセルをクリーンな未実行状態に保つ改善**、および **日英バイリンガルの `jupyter` プロジェクトユーザーガイド追加** を実施しました。
+
+---
+
+### ハイライトと改善点
+
+#### 1. GitHub および独自環境に対応する統一設定 `[jupyter].colab_base_url`（`manifest.py`）
+- **単一の柔軟な URL 設定（`colab_base_url`）**: `drawlib.toml` の `[jupyter]` セクションにおける従来の GitHub 専用 3 キー（`github_repo`・`github_branch`・`notebook_dir_in_repo`）を廃止し、`colab_base_url` に一本化しました。
+- **プレフィックス方式および `{path}` テンプレート方式の両対応**: ベース URL プレフィックス（末尾に `/<lang>/<stem>.ipynb` を自動付与、例: `"https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter"`）に加え、GitHub 以外のホスティングや社内ノートブック基盤向けに任意の位置へパスを展開できる `{path}` テンプレート（例: `"https://colab.example.com/open?notebook={path}"`）をサポートします（未指定 `""` の場合は Colab バッジを非表示にし、独自ドメインからの `.ipynb` 直接配信に対応）。
+
+#### 2. HTML 専用出力レンダリングとクリーンな未実行 `.ipynb` コードセル（`exporter_jupyter.py`, `compiler/jupyter.py`）
+- **ハンズオンに最適化された軽量 `.ipynb`（`outputs: []`, `execution_count: null`）**: インプロセス AI Dry-Run（`execute = true`）でキャプチャした `stdout`・末尾式の評価値・`show()` / `save()` 描画画像を HTML プレビュー（`In [n]` / `Out [n]`）にのみ出力し、`.ipynb` 内のすべての `code` セル（```` ```python ```` および ```` ```drawlib cell=code ````）をクリーンな未実行状態で出力するよう変更しました。Google Colab / JupyterLab で開いた際の「実行済み」との誤認を防ぎつつ、`.ipynb` のファイルサイズと Git diff を劇的に削減します（解説用の `cell=markdown` 図解は従来どおり Markdown セル内に表示されます）。
+- **デフォルト出力先ディレクトリの統一（`<base>_jupyter/`）**: `drawlib build jupyter <src_dir>` で `-o` を省略した際のデフォルト出力先を `build.sh` / `serve.sh` と一致する `<base>_jupyter/` に統一しました（`build_jupyter()`・`build_html()` ともに同一フォルダへ `.ipynb` と `.html` をバンドル出力します）。
+
+#### 3. 日英バイリンガル `jupyter` プロジェクトガイドおよびリファレンス拡充（`docs_src/`, `_rules/`）
+- **ユーザーガイド新章追加（`09_doc_builder_and_cli/project_jupyter.md`）**: `jupyter` プロジェクトの初期化、GitHub を使わない独自ドメインでの `.ipynb` + HTML バンドル配信、`cell=markdown` / `cell=code` の使い分け、`colab_base_url`、`setup(..., cwd=True)`、AI Dry-Run 検証を網羅した日英ガイドを追加し、CLI / API リファレンスおよび組み込み AI ルールを更新しました。
+
+---
+
 ## バージョン 0.3.12
 
 *リリース日: 2026/11/16*
