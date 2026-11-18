@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="リリース日: 2026/11/17">
+    <meta name="description" content="リリース日: 2026/11/18">
     <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib ドキュメント">
     <meta property="og:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta property="og:description" content="リリース日: 2026/11/17">
+    <meta property="og:description" content="リリース日: 2026/11/18">
     <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta name="twitter:description" content="リリース日: 2026/11/17">
+    <meta name="twitter:description" content="リリース日: 2026/11/18">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.13</span>
+                    <span class="sidebar-version-text">v0.3.14</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -723,6 +723,22 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.14</h2>
+<p><em>リリース日: 2026/11/18</em></p>
+<p>バージョン 0.3.14 では、コンパイルされる <strong><code>.ipynb</code> ノートブックを Google Colab・VS Code Jupyter・JupyterLab のすべてで 100% 単一ファイル自己完結化</strong>（図解・ローカル Markdown 画像・公式 <code>Open in Colab</code> SVG バッジをすべて Base64 Data URI として自動インライン化し、<code>[jupyter].image_mode</code> を廃止）するとともに、<code>[jupyter].setup_packages</code> による暗黙セル挿入を廃止して <strong>各ノートブックページで必要なパッケージを明示的に <code>!pip install</code> コードブロックとして記述する設計</strong> へ整理しました。</p>
+<hr />
+<h3>ハイライトと改善点</h3>
+<h4>1. <code>.ipynb</code> 画像の 100% Base64 単一ファイル自己完結化と <code>[jupyter].image_mode</code> の廃止（<code>exporter_jupyter.py</code>, <code>manifest.py</code>, <code>compiler/jupyter.py</code>）</h4>
+<ul>
+<li><strong>外部ファイル・外部 URL 依存ゼロの <code>.ipynb</code></strong>: <code>[jupyter].image_mode</code>（<code>&quot;attachment&quot; | &quot;url&quot; | &quot;relative&quot;</code>）を廃止し、<code>.ipynb</code> 単体で配布・移動した際の相対パス参照切れや、Google Colab における <code>attachment:</code> 非対応による画像非表示を完全に解消しました。</li>
+<li><strong>HTML <code>&lt;img src=&quot;data:...&quot;&gt;</code> による汎用インライン埋め込み</strong>: <code>cell=markdown</code> の <code>```drawlib</code> 図解、コードフェンス・インラインコード外のローカル相対画像（<code>![alt](_assets/...)</code> / <code>&lt;img src=&quot;...&quot;&gt;</code>）、および Google 公式デザインの <code>Open in Colab</code> SVG バッジをすべて同一 Markdown セル内の Base64 Data URI として自動埋め込みします（Google Colab・VS Code Jupyter・JupyterLab・オフライン環境のすべてでそのまま表示され、HTML プレビューサイト側は従来どおり高速な <code>images/</code> 外部ファイル配信を維持します）。</li>
+</ul>
+<h4>2. ページ単位の明示的な <code>!pip install</code> 記述への統一と <code>[jupyter].setup_packages</code> の廃止（<code>manifest.py</code>, <code>exporter_jupyter.py</code>, <code>_templates/</code>）</h4>
+<ul>
+<li><strong>シンプルな <code>[jupyter]</code> マニフェスト構成（<code>colab_base_url</code>, <code>drawlib_cell_mode</code>, <code>execute</code>）</strong>: <code>drawlib.toml</code> から <code>[jupyter].setup_packages</code> および暗黙のセットアップセル自動挿入ロジックを削除しました。</li>
+<li><strong>ノートブックごとの明示的なパッケージ導入セル</strong>: 必要なパッケージはページごとに異なるため、各 <code>.md</code> ファイル内の通常の <code>```python</code> ブロックに <code>!pip install -q drawlib ...</code>（または <code>%pip install ...</code>）を直接記述する方式に統一しました（シェル <code>!</code> / マジック <code>%</code> 行は <code>.ipynb</code> と HTML にそのまま出力されつつ、インプロセス AI Dry-Run 実行時には自動スキップされます）。あわせてスターターテンプレートおよび日英全 12 章の公式チュートリアル（<code>docs_src/jupyter/</code>）を更新しました。</li>
+</ul>
+<hr />
 <h2>バージョン 0.3.13</h2>
 <p><em>リリース日: 2026/11/17</em></p>
 <p>バージョン 0.3.13 では、<strong><code>jupyter</code>（「図解付き Jupyter Notebook &amp; Google Colab as Code」）</strong> プロジェクトの実運用性を高め、<strong>GitHub 専用だった Colab 設定キーを汎用的な <code>[jupyter].colab_base_url</code> へ統合</strong>したほか、<strong>AI Dry-Run の実行結果（<code>Out [n]</code>）を HTML プレビュー専用出力として <code>.ipynb</code> 側のコードセルをクリーンな未実行状態に保つ改善</strong>、および <strong>日英バイリンガルの <code>jupyter</code> プロジェクトユーザーガイド追加</strong> を実施しました。</p>

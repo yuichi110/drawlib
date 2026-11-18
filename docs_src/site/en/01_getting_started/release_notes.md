@@ -1,5 +1,25 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.14
+
+*Release Date: 2026/11/18*
+
+Version 0.3.14 makes compiled **`.ipynb` notebooks 100% single-file self-contained** across Google Colab, VS Code Jupyter, and JupyterLab by **always inlining diagrams, local Markdown images, and the official `Open in Colab` SVG badge as Base64 Data URIs** (removing `[jupyter].image_mode`), and simplifies `[jupyter]` manifest configuration by **replacing implicit `[jupyter].setup_packages` injection with explicit per-page `!pip install` code blocks**.
+
+---
+
+### Highlights & Improvements
+
+#### 1. 100% Self-Contained Base64 `.ipynb` Output & Removal of `[jupyter].image_mode` (`exporter_jupyter.py`, `manifest.py`, `compiler/jupyter.py`)
+- **Zero External File or URL Dependencies in `.ipynb`**: Removed `[jupyter].image_mode` (`"attachment" | "url" | "relative"`) so compiled `.ipynb` files never suffer from broken relative file references or Google Colab's unsupported Markdown `attachment:` links.
+- **Universal HTML `<img src="data:...">` Inlining**: All `cell=markdown` ```` ```drawlib ```` diagrams, local relative Markdown prose images (`![alt](_assets/...)` and `<img src="...">` outside code fences/spans), and the official Google Colab `Open in Colab` SVG badge are automatically embedded inline as Base64 Data URIs inside unified Markdown cells—rendering reliably in Google Colab, VS Code Jupyter, and JupyterLab (both online and offline) while HTML preview pages continue serving external `images/` files.
+
+#### 2. Explicit Per-Page Package Installation & Removal of `[jupyter].setup_packages` (`manifest.py`, `exporter_jupyter.py`, `_templates/`)
+- **Streamlined `[jupyter]` Manifest (`colab_base_url`, `drawlib_cell_mode`, `execute`)**: Removed `[jupyter].setup_packages` and implicit setup cell auto-injection from `drawlib.toml`.
+- **Explicit `!pip install` Code Cells per Notebook**: Because package dependencies vary per notebook page, authors now write `!pip install -q drawlib ...` (or `%pip install ...`) explicitly in a standard ```` ```python ```` code block; shell (`!...`) and magic (`%...`) lines are preserved in `.ipynb` and HTML while automatically skipped during in-process AI Dry-Run execution. Starter templates and all 12 official EN/JA tutorial notebooks (`docs_src/jupyter/`) have been updated accordingly.
+
+---
+
 ## Version 0.3.13
 
 *Release Date: 2026/11/17*

@@ -1,5 +1,25 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.14
+
+*リリース日: 2026/11/18*
+
+バージョン 0.3.14 では、コンパイルされる **`.ipynb` ノートブックを Google Colab・VS Code Jupyter・JupyterLab のすべてで 100% 単一ファイル自己完結化**（図解・ローカル Markdown 画像・公式 `Open in Colab` SVG バッジをすべて Base64 Data URI として自動インライン化し、`[jupyter].image_mode` を廃止）するとともに、`[jupyter].setup_packages` による暗黙セル挿入を廃止して **各ノートブックページで必要なパッケージを明示的に `!pip install` コードブロックとして記述する設計** へ整理しました。
+
+---
+
+### ハイライトと改善点
+
+#### 1. `.ipynb` 画像の 100% Base64 単一ファイル自己完結化と `[jupyter].image_mode` の廃止（`exporter_jupyter.py`, `manifest.py`, `compiler/jupyter.py`）
+- **外部ファイル・外部 URL 依存ゼロの `.ipynb`**: `[jupyter].image_mode`（`"attachment" | "url" | "relative"`）を廃止し、`.ipynb` 単体で配布・移動した際の相対パス参照切れや、Google Colab における `attachment:` 非対応による画像非表示を完全に解消しました。
+- **HTML `<img src="data:...">` による汎用インライン埋め込み**: `cell=markdown` の ```` ```drawlib ```` 図解、コードフェンス・インラインコード外のローカル相対画像（`![alt](_assets/...)` / `<img src="...">`）、および Google 公式デザインの `Open in Colab` SVG バッジをすべて同一 Markdown セル内の Base64 Data URI として自動埋め込みします（Google Colab・VS Code Jupyter・JupyterLab・オフライン環境のすべてでそのまま表示され、HTML プレビューサイト側は従来どおり高速な `images/` 外部ファイル配信を維持します）。
+
+#### 2. ページ単位の明示的な `!pip install` 記述への統一と `[jupyter].setup_packages` の廃止（`manifest.py`, `exporter_jupyter.py`, `_templates/`）
+- **シンプルな `[jupyter]` マニフェスト構成（`colab_base_url`, `drawlib_cell_mode`, `execute`）**: `drawlib.toml` から `[jupyter].setup_packages` および暗黙のセットアップセル自動挿入ロジックを削除しました。
+- **ノートブックごとの明示的なパッケージ導入セル**: 必要なパッケージはページごとに異なるため、各 `.md` ファイル内の通常の ```` ```python ```` ブロックに `!pip install -q drawlib ...`（または `%pip install ...`）を直接記述する方式に統一しました（シェル `!` / マジック `%` 行は `.ipynb` と HTML にそのまま出力されつつ、インプロセス AI Dry-Run 実行時には自動スキップされます）。あわせてスターターテンプレートおよび日英全 12 章の公式チュートリアル（`docs_src/jupyter/`）を更新しました。
+
+---
+
 ## バージョン 0.3.13
 
 *リリース日: 2026/11/17*

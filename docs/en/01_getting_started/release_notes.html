@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/17">
+    <meta name="description" content="Release Date: 2026/11/18">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/17">
+    <meta property="og:description" content="Release Date: 2026/11/18">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/17">
+    <meta name="twitter:description" content="Release Date: 2026/11/18">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.13</span>
+                    <span class="sidebar-version-text">v0.3.14</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -723,6 +723,22 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.14</h2>
+<p><em>Release Date: 2026/11/18</em></p>
+<p>Version 0.3.14 makes compiled <strong><code>.ipynb</code> notebooks 100% single-file self-contained</strong> across Google Colab, VS Code Jupyter, and JupyterLab by <strong>always inlining diagrams, local Markdown images, and the official <code>Open in Colab</code> SVG badge as Base64 Data URIs</strong> (removing <code>[jupyter].image_mode</code>), and simplifies <code>[jupyter]</code> manifest configuration by <strong>replacing implicit <code>[jupyter].setup_packages</code> injection with explicit per-page <code>!pip install</code> code blocks</strong>.</p>
+<hr />
+<h3>Highlights &amp; Improvements</h3>
+<h4>1. 100% Self-Contained Base64 <code>.ipynb</code> Output &amp; Removal of <code>[jupyter].image_mode</code> (<code>exporter_jupyter.py</code>, <code>manifest.py</code>, <code>compiler/jupyter.py</code>)</h4>
+<ul>
+<li><strong>Zero External File or URL Dependencies in <code>.ipynb</code></strong>: Removed <code>[jupyter].image_mode</code> (<code>&quot;attachment&quot; | &quot;url&quot; | &quot;relative&quot;</code>) so compiled <code>.ipynb</code> files never suffer from broken relative file references or Google Colab's unsupported Markdown <code>attachment:</code> links.</li>
+<li><strong>Universal HTML <code>&lt;img src=&quot;data:...&quot;&gt;</code> Inlining</strong>: All <code>cell=markdown</code> <code>```drawlib</code> diagrams, local relative Markdown prose images (<code>![alt](_assets/...)</code> and <code>&lt;img src=&quot;...&quot;&gt;</code> outside code fences/spans), and the official Google Colab <code>Open in Colab</code> SVG badge are automatically embedded inline as Base64 Data URIs inside unified Markdown cells—rendering reliably in Google Colab, VS Code Jupyter, and JupyterLab (both online and offline) while HTML preview pages continue serving external <code>images/</code> files.</li>
+</ul>
+<h4>2. Explicit Per-Page Package Installation &amp; Removal of <code>[jupyter].setup_packages</code> (<code>manifest.py</code>, <code>exporter_jupyter.py</code>, <code>_templates/</code>)</h4>
+<ul>
+<li><strong>Streamlined <code>[jupyter]</code> Manifest (<code>colab_base_url</code>, <code>drawlib_cell_mode</code>, <code>execute</code>)</strong>: Removed <code>[jupyter].setup_packages</code> and implicit setup cell auto-injection from <code>drawlib.toml</code>.</li>
+<li><strong>Explicit <code>!pip install</code> Code Cells per Notebook</strong>: Because package dependencies vary per notebook page, authors now write <code>!pip install -q drawlib ...</code> (or <code>%pip install ...</code>) explicitly in a standard <code>```python</code> code block; shell (<code>!...</code>) and magic (<code>%...</code>) lines are preserved in <code>.ipynb</code> and HTML while automatically skipped during in-process AI Dry-Run execution. Starter templates and all 12 official EN/JA tutorial notebooks (<code>docs_src/jupyter/</code>) have been updated accordingly.</li>
+</ul>
+<hr />
 <h2>Version 0.3.13</h2>
 <p><em>Release Date: 2026/11/17</em></p>
 <p>Version 0.3.13 refines the <strong><code>jupyter</code> (&quot;Illustrated Notebook &amp; Google Colab as Code&quot;)</strong> project workflow by <strong>replacing GitHub-coupled Colab keys with a unified <code>[jupyter].colab_base_url</code> option</strong>, <strong>rendering AI Dry-Run cell outputs exclusively in HTML previews while keeping <code>.ipynb</code> code cells clean and unexecuted</strong>, and adding <strong>comprehensive bilingual <code>jupyter</code> project User Guide documentation</strong>.</p>
