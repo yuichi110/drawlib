@@ -176,9 +176,9 @@
             <main class="main-content">
                 <div class="jupyter-notebook">
   <div class="nb-toolbar">
-    <a class="nb-btn nb-btn-colab" href="https://colab.research.google.com/github/yuichi110/drawlib/blob/main/docs/jupyter/en/03_data_charts.ipynb" target="_blank" rel="noopener noreferrer"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+    <a class="nb-btn nb-btn-colab" href="https://colab.research.google.com/github/yuichi110/drawlib/blob/main/docs/jupyter/en/03_data_charts.ipynb" target="_blank" rel="noopener noreferrer"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTciIGhlaWdodD0iMjAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iT3BlbiBJbiBDb2xhYiI+PGxpbmVhckdyYWRpZW50IGlkPSJzIiB4Mj0iMCIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2JiYiIgc3RvcC1vcGFjaXR5PSIuMSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1vcGFjaXR5PSIuMSIvPjwvbGluZWFyR3JhZGllbnQ+PGNsaXBQYXRoIGlkPSJyIj48cmVjdCB3aWR0aD0iMTE3IiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIvPjwvY2xpcFBhdGg+PGcgY2xpcC1wYXRoPSJ1cmwoI3IpIj48cmVjdCB3aWR0aD0iMzAiIGhlaWdodD0iMjAiIGZpbGw9IiM1NTUiLz48cmVjdCB4PSIzMCIgd2lkdGg9Ijg3IiBoZWlnaHQ9IjIwIiBmaWxsPSIjZjlhYjAwIi8+PHJlY3Qgd2lkdGg9IjExNyIgaGVpZ2h0PSIyMCIgZmlsbD0idXJsKCNzKSIvPjwvZz48cGF0aCBmaWxsPSIjZjlhYjAwIiBkPSJNMTAuNSA2LjhhMy4yIDMuMiAwIDEgMCAwIDYuNCAzLjIgMy4yIDAgMCAwIDIuNy0xLjVsLTEuMy0uOGExLjcgMS43IDAgMSAxIDAtMS44bDEuMy0uOGEzLjIgMy4yIDAgMCAwLTIuNy0xLjV6Ii8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTE5LjUgNi44YTMuMiAzLjIgMCAxIDAgMCA2LjQgMy4yIDMuMiAwIDAgMCAwLTYuNHptMCAxLjVhMS43IDEuNyAwIDEgMSAwIDMuNCAxLjcgMS43IDAgMCAxIDAtMy40eiIvPjxnIGZpbGw9IiMyMjIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLEdlbmV2YSxEZWphVnUgU2FucyxzYW5zLXNlcmlmIiBmb250LXNpemU9IjExIiBmb250LXdlaWdodD0iYm9sZCI+PHRleHQgeD0iNzMuNSIgeT0iMTQiPk9wZW4gaW4gQ29sYWI8L3RleHQ+PC9nPjwvc3ZnPg==" alt="Open In Colab"></a>
     <a class="nb-btn nb-btn-download" href="03_data_charts.ipynb" download="03_data_charts.ipynb">⬇ Download .ipynb</a>
-    <span class="nb-status-pill">✓ Dry-Run Verified (2 cells)</span>
+    <span class="nb-status-pill">✓ Dry-Run Verified (3 cells)</span>
   </div>
   <div class="nb-cell nb-markdown-cell">
 <h1>03. Quantitative Data Charts in Notebooks</h1>
@@ -241,23 +241,25 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
+  </div>
+  <div class="nb-cell nb-code-cell">
+    <div class="nb-input">
+      <div class="nb-prompt nb-in-prompt">In [1]:</div>
+      <div class="nb-code-area">
+        <pre><code class="language-python"><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">drawlib</span>
+</code></pre>
+      </div>
+    </div>
+  </div>
+  <div class="nb-cell nb-markdown-cell">
 <hr />
 <h2>1. Computing Metrics in Python Cells</h2>
 <p>Because notebook cells share state, you can aggregate or transform data in standard Python cells before passing the series into a Drawlib chart:</p>
 
   </div>
-  <div class="nb-cell nb-code-cell nb-setup-cell">
-    <div class="nb-input">
-      <div class="nb-prompt nb-in-prompt">In [setup]:</div>
-      <div class="nb-code-area">
-        <pre><code class="language-bash">!pip<span class="w"> </span>install<span class="w"> </span>-q<span class="w"> </span>drawlib
-</code></pre>
-      </div>
-    </div>
-  </div>
   <div class="nb-cell nb-code-cell">
     <div class="nb-input">
-      <div class="nb-prompt nb-in-prompt">In [1]:</div>
+      <div class="nb-prompt nb-in-prompt">In [2]:</div>
       <div class="nb-code-area">
         <pre><code class="language-python"><span class="n">raw_latencies_ms</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">"v0.3.8"</span><span class="p">:</span> <span class="p">[</span><span class="mf">48.2</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">,</span> <span class="mf">45.1</span><span class="p">],</span>
@@ -275,7 +277,7 @@
       </div>
     </div>
     <div class="nb-output">
-      <div class="nb-prompt nb-out-prompt">Out [1]:</div>
+      <div class="nb-prompt nb-out-prompt">Out [2]:</div>
       <div class="nb-output-area">
         <pre class="nb-stream-stdout">v0.3.8: mean=47.2 ms
 v0.3.9: mean=33.4 ms
@@ -294,7 +296,7 @@ v0.3.11: mean=15.3 ms
   </div>
   <div class="nb-cell nb-code-cell">
     <div class="nb-input">
-      <div class="nb-prompt nb-in-prompt">In [2]:</div>
+      <div class="nb-prompt nb-in-prompt">In [3]:</div>
       <div class="nb-code-area">
         <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">show</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
@@ -333,9 +335,9 @@ v0.3.11: mean=15.3 ms
       </div>
     </div>
     <div class="nb-output">
-      <div class="nb-prompt nb-out-prompt">Out [2]:</div>
+      <div class="nb-prompt nb-out-prompt">Out [3]:</div>
       <div class="nb-output-area">
-        <div class="nb-output-figure"><img src="../images/03_data_charts/03_live_release_benchmark.png" alt="Output [2]"></div>
+        <div class="nb-output-figure"><img src="../images/03_data_charts/03_live_release_benchmark.png" alt="Output [3]"></div>
       </div>
     </div>
   </div>

@@ -6,7 +6,6 @@
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
-import styles
 
 setup(width=100, height=28)
 
@@ -16,12 +15,16 @@ proc = ChevronProcess(
     description_style=Styles.Muted,
     flat_left_end=True,
 )
-proc.add("1. .md 作成")
-proc.add("2. セル検証", style=Styles.PrimaryNeutral)
-proc.add("3. .ipynb 出力", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
+proc.add("1. Author .md")
+proc.add("2. Dry-Run Cells", style=Styles.PrimaryNeutral)
+proc.add("3. Export .ipynb", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
 proc.draw((8, 8), width=84, height=12)
 
 save()
+```
+
+```python
+!pip install -q drawlib
 ```
 
 ## 1. Python セルの順次実行
@@ -47,7 +50,6 @@ summary
 from drawlib.canvas import save, setup
 from drawlib.charts.bar import BarChart
 from drawlib.styles import Styles
-import styles
 
 setup(width=80, height=40)
 
@@ -57,7 +59,7 @@ chart = BarChart(
     width=64,
     height=28,
     categories=["Q1", "Q2", "Q3", "Q4", "Q5"],
-    title="ステージ別スループット",
+    title="Throughput by Stage",
     title_style=Styles.DarkBold,
 )
 chart.add_series("Throughput", dataset, style=Styles.PrimaryFlat)

@@ -785,7 +785,7 @@
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.ipynb"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Clean unexecuted cells +</span><span class="se">\n</span><span class="s2">!pip install setup cell"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Self-contained Base64 +</span><span class="se">\n</span><span class="s2">Clean unexecuted cells"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
@@ -886,7 +886,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tbody>
 <tr>
 <td style="text-align:left"><code>```drawlib file=arch.png caption=&quot;...&quot;</code><br><em>(デフォルト <code>cell=markdown</code>)</em></td>
-<td style="text-align:left">描画済み図解（<code>attachment:&lt;file&gt;.png</code>、<code>[seo].site_url</code> 公開 URL、または相対パス）を含む <strong><code>markdown</code> セル</strong></td>
+<td style="text-align:left">自己完結型の <code>&lt;img src=&quot;data:image/...;base64,...&quot; /&gt;</code> を格納した独立 <strong><code>markdown</code> セル</strong></td>
 <td style="text-align:left">折りたたみソース（<code>code=fold</code>）付きの <code>&lt;figure&gt;</code> 図解</td>
 <td style="text-align:left">解説テキストに添えるアーキテクチャ図・フロー図・シーケンス図・概念図。</td>
 </tr>
@@ -982,19 +982,23 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <span class="s">save()</span>
 <span class="sb">```</span>
 
+<span class="sb">```python</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">drawlib</span>
+<span class="sb">```</span>
+
 <span class="gu">## 1. 実行可能な Python セル間での状態共有</span>
 
 前の <span class="sb">`python`</span> セルで定義した変数や関数は、後続のセルでもそのまま参照できます。
 
 <span class="sb">```python</span>
-<span class="c1"># In [1]: 共有レイアウト定数を定義</span>
+<span class="c1"># 共有レイアウト定数を定義</span>
 <span class="n">CANVAS_W</span><span class="p">,</span> <span class="n">CANVAS_H</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">36</span>
 <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ingest"</span><span class="p">,</span> <span class="s2">"Transform"</span><span class="p">,</span> <span class="s2">"Serve"</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Configured </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> pipeline stages on </span><span class="si">{</span><span class="n">CANVAS_W</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">CANVAS_H</span><span class="si">}</span><span class="s2"> canvas"</span><span class="p">)</span>
 <span class="sb">```</span>
 
 <span class="sb">```python</span>
-<span class="c1"># In [2]: setup(..., cwd=True) と show() でインライン描画</span>
+<span class="c1"># setup(..., cwd=True) と show() でインライン描画</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">show</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
@@ -1010,7 +1014,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </code></pre>
 <hr />
 <h2>4. <code>[jupyter]</code> マニフェスト設定と Google Colab 連携 (<code>drawlib.toml</code>)</h2>
-<p><code>jupyter_src/drawlib.toml</code> の <code>[jupyter]</code> セクションで、ノートブックへの画像埋め込み方式・デフォルトのセル種別・<code>!pip install</code> セットアップセルの自動挿入・<strong>Open in Colab</strong> リンクを設定できます。</p>
+<p><code>jupyter_src/drawlib.toml</code> の <code>[jupyter]</code> セクションで、デフォルトのセル種別・Dry-Run 実行検証・<strong>Open in Colab</strong> リンクを設定できます。</p>
 <pre><code class="language-toml"><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
 <span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
@@ -1025,14 +1029,19 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <span class="k">[jupyter]</span>
 <span class="c1"># ベース URL プレフィックス (末尾に /&lt;lang&gt;/&lt;stem&gt;.ipynb を自動付与) または {path} テンプレート:</span>
 <span class="n">colab_base_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://colab.research.google.com/github/owner/repo/blob/main/jupyter_jupyter"</span>
-<span class="n">setup_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"drawlib"</span><span class="p">]</span><span class="w">               </span><span class="c1"># 空でない場合、先頭に `!pip install -q drawlib` セルを自動挿入</span>
 <span class="n">drawlib_cell_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="w">             </span><span class="c1"># ```drawlib のデフォルト: "markdown" | "code"</span>
-<span class="n">image_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"attachment"</span><span class="w">                  </span><span class="c1"># "attachment" (単一ファイル完結) | "url" ([seo].site_url) | "relative"</span>
 <span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                             </span><span class="c1"># ビルド時に全コードセルを順次 Dry-Run 実行し HTML プレビューに Out[n] を出力</span>
 
 <span class="c1"># [seo]</span>
-<span class="c1"># site_url = "https://example.com/jupyter" # image_mode = "url" 時の画像配信ベース URL (および OGP / sitemap 用)</span>
+<span class="c1"># site_url = "https://example.com/jupyter" # 任意: HTML プレビューの canonical / OGP / sitemap 用ベース URL</span>
 </code></pre>
+<blockquote>
+<p><strong>100% 単一ファイル自己完結の <code>.ipynb</code> 出力 &amp; ページごとの明示的な <code>!pip install</code>:</strong></p>
+<ul>
+<li><strong>画像参照切れゼロ</strong>: <code>cell=markdown</code> の <code>```drawlib</code> 図解・地の文のローカル Markdown 画像（<code>![alt](_assets/...)</code> や <code>&lt;img src=&quot;...&quot;&gt;</code>）・<code>Open in Colab</code> バッジのすべてが、HTML の <code>&lt;img src=&quot;data:...&quot; /&gt;</code> タグによる Base64 Data URI として自動インライン化されます（図解は文章セルと分離した独立 Markdown セルとして出力されるため、通常の文章セルはプレーンテキストのまま軽快に動作します）。Google Colab・VS Code Jupyter・JupyterLab・オフライン環境のいずれでも <code>.ipynb</code> 単体で確実に画像が表示され、HTML プレビューサイト側は通常の画像ファイル（<code>images/</code>）で高速配信されます。</li>
+<li><strong>ページ単位の明示的なパッケージ導入</strong>: 必要なライブラリはノートブックごとに異なるため、各 <code>.md</code> ファイル冒頭の <code>```python</code> コードブロック内に <code>!pip install -q drawlib ...</code>（または <code>%pip install ...</code>）を直接記述します。シェル・マジック行は <code>.ipynb</code> と HTML にそのまま出力されつつ、インプロセス AI Dry-Run 実行時には自動的にスキップされます。</li>
+</ul>
+</blockquote>
 <h3>4.1. <code>[jupyter]</code> 設定キー一覧</h3>
 <table>
 <thead>
@@ -1051,22 +1060,10 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>.ipynb</code> ノートブックおよび HTML プレビューページに挿入される <strong>Open in Colab</strong> ボタンのベース URL または <code>{path}</code> URL テンプレート:<ul><li><strong>ベース URL プレフィックス指定</strong>: <code>{path}</code> を含まない URL（例: <code>&quot;https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter&quot;</code>）を指定すると、末尾に <code>/&lt;lang&gt;/&lt;stem&gt;.ipynb</code> が自動結合されます。</li><li><strong><code>{path}</code> テンプレート指定（GitHub 以外・社内環境対応）</strong>: URL 内に <code>{path}</code>（例: <code>&quot;https://colab.example.com/open?notebook={path}&quot;</code>）を含めると、任意の位置に <code>&lt;lang&gt;/&lt;stem&gt;.ipynb</code> が展開されます。</li><li><strong>未指定 (<code>&quot;&quot;</code>)</strong>: Colab バッジを非表示にしつつ、同一フォルダにバンドルされた <code>.ipynb</code> への <strong>⬇ Download .ipynb</strong> ボタンのみを表示します（GitHub を使わずに独自ドメインから直接配信する構成に最適）。</li></ul></td>
 </tr>
 <tr>
-<td style="text-align:left"><code>setup_packages</code></td>
-<td style="text-align:left"><code>list[str]</code></td>
-<td style="text-align:left"><code>[&quot;drawlib&quot;]</code></td>
-<td style="text-align:left">空でない場合、各 <code>.ipynb</code> ノートブックの先頭にセットアップ用コードセル（<code>!pip install -q drawlib</code>）を自動挿入し、Google Colab 上で開いてすぐ実行できるようにします。</td>
-</tr>
-<tr>
 <td style="text-align:left"><code>drawlib_cell_mode</code></td>
 <td style="text-align:left"><code>&quot;markdown&quot; | &quot;code&quot;</code></td>
 <td style="text-align:left"><code>&quot;markdown&quot;</code></td>
 <td style="text-align:left">コードフェンスで <code>cell=</code> 属性を省略した際の <code>```drawlib</code> ブロックのデフォルトセル種別。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>image_mode</code></td>
-<td style="text-align:left"><code>&quot;attachment&quot; | &quot;url&quot; | &quot;relative&quot;</code></td>
-<td style="text-align:left"><code>&quot;attachment&quot;</code></td>
-<td style="text-align:left"><code>cell=markdown</code> の <code>```drawlib</code> 図解を <code>.ipynb</code> の Markdown セルへ埋め込む方式:<ul><li><strong><code>&quot;attachment&quot;</code></strong> <em>(デフォルト)</em>: セル添付データ（<code>attachment:&lt;file&gt;.png</code>）として Base64 埋め込みを行い、<code>.ipynb</code> 単体でダウンロードや Colab アップロードが完結します。</li><li><strong><code>&quot;url&quot;</code></strong>: 画像リンクを <code>&lt;[seo].site_url&gt;/images/&lt;stem&gt;/&lt;file&gt;.png</code> に書き換えます。独自ドメインや GitHub Pages 等でホスティングする際に、GitHub raw URL に依存せず <code>.ipynb</code> のファイルサイズを軽量に保てます。</li><li><strong><code>&quot;relative&quot;</code></strong>: ローカルの JupyterLab ワークスペース向けに相対パス <code>../images/&lt;stem&gt;/&lt;file&gt;.png</code> を使用します。</li></ul></td>
 </tr>
 <tr>
 <td style="text-align:left"><code>execute</code></td>

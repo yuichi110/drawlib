@@ -18,10 +18,8 @@ en = "6 hands-on Jupyter & Google Colab notebooks covering Drawlib setup(..., cw
 ja = "Drawlib の setup(..., cwd=True)・50%+ ニュートラル配色・データチャート・SmartArts・クラウド構成図・自動グラフレイアウトをブラウザ上で動かして学べる全6章の Jupyter / Google Colab ハンズオンノートブック。"
 
 [jupyter]
-image_mode = "url"
 drawlib_cell_mode = "markdown"
 execute = true
-setup_packages = ["drawlib"]
 colab_base_url = "https://colab.research.google.com/github/yuichi110/drawlib/blob/main/docs/jupyter"
 
 [seo]

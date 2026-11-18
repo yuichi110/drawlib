@@ -53,15 +53,20 @@ class TestConvertSaveToShow:
 class TestNotebookDryRunAndExport:
     """Tests for sequential cell execution, error reporting, and .ipynb generation."""
 
-    def test_sequential_execution_and_ipynb_attachment_mode(self, tmp_path: Path) -> None:
+    def test_sequential_execution_and_self_contained_base64_ipynb(self, tmp_path: Path) -> None:
+        assets_dir = tmp_path / "_assets"
+        assets_dir.mkdir(parents=True, exist_ok=True)
+        local_logo = assets_dir / "logo.png"
+
         md_text = (
             "# Sample Notebook\n\n"
-            "```drawlib file=hero.png caption=\"Hero Diagram\"\n"
+            "Intro with local image ![Logo](_assets/logo.png) and literal `![skip](_assets/logo.png)`.\n\n"
+            '```drawlib file=hero.png caption="Hero Diagram"\n'
             "from drawlib.canvas import save, setup\n"
             "from drawlib.shapes import rectangle\n"
             "from drawlib.styles import Styles\n"
             "setup(width=60, height=30)\n"
-            "rectangle((30, 15), width=40, height=16, style=Styles.Neutral, text=\"Hero\")\n"
+            'rectangle((30, 15), width=40, height=16, style=Styles.Neutral, text="Hero")\n'
             "save()\n"
             "```\n\n"
             "## Step 1\n\n"
@@ -72,7 +77,7 @@ class TestNotebookDryRunAndExport:
             "print(f'total={total}')\n"
             "total\n"
             "```\n\n"
-            "```drawlib cell=code file=live.png caption=\"Live Cell\"\n"
+            '```drawlib cell=code file=live.png caption="Live Cell"\n'
             "from drawlib.canvas import save, setup\n"
             "from drawlib.shapes import rectangle\n"
             "from drawlib.styles import Styles\n"
@@ -114,33 +119,50 @@ class TestNotebookDryRunAndExport:
         assert len(out2.figures) == 1
         assert len(out2.figures[0]) > 100
 
-        # Create dummy hero.png so attachment mode can embed it
+        # Populate hero.png and _assets/logo.png so Base64 inliner can read both
         assert segments[1].target_img_path is not None
         Path(segments[1].target_img_path).write_bytes(out2.figures[0])
+        local_logo.write_bytes(out2.figures[0])
 
         ipynb = build_ipynb_dict(
             segments,
-            image_mode="attachment",
             colab_url="https://colab.research.google.com/github/example/repo/blob/main/notebook.ipynb",
-            setup_packages=("drawlib",),
+            source_dir=str(tmp_path),
+            project_root=str(tmp_path),
         )
         assert ipynb["nbformat"] == 4
         assert ipynb["nbformat_minor"] == 5
         cells = ipynb["cells"]
+        assert len(cells) == 5
         assert cells[0]["cell_type"] == "markdown"
-        assert "colab-badge.svg" in "".join(cells[0]["source"])
-        assert cells[1]["cell_type"] == "code"
-        assert "!pip install -q drawlib" in "".join(cells[1]["source"])
+        first_md = "".join(cells[0]["source"])
+        assert 'alt="Open In Colab"' in first_md
+        assert "data:image/svg+xml;base64," in first_md
+        # Local Markdown image outside code spans is inlined as Base64, while inline code span is untouched
+        assert '<img src="data:image/png;base64,' in first_md
+        assert "`![skip](_assets/logo.png)`" in first_md
+
+        # Diagram cell is emitted as its own standalone Markdown cell with HTML <img src="data:image/png;base64,...">
+        assert cells[1]["cell_type"] == "markdown"
+        diag_cell_src = "".join(cells[1]["source"])
+        assert '<img src="data:image/png;base64,' in diag_cell_src
+        assert "<em>Hero Diagram</em>" in diag_cell_src
+
+        assert cells[2]["cell_type"] == "markdown"
+        assert "## Step 1" in "".join(cells[2]["source"])
+
+        # Explicit !pip install inside user python block is preserved in .ipynb code cell
+        assert cells[3]["cell_type"] == "code"
+        assert "!pip install -q drawlib" in "".join(cells[3]["source"])
+
+        assert cells[4]["cell_type"] == "code"
+        assert "show()" in "".join(cells[4]["source"])
+
         for c in cells:
+            assert "attachments" not in c
             if c["cell_type"] == "code":
                 assert c["outputs"] == []
                 assert c["execution_count"] is None
-
-        # Find markdown cell with attachment
-        att_cells = [c for c in cells if c["cell_type"] == "markdown" and "attachments" in c]
-        assert len(att_cells) == 1
-        assert "hero.png" in att_cells[0]["attachments"]
-        assert "attachment:hero.png" in "".join(att_cells[0]["source"])
 
     def test_dry_run_raises_notebook_execution_error_with_line_numbers(self, tmp_path: Path) -> None:
         md_text = (
@@ -208,8 +230,9 @@ class TestInitAndBuildJupyterProject:
         nb_data = json.loads((out_dir / "en" / "01_sample_notebook.ipynb").read_text(encoding="utf-8"))
         assert nb_data["nbformat"] == 4
         code_cells = [c for c in nb_data["cells"] if c["cell_type"] == "code"]
-        # 1 setup cell + 1 python cell + 1 drawlib cell=code cell — all clean/unexecuted in .ipynb
+        # 1 explicit !pip install python cell + 1 dataset python cell + 1 drawlib cell=code cell — all clean in .ipynb
         assert len(code_cells) == 3
+        assert "!pip install -q drawlib" in "".join(code_cells[0]["source"])
         for code_cell in code_cells:
             assert code_cell["outputs"] == []
             assert code_cell["execution_count"] is None
@@ -264,4 +287,16 @@ class TestInitAndBuildJupyterProject:
             manifest.jupyter.build_colab_url("en/01_intro.ipynb")
             == "https://colab.example.com/notebooks/en/01_intro.ipynb"
         )
+
+        # Obsolete keys (image_mode, setup_packages) must be rejected by strict manifest validation
+        for obsolete_line in ('image_mode = "url"', 'setup_packages = ["drawlib"]'):
+            (proj_dir / "drawlib.toml").write_text(
+                '[project]\nname = "nb"\ntype = "jupyter"\n\n'
+                '[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n\n'
+                f"[jupyter]\n{obsolete_line}\n",
+                encoding="utf-8",
+            )
+            with pytest.raises(ValueError, match="Unsupported"):
+                load_project_manifest(str(proj_dir))
+
 

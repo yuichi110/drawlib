@@ -42,6 +42,10 @@ line((62.5, 15), (69.5, 15), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ---
 
 ## 1. Deterministic Path Resolution with `setup(..., cwd=True)`

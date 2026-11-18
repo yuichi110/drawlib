@@ -241,15 +241,12 @@ def _build_single_jupyter_file(
 
         rel_nb = f"{lang}/{doc_base_name}.ipynb" if (manifest and manifest.is_i18n) else f"{doc_base_name}.ipynb"
         colab_url = jupyter_cfg.build_colab_url(rel_nb)
-        site_url = manifest.seo.site_url if (manifest and manifest.seo) else ""
         ipynb_dict = build_ipynb_dict(
             segments,
-            image_mode=jupyter_cfg.image_mode,
             colab_url=colab_url,
-            setup_packages=jupyter_cfg.setup_packages,
-            site_url=site_url,
-            lang=lang if (manifest and manifest.is_i18n) else None,
             notebook_name=os.path.basename(ipynb_dest),
+            source_dir=os.path.dirname(src_abs),
+            project_root=proj_root,
         )
         write_ipynb_file(ipynb_dict, ipynb_dest)
         return ipynb_dest
@@ -492,7 +489,6 @@ def _compile_jupyter_locales(
         default_first_html = ""
         default_first_lang_dir = os.path.join(out_dir_abs, default_lang)
         site_title = manifest.project.title.strip() or "Drawlib Notebooks"
-        site_url = manifest.seo.site_url if manifest.seo else ""
         rel_htmls_by_lang: dict[str, list[str]] = {lc: [] for lc in ordered_langs}
         llms_sections: list[LlmsSection] = []
 
@@ -590,12 +586,10 @@ def _compile_jupyter_locales(
                 colab_url = jupyter_cfg.build_colab_url(rel_nb_in_out)
                 ipynb_dict = build_ipynb_dict(
                     segments,
-                    image_mode=jupyter_cfg.image_mode,
                     colab_url=colab_url,
-                    setup_packages=jupyter_cfg.setup_packages,
-                    site_url=site_url,
-                    lang=lang,
                     notebook_name=os.path.basename(dest_ipynb_abs),
+                    source_dir=os.path.dirname(src_abs),
+                    project_root=input_abs,
                 )
                 write_ipynb_file(ipynb_dict, dest_ipynb_abs)
 
@@ -605,7 +599,6 @@ def _compile_jupyter_locales(
                     execution_result=exec_result,
                     ipynb_href=ipynb_href,
                     colab_url=colab_url,
-                    setup_packages=jupyter_cfg.setup_packages,
                 )
 
                 cur_dir = os.path.dirname(dest_html_abs)

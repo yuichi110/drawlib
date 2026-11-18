@@ -31,7 +31,6 @@ import drawlib._core.l4_canvas
 import drawlib.canvas
 from drawlib._builder._common import (
     JupyterCellMode,
-    JupyterImageMode,
     load_styles_and_utils,
 )
 from drawlib._builder.doc_builder.detector import (
@@ -586,6 +585,38 @@ def execute_notebook_cells(
     return result
 
 
+_COLAB_BADGE_SVG = (
+    '<svg xmlns="http://www.w3.org/2000/svg" width="117" height="20" role="img" aria-label="Open In Colab">'
+    '<linearGradient id="s" x2="0" y2="100%">'
+    '<stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>'
+    "</linearGradient>"
+    '<clipPath id="r"><rect width="117" height="20" rx="3" fill="#fff"/></clipPath>'
+    '<g clip-path="url(#r)">'
+    '<rect width="30" height="20" fill="#555"/>'
+    '<rect x="30" width="87" height="20" fill="#f9ab00"/>'
+    '<rect width="117" height="20" fill="url(#s)"/>'
+    "</g>"
+    '<path fill="#f9ab00" d="M10.5 6.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 2.7-1.5'
+    'l-1.3-.8a1.7 1.7 0 1 1 0-1.8l1.3-.8a3.2 3.2 0 0 0-2.7-1.5z"/>'
+    '<path fill="#fff" d="M19.5 6.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4z'
+    'm0 1.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4z"/>'
+    '<g fill="#222" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" '
+    'font-size="11" font-weight="bold">'
+    '<text x="73.5" y="14">Open in Colab</text>'
+    "</g></svg>"
+)
+_COLAB_BADGE_DATA_URI = "data:image/svg+xml;base64," + base64.b64encode(_COLAB_BADGE_SVG.encode("utf-8")).decode(
+    "ascii"
+)
+_SCHEME_OR_ABS_RE = re.compile(r"^(?:[A-Za-z][A-Za-z0-9+.-]*:|[\\/]|[A-Za-z]:[\\/]|#)")
+_FENCED_OR_INLINE_CODE_RE = re.compile(
+    r"(^[ \t]{0,3}(?:`{3,}|~{3,})[^\n]*\n[\s\S]*?\n[ \t]{0,3}(?:`{3,}|~{3,})[ \t]*$|`+[^`\n]+`+)",
+    re.MULTILINE,
+)
+_MD_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)\n]+)\)")
+_HTML_IMG_SRC_RE = re.compile(r'(<img\b[^>]*?\bsrc=)(["\'])([^"\']+)(\2)', re.IGNORECASE)
+
+
 def _to_ipynb_lines(text: str) -> list[str]:
     r"""Split text into a list of ``\n``-terminated lines per nbformat v4 conventions."""
     if not text:
@@ -594,85 +625,176 @@ def _to_ipynb_lines(text: str) -> list[str]:
     return [f"{line}\n" for line in lines[:-1]] + [lines[-1]]
 
 
-def _resolve_public_diagram_url(
-    rel_img_path: str,
+def _mime_for_image_path(path: str) -> str:
+    """Return MIME type string for a rendered or static image path."""
+    lower = path.lower()
+    if lower.endswith(".svg"):
+        return "image/svg+xml"
+    if lower.endswith(".webp"):
+        return "image/webp"
+    if lower.endswith((".jpg", ".jpeg")):
+        return "image/jpeg"
+    if lower.endswith(".gif"):
+        return "image/gif"
+    return "image/png"
+
+
+def _encode_image_file_as_data_uri(file_path: str) -> str | None:
+    """Read an image file from disk and encode it as a ``data:<mime>;base64,...`` URI."""
+    if not file_path or not os.path.isfile(file_path):
+        return None
+    with open(file_path, "rb") as f:
+        b64_str = base64.b64encode(f.read()).decode("ascii")
+    mime = _mime_for_image_path(file_path)
+    return f"data:{mime};base64,{b64_str}"
+
+
+def _resolve_confined_local_image(
+    raw_ref: str,
     *,
-    site_url: str,
-    lang: str | None,
+    source_dir: str | None,
+    project_root: str | None,
+) -> str | None:
+    """Resolve ``raw_ref`` to a confined local image file path, or ``None`` if external/missing."""
+    if not source_dir:
+        return None
+    cleaned = raw_ref.strip().split()[0].strip("<>\"'")
+    if not cleaned or _SCHEME_OR_ABS_RE.match(cleaned):
+        return None
+    clean_path = cleaned.split("#")[0].split("?")[0]
+    if not clean_path:
+        return None
+
+    joined = os.path.normpath(os.path.join(source_dir, clean_path))
+    real_target = os.path.realpath(joined)
+    confine_root = os.path.realpath(project_root) if project_root else os.path.realpath(source_dir)
+    try:
+        common = os.path.commonpath([confine_root, real_target])
+    except ValueError:
+        return None
+    if common != confine_root or not os.path.isfile(real_target):
+        return None
+    return real_target
+
+
+def _inline_local_markdown_images(
+    md_text: str,
+    *,
+    source_dir: str | None,
+    project_root: str | None = None,
 ) -> str:
-    """Resolve a public URL for a rendered diagram when ``image_mode == 'url'``."""
-    clean_rel = rel_img_path.replace("\\", "/")
-    if not site_url:
-        return clean_rel
-    base = site_url.rstrip("/")
-    if lang:
-        norm = os.path.normpath(os.path.join(lang, clean_rel)).replace("\\", "/").lstrip("/")
-    else:
-        norm = clean_rel.lstrip("/")
-    return f"{base}/{norm}"
+    """Inline local ``![alt](path)`` and ``<img src="path">`` references as Base64 Data URIs outside code spans."""
+    if not source_dir or ("![" not in md_text and "<img" not in md_text.lower()):
+        return md_text
+
+    def _replace_prose_chunk(chunk: str) -> str:
+        def _sub_md_img(match: re.Match[str]) -> str:
+            alt_txt = match.group(1)
+            raw_target = match.group(2)
+            local_file = _resolve_confined_local_image(
+                raw_target,
+                source_dir=source_dir,
+                project_root=project_root,
+            )
+            if local_file is None:
+                return match.group(0)
+            data_uri = _encode_image_file_as_data_uri(local_file)
+            if data_uri is None:
+                return match.group(0)
+            esc_alt = html.escape(alt_txt, quote=True)
+            return f'<img src="{data_uri}" alt="{esc_alt}" style="max-width: 100%; height: auto;" />'
+
+        def _sub_html_img(match: re.Match[str]) -> str:
+            prefix, quote_ch, raw_src, suffix = match.groups()
+            local_file = _resolve_confined_local_image(
+                raw_src,
+                source_dir=source_dir,
+                project_root=project_root,
+            )
+            if local_file is None:
+                return match.group(0)
+            data_uri = _encode_image_file_as_data_uri(local_file)
+            if data_uri is None:
+                return match.group(0)
+            return f"{prefix}{quote_ch}{data_uri}{suffix}"
+
+        updated = _MD_IMAGE_RE.sub(_sub_md_img, chunk)
+        return _HTML_IMG_SRC_RE.sub(_sub_html_img, updated)
+
+    out_parts: list[str] = []
+    last_end = 0
+    for code_match in _FENCED_OR_INLINE_CODE_RE.finditer(md_text):
+        if code_match.start() > last_end:
+            out_parts.append(_replace_prose_chunk(md_text[last_end : code_match.start()]))
+        out_parts.append(code_match.group(0))
+        last_end = code_match.end()
+    if last_end < len(md_text):
+        out_parts.append(_replace_prose_chunk(md_text[last_end:]))
+    return "".join(out_parts)
+
+
+def _format_drawlib_ipynb_markdown_cell(seg: NotebookSegment) -> str:
+    """Format a ``cell=markdown`` Drawlib diagram as a standalone self-contained HTML ``<img>`` Markdown cell."""
+    opts = seg.drawlib_options or DrawlibBlockOptions()
+    caption = opts.caption or "Diagram"
+    esc_alt = html.escape(caption, quote=True)
+    align = opts.align if opts.align in {"left", "center", "right"} else "center"
+
+    style_parts = ["max-width: 100%;", "height: auto;"]
+    if opts.width:
+        style_parts.append(f"width: {html.escape(opts.width, quote=True)};")
+    if opts.height:
+        style_parts.append(f"height: {html.escape(opts.height, quote=True)};")
+    style_attr = " ".join(style_parts)
+
+    data_uri = _encode_image_file_as_data_uri(seg.target_img_path) if seg.target_img_path else None
+    src_val = data_uri if data_uri is not None else html.escape(seg.rel_img_path, quote=True)
+    img_block = f'<p align="{align}"><img src="{src_val}" alt="{esc_alt}" style="{style_attr}" /></p>'
+    if opts.caption:
+        img_block = f'{img_block}\n\n<p align="{align}"><em>{html.escape(opts.caption)}</em></p>'
+    return img_block
 
 
 def build_ipynb_dict(
     segments: list[NotebookSegment],
     *,
-    image_mode: JupyterImageMode = "attachment",
     colab_url: str = "",
-    setup_packages: tuple[str, ...] = ("drawlib",),
-    site_url: str = "",
-    lang: str | None = None,
     notebook_name: str = "notebook.ipynb",
+    source_dir: str | None = None,
+    project_root: str | None = None,
 ) -> dict[str, Any]:
-    """Assemble a valid ``nbformat v4.5`` Jupyter/Colab notebook dictionary.
+    """Assemble a self-contained ``nbformat v4.5`` Jupyter/Colab notebook dictionary.
 
-    Code cells are always emitted in a clean, unexecuted state (``outputs: []``,
-    ``execution_count: None``) so interactive Google Colab and JupyterLab sessions
-    start fresh, while dry-run execution outputs are rendered exclusively in the
-    companion HTML preview pages.
+    All ``cell=markdown`` diagrams, local Markdown images, and the ``Open in Colab``
+    badge are embedded inline as Base64 Data URIs via HTML ``<img>`` tags in dedicated
+    cells so the ``.ipynb`` file has zero external file or URL dependencies across
+    Google Colab, VS Code Jupyter, and JupyterLab. Code cells are emitted in a clean,
+    unexecuted state (``outputs: []``, ``execution_count: None``).
 
     Args:
         segments: Ordered notebook segments.
-        image_mode: ``'attachment'``, ``'url'``, or ``'relative'``.
         colab_url: Optional ``Open in Colab`` URL for top badge.
-        setup_packages: Packages for automatic ``!pip install -q ...`` setup cell (empty disables).
-        site_url: Public base URL used when ``image_mode == 'url'``.
-        lang: Locale code used when resolving public image URLs.
         notebook_name: Notebook filename stored in Colab metadata.
+        source_dir: Optional directory of the source ``.md`` file for inlining local Markdown images.
+        project_root: Optional root directory of the Drawlib project for path confinement.
 
     Returns:
         dict[str, Any]: JSON-serializable ``nbformat v4.5`` dictionary.
     """
     cells: list[dict[str, Any]] = []
     md_parts: list[str] = []
-    md_attachments: dict[str, dict[str, str]] = {}
     badge_injected = False
-    setup_injected = False
 
+    esc_colab = html.escape(colab_url, quote=True) if colab_url else ""
     colab_badge_md = (
-        f"[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]({colab_url})"
-        if colab_url
+        f'<p><a href="{esc_colab}" target="_blank" rel="noopener noreferrer">'
+        f'<img src="{_COLAB_BADGE_DATA_URI}" alt="Open In Colab" /></a></p>'
+        if esc_colab
         else ""
     )
 
-    def _inject_setup_cell_if_needed() -> None:
-        nonlocal setup_injected
-        if setup_injected or not setup_packages:
-            return
-        setup_injected = True
-        pkgs_str = " ".join(setup_packages)
-        setup_code = f"!pip install -q {pkgs_str}"
-        cells.append(
-            {
-                "cell_type": "code",
-                "execution_count": None,
-                "id": "cell-setup",
-                "metadata": {},
-                "outputs": [],
-                "source": _to_ipynb_lines(setup_code),
-            }
-        )
-
     def _flush_md_cell() -> None:
-        nonlocal md_parts, md_attachments, badge_injected
+        nonlocal md_parts, badge_injected
         if not md_parts:
             return
         combined = "\n\n".join(part for part in md_parts if part.strip())
@@ -687,51 +809,45 @@ def build_ipynb_dict(
             else:
                 combined = f"{colab_badge_md}\n\n{combined}"
 
-        cell_dict: dict[str, Any] = {
-            "cell_type": "markdown",
-            "id": f"cell-{len(cells) + 1}",
-            "metadata": {},
-            "source": _to_ipynb_lines(combined),
-        }
-        if md_attachments:
-            cell_dict["attachments"] = dict(md_attachments)
-            md_attachments = {}
-        cells.append(cell_dict)
-        _inject_setup_cell_if_needed()
+        cells.append(
+            {
+                "cell_type": "markdown",
+                "id": f"cell-{len(cells) + 1}",
+                "metadata": {},
+                "source": _to_ipynb_lines(combined),
+            }
+        )
 
-    if colab_badge_md and (not segments or segments[0].kind == "code"):
+    if colab_badge_md and (not segments or segments[0].kind != "markdown"):
         md_parts.append(colab_badge_md)
         badge_injected = True
         _flush_md_cell()
 
     for seg in segments:
         if seg.kind == "markdown":
-            md_parts.append(seg.source)
+            inlined_md = _inline_local_markdown_images(
+                seg.source,
+                source_dir=source_dir,
+                project_root=project_root,
+            )
+            md_parts.append(inlined_md)
             continue
 
         if seg.kind == "drawlib" and seg.cell_mode == "markdown":
-            caption = (seg.drawlib_options.caption if seg.drawlib_options else None) or "Diagram"
-            img_basename = os.path.basename(seg.rel_img_path) or f"diagram_{seg.block_index}.png"
-            if image_mode == "attachment" and seg.target_img_path and os.path.isfile(seg.target_img_path):
-                with open(seg.target_img_path, "rb") as f:
-                    b64_str = base64.b64encode(f.read()).decode("ascii")
-                mime = "image/svg+xml" if img_basename.lower().endswith(".svg") else "image/png"
-                md_attachments[img_basename] = {mime: b64_str}
-                img_md = f"![{caption}](attachment:{img_basename})"
-            elif image_mode == "url" and site_url:
-                pub_url = _resolve_public_diagram_url(seg.rel_img_path, site_url=site_url, lang=lang)
-                img_md = f"![{caption}]({pub_url})"
-            else:
-                img_md = f"![{caption}]({seg.rel_img_path})"
-
-            if seg.drawlib_options and seg.drawlib_options.caption:
-                img_md = f"{img_md}\n\n*{seg.drawlib_options.caption}*"
-            md_parts.append(img_md)
+            _flush_md_cell()
+            diag_md = _format_drawlib_ipynb_markdown_cell(seg)
+            cells.append(
+                {
+                    "cell_type": "markdown",
+                    "id": f"cell-{len(cells) + 1}",
+                    "metadata": {},
+                    "source": _to_ipynb_lines(diag_md),
+                }
+            )
             continue
 
         # Code cell (either ```python or ```drawlib cell=code) — emitted clean without pre-filled outputs
         _flush_md_cell()
-        _inject_setup_cell_if_needed()
 
         cell_code = convert_save_to_show(seg.source) if seg.kind == "drawlib" else seg.source
 
@@ -827,7 +943,6 @@ def render_notebook_body_html(
     execution_result: NotebookExecutionResult | None = None,
     ipynb_href: str = "",
     colab_url: str = "",
-    setup_packages: tuple[str, ...] = ("drawlib",),
 ) -> str:
     """Render notebook segments and dry-run outputs into a Jupyter/Colab-style HTML body.
 
@@ -835,8 +950,7 @@ def render_notebook_body_html(
         segments: Ordered notebook segments.
         execution_result: Optional dry-run execution results for code cells.
         ipynb_href: Relative href to the companion ``.ipynb`` file for download button.
-        colab_url: Optional ``https://colab.research.google.com/github/...`` URL.
-        setup_packages: Tuple of pip packages shown in the optional setup cell.
+        colab_url: Optional ``Open in Colab`` URL.
 
     Returns:
         str: HTML body string containing the notebook action toolbar and cells.
@@ -849,7 +963,7 @@ def render_notebook_body_html(
         esc_colab = html.escape(colab_url, quote=True)
         toolbar_items.append(
             f'<a class="nb-btn nb-btn-colab" href="{esc_colab}" target="_blank" rel="noopener noreferrer">'
-            '<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">'
+            f'<img src="{_COLAB_BADGE_DATA_URI}" alt="Open In Colab">'
             "</a>"
         )
     if ipynb_href:
@@ -869,27 +983,7 @@ def render_notebook_body_html(
         parts.append('  <div class="nb-toolbar">\n    ' + "\n    ".join(toolbar_items) + "\n  </div>")
 
     md_html_chunks: list[str] = []
-    setup_rendered = False
     exec_counter = 0
-
-    def _render_setup_cell_html() -> None:
-        nonlocal setup_rendered
-        if setup_rendered or not setup_packages:
-            return
-        setup_rendered = True
-        pkgs_str = " ".join(setup_packages)
-        setup_src = f"!pip install -q {pkgs_str}"
-        hl_setup = pygments_highlight(setup_src, "bash") or html.escape(setup_src)
-        parts.append(
-            '  <div class="nb-cell nb-code-cell nb-setup-cell">\n'
-            '    <div class="nb-input">\n'
-            '      <div class="nb-prompt nb-in-prompt">In [setup]:</div>\n'
-            '      <div class="nb-code-area">\n'
-            f'        <pre><code class="language-bash">{hl_setup}</code></pre>\n'
-            "      </div>\n"
-            "    </div>\n"
-            "  </div>"
-        )
 
     def _flush_md_html() -> None:
         nonlocal md_html_chunks
@@ -898,7 +992,6 @@ def render_notebook_body_html(
         combined_md_html = "\n".join(md_html_chunks)
         md_html_chunks = []
         parts.append(f'  <div class="nb-cell nb-markdown-cell">\n{combined_md_html}\n  </div>')
-        _render_setup_cell_html()
 
     for seg_idx, seg in enumerate(segments):
         if seg.kind == "markdown":
@@ -910,7 +1003,6 @@ def render_notebook_body_html(
             continue
 
         _flush_md_html()
-        _render_setup_cell_html()
 
         exec_counter += 1
         cell_code = convert_save_to_show(seg.source) if seg.kind == "drawlib" else seg.source

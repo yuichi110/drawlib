@@ -25,7 +25,6 @@ PROJECT_MANIFEST_FILENAME = "drawlib.toml"
 ProjectArchetype = Literal["images", "doc", "site", "slide", "catalog", "jupyter"]
 TwitterCardType = Literal["summary_large_image", "summary"]
 JupyterCellMode = Literal["markdown", "code"]
-JupyterImageMode = Literal["attachment", "url", "relative"]
 _VALID_ARCHETYPES: dict[str, ProjectArchetype] = {
     "images": "images",
     "image": "images",
@@ -60,9 +59,7 @@ _CATALOG_ALLOWED_KEYS: frozenset[str] = frozenset(
 _JUPYTER_ALLOWED_KEYS: frozenset[str] = frozenset(
     {
         "colab_base_url",
-        "setup_packages",
         "drawlib_cell_mode",
-        "image_mode",
         "execute",
     }
 )
@@ -205,29 +202,22 @@ class CatalogConfig(BaseModel):
 
 
 class JupyterConfig(BaseModel):
-    """Parsed configuration from the ``[jupyter]`` (or ``[colab]``) section of ``drawlib.toml``.
+    """Parsed configuration from the ``[jupyter]`` section of ``drawlib.toml``.
 
     Attributes:
         colab_base_url: Optional base URL or ``{path}`` URL template for ``Open in Colab`` links
             (e.g. ``'https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter'``
             or ``'https://colab.example.com/open?path={path}'``).
-        setup_packages: Tuple of pip package names to install in an optional top setup cell
-            (e.g. ``('drawlib',)``). Empty tuple disables automatic pip install cell injection.
         drawlib_cell_mode: Default conversion mode for ````drawlib```` blocks without an explicit
-            ``cell=`` attribute: ``'markdown'`` (rendered diagram embedded in Markdown cell) or
-            ``'code'`` (rendered diagram preview + executable ``drawlib`` code cell).
-        image_mode: How rendered diagram images are referenced in ``.ipynb`` Markdown cells:
-            ``'attachment'`` (self-contained base64 cell attachment), ``'url'`` (public ``[seo].site_url``
-            reference for zero-bloat Git tracking), or ``'relative'`` (relative file path).
+            ``cell=`` attribute: ``'markdown'`` (rendered diagram embedded as Base64 in a standalone
+            Markdown cell) or ``'code'`` (executable ``drawlib`` code cell).
         execute: Whether to dry-run execute all code cells sequentially in-process during build.
     """
 
     model_config = ConfigDict(frozen=True)
 
     colab_base_url: str = ""
-    setup_packages: tuple[str, ...] = ("drawlib",)
     drawlib_cell_mode: JupyterCellMode = "markdown"
-    image_mode: JupyterImageMode = "attachment"
     execute: bool = True
 
     def build_colab_url(self, rel_notebook_path: str) -> str:
@@ -737,13 +727,6 @@ def _parse_jupyter_section(
         if "{path}" not in cleaned_colab_base:
             cleaned_colab_base = cleaned_colab_base.rstrip("/")
 
-    raw_pkgs = raw_jupyter.get("setup_packages", ["drawlib"])
-    if not isinstance(raw_pkgs, list) or not all(isinstance(p, str) and p.strip() for p in raw_pkgs):
-        raise ValueError(
-            f'Invalid "{cfg_path}": "[jupyter].setup_packages" must be a list of non-empty package strings.'
-        )
-    setup_pkgs = tuple(p.strip() for p in raw_pkgs)
-
     raw_cell_mode = raw_jupyter.get("drawlib_cell_mode", "markdown")
     if raw_cell_mode not in {"markdown", "code"}:
         raise ValueError(
@@ -752,25 +735,13 @@ def _parse_jupyter_section(
         )
     cell_mode: JupyterCellMode = "code" if raw_cell_mode == "code" else "markdown"
 
-    raw_img_mode = raw_jupyter.get("image_mode", "attachment")
-    if raw_img_mode not in {"attachment", "url", "relative"}:
-        raise ValueError(
-            f'Invalid "{cfg_path}": "[jupyter].image_mode" must be "attachment", "url", or "relative", '
-            f"got {raw_img_mode!r}."
-        )
-    image_mode: JupyterImageMode = (
-        "url" if raw_img_mode == "url" else ("relative" if raw_img_mode == "relative" else "attachment")
-    )
-
     raw_exec = raw_jupyter.get("execute", True)
     if not isinstance(raw_exec, bool):
         raise ValueError(f'Invalid "{cfg_path}": "[jupyter].execute" must be a boolean.')
 
     return JupyterConfig(
         colab_base_url=cleaned_colab_base,
-        setup_packages=setup_pkgs,
         drawlib_cell_mode=cell_mode,
-        image_mode=image_mode,
         execute=raw_exec,
     )
 
@@ -977,7 +948,6 @@ def format_project_manifest_toml(
 
         if project_type == "jupyter":
             eff_jupyter = jupyter or JupyterConfig()
-            pkgs_literal = ", ".join(f'"{_esc(p)}"' for p in eff_jupyter.setup_packages)
             lines.extend(
                 [
                     "",
@@ -992,9 +962,7 @@ def format_project_manifest_toml(
                 )
             lines.extend(
                 [
-                    f"setup_packages = [{pkgs_literal}]",
                     f'drawlib_cell_mode = "{_esc(eff_jupyter.drawlib_cell_mode)}"',
-                    f'image_mode = "{_esc(eff_jupyter.image_mode)}"',
                     f"execute = {str(eff_jupyter.execute).lower()}",
                 ]
             )

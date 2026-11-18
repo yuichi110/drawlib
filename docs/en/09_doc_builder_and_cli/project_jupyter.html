@@ -785,7 +785,7 @@
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.ipynb"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Clean unexecuted cells +</span><span class="se">\n</span><span class="s2">!pip install setup cell"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Self-contained Base64 +</span><span class="se">\n</span><span class="s2">Clean unexecuted cells"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
@@ -886,7 +886,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tbody>
 <tr>
 <td style="text-align:left"><code>```drawlib file=arch.png caption=&quot;...&quot;</code><br><em>(default <code>cell=markdown</code>)</em></td>
-<td style="text-align:left"><strong><code>markdown</code> cell</strong> containing the rendered diagram (<code>attachment:&lt;file&gt;.png</code>, <code>[seo].site_url</code> URL, or relative path)</td>
+<td style="text-align:left">Dedicated <strong><code>markdown</code> cell</strong> with self-contained <code>&lt;img src=&quot;data:image/...;base64,...&quot; /&gt;</code></td>
 <td style="text-align:left">Rendered <code>&lt;figure&gt;</code> diagram with optional <code>&lt;details&gt;</code> source fold (<code>code=fold</code>)</td>
 <td style="text-align:left">Explanatory architecture, flow, sequence, or concept diagrams accompanying narrative text.</td>
 </tr>
@@ -982,19 +982,23 @@ Learn how to combine explanatory architecture diagrams with live, editable Pytho
 <span class="s">save()</span>
 <span class="sb">```</span>
 
+<span class="sb">```python</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">drawlib</span>
+<span class="sb">```</span>
+
 <span class="gu">## 1. Shared State Across Executable Python Cells</span>
 
 Variables defined in one <span class="sb">`python`</span> cell remain live in subsequent cells:
 
 <span class="sb">```python</span>
-<span class="c1"># In [1]: Define shared layout metrics</span>
+<span class="c1"># Define shared layout metrics</span>
 <span class="n">CANVAS_W</span><span class="p">,</span> <span class="n">CANVAS_H</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">36</span>
 <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ingest"</span><span class="p">,</span> <span class="s2">"Transform"</span><span class="p">,</span> <span class="s2">"Serve"</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Configured </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> pipeline stages on </span><span class="si">{</span><span class="n">CANVAS_W</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">CANVAS_H</span><span class="si">}</span><span class="s2"> canvas"</span><span class="p">)</span>
 <span class="sb">```</span>
 
 <span class="sb">```python</span>
-<span class="c1"># In [2]: Render inline using setup(..., cwd=True) and show()</span>
+<span class="c1"># Render inline using setup(..., cwd=True) and show()</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">show</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
@@ -1010,7 +1014,7 @@ Variables defined in one <span class="sb">`python`</span> cell remain live in su
 </code></pre>
 <hr />
 <h2>4. Configuring <code>[jupyter]</code> &amp; Google Colab Integration (<code>drawlib.toml</code>)</h2>
-<p>Configure notebook image embedding, default cell modes, <code>!pip install</code> setup cells, and <strong>Open in Colab</strong> links under <code>[jupyter]</code> in <code>jupyter_src/drawlib.toml</code>:</p>
+<p>Configure default cell modes, dry-run execution, and <strong>Open in Colab</strong> links under <code>[jupyter]</code> in <code>jupyter_src/drawlib.toml</code>:</p>
 <pre><code class="language-toml"><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
 <span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
@@ -1025,14 +1029,19 @@ Variables defined in one <span class="sb">`python`</span> cell remain live in su
 <span class="k">[jupyter]</span>
 <span class="c1"># Base URL prefix (auto-appends /&lt;lang&gt;/&lt;stem&gt;.ipynb) or {path} URL template:</span>
 <span class="n">colab_base_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://colab.research.google.com/github/owner/repo/blob/main/jupyter_jupyter"</span>
-<span class="n">setup_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"drawlib"</span><span class="p">]</span><span class="w">               </span><span class="c1"># Prepends an auto-generated `!pip install -q drawlib` cell when non-empty</span>
 <span class="n">drawlib_cell_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="w">             </span><span class="c1"># Default for ```drawlib fences: "markdown" | "code"</span>
-<span class="n">image_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"attachment"</span><span class="w">                  </span><span class="c1"># "attachment" (self-contained) | "url" ([seo].site_url) | "relative"</span>
 <span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                             </span><span class="c1"># Sequentially dry-run all code cells during build and render Out[n] in HTML preview</span>
 
 <span class="c1"># [seo]</span>
-<span class="c1"># site_url = "https://example.com/jupyter" # Used when image_mode = "url" (plus canonical/OGP/sitemap tags)</span>
+<span class="c1"># site_url = "https://example.com/jupyter" # Optional public URL for HTML canonical/OGP/sitemap tags</span>
 </code></pre>
+<blockquote>
+<p><strong>100% Self-Contained <code>.ipynb</code> Files &amp; Explicit Per-Page <code>!pip install</code>:</strong></p>
+<ul>
+<li><strong>Zero Broken Image Links</strong>: All <code>cell=markdown</code> <code>```drawlib</code> diagrams, local Markdown images (<code>![alt](_assets/...)</code> / <code>&lt;img src=&quot;...&quot;&gt;</code>), and the <code>Open in Colab</code> badge are automatically embedded inline as Base64 Data URIs via HTML <code>&lt;img src=&quot;data:...&quot; /&gt;</code> tags (with each diagram isolated in its own dedicated Markdown cell so narrative prose cells stay pure text). Every compiled <code>.ipynb</code> works standalone across Google Colab, VS Code Jupyter, and JupyterLab—online or offline—while the HTML preview site serves fast external image files (<code>images/</code>).</li>
+<li><strong>Explicit Package Installation per Page</strong>: Because required libraries differ from notebook to notebook, write <code>!pip install -q drawlib ...</code> (or <code>%pip install ...</code>) directly inside a <code>```python</code> code block near the top of each <code>.md</code> file; shell/magic lines are preserved in <code>.ipynb</code> and HTML while automatically skipped during in-process AI Dry-Run execution.</li>
+</ul>
+</blockquote>
 <h3>4.1. <code>[jupyter]</code> Reference Table</h3>
 <table>
 <thead>
@@ -1051,22 +1060,10 @@ Variables defined in one <span class="sb">`python`</span> cell remain live in su
 <td style="text-align:left">Base URL or <code>{path}</code> URL template for the <strong>Open in Colab</strong> button injected into <code>.ipynb</code> notebooks and HTML preview pages:<ul><li><strong>Base URL Prefix</strong>: When set to a URL without <code>{path}</code> (e.g. <code>&quot;https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter&quot;</code>), Drawlib automatically appends <code>/&lt;lang&gt;/&lt;stem&gt;.ipynb</code>.</li><li><strong><code>{path}</code> URL Template (Non-GitHub / Custom Host)</strong>: Include <code>{path}</code> (e.g. <code>&quot;https://colab.example.com/open?notebook={path}&quot;</code>) to substitute <code>&lt;lang&gt;/&lt;stem&gt;.ipynb</code> at an arbitrary position.</li><li><strong>Empty (<code>&quot;&quot;</code>)</strong>: Omits the Colab button while keeping the relative <strong>⬇ Download .ipynb</strong> button active on all HTML pages.</li></ul></td>
 </tr>
 <tr>
-<td style="text-align:left"><code>setup_packages</code></td>
-<td style="text-align:left"><code>list[str]</code></td>
-<td style="text-align:left"><code>[&quot;drawlib&quot;]</code></td>
-<td style="text-align:left">When non-empty, prepends an executable setup cell (<code>!pip install -q drawlib</code>) at the top of each compiled <code>.ipynb</code> notebook so Google Colab users can run the notebook immediately with zero manual setup.</td>
-</tr>
-<tr>
 <td style="text-align:left"><code>drawlib_cell_mode</code></td>
 <td style="text-align:left"><code>&quot;markdown&quot; | &quot;code&quot;</code></td>
 <td style="text-align:left"><code>&quot;markdown&quot;</code></td>
 <td style="text-align:left">Project-wide default cell mode for <code>```drawlib</code> blocks when <code>cell=</code> is omitted on the fence.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>image_mode</code></td>
-<td style="text-align:left"><code>&quot;attachment&quot; | &quot;url&quot; | &quot;relative&quot;</code></td>
-<td style="text-align:left"><code>&quot;attachment&quot;</code></td>
-<td style="text-align:left">Controls how <code>cell=markdown</code> <code>```drawlib</code> diagrams are referenced inside <code>.ipynb</code> Markdown cells:<ul><li><strong><code>&quot;attachment&quot;</code></strong> <em>(default)</em>: Embeds base64 cell attachments (<code>attachment:&lt;file&gt;.png</code>) so every <code>.ipynb</code> file is 100% self-contained when downloaded or uploaded to Colab.</li><li><strong><code>&quot;url&quot;</code></strong>: Rewrites image URLs to <code>&lt;[seo].site_url&gt;/images/&lt;stem&gt;/&lt;file&gt;.png</code>—ideal when serving from a custom domain or GitHub Pages to keep <code>.ipynb</code> files compact without depending on GitHub raw URLs.</li><li><strong><code>&quot;relative&quot;</code></strong>: Uses relative <code>../images/&lt;stem&gt;/&lt;file&gt;.png</code> paths for local JupyterLab workspaces.</li></ul></td>
 </tr>
 <tr>
 <td style="text-align:left"><code>execute</code></td>

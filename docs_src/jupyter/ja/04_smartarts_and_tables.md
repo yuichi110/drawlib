@@ -74,6 +74,10 @@ pipeline.draw(xy=(6.0, 6.5), width=132.0, height=16.0)
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ---
 
 ## 1. Python セルでテーブル行データを準備する

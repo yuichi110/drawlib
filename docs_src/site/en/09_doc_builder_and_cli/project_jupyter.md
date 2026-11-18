@@ -58,7 +58,7 @@ text((108.2, 48.0), "jupyter_jupyter/", style=Styles.DarkBold.patch(text_size=10
 rectangle((106, 35.5), width=31, height=15.0, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
 phosphor.notebook((94.0, 39.2), width=3.8, style=Styles.PrimaryBold)
 text((108.0, 39.2), "<lang>/*.ipynb", style=Styles.DarkBold.patch(text_size=10.2))
-text((106, 32.0), "Clean unexecuted cells +\n!pip install setup cell", style=Styles.Dark.patch(text_size=9.8))
+text((106, 32.0), "Self-contained Base64 +\nClean unexecuted cells", style=Styles.Dark.patch(text_size=9.8))
 
 rectangle((106, 16.5), width=31, height=15.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
 phosphor.globe((94.0, 20.2), width=3.8, style=Styles.PrimaryBold)
@@ -146,7 +146,7 @@ Inside `jupyter_src/<lang>/**/*.md`, standard Markdown prose and headings (`# H1
 
 | Fence Syntax in `.md` Source | Compiled `.ipynb` Cell Type | Compiled HTML Preview Output | Primary Use Case |
 | :--- | :--- | :--- | :--- |
-| ```` ```drawlib file=arch.png caption="..." ````<br>*(default `cell=markdown`)* | **`markdown` cell** containing the rendered diagram (`attachment:<file>.png`, `[seo].site_url` URL, or relative path) | Rendered `<figure>` diagram with optional `<details>` source fold (`code=fold`) | Explanatory architecture, flow, sequence, or concept diagrams accompanying narrative text. |
+| ```` ```drawlib file=arch.png caption="..." ````<br>*(default `cell=markdown`)* | Dedicated **`markdown` cell** with self-contained `<img src="data:image/...;base64,..." />` | Rendered `<figure>` diagram with optional `<details>` source fold (`code=fold`) | Explanatory architecture, flow, sequence, or concept diagrams accompanying narrative text. |
 | ```` ```drawlib cell=code file=exercise.png ````<br>*(or `[jupyter].drawlib_cell_mode = "code"`)* | Clean unexecuted **`code` cell** (`outputs: []`) with `save(...)` rewritten to `show()` | Notebook `In [n]:` code cell + `Out[n]:` rendered figure | Hands-on Drawlib coding exercises where learners modify coordinates/styles and run the cell in Jupyter/Colab. |
 | ```` ```python ````<br>*(default `cell=code`)* | Clean unexecuted **`code` cell** (`outputs: []`) ready for interactive execution | Notebook `In [n]:` code cell + `Out[n]:` execution output | Live Python data preparation, state sharing across cells, or calling Drawlib APIs with `setup(..., cwd=True)` and `show()`. |
 | ```` ```python cell=markdown ```` | **`markdown` cell** containing a static syntax-highlighted Python snippet | Standard static code block (not executed) | Non-executable reference pseudocode or configuration snippets. |
@@ -220,19 +220,23 @@ rectangle((50, 16), width=76, height=18, style=Styles.PrimaryNeutral, text="Narr
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ## 1. Shared State Across Executable Python Cells
 
 Variables defined in one `python` cell remain live in subsequent cells:
 
 ```python
-# In [1]: Define shared layout metrics
+# Define shared layout metrics
 CANVAS_W, CANVAS_H = 100, 36
 nodes = ["Ingest", "Transform", "Serve"]
 print(f"Configured {len(nodes)} pipeline stages on {CANVAS_W}x{CANVAS_H} canvas")
 ```
 
 ```python
-# In [2]: Render inline using setup(..., cwd=True) and show()
+# Render inline using setup(..., cwd=True) and show()
 from drawlib.canvas import setup, show
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
@@ -251,7 +255,7 @@ show()
 
 ## 4. Configuring `[jupyter]` & Google Colab Integration (`drawlib.toml`)
 
-Configure notebook image embedding, default cell modes, `!pip install` setup cells, and **Open in Colab** links under `[jupyter]` in `jupyter_src/drawlib.toml`:
+Configure default cell modes, dry-run execution, and **Open in Colab** links under `[jupyter]` in `jupyter_src/drawlib.toml`:
 
 ```toml
 [project]
@@ -268,23 +272,23 @@ langs = ["en", "ja"]
 [jupyter]
 # Base URL prefix (auto-appends /<lang>/<stem>.ipynb) or {path} URL template:
 colab_base_url = "https://colab.research.google.com/github/owner/repo/blob/main/jupyter_jupyter"
-setup_packages = ["drawlib"]               # Prepends an auto-generated `!pip install -q drawlib` cell when non-empty
 drawlib_cell_mode = "markdown"             # Default for ```drawlib fences: "markdown" | "code"
-image_mode = "attachment"                  # "attachment" (self-contained) | "url" ([seo].site_url) | "relative"
 execute = true                             # Sequentially dry-run all code cells during build and render Out[n] in HTML preview
 
 # [seo]
-# site_url = "https://example.com/jupyter" # Used when image_mode = "url" (plus canonical/OGP/sitemap tags)
+# site_url = "https://example.com/jupyter" # Optional public URL for HTML canonical/OGP/sitemap tags
 ```
+
+> **100% Self-Contained `.ipynb` Files & Explicit Per-Page `!pip install`:**
+> - **Zero Broken Image Links**: All `cell=markdown` ```` ```drawlib ```` diagrams, local Markdown images (`![alt](_assets/...)` / `<img src="...">`), and the `Open in Colab` badge are automatically embedded inline as Base64 Data URIs via HTML `<img src="data:..." />` tags (with each diagram isolated in its own dedicated Markdown cell so narrative prose cells stay pure text). Every compiled `.ipynb` works standalone across Google Colab, VS Code Jupyter, and JupyterLab—online or offline—while the HTML preview site serves fast external image files (`images/`).
+> - **Explicit Package Installation per Page**: Because required libraries differ from notebook to notebook, write `!pip install -q drawlib ...` (or `%pip install ...`) directly inside a ```` ```python ```` code block near the top of each `.md` file; shell/magic lines are preserved in `.ipynb` and HTML while automatically skipped during in-process AI Dry-Run execution.
 
 ### 4.1. `[jupyter]` Reference Table
 
 | Key | Type | Default | Behavior |
 | :--- | :--- | :--- | :--- |
 | `colab_base_url` | `str` | `""` | Base URL or `{path}` URL template for the **Open in Colab** button injected into `.ipynb` notebooks and HTML preview pages:<ul><li>**Base URL Prefix**: When set to a URL without `{path}` (e.g. `"https://colab.research.google.com/github/owner/repo/blob/main/docs/jupyter"`), Drawlib automatically appends `/<lang>/<stem>.ipynb`.</li><li>**`{path}` URL Template (Non-GitHub / Custom Host)**: Include `{path}` (e.g. `"https://colab.example.com/open?notebook={path}"`) to substitute `<lang>/<stem>.ipynb` at an arbitrary position.</li><li>**Empty (`""`)**: Omits the Colab button while keeping the relative **⬇ Download .ipynb** button active on all HTML pages.</li></ul> |
-| `setup_packages` | `list[str]` | `["drawlib"]` | When non-empty, prepends an executable setup cell (`!pip install -q drawlib`) at the top of each compiled `.ipynb` notebook so Google Colab users can run the notebook immediately with zero manual setup. |
 | `drawlib_cell_mode` | `"markdown" \| "code"` | `"markdown"` | Project-wide default cell mode for ```` ```drawlib ```` blocks when `cell=` is omitted on the fence. |
-| `image_mode` | `"attachment" \| "url" \| "relative"` | `"attachment"` | Controls how `cell=markdown` ```` ```drawlib ```` diagrams are referenced inside `.ipynb` Markdown cells:<ul><li>**`"attachment"`** *(default)*: Embeds base64 cell attachments (`attachment:<file>.png`) so every `.ipynb` file is 100% self-contained when downloaded or uploaded to Colab.</li><li>**`"url"`**: Rewrites image URLs to `<[seo].site_url>/images/<stem>/<file>.png`—ideal when serving from a custom domain or GitHub Pages to keep `.ipynb` files compact without depending on GitHub raw URLs.</li><li>**`"relative"`**: Uses relative `../images/<stem>/<file>.png` paths for local JupyterLab workspaces.</li></ul> |
 | `execute` | `bool` | `true` | When `true`, executes all `code` cells sequentially in-process during build and renders `stdout`, expression results, and `show()` / `save()` figures in the HTML preview (`Out [n]`), while keeping `.ipynb` code cells clean (`outputs: []`) for hands-on execution. |
 
 ### 4.2. Title & Sidebar Brand Header Resolution (`drawlib.toml` vs. `# H1`)

@@ -92,6 +92,10 @@ d.draw(xy=(2.0, 2.0))
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ---
 
 ## 1. Python セルでフローステップを確認する

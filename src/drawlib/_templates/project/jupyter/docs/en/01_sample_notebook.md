@@ -23,6 +23,10 @@ proc.draw((8, 8), width=84, height=12)
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ## 1. Sequential Python Execution
 
 Standard `python` code blocks become executable code cells in `.ipynb` and are verified sequentially during `drawlib build jupyter`:

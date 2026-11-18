@@ -54,6 +54,10 @@ line_chart.draw(xy=(78.0, 12.0))
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ---
 
 ## 1. Python セルでメトリクスを集計する

@@ -41,6 +41,10 @@ line((71.0, 14.5), (74.0, 14.5), arrow_head="->", style=Styles.PrimaryBold)
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ---
 
 ## 1. Inspecting `Styles` & `Colors` in Python

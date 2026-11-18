@@ -56,6 +56,10 @@ for nid, title, sub, card_st, title_st, sub_st, icon_fn in cards:
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ---
 
 ## 1. Inspecting Solved Coordinates with `print(layout)`

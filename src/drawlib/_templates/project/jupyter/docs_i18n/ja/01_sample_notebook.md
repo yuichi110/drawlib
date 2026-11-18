@@ -23,6 +23,10 @@ proc.draw((8, 8), width=84, height=12)
 save()
 ```
 
+```python
+!pip install -q drawlib
+```
+
 ## 1. Python セルの順次実行
 
 通常の `python` コードブロックは `.ipynb` の実行可能コードセルとなり、`drawlib build jupyter` 実行時に上から順番に自動検証されます。
