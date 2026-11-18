@@ -146,7 +146,7 @@ jupyter_jupyter/               # 独自ドメインや任意のホスティン�
 
 | `.md` ソース内のフェンス構文 | コンパイル後の `.ipynb` セル種別 | HTML プレビューサイトの出力 | 主な用途 |
 | :--- | :--- | :--- | :--- |
-| ```` ```drawlib file=arch.png caption="..." ````<br>*(デフォルト `cell=markdown`)* | 自己完結型の `<img src="data:image/...;base64,..." />` を格納した独立 **`markdown` セル** | 折りたたみソース（`code=fold`）付きの `<figure>` 図解 | 解説テキストに添えるアーキテクチャ図・フロー図・シーケンス図・概念図。 |
+| ```` ```drawlib file=arch.png caption="..." ````<br>*(デフォルト `cell=markdown`)* | 自己完結型の `<img src="data:image/...;base64,..." />` を含む **`markdown` セル** | 折りたたみソース（`code=fold`）付きの `<figure>` 図解 | 解説テキストに添えるアーキテクチャ図・フロー図・シーケンス図・概念図。 |
 | ```` ```drawlib cell=code file=exercise.png ````<br>*(または `[jupyter].drawlib_cell_mode = "code"`)* | `save(...)` が `show()` に自動変換された未実行状態（`outputs: []`）の **`code` セル** | ノートブック形式の `In [n]:` コードセル + `Out[n]:` 描画画像 | 読者が Jupyter / Colab 上で座標やスタイルを書き換えて実行するハンズオン演習。 |
 | ```` ```python ````<br>*(デフォルト `cell=code`)* | 対話実行向けにクリーンな未実行状態（`outputs: []`）で出力される **`code` セル** | ノートブック形式の `In [n]:` コードセル + `Out[n]:` 実行結果 | データの前処理、セル間の変数共有、または `setup(..., cwd=True)` と `show()` を用いた直接描画。 |
 | ```` ```python cell=markdown ```` | シンタックスハイライトされた静的 Python コードを含む **`markdown` セル** | 通常の静的コードブロック（実行されない） | 実行を伴わない擬似コードや設定スニペットの提示。 |
@@ -280,7 +280,7 @@ execute = true                             # ビルド時に全コードセル�
 ```
 
 > **100% 単一ファイル自己完結の `.ipynb` 出力 & ページごとの明示的な `!pip install`:**
-> - **画像参照切れゼロ**: `cell=markdown` の ```` ```drawlib ```` 図解・地の文のローカル Markdown 画像（`![alt](_assets/...)` や `<img src="...">`）・`Open in Colab` バッジのすべてが、HTML の `<img src="data:..." />` タグによる Base64 Data URI として自動インライン化されます（図解は文章セルと分離した独立 Markdown セルとして出力されるため、通常の文章セルはプレーンテキストのまま軽快に動作します）。Google Colab・VS Code Jupyter・JupyterLab・オフライン環境のいずれでも `.ipynb` 単体で確実に画像が表示され、HTML プレビューサイト側は通常の画像ファイル（`images/`）で高速配信されます。
+> - **画像参照切れゼロ**: `cell=markdown` の ```` ```drawlib ```` 図解・地の文のローカル Markdown 画像（`![alt](_assets/...)` や `<img src="...">`）・公式 `Open in Colab` バッジのすべてが、HTML の `<img src="data:..." />` タグによる Base64 Data URI として自動インライン化されます。Google Colab・VS Code Jupyter・JupyterLab・オフライン環境のいずれでも `.ipynb` 単体で確実に画像が表示され、HTML プレビューサイト側は通常の画像ファイル（`images/`）で高速配信されます。
 > - **ページ単位の明示的なパッケージ導入**: 必要なライブラリはノートブックごとに異なるため、各 `.md` ファイル冒頭の ```` ```python ```` コードブロック内に `!pip install -q drawlib ...`（または `%pip install ...`）を直接記述します。シェル・マジック行は `.ipynb` と HTML にそのまま出力されつつ、インプロセス AI Dry-Run 実行時には自動的にスキップされます。
 
 ### 4.1. `[jupyter]` 設定キー一覧

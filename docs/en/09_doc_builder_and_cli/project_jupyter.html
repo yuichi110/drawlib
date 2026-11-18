@@ -886,7 +886,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tbody>
 <tr>
 <td style="text-align:left"><code>```drawlib file=arch.png caption=&quot;...&quot;</code><br><em>(default <code>cell=markdown</code>)</em></td>
-<td style="text-align:left">Dedicated <strong><code>markdown</code> cell</strong> with self-contained <code>&lt;img src=&quot;data:image/...;base64,...&quot; /&gt;</code></td>
+<td style="text-align:left"><strong><code>markdown</code> cell</strong> with self-contained <code>&lt;img src=&quot;data:image/...;base64,...&quot; /&gt;</code></td>
 <td style="text-align:left">Rendered <code>&lt;figure&gt;</code> diagram with optional <code>&lt;details&gt;</code> source fold (<code>code=fold</code>)</td>
 <td style="text-align:left">Explanatory architecture, flow, sequence, or concept diagrams accompanying narrative text.</td>
 </tr>
@@ -1038,7 +1038,7 @@ Variables defined in one <span class="sb">`python`</span> cell remain live in su
 <blockquote>
 <p><strong>100% Self-Contained <code>.ipynb</code> Files &amp; Explicit Per-Page <code>!pip install</code>:</strong></p>
 <ul>
-<li><strong>Zero Broken Image Links</strong>: All <code>cell=markdown</code> <code>```drawlib</code> diagrams, local Markdown images (<code>![alt](_assets/...)</code> / <code>&lt;img src=&quot;...&quot;&gt;</code>), and the <code>Open in Colab</code> badge are automatically embedded inline as Base64 Data URIs via HTML <code>&lt;img src=&quot;data:...&quot; /&gt;</code> tags (with each diagram isolated in its own dedicated Markdown cell so narrative prose cells stay pure text). Every compiled <code>.ipynb</code> works standalone across Google Colab, VS Code Jupyter, and JupyterLab—online or offline—while the HTML preview site serves fast external image files (<code>images/</code>).</li>
+<li><strong>Zero Broken Image Links</strong>: All <code>cell=markdown</code> <code>```drawlib</code> diagrams, local Markdown images (<code>![alt](_assets/...)</code> / <code>&lt;img src=&quot;...&quot;&gt;</code>), and the official <code>Open in Colab</code> badge are automatically embedded inline as Base64 Data URIs via HTML <code>&lt;img src=&quot;data:...&quot; /&gt;</code> tags. Every compiled <code>.ipynb</code> works standalone across Google Colab, VS Code Jupyter, and JupyterLab—online or offline—while the HTML preview site serves fast external image files (<code>images/</code>).</li>
 <li><strong>Explicit Package Installation per Page</strong>: Because required libraries differ from notebook to notebook, write <code>!pip install -q drawlib ...</code> (or <code>%pip install ...</code>) directly inside a <code>```python</code> code block near the top of each <code>.md</code> file; shell/magic lines are preserved in <code>.ipynb</code> and HTML while automatically skipped during in-process AI Dry-Run execution.</li>
 </ul>
 </blockquote>

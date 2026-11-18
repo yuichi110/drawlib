@@ -42,18 +42,16 @@ def test_official_jupyter_docs_build_outputs(tmp_path: Path) -> None:
             assert nb["nbformat"] == 4
             assert nb["nbformat_minor"] == 5
             assert len(nb["cells"]) >= 4
-            # First cell has self-contained Open in Colab SVG badge
+            # First cell has self-contained official Open in Colab SVG badge AND Base64 Hero diagram
+            assert nb["cells"][0]["cell_type"] == "markdown"
             first_md = "".join(nb["cells"][0]["source"])
             assert "colab.research.google.com/github/yuichi110/drawlib/blob/main/docs/jupyter/" in first_md
             assert "data:image/svg+xml;base64," in first_md
             assert "colab-badge.svg" not in first_md
-            # Second cell is standalone Base64 Hero diagram Markdown cell
-            assert nb["cells"][1]["cell_type"] == "markdown"
-            hero_src = "".join(nb["cells"][1]["source"])
-            assert '<img src="data:image/png;base64,' in hero_src
-            # Third cell is explicit !pip install -q drawlib code cell authored in Markdown
-            assert nb["cells"][2]["cell_type"] == "code"
-            setup_src = "".join(nb["cells"][2]["source"])
+            assert '<img src="data:image/png;base64,' in first_md
+            # Second cell is explicit !pip install -q drawlib code cell authored in Markdown
+            assert nb["cells"][1]["cell_type"] == "code"
+            setup_src = "".join(nb["cells"][1]["source"])
             assert "!pip install -q drawlib" in setup_src
             # Zero external image URLs or cell attachments across all Markdown cells
             all_md_src = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "markdown")

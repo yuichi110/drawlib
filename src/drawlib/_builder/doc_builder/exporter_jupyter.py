@@ -586,23 +586,47 @@ def execute_notebook_cells(
 
 
 _COLAB_BADGE_SVG = (
-    '<svg xmlns="http://www.w3.org/2000/svg" width="117" height="20" role="img" aria-label="Open In Colab">'
-    '<linearGradient id="s" x2="0" y2="100%">'
-    '<stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/>'
+    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
+    'width="117" height="20" viewBox="0 0 117 20">'
+    '<linearGradient id="b" x2="0" y2="100%">'
+    '<stop offset="0" stop-color="#bbb" stop-opacity=".1"/>'
+    '<stop offset="1" stop-opacity=".1"/>'
     "</linearGradient>"
-    '<clipPath id="r"><rect width="117" height="20" rx="3" fill="#fff"/></clipPath>'
-    '<g clip-path="url(#r)">'
-    '<rect width="30" height="20" fill="#555"/>'
-    '<rect x="30" width="87" height="20" fill="#f9ab00"/>'
-    '<rect width="117" height="20" fill="url(#s)"/>'
+    '<clipPath id="a"><rect width="117" height="20" rx="3" fill="#fff"/></clipPath>'
+    '<g clip-path="url(#a)">'
+    '<path fill="#555" d="M0 0h30v20H0z"/>'
+    '<path fill="#007ec6" d="M30 0h87v20H30z"/>'
+    '<path fill="url(#b)" d="M0 0h117v20H0z"/>'
     "</g>"
-    '<path fill="#f9ab00" d="M10.5 6.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 2.7-1.5'
-    'l-1.3-.8a1.7 1.7 0 1 1 0-1.8l1.3-.8a3.2 3.2 0 0 0-2.7-1.5z"/>'
-    '<path fill="#fff" d="M19.5 6.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4z'
-    'm0 1.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4z"/>'
-    '<g fill="#222" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" '
-    'font-size="11" font-weight="bold">'
-    '<text x="73.5" y="14">Open in Colab</text>'
+    '<g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">'
+    '<svg x="4px" y="0px" width="22px" height="20px" viewBox="-2 0 28 24" '
+    'style="background-color: #fff;border-radius: 1px;">'
+    '<path style="fill:#e8710a;" d="M1.977,16.77c-2.667-2.277-2.605-7.079,0-9.357'
+    "C2.919,8.057,3.522,9.075,4.49,9.691c-1.152,1.6-1.146,3.201-0.004,4.803"
+    'C3.522,15.111,2.918,16.126,1.977,16.77z"/>'
+    '<path style="fill:#f9ab00;" d="M12.257,17.114c-1.767-1.633-2.485-3.658-2.118-6.02'
+    "c0.451-2.91,2.139-4.893,4.946-5.678c2.565-0.718,4.964-0.217,6.878,1.819"
+    "c-0.884,0.743-1.707,1.547-2.434,2.446C18.488,8.827,17.319,8.435,16,8.856"
+    "c-2.404,0.767-3.046,3.241-1.494,5.644c-0.241,0.275-0.493,0.541-0.721,0.826"
+    'C13.295,15.939,12.511,16.3,12.257,17.114z"/>'
+    '<path style="fill:#e8710a;" d="M19.529,9.682c0.727-0.899,1.55-1.703,2.434-2.446'
+    "c2.703,2.783,2.701,7.031-0.005,9.764c-2.648,2.674-6.936,2.725-9.701,0.115"
+    "c0.254-0.814,1.038-1.175,1.528-1.788c0.228-0.285,0.48-0.552,0.721-0.826"
+    "c1.053,0.916,2.254,1.268,3.6,0.83C20.502,14.551,21.151,11.927,19.529,9.682z"
+    '"/>'
+    '<path style="fill:#f9ab00;" d="M4.49,9.691C3.522,9.075,2.919,8.057,1.977,7.413'
+    "c2.209-2.398,5.721-2.942,8.476-1.355c0.555,0.32,0.719,0.606,0.285,1.128"
+    "c-0.157,0.188-0.258,0.422-0.391,0.631c-0.299,0.47-0.509,1.067-0.929,1.371"
+    'C8.933,9.539,8.523,8.847,8.021,8.746C6.673,8.475,5.509,8.787,4.49,9.691z"/>'
+    '<path style="fill:#f9ab00;" d="M1.977,16.77c0.941-0.644,1.545-1.659,2.509-2.277'
+    "c1.373,1.152,2.85,1.433,4.45,0.499c0.332-0.194,0.503-0.088,0.673,0.19"
+    "c0.386,0.635,0.753,1.285,1.181,1.89c0.34,0.48,0.222,0.715-0.253,1.006"
+    'C7.84,19.73,4.205,19.188,1.977,16.77z"/>'
+    "</svg>"
+    '<text x="245" y="140" transform="scale(.1)" textLength="30"> </text>'
+    '<text x="725" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="770">'
+    "Open in Colab</text>"
+    '<text x="725" y="140" transform="scale(.1)" textLength="770">Open in Colab</text>'
     "</g></svg>"
 )
 _COLAB_BADGE_DATA_URI = "data:image/svg+xml;base64," + base64.b64encode(_COLAB_BADGE_SVG.encode("utf-8")).decode(
@@ -734,7 +758,7 @@ def _inline_local_markdown_images(
 
 
 def _format_drawlib_ipynb_markdown_cell(seg: NotebookSegment) -> str:
-    """Format a ``cell=markdown`` Drawlib diagram as a standalone self-contained HTML ``<img>`` Markdown cell."""
+    """Format a ``cell=markdown`` Drawlib diagram as a self-contained HTML ``<img>`` block."""
     opts = seg.drawlib_options or DrawlibBlockOptions()
     caption = opts.caption or "Diagram"
     esc_alt = html.escape(caption, quote=True)
@@ -766,10 +790,10 @@ def build_ipynb_dict(
     """Assemble a self-contained ``nbformat v4.5`` Jupyter/Colab notebook dictionary.
 
     All ``cell=markdown`` diagrams, local Markdown images, and the ``Open in Colab``
-    badge are embedded inline as Base64 Data URIs via HTML ``<img>`` tags in dedicated
-    cells so the ``.ipynb`` file has zero external file or URL dependencies across
-    Google Colab, VS Code Jupyter, and JupyterLab. Code cells are emitted in a clean,
-    unexecuted state (``outputs: []``, ``execution_count: None``).
+    badge are embedded inline as Base64 Data URIs via HTML ``<img>`` tags so the
+    ``.ipynb`` file has zero external file or URL dependencies across Google Colab,
+    VS Code Jupyter, and JupyterLab. Code cells are emitted in a clean, unexecuted
+    state (``outputs: []``, ``execution_count: None``).
 
     Args:
         segments: Ordered notebook segments.
@@ -834,16 +858,7 @@ def build_ipynb_dict(
             continue
 
         if seg.kind == "drawlib" and seg.cell_mode == "markdown":
-            _flush_md_cell()
-            diag_md = _format_drawlib_ipynb_markdown_cell(seg)
-            cells.append(
-                {
-                    "cell_type": "markdown",
-                    "id": f"cell-{len(cells) + 1}",
-                    "metadata": {},
-                    "source": _to_ipynb_lines(diag_md),
-                }
-            )
+            md_parts.append(_format_drawlib_ipynb_markdown_cell(seg))
             continue
 
         # Code cell (either ```python or ```drawlib cell=code) — emitted clean without pre-filled outputs

@@ -18,7 +18,7 @@ Inside `jupyter_src/<lang>/**/*.md`, Markdown prose and headings (`# H1`, `## H2
 
 | Fence Syntax in `.md` Source | Compiled `.ipynb` Cell Type | Compiled HTML Preview Output | Primary Use Case |
 | :--- | :--- | :--- | :--- |
-| ```` ```drawlib file=arch.png caption="..." ````<br>*(default `cell=markdown`)* | Dedicated **`markdown` cell** with self-contained `<img src="data:image/...;base64,..." />` | Rendered `<figure>` diagram with optional `<details>` source fold (`code=fold`) | Explanatory architecture, flow, sequence, or concept diagrams accompanying narrative text. |
+| ```` ```drawlib file=arch.png caption="..." ````<br>*(default `cell=markdown`)* | **`markdown` cell** with self-contained `<img src="data:image/...;base64,..." />` | Rendered `<figure>` diagram with optional `<details>` source fold (`code=fold`) | Explanatory architecture, flow, sequence, or concept diagrams accompanying narrative text. |
 | ```` ```drawlib cell=code file=exercise.png ````<br>*(or `[jupyter].drawlib_cell_mode = "code"`)* | Clean unexecuted **`code` cell** (`outputs: []`) with `save(...)` rewritten to `show()` | Notebook `In [n]:` code cell + `Out[n]:` rendered figure | Hands-on Drawlib coding exercises where learners modify coordinates/styles and run the cell in Jupyter/Colab. |
 | ```` ```python ````<br>*(default `cell=code`)* | Clean unexecuted **`code` cell** (`outputs: []`) ready for interactive execution | Notebook `In [n]:` code cell + `Out[n]:` execution output | Live Python data preparation, state sharing across cells, or calling Drawlib APIs directly. |
 | ```` ```python cell=markdown ```` | **`markdown` cell** containing a static syntax-highlighted Python snippet | Standard static code block (not executed) | Non-executable reference pseudocode or configuration snippets. |
@@ -158,7 +158,7 @@ execute = true                       # Sequentially dry-run all code cells durin
 - **Explicit Per-Page Package Installation (`!pip install`)**:
   - Because required packages vary across notebooks, declare package installs explicitly in a ```` ```python ```` code block near the top of each `.md` file (e.g. `!pip install -q drawlib`). Shell (`!...`) and magic (`%...`) lines are preserved in `.ipynb` and HTML while automatically skipped during in-process AI Dry-Run execution.
 - **100% Self-Contained `.ipynb` Images (Zero External File Dependencies)**:
-  - All `cell=markdown` ```` ```drawlib ```` diagrams, local Markdown images (`![alt](_assets/...)` / `<img src="...">`), and the `Open in Colab` badge are automatically embedded as Base64 Data URIs via HTML `<img src="data:..." />` tags inside `.ipynb` (with diagrams isolated in dedicated Markdown cells so prose cells stay pure text), ensuring single-file portability across Google Colab, VS Code Jupyter, and JupyterLab—online or offline.
+  - All `cell=markdown` ```` ```drawlib ```` diagrams, local Markdown images (`![alt](_assets/...)` / `<img src="...">`), and the official `Open in Colab` badge are automatically embedded as Base64 Data URIs via HTML `<img src="data:..." />` tags inside `.ipynb`, ensuring single-file portability across Google Colab, VS Code Jupyter, and JupyterLab—online or offline.
 
 ---
 

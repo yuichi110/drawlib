@@ -886,7 +886,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tbody>
 <tr>
 <td style="text-align:left"><code>```drawlib file=arch.png caption=&quot;...&quot;</code><br><em>(デフォルト <code>cell=markdown</code>)</em></td>
-<td style="text-align:left">自己完結型の <code>&lt;img src=&quot;data:image/...;base64,...&quot; /&gt;</code> を格納した独立 <strong><code>markdown</code> セル</strong></td>
+<td style="text-align:left">自己完結型の <code>&lt;img src=&quot;data:image/...;base64,...&quot; /&gt;</code> を含む <strong><code>markdown</code> セル</strong></td>
 <td style="text-align:left">折りたたみソース（<code>code=fold</code>）付きの <code>&lt;figure&gt;</code> 図解</td>
 <td style="text-align:left">解説テキストに添えるアーキテクチャ図・フロー図・シーケンス図・概念図。</td>
 </tr>
@@ -1038,7 +1038,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <blockquote>
 <p><strong>100% 単一ファイル自己完結の <code>.ipynb</code> 出力 &amp; ページごとの明示的な <code>!pip install</code>:</strong></p>
 <ul>
-<li><strong>画像参照切れゼロ</strong>: <code>cell=markdown</code> の <code>```drawlib</code> 図解・地の文のローカル Markdown 画像（<code>![alt](_assets/...)</code> や <code>&lt;img src=&quot;...&quot;&gt;</code>）・<code>Open in Colab</code> バッジのすべてが、HTML の <code>&lt;img src=&quot;data:...&quot; /&gt;</code> タグによる Base64 Data URI として自動インライン化されます（図解は文章セルと分離した独立 Markdown セルとして出力されるため、通常の文章セルはプレーンテキストのまま軽快に動作します）。Google Colab・VS Code Jupyter・JupyterLab・オフライン環境のいずれでも <code>.ipynb</code> 単体で確実に画像が表示され、HTML プレビューサイト側は通常の画像ファイル（<code>images/</code>）で高速配信されます。</li>
+<li><strong>画像参照切れゼロ</strong>: <code>cell=markdown</code> の <code>```drawlib</code> 図解・地の文のローカル Markdown 画像（<code>![alt](_assets/...)</code> や <code>&lt;img src=&quot;...&quot;&gt;</code>）・公式 <code>Open in Colab</code> バッジのすべてが、HTML の <code>&lt;img src=&quot;data:...&quot; /&gt;</code> タグによる Base64 Data URI として自動インライン化されます。Google Colab・VS Code Jupyter・JupyterLab・オフライン環境のいずれでも <code>.ipynb</code> 単体で確実に画像が表示され、HTML プレビューサイト側は通常の画像ファイル（<code>images/</code>）で高速配信されます。</li>
 <li><strong>ページ単位の明示的なパッケージ導入</strong>: 必要なライブラリはノートブックごとに異なるため、各 <code>.md</code> ファイル冒頭の <code>```python</code> コードブロック内に <code>!pip install -q drawlib ...</code>（または <code>%pip install ...</code>）を直接記述します。シェル・マジック行は <code>.ipynb</code> と HTML にそのまま出力されつつ、インプロセス AI Dry-Run 実行時には自動的にスキップされます。</li>
 </ul>
 </blockquote>

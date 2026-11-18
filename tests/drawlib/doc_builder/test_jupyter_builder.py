@@ -133,30 +133,23 @@ class TestNotebookDryRunAndExport:
         assert ipynb["nbformat"] == 4
         assert ipynb["nbformat_minor"] == 5
         cells = ipynb["cells"]
-        assert len(cells) == 5
+        assert len(cells) == 3
         assert cells[0]["cell_type"] == "markdown"
         first_md = "".join(cells[0]["source"])
         assert 'alt="Open In Colab"' in first_md
         assert "data:image/svg+xml;base64," in first_md
-        # Local Markdown image outside code spans is inlined as Base64, while inline code span is untouched
-        assert '<img src="data:image/png;base64,' in first_md
+        # Local Markdown image and Hero diagram are inlined as Base64 inside the same unified Markdown cell
+        assert first_md.count('<img src="data:image/png;base64,') == 2
         assert "`![skip](_assets/logo.png)`" in first_md
-
-        # Diagram cell is emitted as its own standalone Markdown cell with HTML <img src="data:image/png;base64,...">
-        assert cells[1]["cell_type"] == "markdown"
-        diag_cell_src = "".join(cells[1]["source"])
-        assert '<img src="data:image/png;base64,' in diag_cell_src
-        assert "<em>Hero Diagram</em>" in diag_cell_src
-
-        assert cells[2]["cell_type"] == "markdown"
-        assert "## Step 1" in "".join(cells[2]["source"])
+        assert "<em>Hero Diagram</em>" in first_md
+        assert "## Step 1" in first_md
 
         # Explicit !pip install inside user python block is preserved in .ipynb code cell
-        assert cells[3]["cell_type"] == "code"
-        assert "!pip install -q drawlib" in "".join(cells[3]["source"])
+        assert cells[1]["cell_type"] == "code"
+        assert "!pip install -q drawlib" in "".join(cells[1]["source"])
 
-        assert cells[4]["cell_type"] == "code"
-        assert "show()" in "".join(cells[4]["source"])
+        assert cells[2]["cell_type"] == "code"
+        assert "show()" in "".join(cells[2]["source"])
 
         for c in cells:
             assert "attachments" not in c
@@ -296,7 +289,7 @@ class TestInitAndBuildJupyterProject:
                 f"[jupyter]\n{obsolete_line}\n",
                 encoding="utf-8",
             )
-            with pytest.raises(ValueError, match="Unsupported"):
+            with pytest.raises(ValueError, match="unknown key"):
                 load_project_manifest(str(proj_dir))
 
 
