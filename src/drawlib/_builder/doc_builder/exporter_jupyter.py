@@ -928,11 +928,11 @@ def _render_drawlib_markdown_figure_html(seg: NotebookSegment) -> str:
 
     align_cls = f" align-{opts.align}" if opts.align in {"left", "center", "right"} else " align-center"
     fig_parts = [
-        f'<figure class="drawlib-figure{align_cls}">',
+        f'<figure class="drawlib-image drawlib-figure{align_cls}">',
         f'  <img src="{esc_src}" alt="{esc_alt}"{style_attr} loading="lazy">',
     ]
     if opts.caption:
-        fig_parts.append(f"  <figcaption>{html.escape(opts.caption)}</figcaption>")
+        fig_parts.append(f'  <figcaption class="drawlib-caption">{html.escape(opts.caption)}</figcaption>')
     fig_parts.append("</figure>")
 
     if opts.code in {"show", "fold"}:
@@ -941,7 +941,7 @@ def _render_drawlib_markdown_figure_html(seg: NotebookSegment) -> str:
         code_block = f'<pre><code class="language-python">{code_inner}</code></pre>'
         if opts.code == "fold":
             fig_parts.append(
-                '<details class="drawlib-code-fold">\n'
+                '<details class="drawlib-code-details drawlib-code-fold">\n'
                 "  <summary>View Drawlib Python Code</summary>\n"
                 f"  {code_block}\n"
                 "</details>"

@@ -186,11 +186,11 @@
 <h1>06. 自動グラフレイアウトソルバー（<code>get_layout()</code>）</h1>
 <p>ノード数が増えると手動での <code>(x, y)</code> 座標調整は煩雑になります。<code>drawlib.graph</code> は 5 種類の決定的座標ソルバー（<code>ArchitectureGraph</code>、<code>LayerGraph</code>、<code>TreeGraph</code>、<code>RadialGraph</code>、<code>GridGraph</code>）を提供し、<code>.xy</code>（中心座標）、<code>.bottom_left</code>（左下座標）、および直交ルーティング済みの <code>edge.points</code> を自動算出します。</p>
 
-<figure class="drawlib-figure align-center">
+<figure class="drawlib-image drawlib-figure align-center">
   <img src="../images/06_graph_auto_layout/06_hero_layer_graph.png" alt="LayerGraph.get_layout() で自動配置されたストリーミングデータパイプライン DAG" loading="lazy">
-  <figcaption>LayerGraph.get_layout() で自動配置されたストリーミングデータパイプライン DAG</figcaption>
+  <figcaption class="drawlib-caption">LayerGraph.get_layout() で自動配置されたストリーミングデータパイプライン DAG</figcaption>
 </figure>
-<details class="drawlib-code-fold">
+<details class="drawlib-code-details drawlib-code-fold">
   <summary>View Drawlib Python Code</summary>
   <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>

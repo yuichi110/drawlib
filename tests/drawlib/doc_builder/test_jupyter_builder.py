@@ -232,10 +232,19 @@ class TestInitAndBuildJupyterProject:
 
         html_text = (out_dir / "en" / "01_sample_notebook.html").read_text(encoding="utf-8")
         assert "jupyter-notebook" in html_text
+        assert "drawlib-image drawlib-figure" in html_text
+        assert "drawlib-caption" in html_text
+        assert "drawlib-code-details drawlib-code-fold" in html_text
         assert "nb-code-cell" in html_text
         assert "nb-output" in html_text
         assert "nb-output-figure" in html_text
         assert "01_sample_notebook.ipynb" in html_text
+
+        css_text = (src_dir / "style.css").read_text(encoding="utf-8")
+        assert ".drawlib-figure" in css_text
+        assert ".drawlib-figure img" in css_text
+        assert "details.drawlib-code-fold" in css_text
+        assert ".nb-markdown-cell img" in css_text
 
         # 3. build_html on a jupyter project also bundles .ipynb alongside .html in <target>_html/
         res_html_dir = Path(build_html(str(src_dir), workers=1))

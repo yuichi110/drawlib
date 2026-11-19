@@ -1003,12 +1003,103 @@ html[data-theme="dark"] .nb-status-pill {
 .nb-cell {
     display: flex;
     flex-direction: column;
+    min-width: 0;
     border-radius: 10px;
 }
 
 .nb-markdown-cell,
 .nb-cell-markdown {
     padding: 0.15rem 0;
+}
+
+.nb-markdown-cell img,
+.nb-cell-markdown img {
+    max-width: 100%;
+    height: auto;
+}
+
+.drawlib-figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    background-color: #ffffff;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.drawlib-figure.align-left {
+    align-items: flex-start;
+}
+
+.drawlib-figure.align-right {
+    align-items: flex-end;
+}
+
+.drawlib-figure img,
+.drawlib-figure svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.drawlib-figure figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--rtd-muted-color, #64748b);
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+html[data-theme="dark"] .drawlib-image,
+html[data-theme="dark"] .drawlib-figure {
+    background-color: #f8fafc;
+    border-color: #334155;
+}
+
+details.drawlib-code-fold {
+    margin: 1rem 0 1.5rem 0;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    background-color: var(--rtd-code-bg);
+    overflow: hidden;
+}
+
+.drawlib-figure + details.drawlib-code-fold {
+    margin-top: -0.75rem;
+}
+
+details.drawlib-code-fold summary {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--rtd-muted-color);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+details.drawlib-code-fold summary:hover {
+    color: var(--rtd-heading-color);
+    background-color: var(--rtd-surface-bg);
+}
+
+details.drawlib-code-fold[open] summary {
+    border-bottom: 1px solid var(--rtd-border-color);
+}
+
+details.drawlib-code-fold pre {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.drawlib-code-show {
+    margin: 0.75rem 0 1.5rem 0;
 }
 
 .nb-code-cell,
