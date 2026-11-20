@@ -583,6 +583,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/customization.html" />
   </url>
   <url>
+    <loc>https://www.drawlib.com/en/09_doc_builder_and_cli/jupyter_google_drive.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/jupyter_google_drive.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/jupyter_google_drive.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/jupyter_google_drive.html" />
+  </url>
+  <url>
     <loc>https://www.drawlib.com/en/09_doc_builder_and_cli/overview.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/overview.html" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/overview.html" />
@@ -1259,6 +1265,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/customization.html" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/customization.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/customization.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/ja/09_doc_builder_and_cli/jupyter_google_drive.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/jupyter_google_drive.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/jupyter_google_drive.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/jupyter_google_drive.html" />
   </url>
   <url>
     <loc>https://www.drawlib.com/ja/09_doc_builder_and_cli/overview.html</loc>

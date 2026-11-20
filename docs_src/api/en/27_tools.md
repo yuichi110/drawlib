@@ -171,7 +171,7 @@ build_html(
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(required)* | Project root directory containing `drawlib.toml` (`type = "site"`, `"doc"`, or `"catalog"`) and `<lang>/` folders. |
+| `input_dir` | `str` | *(required)* | Project root directory containing `drawlib.toml` (`type = "site"`, `"doc"`, `"catalog"`, or `"jupyter"`) and `<lang>/` folders. |
 | `output_dir` | `str \| None` | `None` | Target HTML output directory (defaults to `<base>_html`). |
 | `image_format` | `str` | `"png"` | Image output format for embedded `drawlib` blocks (`"png"` or `"webp"`). |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
@@ -221,7 +221,7 @@ build_image(
 
 ## `def` build_jupyter(input_path, output_dir=None, *, ...)
 
-Compile an `i18n`-native `jupyter` project directory (`drawlib.toml` + `<lang>/` Markdown sources) or single `.md` file into a unified bundle of Jupyter Notebooks (`<output_dir>/<lang>/**/*.ipynb`) and HTML preview pages (`<output_dir>/<lang>/**/*.html`) with sequential in-process AI dry-run execution and `[Geometry Warning]` verification.
+Compile an `i18n`-native `jupyter` project directory (`drawlib.toml` + `<lang>/` Markdown sources) or single `.md` file into standalone, self-contained Jupyter Notebooks (`<output_dir>/<lang>/**/*.ipynb` only) with sequential in-process AI dry-run execution and `[Geometry Warning]` verification. *(Use `build_html()` to generate the 2-column HTML preview website bundled with downloadable `.ipynb` notebooks.)*
 
 ```python
 from drawlib.tools import build_jupyter
@@ -236,7 +236,6 @@ build_jupyter(
     no_cache: bool = False,
     execute: bool | None = None,
     dry_run: bool = False,
-    css_mode: str = "external",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
@@ -249,9 +248,8 @@ build_jupyter(
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build image cache. |
-| `execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to sequentially execute code cells and render outputs in HTML preview (`.ipynb` code cells stay clean). |
+| `execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to sequentially verify code cells in-process (`.ipynb` code cells stay clean and unexecuted). |
 | `dry_run` | `bool` | `False` | Execute all notebooks and verify zero errors / `[Geometry Warning]` without writing output files to disk. |
-| `css_mode` | `str` | `"external"` | CSS linking mode for HTML preview (`"external"` or `"embed"`). |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path of the generated output directory (or `.ipynb` file path in single-file mode).

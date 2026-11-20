@@ -150,7 +150,7 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 
 ## `cmd` drawlib build html
 
-Compile a Markdown/HTML documentation source directory (`site`, `catalog`, `doc`, or `jupyter`) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata.
+Compile a Markdown/HTML documentation source directory (`site`, `catalog`, `doc`, or `jupyter`) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata. For `jupyter` projects, bundles downloadable `.ipynb` notebooks alongside the 2-column HTML preview (`In [n]` / `Out [n]`).
 
 ```bash
 drawlib build html [OPTIONS] DIR
@@ -202,12 +202,12 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 
 ## `cmd` drawlib build jupyter
 
-Compile a `jupyter` project directory of Markdown files into a unified bundle of clean, unexecuted Jupyter Notebooks (`<output>/<lang>/**/*.ipynb`) and HTML preview pages (`<output>/<lang>/**/*.html`) with sequential in-process cell execution, rendered HTML `In [n]` / `Out [n]` outputs, and `[Geometry Warning]` verification.
+Compile a `jupyter` project directory of Markdown files or a single `.md` file into standalone, self-contained Jupyter Notebooks (`<output>/<lang>/**/*.ipynb` only — zero HTML/CSS/external image files) with sequential in-process AI dry-run execution and `[Geometry Warning]` verification. *(Use `drawlib build html` to generate the 2-column HTML preview site bundled with downloadable `.ipynb` files.)*
 
 ```bash
 drawlib build jupyter [OPTIONS] INPUT
 
-# Compile bundled notebooks + HTML preview with dry-run verification
+# Compile standalone .ipynb notebooks only with dry-run verification
 uv run drawlib build jupyter jupyter_src -o jupyter_jupyter
 
 # Run AI dry-run verification without writing output files
@@ -221,7 +221,7 @@ uv run drawlib build jupyter jupyter_src --dry-run
 | `-f, --format` | `'png' \| 'webp'` | `'png'` | Default output format for `drawlib` diagram blocks. |
 | `-s, --styles` | `str \| None` | `None` | Path to Python `styles.py` script. |
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
-| `--execute / --no-execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to execute code cells sequentially and render outputs in HTML preview. |
+| `--execute / --no-execute` | `bool \| None` | `None` | Override `[jupyter].execute` in `drawlib.toml` to verify code cells sequentially in-process (`.ipynb` code cells remain clean). |
 | `--dry-run` | `bool` | `False` | Execute all notebooks and verify zero errors / `[Geometry Warning]` without writing output files. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
 | `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
@@ -678,7 +678,7 @@ uv run drawlib init project images arch_diagrams -l ja -s google
 
 ## `cmd` drawlib init project jupyter
 
-Scaffold an interactive Jupyter & Google Colab notebook project (`project_type = "jupyter"`, creating `<target>_src/` with `drawlib.toml`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh`, `build_jupyter.sh`, `build_html.sh`, and `serve.sh`) compilable to `.ipynb` notebooks and notebook-styled HTML preview pages.
+Scaffold an interactive Jupyter & Google Colab notebook project (`project_type = "jupyter"`, creating `<target>_src/` with `drawlib.toml`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh`, `build_html.sh`, `build_jupyter.sh`, `build_image.sh`, and `serve.sh`) compilable to standalone `.ipynb` notebooks (`build jupyter`), HTML preview with bundled `.ipynb` (`build html`), and extracted diagram images (`build image`).
 
 ```bash
 drawlib init project jupyter [OPTIONS] [TARGET]

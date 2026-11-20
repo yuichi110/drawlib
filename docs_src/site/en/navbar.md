@@ -124,6 +124,7 @@
 - [Slide Deck Project (`slide`)](./09_doc_builder_and_cli/project_slide.md)
 - [Slide Stage Layout & API](./09_doc_builder_and_cli/slide_layout_and_api.md)
 - [Jupyter Notebook Project (`jupyter`)](./09_doc_builder_and_cli/project_jupyter.md)
+- [Jupyter Sharing via Google Drive & Colab](./09_doc_builder_and_cli/jupyter_google_drive.md)
 - [Image Project (`images`)](./09_doc_builder_and_cli/project_image.md)
 - [Templates & CSS Customization](./09_doc_builder_and_cli/customization.md)
 - [Caching Architecture & CI/CD](./09_doc_builder_and_cli/caching_and_cicd.md)

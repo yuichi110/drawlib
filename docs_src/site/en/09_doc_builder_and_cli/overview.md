@@ -906,7 +906,7 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 | **`site`** | `docs_src/<lang>/` | `docs_html/`, `docs_markdown/` (or `docs/`), `docs_images/` | Multi-page documentation websites with sidebar navigation (`<lang>/navbar.md`). |
 | **`catalog`** | `catalog_src/<lang>/` | `catalog_html/`, `catalog_markdown/`, `catalog_images/` | Structured catalogs & references for APIs, CLI flags, schemas, services, and runbooks (`1 MD = 1 HTML`, auto `# H1` / `## H2` sidebar, semantic badges & `/` filter). |
 | **`slide`** | `slide_src/<lang>/` | `slide_html/`, `slide_<lang>.pdf`, `slide_<lang>.pptx`, `slide_images/` | 16:9 presentation slide decks (interactive web deck, printable vector PDF, and editable PowerPoint). |
-| **`jupyter`** | `jupyter_src/<lang>/` | `jupyter_jupyter/` (bundled `<lang>/*.ipynb` + `<lang>/*.html` + `images/`) | Interactive Jupyter & Google Colab notebooks combining narrative diagrams (`cell=markdown`) and live Python cells (`cell=code`) with AI dry-run execution. |
+| **`jupyter`** | `jupyter_src/<lang>/` | `jupyter_jupyter/` (`.ipynb` only), `jupyter_html/` (HTML preview + `.ipynb`), `jupyter_images/` (PNGs) | Interactive Jupyter & Google Colab notebooks combining narrative diagrams (`cell=markdown`) and live Python cells (`cell=code`) with AI dry-run execution. |
 | **`images`** *(alias: `image`)* | `images_src/` | `images/*.png` (or `.webp`) | Batch rendering standalone Python drawing scripts to image assets. |
 
 ```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Overview of the Six Drawlib Project Starter Templates and Their Outputs"

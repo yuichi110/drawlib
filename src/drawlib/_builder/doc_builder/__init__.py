@@ -137,7 +137,6 @@ def build_document(
             styles_path=styles_path,
             utils_path=utils_path,
             no_cache=no_cache,
-            css_mode=css_mode,
             workers=workers,
         )
     if fmt == "markdown":

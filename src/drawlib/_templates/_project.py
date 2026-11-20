@@ -106,7 +106,7 @@ def resolve_project_paths(
     out_markdown_dir_name = f"{base_name}_markdown"
     out_images_dir_name = base_name if canonical_type == "images" else f"{base_name}_images"
     out_jupyter_dir_name = f"{base_name}_jupyter"
-    out_html_dir_name = out_jupyter_dir_name if canonical_type == "jupyter" else f"{base_name}_html"
+    out_html_dir_name = f"{base_name}_html"
     out_pdf_name = f"{base_name}.pdf"
     out_docx_name = f"{base_name}.docx"
     out_pptx_name = f"{base_name}.pptx"

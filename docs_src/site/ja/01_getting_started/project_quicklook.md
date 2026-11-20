@@ -1129,7 +1129,7 @@ Drawlib は 6 種類のスタータープロジェクトタイプをサポート
 - **`site`**: マルチページのドキュメントサイト（`docs_html/`）、Markdown サイト（`docs_markdown/`）、および図解画像（`docs_images/`）。
 - **`catalog`**: `# H1` / `## H2` 自動サイドバー・セマンティックバッジ・`/` リアルタイム絞り込みを備えた図解付きカタログ & リファレンスサイト（`catalog_html/`、`catalog_markdown/`、`catalog_images/`）。API・CLI リファレンスやデータスキーマ、サービス台帳に最適です。
 - **`slide`**: Web スライドデッキ（`slide_html/`）、ベクター PDF（`slide_<lang>.pdf`）、編集可能な MS PowerPoint（`slide_<lang>.pptx`）、および図解画像（`slide_images/`）へコンパイルされる 16:9 プレゼンテーションスライド。
-- **`jupyter`**: 解説図解（`cell=markdown`）と実行可能 Python セル（`cell=code`）を組み合わせ、インプロセス AI Dry-Run 検証を経て同一出力フォルダ（`jupyter_jupyter/` 内の `<lang>/*.ipynb` と `<lang>/*.html`）へバンドル生成される対話型 Jupyter / Google Colab ノートブックおよび 2 カラム HTML プレビューサイト。
+- **`jupyter`**: 解説図解（`cell=markdown`）と実行可能 Python セル（`cell=code`）を組み合わせ、インプロセス AI Dry-Run 検証を経て単体 `.ipynb` ノートブック（`jupyter_jupyter/`）、`.ipynb` 同梱の 2 カラム HTML プレビューサイト（`jupyter_html/`）、および抽出図解画像（`jupyter_images/`）へマルチターゲット出力できる対話型 Jupyter / Google Colab プロジェクト。
 - **`images`**: 画像ファイル（`images/*.png` など）へ一括コンパイルされるスタンドアロンの Python 図解スクリプト群（`images_src/*.py`）。
 
 ```drawlib code=fold align=center file=project_scaffolding_types.png caption="Drawlib のプロジェクトスキャフォールドアーキタイプ（drawlib init project）"
@@ -1194,7 +1194,7 @@ $ uv run drawlib build pdf doc_src/ -o doc.pdf --toc              # -> doc_<lang
 $ uv run drawlib build docx doc_src/ -o doc.docx --generate-index # -> doc_<lang>.docx
 $ uv run drawlib build slide slide_src/ -o slide_html/
 $ uv run drawlib build pptx slide_src/ -o slide.pptx              # -> slide_<lang>.pptx
-$ uv run drawlib build jupyter jupyter_src/ -o jupyter_jupyter/   # -> <lang>/*.ipynb + *.html (or --dry-run)
+$ uv run drawlib build jupyter jupyter_src/ -o jupyter_jupyter/   # -> <lang>/*.ipynb only (or --dry-run)
 $ uv run drawlib build image images_src/ -o images/
 
 # Force a clean re-render bypassing the SQLite build cache (.drawlib/cache.db):

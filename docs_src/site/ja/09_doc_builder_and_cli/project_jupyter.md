@@ -1,8 +1,8 @@
 # Jupyter・Colab ノートブックプロジェクトガイド (`drawlib init project jupyter`)
 
-`jupyter` スターターテンプレートは、Drawlib に **「コードとしての図解付き Jupyter Notebook & Google Colab（Illustrated Notebook as Code）」** をもたらします。Git diff が肥大化しやすい巨大な `.ipynb` JSON ファイルを直接手編集する代わりに、解説テキスト・アーキテクチャ図解（```` ```drawlib ````）・対話型 Python 演習セル（```` ```python ```` または ```` ```drawlib cell=code ````）をクリーンな Markdown（`jupyter_src/<lang>/**/*.md`）で記述し、**インプロセス AI Dry-Run エンジン**による自動実行検証を経て、**クリーンな未実行状態の `.ipynb` ノートブック（`<lang>/*.ipynb`）**と **実行結果入りの 2 カラム HTML プレビューサイト（`<lang>/*.html` + ルート `index.html`、`In [n]` / `Out[n]` 表示・`.ipynb` ダウンロード・Open in Colab 対応）** を単一の出力ディレクトリ（`jupyter_jupyter/` または `jupyter_html/`）へ同時バンドル出力します。
+`jupyter` スターターテンプレートは、Drawlib に **「コードとしての図解付き Jupyter Notebook & Google Colab（Illustrated Notebook as Code）」** をもたらします。Git diff が肥大化しやすい巨大な `.ipynb` JSON ファイルを直接手編集する代わりに、解説テキスト・アーキテクチャ図解（```` ```drawlib ````）・対話型 Python 演習セル（```` ```python ```` または ```` ```drawlib cell=code ````）をクリーンな Markdown（`jupyter_src/<lang>/**/*.md`）で記述し、単一の `drawlib.toml` と **インプロセス AI Dry-Run エンジン**による自動実行検証を経て、**単体 `.ipynb` ノートブック（`drawlib build jupyter` -> `jupyter_jupyter/`）**・**`.ipynb` 同梱の 2 カラム HTML プレビューサイト（`drawlib build html` -> `jupyter_html/`）**・**抽出図解画像（`drawlib build image` -> `jupyter_images/`）** の 3 ターゲットへ出力します。
 
-```drawlib code=fold align=center file=project_jupyter_compilation_pipeline.png caption="Markdown ノートブックソースからインプロセス AI Dry-Run エンジンを経て .ipynb と HTML プレビューを同一ディレクトリへ一括生成するパイプライン"
+```drawlib code=fold align=center file=project_jupyter_compilation_pipeline.png caption="Markdown ノートブックソースからインプロセス AI Dry-Run エンジンを経て単体 .ipynb・HTML プレビュー・抽出画像を生成するパイプライン"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -10,20 +10,20 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=128, height=58)
+setup(width=128, height=62)
 
 # Left: Markdown Notebook Source
-rectangle((21, 29), width=34, height=48, style=Styles.Neutral.patch(shape_r=2.0))
-phosphor.file_code((10.5, 45.2), width=4.4, style=Styles.PrimaryBold)
-text((23.5, 45.2), "jupyter_src/<lang>/", style=Styles.DarkBold.patch(text_size=10.6))
+rectangle((20.5, 31), width=33, height=52, style=Styles.Neutral.patch(shape_r=2.0))
+phosphor.file_code((10.0, 49.0), width=4.4, style=Styles.PrimaryBold)
+text((23.0, 49.0), "jupyter_src/<lang>/", style=Styles.DarkBold.patch(text_size=10.5))
 text(
-    (21, 33.8),
+    (20.5, 36.2),
     "01_tutorial.md\n• Narrative + # H1 / ## H2\n• ```drawlib (diagram)\n• ```python (code cell)",
     style=Styles.Dark.patch(text_size=10.0),
 )
 rectangle(
-    (21, 13.5),
-    width=29,
+    (20.5, 13.5),
+    width=28.5,
     height=8.2,
     style=Styles.PrimaryNeutral.patch(shape_r=1.2),
     text="styles.py & drawlib.toml",
@@ -31,39 +31,44 @@ rectangle(
 )
 
 # Middle: In-Process AI Dry-Run Engine
-line((38, 29), (45, 29), arrow_head="->", style=Styles.DarkBold)
-rectangle((63, 29), width=36, height=48, style=Styles.PrimaryFlat.patch(shape_r=2.0))
-phosphor.play_circle((50.5, 45.2), width=4.6, style=Styles.WhiteBold)
-text((65.5, 45.2), "AI Dry-Run Engine", style=Styles.WhiteBold.patch(text_size=10.8))
+line((37.0, 31), (43.5, 31), arrow_head="->", style=Styles.DarkBold)
+rectangle((61.0, 31), width=35, height=52, style=Styles.PrimaryFlat.patch(shape_r=2.0))
+phosphor.play_circle((49.0, 49.0), width=4.6, style=Styles.WhiteBold)
+text((63.5, 49.0), "AI Dry-Run Engine", style=Styles.WhiteBold.patch(text_size=10.6))
 text(
-    (63, 31.0),
+    (61.0, 33.8),
     "Sequential shared globals\n• Executes code cells\n• Captures stdout & expr\n• Captures show() / save()\n• Fails on Geometry Warn",
     style=Styles.White.patch(text_size=10.0),
 )
 rectangle(
-    (63, 12.8),
-    width=30,
-    height=7.5,
+    (61.0, 13.5),
+    width=29.5,
+    height=7.8,
     style=Styles.White.patch(shape_r=1.2),
     text="--dry-run Verification",
     text_style=Styles.PrimaryBold.patch(text_size=10.0),
 )
 
-# Right: Unified Output Bundle (jupyter_jupyter/ or jupyter_html/)
-line((81, 29), (88, 29), arrow_head="->", style=Styles.DarkBold)
-rectangle((106, 29), width=36, height=48, style=Styles.Neutral.patch(shape_r=2.0))
-phosphor.folder_open((92.0, 48.0), width=4.2, style=Styles.PrimaryBold)
-text((108.2, 48.0), "jupyter_jupyter/", style=Styles.DarkBold.patch(text_size=10.4))
+# Right: 3 Dedicated Build Targets
+line((78.5, 31), (82.5, 31), style=Styles.DarkBold)
+line((82.5, 13.0), (82.5, 49.0), style=Styles.DarkBold)
+for ty in (49.0, 31.0, 13.0):
+    line((82.5, ty), (87.0, ty), arrow_head="->", style=Styles.DarkBold)
 
-rectangle((106, 35.5), width=31, height=15.0, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
-phosphor.notebook((94.0, 39.2), width=3.8, style=Styles.PrimaryBold)
-text((108.0, 39.2), "<lang>/*.ipynb", style=Styles.DarkBold.patch(text_size=10.2))
-text((106, 32.0), "Self-contained Base64 +\nClean unexecuted cells", style=Styles.Dark.patch(text_size=9.8))
+rectangle((105.5, 49.0), width=37, height=15.0, style=Styles.PrimaryNeutral.patch(shape_r=1.6))
+phosphor.notebook((95.0, 52.2), width=3.8, style=Styles.PrimaryBold)
+text((108.5, 52.2), "build jupyter", style=Styles.DarkBold.patch(text_size=10.2))
+text((105.5, 45.2), "jupyter_jupyter/<lang>/*.ipynb\n.ipynb only (Drive + Colab)", style=Styles.Dark.patch(text_size=9.5))
 
-rectangle((106, 16.5), width=31, height=15.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
-phosphor.globe((94.0, 20.2), width=3.8, style=Styles.PrimaryBold)
-text((108.0, 20.2), "<lang>/*.html", style=Styles.DarkBold.patch(text_size=10.2))
-text((106, 13.0), "In[n]/Out[n] preview +\nDownload & Colab links", style=Styles.Dark.patch(text_size=9.8))
+rectangle((105.5, 31.0), width=37, height=15.0, style=Styles.SecondaryNeutral.patch(shape_r=1.6))
+phosphor.globe((95.0, 34.2), width=3.8, style=Styles.PrimaryBold)
+text((108.5, 34.2), "build html", style=Styles.DarkBold.patch(text_size=10.2))
+text((105.5, 27.2), "jupyter_html/<lang>/*.html\nIn[n]/Out[n] + bundled .ipynb", style=Styles.Dark.patch(text_size=9.5))
+
+rectangle((105.5, 13.0), width=37, height=15.0, style=Styles.Neutral.patch(shape_r=1.6))
+phosphor.images((95.0, 16.2), width=3.8, style=Styles.PrimaryBold)
+text((108.5, 16.2), "build image", style=Styles.DarkBold.patch(text_size=10.2))
+text((105.5, 9.2), "jupyter_images/<stem>/*.png\nExtracted diagram assets", style=Styles.Dark.patch(text_size=9.5))
 
 save()
 ```
@@ -78,10 +83,10 @@ save()
 | :--- | :--- |
 | **Git Diff の肥大化**: Base64 画像データや実行カウンタの差分で PR レビューが困難になる。 | **クリーンな Markdown ソース (`jupyter_src/<lang>/*.md`)**: プレーンテキストの Markdown と ```` ```drawlib ```` / ```` ```python ```` ブロックで記述し、`.ipynb` と HTML は決定論的なビルド成果物として生成。 |
 | **セルの実行順序バグと古い出力**: 手動でセルを順不同に実行したままコミットすると、最初から実行した際にエラーになる。 | **インプロセス AI Dry-Run (`execute = true` / `--dry-run`)**: ビルド時に各ノートブックを先頭セルから順番に共有 `globals` 名前空間で自動実行し、例外や `[Geometry Warning]` があれば即座に検出。 |
-| **Web ドキュメントとノートブックの二重管理**: ブラウザ閲覧用の記事と Colab 用の `.ipynb` を別々に保守する手間が発生する。 | **`.ipynb` と HTML の同一ディレクトリバンドル出力**: 1 回のビルドで同一出力フォルダ（`jupyter_jupyter/` または `jupyter_html/`）内の `<lang>/` に `*.html` と `*.ipynb` を並べて出力するため、GitHub を使わずに独自ドメインから直接サーブ可能。 |
+| **Web ドキュメントとノートブックの二重管理**: ブラウザ閲覧用の記事と Colab 用の `.ipynb` を別々に保守する手間が発生する。 | **単一 `drawlib.toml` からのマルチターゲット出力**: Google Drive / Colab 配布向けの単体 `.ipynb`（`drawlib build jupyter` -> `jupyter_jupyter/`）、`.ipynb` 同梱の 2 カラム HTML プレビュー（`drawlib build html` -> `jupyter_html/`）、抽出図解 PNG（`drawlib build image` -> `jupyter_images/`）を自在に出し分け可能。 |
 | **多言語化の煩雑さ**: 日英などの複数言語で `.ipynb` ファイルを個別に同期・保守するのが難しい。 | **ネイティブ `[i18n]` 対応 (`-l en,ja`)**: 統一された `<src_dir>/<lang>/` 構造により、言語スイッチャー付き HTML とロケール別 `.ipynb` を一括生成。 |
 
-> **ライブショーケース:** `type = "jupyter"` で構築された全 6 章の日英バイリンガル対話型ハンズオン教材を [`https://www.drawlib.com/jupyter/`](https://www.drawlib.com/jupyter/ja/) で実際に体験できます。
+> **ライブショーケース & クローズド共有ガイド:** `type = "jupyter"` で構築された全 6 章の日英バイリンガル対話型ハンズオン教材を [`https://www.drawlib.com/jupyter/`](https://www.drawlib.com/jupyter/ja/) で実際に体験できます。公開 GitHub リポジトリを使えない顧客共有・社内チーム配布向けに `.ipynb` のみを Google Drive へ同期し Google Colab で実行したい場合は、**[Google Drive + Colab 共有ガイド (`rclone`)](./jupyter_google_drive.md)** を参照してください。
 
 ---
 
@@ -99,11 +104,16 @@ uv run drawlib init project jupyter tutorials -l en,ja -s google
 # 高速 AI Dry-Run 検証 (全セルを順次実行し [Geometry Warning] を検査、ファイル出力なし):
 uv run drawlib build jupyter jupyter_src/ --dry-run
 
-# .ipynb ノートブックと HTML プレビューサイトを jupyter_jupyter/ に一括ビルド:
+# 全ターゲットを一括ビルド (jupyter_html/, jupyter_jupyter/, jupyter_images/):
 ./jupyter_src/build.sh
 
+# 用途別に個別ビルド:
+./jupyter_src/build_jupyter.sh   # -> jupyter_jupyter/<lang>/*.ipynb (単体 .ipynb のみ)
+./jupyter_src/build_html.sh      # -> jupyter_html/ (2カラム HTML プレビュー + 同梱 .ipynb)
+./jupyter_src/build_image.sh     # -> jupyter_images/ (抽出図解 PNG)
+
 # 出力された HTML とバンドル済み .ipynb のリンク・アセット整合性をヘッドレス検証:
-uv run drawlib serve jupyter_jupyter/ --check
+uv run drawlib serve jupyter_html/ --check
 ```
 
 生成されるソースディレクトリ構造:
@@ -115,20 +125,25 @@ jupyter_src/
 ├── utils.py                   # ノートブック間で再利用する Python ヘルパー関数群
 ├── style.css                  # 2カラム HTML プレビュー用スタイルシート (In[n]/Out[n] セル表示対応)
 ├── template.html              # Open in Colab & .ipynb ダウンロードバー付き Jinja2 レイアウト
-├── _assets/                   # 静的画像・ロゴ・favicon.png (出力先 _assets/ に自動コピー)
+├── _assets/                   # 静的画像・ロゴ・favicon.png (HTML 出力先の _assets/ に自動コピー)
 ├── en/                        # ロケール別ノートブックソース (01_, 02_, ... の自然順でソート)
 │   ├── 01_sample_notebook.md  # ノートブック 1: Markdown 解説 + drawlib 図解 + python コードセル
 │   └── README.md              # 執筆ガイド (ノートブックのコンパイル対象からは自動除外)
-├── build.sh                   # マスタービルドスクリプト (.ipynb と HTML を jupyter_jupyter/ に一括生成)
-├── build_jupyter.sh           # バンドル済み .ipynb + HTML プレビューのビルド -> jupyter_jupyter/
-├── build_html.sh              # バンドル済み .ipynb + HTML プレビューのビルド (エイリアス) -> jupyter_jupyter/
-└── serve.sh                   # ローカル HTTP プレビューサーバー (drawlib serve jupyter_jupyter/)
+├── build.sh                   # マスタービルドスクリプト (build_html.sh, build_jupyter.sh, build_image.sh を実行)
+├── build_html.sh              # 2カラム HTML プレビュー + 同梱 .ipynb のビルド -> jupyter_html/
+├── build_jupyter.sh           # 単体 .ipynb ノートブックのみのビルド -> jupyter_jupyter/
+├── build_image.sh             # 埋め込み図解画像の抽出 -> jupyter_images/
+└── serve.sh                   # ローカル HTTP プレビューサーバー (drawlib serve jupyter_html/)
 ```
 
-コンパイル後の出力ディレクトリ（`jupyter_jupyter/` または `jupyter_html/`）には、`.html` ページと同じ階層に `.ipynb` ファイルがバンドルされるため、そのまま任意の Web サーバーや独自ドメインに公開できます。
+同一の `drawlib.toml` から、用途別にクリーンな出力ディレクトリを生成できます。
 
 ```text
-jupyter_jupyter/               # 独自ドメインや任意のホスティングへそのまま配置可能な統合バンドル
+jupyter_jupyter/               # `drawlib build jupyter` — .ipynb のみ出力 (Google Drive + Colab 共有に最適)
+└── en/
+    └── 01_sample_notebook.ipynb
+
+jupyter_html/                  # `drawlib build html` — 独自ドメインや任意のホスティングへ配置可能な統合バンドル
 ├── index.html                 # ルートエントリページ (default_lang の最初のノートブックから自動リベース)
 ├── en/
 │   ├── index.html
@@ -136,6 +151,11 @@ jupyter_jupyter/               # 独自ドメインや任意のホスティン�
 │   └── 01_sample_notebook.ipynb # 同一フォルダにバンドルされた実行可能 .ipynb (HTML から相対リンク)
 ├── images/                    # ロケール間で共有される図解画像アセット
 └── _assets/                   # 静的アセットおよび favicon
+
+jupyter_images/                # `drawlib build image` — 抽出された図解画像
+└── 01_sample_notebook/
+    ├── pipeline_overview.png
+    └── live_bar_chart.png
 ```
 
 ---
@@ -293,7 +313,7 @@ execute = true                             # ビルド時に全コードセル�
 
 ### 4.2. タイトルおよび左サイドバーブランド名の解決ルール (`drawlib.toml` vs. `# H1`)
 
-コンパイルされた HTML プレビューサイト（`jupyter_jupyter/` または `jupyter_html/`）では、以下のようにタイトルが解決されます。
+コンパイルされた HTML プレビューサイト（`jupyter_html/`）では、以下のようにタイトルが解決されます。
 - **左サイドバーのブランドヘッダー (`site_title`)**: `drawlib.toml` の `[project].title` → 任意の `<lang>/navbar.md` の先頭 `# H1` → `"Notebooks"` の優先順で決定されます。
 - **ブラウザタブの `<title>`**: 各ノートブックの先頭 `# H1` 見出しと `site_title` を組み合わせた `<Notebook H1> — <site_title>` になります。
 - **左サイドバーのナビゲーションツリー**: 各 `.md` ファイルの `# H1`（ノートブック名）と `## H2`（章内のセクションリンク）から自動抽出され、`/` キーによる即時フィルタリングにも対応するため、`navbar.md` の手動メンテナンスは不要です。
@@ -324,19 +344,22 @@ show()  # Jupyter / Colab 上でインライン表示され、drawlib build jupy
 
 ---
 
-## 6. CLI ビルドとインプロセス AI Dry-Run 検証 (`drawlib build jupyter`)
+## 6. CLI ビルドターゲットとインプロセス AI Dry-Run 検証
 
-`drawlib build jupyter` コマンドで `.ipynb` と HTML プレビューの統合バンドル出力や高速な Dry-Run 検証を実行します。
+配信用途に応じて `drawlib build jupyter`・`drawlib build html`・`drawlib build image` を使い分けます。
 
 ```bash
 # 1. 高速インプロセス AI Dry-Run (全セルを実行し [Geometry Warning] を検査、ファイル書き出しなし):
 uv run drawlib build jupyter jupyter_src/ --dry-run
 
-# 2. バンドル済み .ipynb + HTML プレビューサイトを jupyter_jupyter/ にコンパイル:
+# 2. 単体 .ipynb ノートブックのみ出力 -> jupyter_jupyter/<lang>/*.ipynb (Google Drive + Colab 共有向け):
 uv run drawlib build jupyter jupyter_src/ -o jupyter_jupyter/
 
-# 3. drawlib build html でも同様に .ipynb と .html が jupyter_html/ にバンドル出力される:
+# 3. 2カラム HTML プレビュー + 同梱 .ipynb -> jupyter_html/ (Web サイト公開・ローカル確認向け):
 uv run drawlib build html jupyter_src/ -o jupyter_html/
+
+# 4. 埋め込み図解 PNG のみ抽出 -> jupyter_images/:
+uv run drawlib build image jupyter_src/ -o jupyter_images/
 ```
 
 | オプション | 短縮形 | デフォルト | 説明 |
@@ -344,7 +367,7 @@ uv run drawlib build html jupyter_src/ -o jupyter_html/
 | `--output` | `-o` | `<base>_jupyter/` | 出力先ディレクトリパス（単一ファイル指定時は `.ipynb` ファイルパス）。 |
 | `--format` | `-f` | `png` | 埋め込み `drawlib` ブロックの画像出力フォーマット（`png` または `webp`）。 |
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` のパス（ノートブック実行環境の `globals` にプリロードされる）。 |
-| `--execute` / `--no-execute` | | `None` (`[jupyter].execute`) | `code` セルをインプロセスで順次実行し、HTML プレビューに出力を描画するかどうか（`.ipynb` 側のコードセル出力は空に保たれる）。 |
+| `--execute` / `--no-execute` | | `None` (`[jupyter].execute`) | `code` セルをインプロセスで順次実行し、エラーゼロと `[Geometry Warning]` ゼロを検証する（`.ipynb` 側のコードセル出力は空に保たれる）。 |
 | `--dry-run` | | `False` | 出力ファイルを書き出さずに全セルの実行と `[Geometry Warning]` の検証のみを行う。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` をバイパスしてすべての図解ブロックを再描画する。 |
 | `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPU コア数 - 1) <= 8`）。 |

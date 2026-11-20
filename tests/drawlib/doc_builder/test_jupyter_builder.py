@@ -19,13 +19,17 @@ import pytest
 from drawlib._builder._common import JupyterConfig, load_project_manifest
 from drawlib._builder.doc_builder import (
     NotebookExecutionError,
+    build_docx,
     build_html,
     build_ipynb_dict,
     build_jupyter,
+    build_markdown,
+    build_pdf,
     convert_save_to_show,
     execute_notebook_cells,
     parse_notebook_segments,
 )
+from drawlib._builder.image_builder import build_image
 from drawlib._templates import init_project
 
 
@@ -211,14 +215,22 @@ class TestInitAndBuildJupyterProject:
         assert Path(res_dry) == src_dir
         assert not out_dir.exists()
 
-        # 2. Full build should generate .ipynb and .html for both locales + root index.html
+        # 2. build_jupyter emits standalone .ipynb ONLY (no HTML, CSS, index.html, images/, _assets/, or README.md)
         res_out = build_jupyter(str(src_dir), str(out_dir), workers=1)
         assert Path(res_out) == out_dir
-        assert (out_dir / "index.html").is_file()
         assert (out_dir / "en" / "01_sample_notebook.ipynb").is_file()
-        assert (out_dir / "en" / "01_sample_notebook.html").is_file()
         assert (out_dir / "ja" / "01_sample_notebook.ipynb").is_file()
-        assert (out_dir / "ja" / "01_sample_notebook.html").is_file()
+        assert not (out_dir / "index.html").exists()
+        assert not (out_dir / "README.md").exists()
+        assert not (out_dir / "images").exists()
+        assert not (out_dir / "_assets").exists()
+        assert not (out_dir / "en" / "01_sample_notebook.html").exists()
+        assert not (out_dir / "en" / "style.css").exists()
+        assert not (out_dir / "ja" / "01_sample_notebook.html").exists()
+        assert sorted(p.relative_to(out_dir).as_posix() for p in out_dir.rglob("*") if p.is_file()) == [
+            "en/01_sample_notebook.ipynb",
+            "ja/01_sample_notebook.ipynb",
+        ]
 
         nb_data = json.loads((out_dir / "en" / "01_sample_notebook.ipynb").read_text(encoding="utf-8"))
         assert nb_data["nbformat"] == 4
@@ -230,7 +242,26 @@ class TestInitAndBuildJupyterProject:
             assert code_cell["outputs"] == []
             assert code_cell["execution_count"] is None
 
-        html_text = (out_dir / "en" / "01_sample_notebook.html").read_text(encoding="utf-8")
+        # 2b. Single-file build_jupyter writes ONLY the .ipynb file (no stray *_images/ folder)
+        single_out_dir = tmp_path / "single_out"
+        single_out_dir.mkdir()
+        single_ipynb = Path(
+            build_jupyter(str(src_dir / "en" / "01_sample_notebook.md"), str(single_out_dir / "solo.ipynb"))
+        )
+        assert single_ipynb == single_out_dir / "solo.ipynb"
+        assert single_ipynb.is_file()
+        assert sorted(p.relative_to(single_out_dir).as_posix() for p in single_out_dir.rglob("*")) == ["solo.ipynb"]
+
+        # 3. build_html on a jupyter project generates 2-column HTML preview bundled with .ipynb in <target>_html/
+        res_html_dir = Path(build_html(str(src_dir), workers=1))
+        assert res_html_dir == tmp_path / "tutorials_html"
+        assert (res_html_dir / "index.html").is_file()
+        assert (res_html_dir / "en" / "01_sample_notebook.html").is_file()
+        assert (res_html_dir / "en" / "01_sample_notebook.ipynb").is_file()
+        assert (res_html_dir / "ja" / "01_sample_notebook.html").is_file()
+        assert (res_html_dir / "ja" / "01_sample_notebook.ipynb").is_file()
+
+        html_text = (res_html_dir / "en" / "01_sample_notebook.html").read_text(encoding="utf-8")
         assert "jupyter-notebook" in html_text
         assert "drawlib-image drawlib-figure" in html_text
         assert "drawlib-caption" in html_text
@@ -246,13 +277,57 @@ class TestInitAndBuildJupyterProject:
         assert "details.drawlib-code-fold" in css_text
         assert ".nb-markdown-cell img" in css_text
 
-        # 3. build_html on a jupyter project also bundles .ipynb alongside .html in <target>_html/
-        res_html_dir = Path(build_html(str(src_dir), workers=1))
-        assert res_html_dir == tmp_path / "tutorials_html"
-        assert (res_html_dir / "en" / "01_sample_notebook.html").is_file()
-        assert (res_html_dir / "en" / "01_sample_notebook.ipynb").is_file()
-        assert (res_html_dir / "ja" / "01_sample_notebook.html").is_file()
-        assert (res_html_dir / "ja" / "01_sample_notebook.ipynb").is_file()
+        # 4. build_image on a jupyter project extracts both cell=markdown and cell=code diagrams
+        out_img_dir = tmp_path / "tutorials_images"
+        executed_imgs = build_image(str(src_dir), str(out_img_dir), workers=1)
+        assert len(executed_imgs) >= 2
+        assert (out_img_dir / "01_sample_notebook" / "pipeline_overview.png").is_file()
+        assert (out_img_dir / "01_sample_notebook" / "live_bar_chart.png").is_file()
+
+        # 5. Unsupported targets (pdf, docx, markdown) raise explicit guidance errors for jupyter projects
+        with pytest.raises(ValueError, match="drawlib build jupyter"):
+            build_pdf(str(src_dir), str(tmp_path / "tutorials.pdf"))
+        with pytest.raises(ValueError, match="drawlib build jupyter"):
+            build_docx(str(src_dir), str(tmp_path / "tutorials.docx"))
+        with pytest.raises(ValueError, match="drawlib build jupyter"):
+            build_markdown(str(src_dir), str(tmp_path / "tutorials_md"))
+
+    def test_build_image_jupyter_with_execute_false_skips_colab_code_cells(self, tmp_path: Path) -> None:
+        proj_dir = tmp_path / "colab_src"
+        (proj_dir / "ja").mkdir(parents=True)
+        (proj_dir / "drawlib.toml").write_text(
+            '[project]\nname = "colab"\ntype = "jupyter"\n\n'
+            '[i18n]\ndefault_lang = "ja"\nlangs = ["ja"]\n\n'
+            '[jupyter]\ndrawlib_cell_mode = "markdown"\nexecute = false\n',
+            encoding="utf-8",
+        )
+        (proj_dir / "ja" / "01_colab.md").write_text(
+            "# Colab Notebook\n\n"
+            '```drawlib file=overview.png caption="Overview"\n'
+            "from drawlib.canvas import save, setup\n"
+            "from drawlib.shapes import rectangle\n"
+            "from drawlib.styles import Styles\n"
+            "setup(width=60, height=30)\n"
+            'rectangle((30, 15), width=40, height=16, style=Styles.Neutral, text="Colab")\n'
+            "save()\n"
+            "```\n\n"
+            "```python\n"
+            "from google.colab import userdata\n"
+            "api_key = userdata.get('API_KEY')\n"
+            "```\n",
+            encoding="utf-8",
+        )
+
+        # build_jupyter succeeds with execute=false and emits only .ipynb
+        nb_out = Path(build_jupyter(str(proj_dir), str(tmp_path / "colab_jupyter"), workers=1))
+        assert (nb_out / "ja" / "01_colab.ipynb").is_file()
+        assert not (nb_out / "ja" / "01_colab.html").exists()
+
+        # build_image succeeds with execute=false by extracting markdown diagrams while skipping Colab cells
+        img_out = tmp_path / "colab_images"
+        executed = build_image(str(proj_dir), str(img_out), workers=1)
+        assert len(executed) == 1
+        assert (img_out / "01_colab" / "overview.png").is_file()
 
     def test_colab_base_url_prefix_and_path_template(self, tmp_path: Path) -> None:
         cfg_empty = JupyterConfig()

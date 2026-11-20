@@ -624,6 +624,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="jupyter_google_drive.html" >Jupyter Sharing via Google Drive &amp; Colab</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_image.html" >Image Project (`images`)</a>
                             </li>
                             
@@ -793,7 +797,7 @@ drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> 
 drawlib<span class="w"> </span>build<span class="w"> </span>docx<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>manual.docx<span class="w"> </span>--generate-index<span class="w"> </span><span class="c1"># Editable MS Word (.docx) document</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide_html/<span class="w">               </span><span class="c1"># Interactive 16:9 HTML slide deck</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w">                  </span><span class="c1"># Editable 16:9 MS PowerPoint (.pptx) deck</span>
-drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">      </span><span class="c1"># Bundled .ipynb + HTML preview (or --dry-run)</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">      </span><span class="c1"># Standalone .ipynb notebooks only (or --dry-run)</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>scripts/<span class="w"> </span>-o<span class="w"> </span>assets/<span class="w"> </span>-g<span class="w">                  </span><span class="c1"># Batch Python image rendering</span>
 
 <span class="c1"># Scaffolding &amp; AI Agent Rules</span>
@@ -1263,9 +1267,10 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 </tbody>
 </table>
 <h3>4.7 <code>drawlib build jupyter</code></h3>
-<p>Compiles Markdown notebook sources (<code>jupyter_src/&lt;lang&gt;/**/*.md</code>) into a unified bundle containing executable Jupyter Notebooks (<code>&lt;lang&gt;/*.ipynb</code>) and a 2-column HTML preview website (<code>&lt;lang&gt;/*.html</code> + root <code>index.html</code>) with in-process AI dry-run execution (capturing <code>stdout</code>, expression results, and <code>show()</code> / <code>save()</code> figures while verifying zero unhandled exceptions or <code>[Geometry Warning]</code>).</p>
+<p>Compiles Markdown notebook sources (<code>jupyter_src/&lt;lang&gt;/**/*.md</code>) or a single <code>.md</code> file into <strong>standalone, self-contained Jupyter Notebooks (<code>&lt;lang&gt;/*.ipynb</code> only — zero HTML/CSS/external image files)</strong> with in-process AI dry-run verification (checking zero unhandled exceptions and zero <code>[Geometry Warning]</code>). <em>(To generate the 2-column HTML preview site bundled with downloadable <code>.ipynb</code> files, run <code>drawlib build html jupyter_src/ -o jupyter_html/</code>.)</em></p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/
 drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
+drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_html/
 </code></pre>
 <table>
 <thead>
@@ -1299,7 +1304,7 @@ drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="
 <td><code>--execute</code> / <code>--no-execute</code></td>
 <td></td>
 <td><code>None</code> (from <code>[jupyter].execute</code>)</td>
-<td>Execute <code>code</code> cells sequentially in-process and render outputs in the HTML preview (<code>.ipynb</code> code cells remain clean).</td>
+<td>Execute <code>code</code> cells sequentially in-process to verify zero errors and <code>[Geometry Warning]</code> (<code>.ipynb</code> code cells remain clean).</td>
 </tr>
 <tr>
 <td><code>--dry-run</code></td>

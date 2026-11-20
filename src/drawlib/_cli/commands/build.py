@@ -200,7 +200,7 @@ def cmd_build_html(
         typer.Option("-w", "--workers", help=_WORKERS_HELP),
     ] = "auto",
 ) -> None:
-    """Compile a Markdown/HTML documentation directory into a static HTML site."""
+    """Compile a Markdown/HTML documentation directory (site, doc, catalog, or jupyter) into a static HTML site."""
     try:
         from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.doc_builder import build_html  # noqa: PLC0415
@@ -595,7 +595,7 @@ def cmd_build_jupyter(
         bool | None,
         typer.Option(
             "--execute/--no-execute",
-            help="Execute notebook code cells sequentially in-process and render outputs in HTML preview.",
+            help="Execute notebook code cells sequentially in-process to verify zero errors and [Geometry Warning].",
         ),
     ] = None,
     dry_run: Annotated[
@@ -614,7 +614,7 @@ def cmd_build_jupyter(
         typer.Option("-w", "--workers", help=_WORKERS_HELP),
     ] = "auto",
 ) -> None:
-    """Compile Markdown sources into Jupyter Notebooks (.ipynb), HTML previews, and run AI Dry-Run cell verification."""
+    """Compile Markdown sources into self-contained Jupyter Notebooks (.ipynb) and run AI Dry-Run cell verification."""
     try:
         from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.doc_builder import build_jupyter  # noqa: PLC0415
@@ -634,6 +634,6 @@ def cmd_build_jupyter(
         if dry_run:
             print(f"Successfully verified Jupyter notebook cell execution (dry-run): {out_path}")
         else:
-            print(f"Successfully compiled Jupyter notebook(s) and HTML preview: {out_path}")
+            print(f"Successfully compiled Jupyter notebook(s): {out_path}")
     except Exception as e:
         _handle_build_error("Build Jupyter Error", e)

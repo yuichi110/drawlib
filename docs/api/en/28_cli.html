@@ -4736,7 +4736,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </table>
 <hr />
 <h2 id="drawlib-build-html" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib build html</span></code><a class="header-anchor" href="#drawlib-build-html" aria-label="Permalink to drawlib build html">#</a></h2>
-<p>Compile a Markdown/HTML documentation source directory (<code>site</code>, <code>catalog</code>, <code>doc</code>, or <code>jupyter</code>) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata.</p>
+<p>Compile a Markdown/HTML documentation source directory (<code>site</code>, <code>catalog</code>, <code>doc</code>, or <code>jupyter</code>) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata. For <code>jupyter</code> projects, bundles downloadable <code>.ipynb</code> notebooks alongside the 2-column HTML preview (<code>In [n]</code> / <code>Out [n]</code>).</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DIR
 
 <span class="c1"># Compile docs_src/ into docs_html/ (or output path configured in drawlib.toml)</span>
@@ -4881,10 +4881,10 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </table>
 <hr />
 <h2 id="drawlib-build-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib build jupyter</span></code><a class="header-anchor" href="#drawlib-build-jupyter" aria-label="Permalink to drawlib build jupyter">#</a></h2>
-<p>Compile a <code>jupyter</code> project directory of Markdown files into a unified bundle of clean, unexecuted Jupyter Notebooks (<code>&lt;output&gt;/&lt;lang&gt;/**/*.ipynb</code>) and HTML preview pages (<code>&lt;output&gt;/&lt;lang&gt;/**/*.html</code>) with sequential in-process cell execution, rendered HTML <code>In [n]</code> / <code>Out [n]</code> outputs, and <code>[Geometry Warning]</code> verification.</p>
+<p>Compile a <code>jupyter</code> project directory of Markdown files or a single <code>.md</code> file into standalone, self-contained Jupyter Notebooks (<code>&lt;output&gt;/&lt;lang&gt;/**/*.ipynb</code> only — zero HTML/CSS/external image files) with sequential in-process AI dry-run execution and <code>[Geometry Warning]</code> verification. <em>(Use <code>drawlib build html</code> to generate the 2-column HTML preview site bundled with downloadable <code>.ipynb</code> files.)</em></p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>INPUT
 
-<span class="c1"># Compile bundled notebooks + HTML preview with dry-run verification</span>
+<span class="c1"># Compile standalone .ipynb notebooks only with dry-run verification</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter
 
 <span class="c1"># Run AI dry-run verification without writing output files</span>
@@ -4934,7 +4934,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>--execute / --no-execute</code></td>
 <td style="text-align:left"><code>bool | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Override <code>[jupyter].execute</code> in <code>drawlib.toml</code> to execute code cells sequentially and render outputs in HTML preview.</td>
+<td style="text-align:left">Override <code>[jupyter].execute</code> in <code>drawlib.toml</code> to verify code cells sequentially in-process (<code>.ipynb</code> code cells remain clean).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--dry-run</code></td>
@@ -5962,7 +5962,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </table>
 <hr />
 <h2 id="drawlib-init-project-jupyter" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib init project jupyter</span></code><a class="header-anchor" href="#drawlib-init-project-jupyter" aria-label="Permalink to drawlib init project jupyter">#</a></h2>
-<p>Scaffold an interactive Jupyter &amp; Google Colab notebook project (<code>project_type = &quot;jupyter&quot;</code>, creating <code>&lt;target&gt;_src/</code> with <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code>, <code>build_jupyter.sh</code>, <code>build_html.sh</code>, and <code>serve.sh</code>) compilable to <code>.ipynb</code> notebooks and notebook-styled HTML preview pages.</p>
+<p>Scaffold an interactive Jupyter &amp; Google Colab notebook project (<code>project_type = &quot;jupyter&quot;</code>, creating <code>&lt;target&gt;_src/</code> with <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code>, <code>build_html.sh</code>, <code>build_jupyter.sh</code>, <code>build_image.sh</code>, and <code>serve.sh</code>) compilable to standalone <code>.ipynb</code> notebooks (<code>build jupyter</code>), HTML preview with bundled <code>.ipynb</code> (<code>build html</code>), and extracted diagram images (<code>build image</code>).</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>TARGET<span class="o">]</span>
 
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span>tutorial<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google

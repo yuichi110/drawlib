@@ -14,7 +14,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from drawlib.tools import build_jupyter
+from drawlib.tools import build_html, build_jupyter
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 JUPYTER_SRC_DIR = PROJECT_ROOT / "docs_src" / "jupyter"
@@ -28,9 +28,19 @@ def test_official_jupyter_docs_dry_run(tmp_path: Path) -> None:
 
 
 def test_official_jupyter_docs_build_outputs(tmp_path: Path) -> None:
-    """Verify full build of docs_src/jupyter produces valid nbformat v4.5 .ipynb and HTML files."""
-    out_dir = tmp_path / "docs_jupyter"
-    build_jupyter(str(JUPYTER_SRC_DIR), output_dir=str(out_dir), execute=True)
+    """Verify build_jupyter (.ipynb only) and build_html (HTML + bundled .ipynb) for docs_src/jupyter."""
+    # 1. Standalone .ipynb-only build via build_jupyter()
+    ipynb_only_dir = tmp_path / "docs_jupyter_ipynb"
+    build_jupyter(str(JUPYTER_SRC_DIR), output_dir=str(ipynb_only_dir), execute=True)
+    assert not (ipynb_only_dir / "index.html").exists()
+    assert not (ipynb_only_dir / "images").exists()
+    for lang in ("en", "ja"):
+        assert len(list((ipynb_only_dir / lang).glob("*.ipynb"))) == 6
+        assert len(list((ipynb_only_dir / lang).glob("*.html"))) == 0
+
+    # 2. Full HTML preview + bundled .ipynb via build_html()
+    out_dir = tmp_path / "docs_jupyter_html"
+    build_html(str(JUPYTER_SRC_DIR), output_dir=str(out_dir))
 
     for lang in ("en", "ja"):
         lang_dir = out_dir / lang

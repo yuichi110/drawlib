@@ -283,6 +283,12 @@ def build_docx(
             f'Input directory "{input_dir_abs}" is an "images" script project (drawlib.toml). '
             'Please use "drawlib build image" instead of "drawlib build docx".'
         )
+    if manifest.project.type == "jupyter":
+        raise ValueError(
+            f'Input directory "{input_dir_abs}" is a "jupyter" notebook project (drawlib.toml). '
+            'Please use "drawlib build jupyter" (for .ipynb) or "drawlib build html" (for HTML preview + .ipynb) '
+            'instead of "drawlib build docx".'
+        )
 
     dir_name = os.path.basename(input_dir_abs.rstrip(os.sep))
     base_name = dir_name[:-4] if dir_name.endswith("_src") else dir_name

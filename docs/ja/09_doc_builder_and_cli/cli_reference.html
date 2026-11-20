@@ -624,6 +624,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="jupyter_google_drive.html" >Google Drive + Colab 共有ガイド (`rclone`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_image.html" >画像プロジェクト (`images`)</a>
                             </li>
                             
@@ -793,7 +797,7 @@ drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> 
 drawlib<span class="w"> </span>build<span class="w"> </span>docx<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>manual.docx<span class="w"> </span>--generate-index<span class="w"> </span><span class="c1"># Editable MS Word (.docx) document</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide_html/<span class="w">               </span><span class="c1"># Interactive 16:9 HTML slide deck</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w">                  </span><span class="c1"># Editable 16:9 MS PowerPoint (.pptx) deck</span>
-drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">      </span><span class="c1"># Bundled .ipynb + HTML preview (or --dry-run)</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">      </span><span class="c1"># Standalone .ipynb notebooks only (or --dry-run)</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>scripts/<span class="w"> </span>-o<span class="w"> </span>assets/<span class="w"> </span>-g<span class="w">                  </span><span class="c1"># Batch Python image rendering</span>
 
 <span class="c1"># Scaffolding &amp; AI Agent Rules</span>
@@ -1263,9 +1267,10 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 </tbody>
 </table>
 <h3>4.7 <code>drawlib build jupyter</code></h3>
-<p>Markdown ノートブックのソース（<code>jupyter_src/&lt;lang&gt;/**/*.md</code>）を、インプロセス AI ドライラン実行（<code>stdout</code>、式の評価結果、<code>show()</code> / <code>save()</code> の画像を自動キャプチャし、未処理例外と <code>[Geometry Warning]</code> がゼロであることを検証）を行いながら、実行可能な Jupyter ノートブック（<code>&lt;lang&gt;/*.ipynb</code>）および 2 カラム HTML プレビューサイト（<code>&lt;lang&gt;/*.html</code> + ルート <code>index.html</code>）の統合バンドルへコンパイルします。</p>
+<p>Markdown ノートブックのソース（<code>jupyter_src/&lt;lang&gt;/**/*.md</code>）または単一 <code>.md</code> ファイルを、インプロセス AI ドライラン検証（未処理例外ゼロ・<code>[Geometry Warning]</code> ゼロを確認）を行いながら、<strong>自己完結型の Jupyter ノートブックのみ（<code>&lt;lang&gt;/*.ipynb</code> のみ、HTML/CSS/外部画像なし）</strong> へコンパイルします。<em>（ダウンロード用 <code>.ipynb</code> を同梱した 2 カラム HTML プレビューサイトを生成するには <code>drawlib build html jupyter_src/ -o jupyter_html/</code> を使用します。）</em></p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/
 drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
+drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_html/
 </code></pre>
 <table>
 <thead>
@@ -1299,7 +1304,7 @@ drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="
 <td><code>--execute</code> / <code>--no-execute</code></td>
 <td></td>
 <td><code>None</code>（<code>[jupyter].execute</code>）</td>
-<td><code>code</code> セルをインプロセスで順番に実行し、出力を HTML プレビューへ描画します（<code>.ipynb</code> 側のコードセル出力は空に保たれます）。</td>
+<td><code>code</code> セルをインプロセスで順番に実行し、エラーゼロと <code>[Geometry Warning]</code> ゼロを検証します（<code>.ipynb</code> 側のコードセル出力は空に保たれます）。</td>
 </tr>
 <tr>
 <td><code>--dry-run</code></td>

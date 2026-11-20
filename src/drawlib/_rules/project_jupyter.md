@@ -1,11 +1,14 @@
 # Drawlib Jupyter & Google Colab Notebook Guidelines (`project-jupyter`)
 
-A **`jupyter` project** (`drawlib init project jupyter`) compiles Markdown notebook sources (`jupyter_src/<lang>/**/*.md`) into a **unified notebook & HTML preview bundle (`jupyter_jupyter/` or `jupyter_html/`)** containing **interactive Jupyter Notebooks (`<lang>/**/*.ipynb`)**, a **notebook-styled HTML preview website (`<lang>/**/*.html` + root `index.html`)**, and **shared diagram assets (`images/`)** side-by-side—ready to serve directly from any custom domain or GitHub repository.
+A **`jupyter` project** (`drawlib init project jupyter`) compiles Markdown notebook sources (`jupyter_src/<lang>/**/*.md`) into three dedicated build targets from a single `drawlib.toml`:
+- **`drawlib build jupyter` (`jupyter_jupyter/`)**: Standalone, 100% self-contained **Jupyter Notebooks (`<lang>/**/*.ipynb` ONLY)** with Base64-embedded diagrams and zero HTML/CSS/image clutter—ideal for **Google Drive (`rclone`) + Google Colab** sharing or GitHub distribution.
+- **`drawlib build html` (`jupyter_html/`)**: **2-column notebook HTML preview website (`<lang>/**/*.html` + root `index.html` + `images/`)** bundled side-by-side with downloadable **`<lang>/**/*.ipynb`** files—ready to serve from any custom domain or GitHub Pages.
+- **`drawlib build image` (`jupyter_images/`)**: Extracted diagram images rendered from `cell=markdown` blocks (and `cell=code` blocks when `[jupyter].execute = true`).
 
 Every compiled notebook and HTML page supports:
-- **In-Process AI Dry-Run Execution (`execute = true` / `--dry-run`)**: Sequentially executes all `code` cells in a shared `globals` dictionary per notebook, capturing `stdout`, final expression `text/plain` values, rendered `image/png` (`show()` / `save()`) outputs, and failing immediately on any unhandled exception or `[Geometry Warning]`.
+- **In-Process AI Dry-Run Execution (`execute = true` / `--dry-run`)**: Sequentially executes all `code` cells in a shared `globals` dictionary per notebook, capturing `stdout`, final expression `text/plain` values, rendered `image/png` (`show()` / `save()`) outputs (rendered into HTML `Out [n]` by `drawlib build html`), and failing immediately on any unhandled exception or `[Geometry Warning]`.
 - **Dual Code Block Semantics (`cell=markdown` vs. `cell=code`)**: Author rendered architectural diagrams inside Markdown narrative cells (` ```drawlib `) alongside live, user-editable executable Python code cells (` ```python ` or ` ```drawlib cell=code `).
-- **One-Click Google Colab Integration (`Open in Colab`)**: Automatically injects a self-contained **Open in Colab** SVG badge when `colab_base_url` is configured under `[jupyter]` in `drawlib.toml`, and safely skips `!pip` / `%pip` shell/magic lines during in-process Dry-Run so each notebook page can explicitly declare its own required packages (`!pip install -q drawlib ...`).
+- **One-Click Google Colab Integration (`Open in Colab`) & Private Google Drive Sharing**: Automatically injects a self-contained **Open in Colab** SVG badge when `colab_base_url` is configured under `[jupyter]` in `drawlib.toml`, or leave `colab_base_url` empty when sharing `.ipynb`-only builds privately via **Google Drive (`rclone copy`) + Google Colab**. Safely skips `!pip` / `%pip` shell/magic lines during in-process Dry-Run so each notebook page can explicitly declare its own required packages (`!pip install -q drawlib ...`).
 - **Deterministic Interactive Path Resolution (`setup(..., cwd=True)`)**: Resolves relative file paths (`save()`, `image()`, `Dimage()`) deterministically against `os.getcwd()` inside interactive Jupyter and Colab kernels without fragile stack-frame heuristics.
 
 *(For general project scaffolding, see `uv run drawlib rules show project-overview`. For the 3-Stage Review & Self-Correction Loop, see `uv run drawlib rules show review-guide`.)*
@@ -36,7 +39,7 @@ setup(width=156, height=58, dpi=150)
 rectangle((78, 29), width=150, height=52, style=Styles.MutedDashed.patch(shape_r=2.5))
 text(
     (78, 49.5),
-    "Illustrated Notebook as Code: Markdown Source -> AI Dry-Run -> Unified .ipynb & HTML Bundle",
+    "Illustrated Notebook as Code: Markdown Source -> AI Dry-Run -> Multi-Target Output",
     style=Styles.DarkBold.patch(text_size=12.0),
 )
 
@@ -64,13 +67,13 @@ text(
 
 line((99.5, 25), (107.5, 25), arrow_head="->", style=Styles.DarkBold)
 
-# Stage 3: Bundled Output Directory (jupyter_jupyter/ or jupyter_html/)
+# Stage 3: Multi-Target Outputs (jupyter_jupyter/, jupyter_html/, jupyter_images/)
 rectangle((128, 25), width=40, height=32, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
 phosphor.folder_open((113.5, 35.5), width=4.5, style=Styles.PrimaryBold)
-text((130.5, 35.5), "3. Unified Web Bundle", style=Styles.DarkBold.patch(text_size=10.8))
+text((130.5, 35.5), "3. Multi-Target Out", style=Styles.DarkBold.patch(text_size=10.8))
 text(
     (128, 21.5),
-    "jupyter_jupyter/<lang>/\n• *.ipynb (Colab/Jupyter)\n• *.html (In[n]/Out[n])\n• ../images/ (Shared PNG)",
+    "• build jupyter -> *.ipynb\n• build html -> HTML+.ipynb\n• build image -> PNGs",
     style=Styles.Dark.patch(text_size=9.8),
 )
 
@@ -123,13 +126,16 @@ jupyter_src/
 ├── utils.py                   # Reusable Python helpers imported across notebooks
 ├── style.css                  # Notebook HTML preview stylesheet (includes In[n]/Out[n] cells)
 ├── template.html              # 2-column HTML preview layout with Open in Colab & .ipynb download bar
-├── build.sh                   # Master build script (compiles bundled .ipynb + HTML into jupyter_jupyter/)
-├── build_jupyter.sh           # Compile bundled .ipynb + HTML preview (jupyter_jupyter/)
-├── build_html.sh              # Alias for building bundled .ipynb + HTML preview (jupyter_jupyter/)
-└── serve.sh                   # Local HTTP preview server (drawlib serve jupyter_jupyter/)
+├── build.sh                   # Master build script (runs build_html.sh, build_jupyter.sh & build_image.sh)
+├── build_html.sh              # Compile 2-column HTML preview + bundled .ipynb -> jupyter_html/
+├── build_jupyter.sh           # Compile standalone .ipynb notebooks ONLY -> jupyter_jupyter/
+├── build_image.sh             # Extract standalone diagram PNGs -> jupyter_images/
+└── serve.sh                   # Local HTTP preview server (drawlib serve jupyter_html/)
 ```
 
-Both `drawlib build jupyter` and `drawlib build html` on a `jupyter` project output **`.ipynb` notebooks and `.html` preview pages side-by-side** in the same output directory (`<out_dir>/<lang>/*.ipynb` and `<out_dir>/<lang>/*.html` + `<out_dir>/images/`), so deploying the output directory to any web host or custom domain serves both the HTML preview and downloadable `.ipynb` files without requiring GitHub.
+- **`drawlib build html jupyter_src/ -o jupyter_html/`** outputs the **2-column HTML preview bundled alongside `.ipynb` files** (`<lang>/*.html`, `<lang>/*.ipynb`, `index.html`, `images/`, `_assets/`)—ready to host on any web server or GitHub Pages.
+- **`drawlib build jupyter jupyter_src/ -o jupyter_jupyter/`** outputs **`.ipynb` files ONLY** (`<lang>/*.ipynb`, zero `.html`/`style.css`/`images/`)—ready to sync directly to a private **Google Drive** shared folder via `rclone copy` and open in **Google Colab** (leave `colab_base_url` unset and set `execute = false` when notebooks rely on `google.colab` APIs).
+- **`drawlib build image jupyter_src/ -o jupyter_images/`** extracts rendered diagram images (`cell=markdown` blocks, plus `cell=code` diagrams when `execute = true`).
 
 ### 3.1. `[jupyter]` Manifest Options (`drawlib.toml`)
 
@@ -170,11 +176,14 @@ Never deliver an untested notebook. `drawlib build jupyter` includes a built-in 
 # 1. Fast AI Dry-Run verification (executes all cells, checks [Geometry Warning], writes no files):
 uv run drawlib build jupyter jupyter_src/ --dry-run
 
-# 2. Full build (bundled .ipynb notebooks + HTML preview site in jupyter_jupyter/):
+# 2. Standalone .ipynb-only build (ideal for Google Drive + rclone + Colab sharing):
+./jupyter_src/build_jupyter.sh
+
+# 3. Full build (HTML preview + bundled .ipynb in jupyter_html/, standalone .ipynb in jupyter_jupyter/, images in jupyter_images/):
 ./jupyter_src/build.sh
 
-# 3. Link & asset integrity check on the compiled site:
-uv run drawlib serve jupyter_jupyter/ --check
+# 4. Link & asset integrity check on the compiled HTML preview site:
+uv run drawlib serve jupyter_html/ --check
 ```
 
 ### What the Dry-Run Engine Verifies Automatically:

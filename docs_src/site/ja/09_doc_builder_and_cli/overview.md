@@ -906,7 +906,7 @@ save()
 | **`site`** | `docs_src/<lang>/` | `docs_html/`, `docs_markdown/`（または `docs/`）, `docs_images/` | サイドバーナビゲーション（`<lang>/navbar.md`）を備えたマルチページ構成のドキュメントサイト |
 | **`catalog`** | `catalog_src/<lang>/` | `catalog_html/`, `catalog_markdown/`, `catalog_images/` | API・CLI オプション・スキーマ・サービス台帳・ランブック向けのカタログ & リファレンス（`1 MD = 1 HTML`、`# H1` / `## H2` 自動サイドバー、バッジ、` / ` フィルタ） |
 | **`slide`** | `slide_src/<lang>/` | `slide_html/`, `slide_<lang>.pdf`, `slide_<lang>.pptx`, `slide_images/` | 16:9 プレゼンテーションスライドデッキ（インタラクティブ Web スライド、印刷対応ベクター PDF、編集可能な PowerPoint） |
-| **`jupyter`** | `jupyter_src/<lang>/` | `jupyter_jupyter/`（`<lang>/*.ipynb` + `<lang>/*.html` + `images/` を統合バンドル） | 解説図解（`cell=markdown`）と実行可能 Python セル（`cell=code`）を組み合わせた対話型 Jupyter / Google Colab ノートブック（インプロセス AI Dry-Run 検証付き） |
+| **`jupyter`** | `jupyter_src/<lang>/` | `jupyter_jupyter/`（`.ipynb` のみ）、`jupyter_html/`（HTML プレビュー + `.ipynb`）、`jupyter_images/`（図解 PNG） | 解説図解（`cell=markdown`）と実行可能 Python セル（`cell=code`）を組み合わせた対話型 Jupyter / Google Colab ノートブック（インプロセス AI Dry-Run 検証付き） |
 | **`images`** *（別名: `image`）* | `images_src/` | `images/*.png`（または `.webp`） | スタンドアロンの Python 描画スクリプトから画像アセットを一括レンダリング |
 
 ```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Drawlib の 6 種のプロジェクトスターターテンプレートと出力形式の概要"

@@ -624,6 +624,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/jupyter_google_drive.html" >Google Drive + Colab 共有ガイド (`rclone`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
                             </li>
                             
@@ -764,7 +768,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <li><strong><code>site</code></strong>: マルチページのドキュメントサイト（<code>docs_html/</code>）、Markdown サイト（<code>docs_markdown/</code>）、および図解画像（<code>docs_images/</code>）。</li>
 <li><strong><code>catalog</code></strong>: <code># H1</code> / <code>## H2</code> 自動サイドバー・セマンティックバッジ・<code>/</code> リアルタイム絞り込みを備えた図解付きカタログ &amp; リファレンスサイト（<code>catalog_html/</code>、<code>catalog_markdown/</code>、<code>catalog_images/</code>）。API・CLI リファレンスやデータスキーマ、サービス台帳に最適です。</li>
 <li><strong><code>slide</code></strong>: Web スライドデッキ（<code>slide_html/</code>）、ベクター PDF（<code>slide_&lt;lang&gt;.pdf</code>）、編集可能な MS PowerPoint（<code>slide_&lt;lang&gt;.pptx</code>）、および図解画像（<code>slide_images/</code>）へコンパイルされる 16:9 プレゼンテーションスライド。</li>
-<li><strong><code>jupyter</code></strong>: 解説図解（<code>cell=markdown</code>）と実行可能 Python セル（<code>cell=code</code>）を組み合わせ、インプロセス AI Dry-Run 検証を経て同一出力フォルダ（<code>jupyter_jupyter/</code> 内の <code>&lt;lang&gt;/*.ipynb</code> と <code>&lt;lang&gt;/*.html</code>）へバンドル生成される対話型 Jupyter / Google Colab ノートブックおよび 2 カラム HTML プレビューサイト。</li>
+<li><strong><code>jupyter</code></strong>: 解説図解（<code>cell=markdown</code>）と実行可能 Python セル（<code>cell=code</code>）を組み合わせ、インプロセス AI Dry-Run 検証を経て単体 <code>.ipynb</code> ノートブック（<code>jupyter_jupyter/</code>）、<code>.ipynb</code> 同梱の 2 カラム HTML プレビューサイト（<code>jupyter_html/</code>）、および抽出図解画像（<code>jupyter_images/</code>）へマルチターゲット出力できる対話型 Jupyter / Google Colab プロジェクト。</li>
 <li><strong><code>images</code></strong>: 画像ファイル（<code>images/*.png</code> など）へ一括コンパイルされるスタンドアロンの Python 図解スクリプト群（<code>images_src/*.py</code>）。</li>
 </ul>
 <figure class="drawlib-image" style="text-align: center;">
@@ -830,7 +834,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>docx<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc.docx<span class="w"> </span>--generate-index<span class="w"> </span><span class="c1"># -&gt; doc_&lt;lang&gt;.docx</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide_html/
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w">              </span><span class="c1"># -&gt; slide_&lt;lang&gt;.pptx</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">   </span><span class="c1"># -&gt; &lt;lang&gt;/*.ipynb + *.html (or --dry-run)</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">   </span><span class="c1"># -&gt; &lt;lang&gt;/*.ipynb only (or --dry-run)</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/
 
 <span class="c1"># Force a clean re-render bypassing the SQLite build cache (.drawlib/cache.db):</span>

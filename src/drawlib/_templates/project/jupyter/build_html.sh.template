@@ -27,6 +27,6 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
     fi
 fi
 
-echo "Building Jupyter HTML preview..."
-$DRAWLIB_CMD build jupyter __SRC_DIR__/ -o __OUT_HTML_DIR__/ "$@"
+echo "Building Jupyter HTML preview (with bundled .ipynb)..."
+$DRAWLIB_CMD build html __SRC_DIR__/ -o __OUT_HTML_DIR__/ "$@"
 echo "HTML preview build complete: __OUT_HTML_DIR__/"

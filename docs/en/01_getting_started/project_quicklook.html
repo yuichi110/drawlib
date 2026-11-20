@@ -624,6 +624,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/jupyter_google_drive.html" >Jupyter Sharing via Google Drive &amp; Colab</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
                             </li>
                             
@@ -764,7 +768,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <li><strong><code>site</code></strong>: Multi-page documentation website (<code>docs_html/</code>), Markdown site (<code>docs_markdown/</code>), and diagrams (<code>docs_images/</code>).</li>
 <li><strong><code>catalog</code></strong>: Illustrated catalog &amp; reference website (<code>catalog_html/</code>, <code>catalog_markdown/</code>, <code>catalog_images/</code>) with automatic <code># H1</code> / <code>## H2</code> sidebar extraction, semantic badges, and <code>/</code> live filtering for APIs, CLI flags, schemas, and service registries.</li>
 <li><strong><code>slide</code></strong>: 16:9 presentation slide deck compiled to web deck (<code>slide_html/</code>), vector PDF (<code>slide_&lt;lang&gt;.pdf</code>), editable MS PowerPoint (<code>slide_&lt;lang&gt;.pptx</code>), and diagrams (<code>slide_images/</code>).</li>
-<li><strong><code>jupyter</code></strong>: Interactive Jupyter &amp; Google Colab notebooks and 2-column HTML preview site bundled together (<code>jupyter_jupyter/</code> containing <code>&lt;lang&gt;/*.ipynb</code>, <code>&lt;lang&gt;/*.html</code>, and <code>images/</code>) combining narrative diagrams (<code>cell=markdown</code>) and live Python cells (<code>cell=code</code>) with in-process AI dry-run verification.</li>
+<li><strong><code>jupyter</code></strong>: Interactive Jupyter &amp; Google Colab notebooks combining narrative diagrams (<code>cell=markdown</code>) and live Python cells (<code>cell=code</code>) with in-process AI dry-run verification—compiled to standalone <code>.ipynb</code> notebooks (<code>jupyter_jupyter/</code>), 2-column HTML preview with bundled <code>.ipynb</code> downloads (<code>jupyter_html/</code>), and extracted diagrams (<code>jupyter_images/</code>).</li>
 <li><strong><code>images</code></strong>: Standalone Python illustration scripts (<code>images_src/*.py</code>) batch-compiled to image files (<code>images/*.png</code>).</li>
 </ul>
 <figure class="drawlib-image" style="text-align: center;">
@@ -830,7 +834,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>docx<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc.docx<span class="w"> </span>--generate-index<span class="w"> </span><span class="c1"># -&gt; doc_&lt;lang&gt;.docx</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide_html/
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w">              </span><span class="c1"># -&gt; slide_&lt;lang&gt;.pptx</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">   </span><span class="c1"># -&gt; &lt;lang&gt;/*.ipynb + *.html (or --dry-run)</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w">   </span><span class="c1"># -&gt; &lt;lang&gt;/*.ipynb only (or --dry-run)</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>images_src/<span class="w"> </span>-o<span class="w"> </span>images/
 
 <span class="c1"># Force a clean re-render bypassing the SQLite build cache (.drawlib/cache.db):</span>

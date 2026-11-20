@@ -555,7 +555,7 @@ def test_cli_init_scripts_support_uvx_fallback(tmp_path: Path) -> None:
         "site": ["build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
         "catalog": ["build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
         "slide": ["build_html.sh", "build_pdf.sh", "build_pptx.sh", "build_image.sh", "serve.sh"],
-        "jupyter": ["build_jupyter.sh", "build_html.sh", "serve.sh"],
+        "jupyter": ["build_jupyter.sh", "build_html.sh", "build_image.sh", "serve.sh"],
     }
     for proj_type, scripts in expected_scripts.items():
         res = run_drawlib_cli(["init", "project", proj_type, f"uvx_{proj_type}"], cwd=str(tmp_path))

@@ -113,6 +113,12 @@ def build_markdown(
             f'Input directory "{input_abs}" is an "images" script project (drawlib.toml). '
             'Please use "drawlib build image" instead of "drawlib build markdown".'
         )
+    if manifest.project.type == "jupyter":
+        raise ValueError(
+            f'Input directory "{input_abs}" is a "jupyter" notebook project (drawlib.toml). '
+            'Please use "drawlib build jupyter" (for .ipynb) or "drawlib build html" (for HTML preview + .ipynb) '
+            'instead of "drawlib build markdown".'
+        )
     if manifest.i18n is None:
         raise ValueError(f'Invalid "{input_abs}/drawlib.toml": "[i18n]" configuration is required.')
 

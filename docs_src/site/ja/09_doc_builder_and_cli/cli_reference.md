@@ -831,7 +831,7 @@ drawlib build pdf doc_src/ -o manual.pdf --toc              # High-fidelity vect
 drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) document
 drawlib build slide slide_src/ -o slide_html/               # Interactive 16:9 HTML slide deck
 drawlib build pptx slide_src/ -o deck.pptx                  # Editable 16:9 MS PowerPoint (.pptx) deck
-drawlib build jupyter jupyter_src/ -o jupyter_jupyter/      # Bundled .ipynb + HTML preview (or --dry-run)
+drawlib build jupyter jupyter_src/ -o jupyter_jupyter/      # Standalone .ipynb notebooks only (or --dry-run)
 drawlib build image scripts/ -o assets/ -g                  # Batch Python image rendering
 
 # Scaffolding & AI Agent Rules
@@ -1053,11 +1053,12 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --static-frame last
 | `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 ### 4.7 `drawlib build jupyter`
-Markdown ノートブックのソース（`jupyter_src/<lang>/**/*.md`）を、インプロセス AI ドライラン実行（`stdout`、式の評価結果、`show()` / `save()` の画像を自動キャプチャし、未処理例外と `[Geometry Warning]` がゼロであることを検証）を行いながら、実行可能な Jupyter ノートブック（`<lang>/*.ipynb`）および 2 カラム HTML プレビューサイト（`<lang>/*.html` + ルート `index.html`）の統合バンドルへコンパイルします。
+Markdown ノートブックのソース（`jupyter_src/<lang>/**/*.md`）または単一 `.md` ファイルを、インプロセス AI ドライラン検証（未処理例外ゼロ・`[Geometry Warning]` ゼロを確認）を行いながら、**自己完結型の Jupyter ノートブックのみ（`<lang>/*.ipynb` のみ、HTML/CSS/外部画像なし）** へコンパイルします。*（ダウンロード用 `.ipynb` を同梱した 2 カラム HTML プレビューサイトを生成するには `drawlib build html jupyter_src/ -o jupyter_html/` を使用します。）*
 
 ```bash
 drawlib build jupyter jupyter_src/ -o jupyter_jupyter/
 drawlib build jupyter jupyter_src/ --dry-run
+drawlib build html jupyter_src/ -o jupyter_html/
 ```
 
 | オプション | 短縮形 | デフォルト値 | 説明 |
@@ -1065,7 +1066,7 @@ drawlib build jupyter jupyter_src/ --dry-run
 | `--output` | `-o` | `<base>_jupyter/` | 出力先ディレクトリパス（単一ファイル指定時は `.ipynb` ファイルパス）。 |
 | `--format` | `-f` | `png` | 埋め込み `drawlib` ブロックの画像出力フォーマット（`png` または `webp`）。 |
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス（ノートブック実行時の `globals` へ事前注入されます）。 |
-| `--execute` / `--no-execute` | | `None`（`[jupyter].execute`） | `code` セルをインプロセスで順番に実行し、出力を HTML プレビューへ描画します（`.ipynb` 側のコードセル出力は空に保たれます）。 |
+| `--execute` / `--no-execute` | | `None`（`[jupyter].execute`） | `code` セルをインプロセスで順番に実行し、エラーゼロと `[Geometry Warning]` ゼロを検証します（`.ipynb` 側のコードセル出力は空に保たれます）。 |
 | `--dry-run` | | `False` | 出力ファイルをディスクに書き出さず、全セルの実行と `[Geometry Warning]` の検証のみを行います。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` をバイパスし、すべての図解ブロックを再実行します。 |
 | `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |

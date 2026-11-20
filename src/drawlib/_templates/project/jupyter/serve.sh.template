@@ -27,5 +27,5 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
     fi
 fi
 
-echo "Starting local preview server on __OUT_JUPYTER_DIR__/ ..."
-$DRAWLIB_CMD serve __OUT_JUPYTER_DIR__/ "$@"
+echo "Starting local preview server on __OUT_HTML_DIR__/ ..."
+$DRAWLIB_CMD serve __OUT_HTML_DIR__/ "$@"

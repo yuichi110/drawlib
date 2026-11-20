@@ -150,7 +150,7 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 
 ## `cmd` drawlib build html
 
-Markdown/HTML ドキュメントソースディレクトリ（`site`・`catalog`・`doc`・`jupyter`）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。
+Markdown/HTML ドキュメントソースディレクトリ（`site`・`catalog`・`doc`・`jupyter`）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。`jupyter` プロジェクト時は、`In [n]` / `Out [n]` 表示とダウンロード用 `.ipynb` を同梱した 2 カラム HTML プレビューサイトを生成します。
 
 ```bash
 drawlib build html [OPTIONS] DIR
@@ -202,12 +202,12 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 
 ## `cmd` drawlib build jupyter
 
-`jupyter` プロジェクトの Markdown ファイル群を、インプロセス逐次セル実行・HTML プレビューへの実行結果（`stdout`・`execute_result`・描画画像）描画・`[Geometry Warning]` 検査付きのクリーンな未実行 Jupyter Notebook（`<output>/<lang>/**/*.ipynb`）および HTML プレビューページ（`<output>/<lang>/**/*.html`）の統合バンドルへコンパイルします。
+`jupyter` プロジェクトの Markdown ファイル群または単一の `.md` ファイルを、インプロセス逐次セル実行・`[Geometry Warning]` 検査付きの自己完結型・未実行 Jupyter Notebook（`<output>/<lang>/**/*.ipynb` のみ、HTML/CSS/外部画像なし）へコンパイルします。*（ダウンロード用 `.ipynb` を同梱した 2 カラム HTML プレビューサイトを生成するには `drawlib build html` を使用します。）*
 
 ```bash
 drawlib build jupyter [OPTIONS] INPUT
 
-# バンドル済みノートブック + HTML プレビューを Dry-Run 検証付きでコンパイル
+# 単体 .ipynb ノートブックのみを Dry-Run 検証付きでコンパイル
 uv run drawlib build jupyter jupyter_src -o jupyter_jupyter
 
 # 出力ファイルを書き出さずに AI ドライラン検証のみを実行
@@ -221,7 +221,7 @@ uv run drawlib build jupyter jupyter_src --dry-run
 | `-f, --format` | `'png' \| 'webp'` | `'png'` | `drawlib` ブロックのデフォルト出力画像フォーマット。 |
 | `-s, --styles` | `str \| None` | `None` | Python `styles.py` スクリプトのパス。 |
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
-| `--execute / --no-execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を HTML プレビューに描画します。 |
+| `--execute / --no-execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルをインプロセスで順次実行検証します（`.ipynb` 側のコードセルは空のまま）。 |
 | `--dry-run` | `bool` | `False` | 出力ファイルを書き出さず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを行います。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
 | `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
@@ -678,7 +678,7 @@ uv run drawlib init project images arch_diagrams -l ja -s google
 
 ## `cmd` drawlib init project jupyter
 
-`.ipynb` ノートブックおよびノートブックスタイルの HTML プレビューページへコンパイルできるインタラクティブ Jupyter & Google Colab ノートブックプロジェクト（`project_type = "jupyter"`、`drawlib.toml`・`styles.py`・`utils.py`・`style.css`・`template.html`・`build.sh`・`build_jupyter.sh`・`build_html.sh`・`serve.sh`）を `<target>_src/` に生成します。
+単体 `.ipynb` ノートブック（`build jupyter`）・`.ipynb` 同梱 HTML プレビュー（`build html`）・抽出図解画像（`build image`）へコンパイルできるインタラクティブ Jupyter & Google Colab ノートブックプロジェクト（`project_type = "jupyter"`、`drawlib.toml`・`styles.py`・`utils.py`・`style.css`・`template.html`・`build.sh`・`build_html.sh`・`build_jupyter.sh`・`build_image.sh`・`serve.sh`）を `<target>_src/` に生成します。
 
 ```bash
 drawlib init project jupyter [OPTIONS] [TARGET]

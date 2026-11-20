@@ -1129,7 +1129,7 @@ Drawlib supports six starter project types (`doc`, `site`, `catalog`, `slide`, a
 - **`site`**: Multi-page documentation website (`docs_html/`), Markdown site (`docs_markdown/`), and diagrams (`docs_images/`).
 - **`catalog`**: Illustrated catalog & reference website (`catalog_html/`, `catalog_markdown/`, `catalog_images/`) with automatic `# H1` / `## H2` sidebar extraction, semantic badges, and `/` live filtering for APIs, CLI flags, schemas, and service registries.
 - **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide_<lang>.pdf`), editable MS PowerPoint (`slide_<lang>.pptx`), and diagrams (`slide_images/`).
-- **`jupyter`**: Interactive Jupyter & Google Colab notebooks and 2-column HTML preview site bundled together (`jupyter_jupyter/` containing `<lang>/*.ipynb`, `<lang>/*.html`, and `images/`) combining narrative diagrams (`cell=markdown`) and live Python cells (`cell=code`) with in-process AI dry-run verification.
+- **`jupyter`**: Interactive Jupyter & Google Colab notebooks combining narrative diagrams (`cell=markdown`) and live Python cells (`cell=code`) with in-process AI dry-run verification—compiled to standalone `.ipynb` notebooks (`jupyter_jupyter/`), 2-column HTML preview with bundled `.ipynb` downloads (`jupyter_html/`), and extracted diagrams (`jupyter_images/`).
 - **`images`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
 
 ```drawlib code=fold align=center file=project_scaffolding_types.png caption="Drawlib Project Scaffolding Archetypes (drawlib init project)"
@@ -1194,7 +1194,7 @@ $ uv run drawlib build pdf doc_src/ -o doc.pdf --toc              # -> doc_<lang
 $ uv run drawlib build docx doc_src/ -o doc.docx --generate-index # -> doc_<lang>.docx
 $ uv run drawlib build slide slide_src/ -o slide_html/
 $ uv run drawlib build pptx slide_src/ -o slide.pptx              # -> slide_<lang>.pptx
-$ uv run drawlib build jupyter jupyter_src/ -o jupyter_jupyter/   # -> <lang>/*.ipynb + *.html (or --dry-run)
+$ uv run drawlib build jupyter jupyter_src/ -o jupyter_jupyter/   # -> <lang>/*.ipynb only (or --dry-run)
 $ uv run drawlib build image images_src/ -o images/
 
 # Force a clean re-render bypassing the SQLite build cache (.drawlib/cache.db):

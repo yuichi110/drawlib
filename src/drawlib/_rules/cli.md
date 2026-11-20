@@ -16,7 +16,7 @@ drawlib build pdf doc_src/ -o manual.pdf --generate-index   # Merged vector PDF 
 drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) per locale (manual_<lang>.docx)
 drawlib build slide slide_src/ -o slide_html/               # 16:9 HTML presentation slide deck (<lang>/index.html)
 drawlib build pptx slide_src/ -o slide.pptx                 # Editable 16:9 MS PowerPoint per locale (slide_<lang>.pptx)
-drawlib build jupyter jupyter_src/ -o jupyter_jupyter/      # Bundled .ipynb notebooks + HTML preview + AI dry-run
+drawlib build jupyter jupyter_src/ -o jupyter_jupyter/      # Standalone self-contained .ipynb notebooks only (+ AI dry-run)
 drawlib build jupyter jupyter_src/ --dry-run                # Headless AI dry-run verification without writing files
 drawlib build image scripts/ -o assets/ -g                  # Batch Python illustration rendering
 
@@ -423,9 +423,9 @@ drawlib build image scripts/ -o assets/ -f gif
 
 ---
 
-### 1.8 `drawlib build jupyter` (Bundled `.ipynb` Notebooks, HTML Preview & AI Dry-Run)
+### 1.8 `drawlib build jupyter` (Standalone `.ipynb` Notebooks & AI Dry-Run)
 
-Compiles a `jupyter` project directory (`jupyter_src/`, containing `drawlib.toml` with `type = "jupyter"`) or a standalone Markdown file (`.md`) into a unified bundle containing **executable Jupyter Notebooks (`<lang>/*.ipynb`)**, a **2-column HTML preview website (`<lang>/*.html` + root `index.html`)**, and **shared diagram images (`images/`)** side-by-side—while sequentially executing all code cells in-process via the **AI Dry-Run Engine**.
+Compiles a `jupyter` project directory (`jupyter_src/`, containing `drawlib.toml` with `type = "jupyter"`) or a standalone Markdown file (`.md`) into **self-contained Jupyter Notebooks (`<lang>/*.ipynb` only, zero HTML/CSS/external image files)** while sequentially verifying all code cells in-process via the **AI Dry-Run Engine**. *(To generate the 2-column HTML preview website bundled with downloadable `.ipynb` files, run `drawlib build html jupyter_src/ -o jupyter_html/`.)*
 
 #### Syntax:
 ```bash
@@ -442,7 +442,7 @@ drawlib build jupyter <INPUT> [OPTIONS]
 | `--format` | `-f` | `png \| webp` | `png` | Image output format for embedded `drawlib` blocks. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`, pre-loaded into notebook execution `globals`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`, pre-loaded into notebook execution `globals`). |
-| `--execute / --no-execute` | | flag | `None` (`[jupyter].execute`) | Sequentially execute notebook code cells in-process and render outputs in HTML preview (`.ipynb` code cells stay clean). |
+| `--execute / --no-execute` | | flag | `None` (`[jupyter].execute`) | Sequentially execute notebook code cells in-process to verify zero errors and `[Geometry Warning]` (`.ipynb` code cells stay clean). |
 | `--dry-run` | | flag | `False` | Execute all notebook cells in-process to verify zero errors or `[Geometry Warning]` without writing output files. |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
 | `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`). |
@@ -452,8 +452,11 @@ drawlib build jupyter <INPUT> [OPTIONS]
 # Fast AI Dry-Run verification without writing files:
 drawlib build jupyter jupyter_src/ --dry-run
 
-# Compile bundled .ipynb notebooks and HTML preview site into jupyter_jupyter/:
+# Compile standalone .ipynb notebooks only into jupyter_jupyter/ (ideal for Google Drive + Colab):
 drawlib build jupyter jupyter_src/ -o jupyter_jupyter/
+
+# Compile 2-column HTML preview site with bundled .ipynb downloads into jupyter_html/:
+drawlib build html jupyter_src/ -o jupyter_html/
 ```
 
 ---

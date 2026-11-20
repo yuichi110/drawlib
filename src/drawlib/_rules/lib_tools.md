@@ -49,7 +49,7 @@ from drawlib.tools import (
 The compilation tools compile Markdown documents, multi-page document sites, presentation slides, MS Word/PowerPoint Office files, and standalone Python illustration scripts into production outputs.
 
 ### 2.1. HTML Build (`build_html`)
-Compiles an `i18n`-native `site` or `doc` project directory (`docs_src/` or `doc_src/` containing `drawlib.toml` and `<lang>/` subdirectories) into responsive HTML pages with localized stylesheets, shared deduplicated `images/`, a language switcher (when 2+ locales are configured), and a root default-locale `index.html`:
+Compiles an `i18n`-native `site`, `doc`, `catalog`, or `jupyter` project directory (`docs_src/`, `doc_src/`, `catalog_src/`, or `jupyter_src/` containing `drawlib.toml` and `<lang>/` subdirectories) into responsive HTML pages with localized stylesheets, shared deduplicated `images/`, a language switcher (when 2+ locales are configured), and a root default-locale `index.html` (for `jupyter` projects, also bundles downloadable `.ipynb` notebooks alongside the 2-column HTML preview):
 
 ```python
 from drawlib.tools import build_html
@@ -161,7 +161,7 @@ output_pptx = build_pptx(
 ```
 
 ### 2.6. Python Image Batch Build (`build_image`)
-Executes standalone Python drawing scripts (`images_src/*.py`) or extracts diagrams from `doc` / `site` / `slide` Markdown projects in batch mode:
+Executes standalone Python drawing scripts (`images_src/*.py`) or extracts diagrams from `doc` / `site` / `catalog` / `slide` / `jupyter` Markdown projects in batch mode:
 
 ```python
 from drawlib.tools import build_image
@@ -173,6 +173,25 @@ build_image(
     styles_path="images_src/styles.py",
     utils_path="images_src/utils.py",
     grid=False,
+    workers="auto",
+)
+```
+
+### 2.7. Standalone Jupyter Notebook Build (`build_jupyter`)
+Compiles an `i18n`-native `jupyter` project directory (`jupyter_src/`) or single `.md` file into standalone, self-contained `.ipynb` notebooks (`<output_dir>/<lang>/**/*.ipynb` only — zero HTML/CSS/external image clutter) with sequential in-process AI Dry-Run verification:
+
+```python
+from drawlib.tools import build_jupyter
+
+build_jupyter(
+    input_path="jupyter_src/",
+    output_dir="jupyter_jupyter/",
+    image_format="png",      # "png" or "webp"
+    styles_path=None,
+    utils_path=None,
+    no_cache=False,
+    execute=None,            # Override [jupyter].execute in drawlib.toml
+    dry_run=False,           # Execute & verify without writing output files
     workers="auto",
 )
 ```

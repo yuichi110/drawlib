@@ -624,6 +624,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="jupyter_google_drive.html" >Jupyter Sharing via Google Drive &amp; Colab</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_image.html" >Image Project (`images`)</a>
                             </li>
                             
@@ -723,10 +727,10 @@
             </header>
             <main class="main-content">
                 <h1>Jupyter &amp; Colab Notebook Project Guide (<code>drawlib init project jupyter</code>)</h1>
-<p>The <code>jupyter</code> starter template brings <strong>&quot;Illustrated Notebook &amp; Google Colab as Code&quot;</strong> to Drawlib. Instead of versioning monolithic, diff-hostile <code>.ipynb</code> JSON files with stale binary outputs, you author narrative prose, architectural diagrams (<code>```drawlib</code>), and interactive Python exercises (<code>```python</code> or <code>```drawlib cell=code</code>) in clean Markdown (<code>jupyter_src/&lt;lang&gt;/**/*.md</code>)—compiling simultaneously into a <strong>unified web &amp; notebook bundle (<code>jupyter_jupyter/</code> or <code>jupyter_html/</code>)</strong> containing <strong>executable Jupyter Notebooks (<code>&lt;lang&gt;/*.ipynb</code>)</strong> and a <strong>two-column HTML preview website (<code>&lt;lang&gt;/*.html</code> + root <code>index.html</code> with <code>In [n]</code> / <code>Out[n]</code> cells, <code>.ipynb</code> download, and Open in Colab)</strong> verified by an <strong>in-process AI Dry-Run engine</strong>:</p>
+<p>The <code>jupyter</code> starter template brings <strong>&quot;Illustrated Notebook &amp; Google Colab as Code&quot;</strong> to Drawlib. Instead of versioning monolithic, diff-hostile <code>.ipynb</code> JSON files with stale binary outputs, you author narrative prose, architectural diagrams (<code>```drawlib</code>), and interactive Python exercises (<code>```python</code> or <code>```drawlib cell=code</code>) in clean Markdown (<code>jupyter_src/&lt;lang&gt;/**/*.md</code>)—compiling from a single <code>drawlib.toml</code> through an <strong>in-process AI Dry-Run engine</strong> into three dedicated deliverables: <strong>standalone self-contained <code>.ipynb</code> notebooks (<code>drawlib build jupyter</code> -&gt; <code>jupyter_jupyter/</code>)</strong>, a <strong>2-column HTML preview site with bundled <code>.ipynb</code> downloads (<code>drawlib build html</code> -&gt; <code>jupyter_html/</code>)</strong>, and <strong>extracted diagram images (<code>drawlib build image</code> -&gt; <code>jupyter_images/</code>)</strong>:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/project_jupyter/project_jupyter_compilation_pipeline.png" alt="project_jupyter_1" />
-  <figcaption class="drawlib-caption">How Markdown Notebook Sources Compile Through the In-Process AI Dry-Run Engine into a Unified .ipynb and HTML Preview Bundle</figcaption>
+  <figcaption class="drawlib-caption">How Markdown Notebook Sources Compile Through the In-Process AI Dry-Run Engine into Standalone .ipynb, HTML Preview, and Image Targets</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -737,20 +741,20 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
 <span class="c1"># Left: Markdown Notebook Source</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">23.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="s2">"jupyter_src/&lt;lang&gt;/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">20.5</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">),</span> <span class="s2">"jupyter_src/&lt;lang&gt;/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 <span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">20.5</span><span class="p">,</span> <span class="mf">36.2</span><span class="p">),</span>
     <span class="s2">"01_tutorial.md</span><span class="se">\n</span><span class="s2">• Narrative + # H1 / ## H2</span><span class="se">\n</span><span class="s2">• ```drawlib (diagram)</span><span class="se">\n</span><span class="s2">• ```python (code cell)"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span>
+    <span class="p">(</span><span class="mf">20.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">28.5</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"styles.py &amp; drawlib.toml"</span><span class="p">,</span>
@@ -758,39 +762,44 @@
 <span class="p">)</span>
 
 <span class="c1"># Middle: In-Process AI Dry-Run Engine</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">63</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">play_circle</span><span class="p">((</span><span class="mf">50.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">65.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="s2">"AI Dry-Run Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">37.0</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="p">(</span><span class="mf">43.5</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">61.0</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">play_circle</span><span class="p">((</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">63.5</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">),</span> <span class="s2">"AI Dry-Run Engine"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">))</span>
 <span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span>
     <span class="s2">"Sequential shared globals</span><span class="se">\n</span><span class="s2">• Executes code cells</span><span class="se">\n</span><span class="s2">• Captures stdout &amp; expr</span><span class="se">\n</span><span class="s2">• Captures show() / save()</span><span class="se">\n</span><span class="s2">• Fails on Geometry Warn"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">63</span><span class="p">,</span> <span class="mf">12.8</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">29.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.8</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"--dry-run Verification"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Right: Unified Output Bundle (jupyter_jupyter/ or jupyter_html/)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">81</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">folder_open</span><span class="p">((</span><span class="mf">92.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">108.2</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">),</span> <span class="s2">"jupyter_jupyter/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">))</span>
+<span class="c1"># Right: 3 Dedicated Build Targets</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">78.5</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="p">(</span><span class="mf">82.5</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">82.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">82.5</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ty</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">):</span>
+    <span class="n">line</span><span class="p">((</span><span class="mf">82.5</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="p">(</span><span class="mf">87.0</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.ipynb"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="s2">"Self-contained Base64 +</span><span class="se">\n</span><span class="s2">Clean unexecuted cells"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">105.5</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">37</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">notebook</span><span class="p">((</span><span class="mf">95.0</span><span class="p">,</span> <span class="mf">52.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.5</span><span class="p">,</span> <span class="mf">52.2</span><span class="p">),</span> <span class="s2">"build jupyter"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">105.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="s2">"jupyter_jupyter/&lt;lang&gt;/*.ipynb</span><span class="se">\n</span><span class="s2">.ipynb only (Drive + Colab)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="s2">"&lt;lang&gt;/*.html"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="s2">"In[n]/Out[n] preview +</span><span class="se">\n</span><span class="s2">Download &amp; Colab links"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">105.5</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">37</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">95.0</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.5</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">),</span> <span class="s2">"build html"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">105.5</span><span class="p">,</span> <span class="mf">27.2</span><span class="p">),</span> <span class="s2">"jupyter_html/&lt;lang&gt;/*.html</span><span class="se">\n</span><span class="s2">In[n]/Out[n] + bundled .ipynb"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">105.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">37</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">((</span><span class="mf">95.0</span><span class="p">,</span> <span class="mf">16.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">108.5</span><span class="p">,</span> <span class="mf">16.2</span><span class="p">),</span> <span class="s2">"build image"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">105.5</span><span class="p">,</span> <span class="mf">9.2</span><span class="p">),</span> <span class="s2">"jupyter_images/&lt;stem&gt;/*.png</span><span class="se">\n</span><span class="s2">Extracted diagram assets"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -816,7 +825,7 @@
 </tr>
 <tr>
 <td style="text-align:left"><strong>Separate Web Docs vs. Notebooks</strong>: Teams duplicate effort maintaining web tutorials and Colab notebooks.</td>
-<td style="text-align:left"><strong>Bundled <code>.ipynb</code> + HTML Output</strong>: A single build outputs <code>&lt;lang&gt;/*.html</code> and <code>&lt;lang&gt;/*.ipynb</code> side-by-side in the same folder (<code>jupyter_jupyter/</code> or <code>jupyter_html/</code>), so you can deploy directly to any custom domain without GitHub.</td>
+<td style="text-align:left"><strong>Multi-Target Output from One <code>drawlib.toml</code></strong>: Compile standalone <code>.ipynb</code>-only folders (<code>drawlib build jupyter</code> -&gt; <code>jupyter_jupyter/</code>) for Google Drive / Colab sharing, a 2-column HTML preview bundled with <code>.ipynb</code> downloads (<code>drawlib build html</code> -&gt; <code>jupyter_html/</code>), or standalone PNGs (<code>drawlib build image</code> -&gt; <code>jupyter_images/</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Multi-Locale Duplication</strong>: Translating <code>.ipynb</code> notebooks into English and Japanese is error-prone.</td>
@@ -825,7 +834,7 @@
 </tbody>
 </table>
 <blockquote>
-<p><strong>Live Showcase:</strong> Explore Drawlib's own 6-chapter bilingual interactive tutorial built with <code>type = &quot;jupyter&quot;</code> at <a href="https://www.drawlib.com/jupyter/en/"><code>https://www.drawlib.com/jupyter/</code></a>.</p>
+<p><strong>Live Showcase &amp; Private Sharing:</strong> Explore Drawlib's own 6-chapter bilingual interactive tutorial built with <code>type = &quot;jupyter&quot;</code> at <a href="https://www.drawlib.com/jupyter/en/"><code>https://www.drawlib.com/jupyter/</code></a>. Need to distribute notebooks privately to clients or internal teams without a public GitHub repository? See the dedicated <strong><a href="./jupyter_google_drive.html">Jupyter Sharing via Google Drive &amp; Colab (<code>rclone</code>)</a></strong> guide.</p>
 </blockquote>
 <hr />
 <h2>2. Scaffolding &amp; Directory Layout</h2>
@@ -839,11 +848,16 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <span class="c1"># Fast AI Dry-Run verification (executes all cells, checks [Geometry Warning], writes no files):</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
 
-<span class="c1"># Compile bundled .ipynb notebooks + HTML preview site into jupyter_jupyter/:</span>
+<span class="c1"># Build all targets (HTML + bundled .ipynb in jupyter_html/, .ipynb-only in jupyter_jupyter/, PNGs in jupyter_images/):</span>
 ./jupyter_src/build.sh
 
+<span class="c1"># Or build individual targets:</span>
+./jupyter_src/build_jupyter.sh<span class="w">   </span><span class="c1"># -&gt; jupyter_jupyter/&lt;lang&gt;/*.ipynb (standalone .ipynb only)</span>
+./jupyter_src/build_html.sh<span class="w">      </span><span class="c1"># -&gt; jupyter_html/ (2-column HTML preview + bundled .ipynb)</span>
+./jupyter_src/build_image.sh<span class="w">     </span><span class="c1"># -&gt; jupyter_images/ (extracted diagram PNGs)</span>
+
 <span class="c1"># Validate HTML preview links and bundled .ipynb assets headlessly:</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>jupyter_jupyter/<span class="w"> </span>--check
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>jupyter_html/<span class="w"> </span>--check
 </code></pre>
 <p>Scaffolded directory layout:</p>
 <pre><code class="language-text">jupyter_src/
@@ -852,17 +866,22 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 ├── utils.py                   # Reusable Python helpers imported across notebooks
 ├── style.css                  # Responsive 2-column HTML preview stylesheet (includes In[n]/Out[n] cells)
 ├── template.html              # Jinja2 HTML preview layout with Open in Colab &amp; .ipynb download bar
-├── _assets/                   # Static images/logos &amp; favicon.png (copied to output _assets/)
+├── _assets/                   # Static images/logos &amp; favicon.png (copied to HTML output _assets/)
 ├── en/                        # Locale notebook source directory (sorted naturally: 01_, 02_, ...)
 │   ├── 01_sample_notebook.md  # Notebook 1: Markdown narrative + drawlib diagrams + python code cells
 │   └── README.md              # Authoring guide (automatically excluded from notebook compilation)
-├── build.sh                   # Master build script (compiles bundled .ipynb + HTML into jupyter_jupyter/)
-├── build_jupyter.sh           # Compile bundled .ipynb + HTML preview -&gt; jupyter_jupyter/
-├── build_html.sh              # Alias for building bundled .ipynb + HTML preview -&gt; jupyter_jupyter/
-└── serve.sh                   # Local HTTP preview server (drawlib serve jupyter_jupyter/)
+├── build.sh                   # Master build script (runs build_html.sh, build_jupyter.sh &amp; build_image.sh)
+├── build_html.sh              # Compile 2-column HTML preview + bundled .ipynb -&gt; jupyter_html/
+├── build_jupyter.sh           # Compile standalone .ipynb notebooks ONLY -&gt; jupyter_jupyter/
+├── build_image.sh             # Extract rendered diagram images -&gt; jupyter_images/
+└── serve.sh                   # Local HTTP preview server (drawlib serve jupyter_html/)
 </code></pre>
-<p>When compiled, the output directory (<code>jupyter_jupyter/</code> or <code>jupyter_html/</code>) bundles <code>.ipynb</code> files right alongside <code>.html</code> pages:</p>
-<pre><code class="language-text">jupyter_jupyter/               # Self-contained web &amp; notebook bundle (deployable to any domain)
+<p>Each build command emits a clean, purpose-built output directory from the exact same <code>drawlib.toml</code>:</p>
+<pre><code class="language-text">jupyter_jupyter/               # `drawlib build jupyter` — 100% standalone .ipynb only (ideal for Google Drive + Colab)
+└── en/
+    └── 01_sample_notebook.ipynb
+
+jupyter_html/                  # `drawlib build html` — 2-column HTML preview + bundled .ipynb (deployable to any host)
 ├── index.html                 # Root entry page (rebased from default_lang first notebook)
 ├── en/
 │   ├── index.html
@@ -870,6 +889,11 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 │   └── 01_sample_notebook.ipynb # Bundled executable Jupyter Notebook (linked relatively from HTML)
 ├── images/                    # Shared diagram images across locales
 └── _assets/                   # Static assets &amp; favicon
+
+jupyter_images/                # `drawlib build image` — Extracted diagram images
+└── 01_sample_notebook/
+    ├── pipeline_overview.png
+    └── live_bar_chart.png
 </code></pre>
 <hr />
 <h2>3. Dual Code Block Semantics (<code>cell=markdown</code> vs. <code>cell=code</code>)</h2>
@@ -1074,7 +1098,7 @@ Variables defined in one <span class="sb">`python`</span> cell remain live in su
 </tbody>
 </table>
 <h3>4.2. Title &amp; Sidebar Brand Header Resolution (<code>drawlib.toml</code> vs. <code># H1</code>)</h3>
-<p>In the compiled HTML preview site (<code>jupyter_jupyter/</code> or <code>jupyter_html/</code>):</p>
+<p>In the compiled HTML preview site (<code>jupyter_html/</code>):</p>
 <ul>
 <li><strong>Left Sidebar Brand Header (<code>site_title</code>)</strong>: Prioritizes <code>drawlib.toml</code> <code>[project].title</code> -&gt; optional <code>&lt;lang&gt;/navbar.md</code> <code># H1</code> -&gt; <code>&quot;Notebooks&quot;</code>.</li>
 <li><strong>Browser Tab <code>&lt;title&gt;</code></strong>: Combines the current notebook's first <code># H1</code> heading and <code>site_title</code> as <code>&lt;Notebook H1&gt; — &lt;site_title&gt;</code>.</li>
@@ -1103,16 +1127,19 @@ Variables defined in one <span class="sb">`python`</span> cell remain live in su
 <li>Calling <code>clear()</code> resets <code>cwd</code> back to <code>False</code>.</li>
 </ul>
 <hr />
-<h2>6. CLI Build &amp; In-Process AI Dry-Run Verification (<code>drawlib build jupyter</code>)</h2>
-<p>Compile bundled <code>.ipynb</code> + HTML preview directories or run fast dry-run verification via <code>drawlib build jupyter</code>:</p>
+<h2>6. CLI Build Targets &amp; In-Process AI Dry-Run Verification</h2>
+<p>Use <code>drawlib build jupyter</code>, <code>drawlib build html</code>, and <code>drawlib build image</code> depending on your delivery target:</p>
 <pre><code class="language-bash"><span class="c1"># 1. Fast in-process AI Dry-Run (executes all cells, checks [Geometry Warning], writes no files):</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>--dry-run
 
-<span class="c1"># 2. Compile bundled .ipynb notebooks + HTML preview site into jupyter_jupyter/:</span>
+<span class="c1"># 2. Standalone .ipynb notebooks ONLY -&gt; jupyter_jupyter/&lt;lang&gt;/*.ipynb (ideal for Google Drive + Colab):</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/
 
-<span class="c1"># 3. Or compile via drawlib build html (also bundles .ipynb alongside .html in jupyter_html/):</span>
+<span class="c1"># 3. 2-column HTML preview site + bundled .ipynb downloads -&gt; jupyter_html/:</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_html/
+
+<span class="c1"># 4. Extracted diagram PNGs -&gt; jupyter_images/:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_images/
 </code></pre>
 <table>
 <thead>
@@ -1146,7 +1173,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>--execute</code> / <code>--no-execute</code></td>
 <td style="text-align:left"></td>
 <td style="text-align:left"><code>None</code> (from <code>[jupyter].execute</code>)</td>
-<td style="text-align:left">Execute <code>code</code> cells sequentially in-process and render outputs in the HTML preview (<code>.ipynb</code> code cells remain clean).</td>
+<td style="text-align:left">Execute <code>code</code> cells sequentially in-process to verify zero errors and <code>[Geometry Warning]</code> (<code>.ipynb</code> code cells remain clean).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--dry-run</code></td>

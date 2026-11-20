@@ -35,8 +35,11 @@ class TestPurgeFontCache:
         """Test purge_font_cache deletes files and directories inside caches except __init__.py."""
         font_dir = tmp_path / "font"
         font_icon_dir = tmp_path / "font_icon"
-        font_dir.mkdir()
-        font_icon_dir.mkdir()
+        icon_dir = tmp_path / "icon"
+        map_dir = tmp_path / "map"
+        rules_dir = tmp_path / "rules"
+        for d in (font_dir, font_icon_dir, icon_dir, map_dir, rules_dir):
+            d.mkdir()
 
         # Create files under font_dir
         (font_dir / "__init__.py").write_text("init")
@@ -44,14 +47,22 @@ class TestPurgeFontCache:
         (font_dir / "some_dir").mkdir()
         (font_dir / "some_dir" / "file.txt").write_text("hello")
 
-        # Create files under font_icon_dir
+        # Create files under font_icon_dir, icon_dir, map_dir, rules_dir
         (font_icon_dir / "__init__.py").write_text("init")
         (font_icon_dir / "icon.ttf").write_text("icon_data")
+        (icon_dir / "gcp").mkdir()
+        (icon_dir / "gcp" / "compute.png").write_text("png")
+        (map_dir / "world").mkdir()
+        (map_dir / "world" / "world.geojson").write_text("{}")
+        (rules_dir / "overview.md").write_text("# Overview")
 
-        # Patch paths in _cache.py to point to our temporary directories
+        # Patch all cache directory paths in _cache.py to point to temporary directories
         with (
             patch("drawlib._core.l3_external._cache.FONT_DIR_PATH", str(font_dir)),
             patch("drawlib._core.l3_external._cache.FONT_ICON_DIR_PATH", str(font_icon_dir)),
+            patch("drawlib._core.l3_external._cache.ICON_DIR_PATH", str(icon_dir)),
+            patch("drawlib._core.l3_external._cache.MAP_DIR_PATH", str(map_dir)),
+            patch("drawlib._core.l3_external._cache.RULES_DIR_PATH", str(rules_dir)),
         ):
             purge_font_cache()
 
@@ -62,3 +73,7 @@ class TestPurgeFontCache:
 
         assert (font_icon_dir / "__init__.py").exists()
         assert not (font_icon_dir / "icon.ttf").exists()
+
+        assert not (icon_dir / "gcp").exists()
+        assert not (map_dir / "world").exists()
+        assert not (rules_dir / "overview.md").exists()

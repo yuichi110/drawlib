@@ -1,0 +1,1321 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Drive + Colab 共有ガイド (`rclone`)</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S9N5BZ1VRC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-S9N5BZ1VRC');
+    </script>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/jupyter_google_drive.html">
+    
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/jupyter_google_drive.html">
+    
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/jupyter_google_drive.html">
+    
+    
+    
+    <meta name="description" content="機密性の高い顧客向け納品物・クローズド案件・社内チーム配布など、GitHub の公開リポジトリを使えないケースでは、Drawlib の .ipynb 専用ビルド（drawlib build jupyter） と rclone を組み合わせることで、自己完結型の .ipynb ノートブックを Google…">
+    <link rel="canonical" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/jupyter_google_drive.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib ドキュメント">
+    <meta property="og:title" content="Google Drive + Colab 共有ガイド (rclone) — Drawlib ドキュメント">
+    <meta property="og:description" content="機密性の高い顧客向け納品物・クローズド案件・社内チーム配布など、GitHub の公開リポジトリを使えないケースでは、Drawlib の .ipynb 専用ビルド（drawlib build jupyter） と rclone を組み合わせることで、自己完結型の .ipynb ノートブックを Google…">
+    <meta property="og:url" content="https://www.drawlib.com/ja/09_doc_builder_and_cli/jupyter_google_drive.html">
+    <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Google Drive + Colab 共有ガイド (rclone) — Drawlib ドキュメント">
+    <meta name="twitter:description" content="機密性の高い顧客向け納品物・クローズド案件・社内チーム配布など、GitHub の公開リポジトリを使えないケースでは、Drawlib の .ipynb 専用ビルド（drawlib build jupyter） と rclone を組み合わせることで、自己完結型の .ipynb ノートブックを Google…">
+    <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    <div class="demo-banner" role="region" aria-label="Portal Navigation">
+        <div class="demo-banner-inner">
+            <span class="demo-banner-badge">DRAWLIB OFFICIAL</span>
+            <span class="demo-banner-text">
+                Drawlib で構築された公式ユーザーガイド（<code>type = "site"</code>）
+            </span>
+            <span class="demo-banner-links">
+                <strong>User Guide</strong>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../api/ja/index.html">API Reference</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../architecture/index.html">Architecture</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../quickstart/ja/index.html">Quickstart</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../about-drawlib/ja/index.html">Slide Deck</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../jupyter/ja/index.html">Jupyter / Colab</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="../../reports/pni-full-audit/index.html">PNI501 Audit</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples ↗</a>
+                <span class="demo-banner-sep">·</span>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            </span>
+        </div>
+    </div>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.14</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/uvx_any_project.html" >uvx ゼロインストール活用</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/api/ja/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/quickstart/ja/" target="_blank" rel="noopener noreferrer">クイックスタート・ハンドブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/about-drawlib/ja/" target="_blank" rel="noopener noreferrer">About Drawlib スライドデッキ<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/jupyter/ja/" target="_blank" rel="noopener noreferrer">対話型 Jupyter / Colab ノートブック<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">サンプル・ショーケース<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/box.html" >Box &amp; Strip Chart（箱ひげ・ストリップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie &amp; Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap &amp; Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_catalog.html" >カタログプロジェクト (`catalog`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_jupyter.html" >Jupyter ノートブックプロジェクト (`jupyter`)</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="jupyter_google_drive.html" >Google Drive + Colab 共有ガイド (`rclone`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/architecture/" target="_blank" rel="noopener noreferrer">内部アーキテクチャ仕様書<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Google Drive + Colab 共有ガイド (`rclone`)</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/09_doc_builder_and_cli/jupyter_google_drive.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="jupyter_google_drive.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Google Drive + Colab 共有ガイド (<code>rclone</code>)</h1>
+<p>機密性の高い顧客向け納品物・クローズド案件・社内チーム配布など、GitHub の公開リポジトリを使えないケースでは、Drawlib の <strong><code>.ipynb</code> 専用ビルド（<code>drawlib build jupyter</code>）</strong> と <strong><code>rclone</code></strong> を組み合わせることで、自己完結型の <code>.ipynb</code> ノートブックを <strong>Google Drive 共有フォルダへ自動公開し、利用者が Google Colab でそのまま実行するワークフロー</strong> を構築できます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/09_doc_builder_and_cli/jupyter_google_drive/jupyter_gdrive_colab_pipeline.png" alt="jupyter_google_drive_1" />
+  <figcaption class="drawlib-caption">Markdown ソースから .ipynb 専用ビルド・rclone copy・Google Drive 共有フォルダを経て Google Colab で実行するクローズド公開パイプライン</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">ai</span><span class="p">,</span> <span class="n">code</span> <span class="k">as</span> <span class="n">code_icons</span><span class="p">,</span> <span class="n">phosphor</span><span class="p">,</span> <span class="n">workspace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Outer workflow container</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span>
+    <span class="s2">"Private Illustrated Notebook Publishing: Git Markdown -&gt; .ipynb Only -&gt; Google Drive -&gt; Colab"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Stage 1: Markdown Source</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">41.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">34.4</span><span class="p">),</span> <span class="s2">"1. Markdown Src"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span>
+    <span class="s2">"jupyter_src/&lt;lang&gt;/</span><span class="se">\n</span><span class="s2">• Prose + drawlib</span><span class="se">\n</span><span class="s2">• Executable python</span><span class="se">\n</span><span class="s2">• Git SSOT"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">31.5</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Stage 2: drawlib build jupyter (.ipynb only — Focal Hero)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">41.2</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ai</span><span class="o">.</span><span class="n">jupyter</span><span class="p">((</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">41.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="s2">"2. build jupyter"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span>
+    <span class="s2">"jupyter_jupyter/</span><span class="se">\n</span><span class="s2">• .ipynb ONLY</span><span class="se">\n</span><span class="s2">• Base64 diagrams</span><span class="se">\n</span><span class="s2">• Zero HTML/CSS"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">66.5</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Stage 3: rclone copy</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_clockwise</span><span class="p">((</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">41.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="s2">"3. rclone copy"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span>
+    <span class="s2">"Root Folder ID</span><span class="se">\n</span><span class="s2">• --include *.ipynb</span><span class="se">\n</span><span class="s2">• Keeps File IDs</span><span class="se">\n</span><span class="s2">• Non-destructive"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">92.5</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">97.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Stage 4: Google Drive -&gt; Google Colab</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">110.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">workspace</span><span class="o">.</span><span class="n">google_drive</span><span class="p">((</span><span class="mf">105.2</span><span class="p">,</span> <span class="mf">41.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">code_icons</span><span class="o">.</span><span class="n">colab</span><span class="p">((</span><span class="mf">114.8</span><span class="p">,</span> <span class="mf">41.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">110.0</span><span class="p">,</span> <span class="mf">34.4</span><span class="p">),</span> <span class="s2">"4. Drive &amp; Colab"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">110.0</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span>
+    <span class="s2">"Shared Folder</span><span class="se">\n</span><span class="s2">• Viewer access</span><span class="se">\n</span><span class="s2">• Zero local setup</span><span class="se">\n</span><span class="s2">• Copy to Drive"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Bottom key-guarantees ribbon</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.4</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"No Public GitHub Needed   •   Self-Contained Base64 .ipynb   •   Share Links Stay Valid Across Updates"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. 概要とこの方式のメリット</h2>
+<p>顧客向けの分析プレイブック・社内研修教材・検証手順書などを配布する際、機密保持やセキュリティポリシーの都合で GitHub の公開リポジトリを利用できないケースは多くあります。環境依存の FUSE マウントではなく、OS・CI を問わず動作する <strong><code>rclone</code></strong> と Drawlib の <code>jupyter</code> プロジェクトを組み合わせることで、安全かつ再現性の高いクローズド配布フローを実現できます。</p>
+<ul>
+<li><strong><code>.ipynb</code> のみのクリーンな出力（<code>drawlib build jupyter</code>）</strong>: Drawlib は単一の <code>drawlib.toml</code> から、<code>drawlib build jupyter</code>（<strong><code>.ipynb</code> のみ</strong>を <code>jupyter_jupyter/&lt;lang&gt;/**/*.ipynb</code> に出力、HTML/CSS/外部画像なし）、<code>drawlib build html</code>（2 カラム HTML プレビュー＋同梱 <code>.ipynb</code> を <code>jupyter_html/</code> に出力）、<code>drawlib build image</code>（図解 PNG を <code>jupyter_images/</code> に抽出）を明確に使い分けられます。Google Drive 共有時は <code>build_jupyter.sh</code> を使うだけで <code>.ipynb</code> のみのクリーンな出力フォルダが得られます。</li>
+<li><strong><code>.ipynb</code> 単体で 100% 自己完結</strong>: <code>cell=markdown</code> の <code>```drawlib</code> 図解およびローカル Markdown 画像（<code>_assets/...</code>）はすべて <strong>Base64 Data URI</strong>（<code>&lt;img src=&quot;data:image/...;base64,...&quot; /&gt;</code>）として <code>.ipynb</code> 内に自動埋め込みされるため、外部画像サーバー不要で Google Colab 上にそのまま表示されます。</li>
+<li><strong>利用者の実行セルを Drawlib 非依存にできる</strong>: <code>drawlib_cell_mode = &quot;markdown&quot;</code>（既定）により、アーキテクチャ解説図の生成にのみ Drawlib を使い、利用者が Colab 上で実行する Python セルは標準ライブラリ・Pandas・クラウド SDK 等だけで完結させられます（利用者側での <code>pip install drawlib</code> は不要）。</li>
+<li><strong>共有リンクを壊さずに最新化（<code>rclone copy</code>）</strong>: <code>rclone copy</code> による上書き更新では Google Drive 上の <strong>File ID が維持</strong> されるため、顧客やチームへ共有済みのリンク URL を変更することなく継続的に最新化できます。</li>
+</ul>
+<p><em>（<code>jupyter</code> プロジェクトの基本構造・デュアルコードブロック構文・<code>setup(..., cwd=True)</code> については、<a href="./project_jupyter.html">Jupyter ノートブックプロジェクトガイド</a> を参照してください。）</em></p>
+<hr />
+<h2>2. Step 1: <code>rclone</code> のインストールと Google Drive リモート設定</h2>
+<p>作業端末（または CI ランナー）へ <a href="https://rclone.org/"><code>rclone</code></a> をインストールします。</p>
+<pre><code class="language-bash"><span class="c1"># macOS (Homebrew):</span>
+brew<span class="w"> </span>install<span class="w"> </span>rclone
+
+<span class="c1"># Linux (公式インストールスクリプト):</span>
+curl<span class="w"> </span>https://rclone.org/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>bash
+
+<span class="c1"># Windows (winget):</span>
+winget<span class="w"> </span>install<span class="w"> </span>Rclone.Rclone
+</code></pre>
+<p>次に <code>rclone config</code> を実行し、Google Drive 用のリモート（例: <code>gdrive</code>）を作成します。</p>
+<ol>
+<li><strong>新規リモート作成</strong>: <code>n</code> を選択し、リモート名に <code>gdrive</code>、Storage に <code>drive</code>（Google Drive）を選択します。</li>
+<li><strong>独自 OAuth 認証情報の設定（継続運用で強く推奨）</strong>: <code>client_id</code> / <code>client_secret</code> は空欄のままでも試せますが、rclone 共有の既定クライアントはレート制限に掛かりやすいため、継続運用やチーム共有では自身の Google Cloud プロジェクトで Google Drive API を有効化して取得した OAuth <code>client_id</code> / <code>client_secret</code> の設定を推奨します。</li>
+<li><strong>スコープ設定</strong>: 既存の共有フォルダへ書き込むため、<code>1</code>（<code>scope = drive</code>）を選択します。</li>
+<li><strong>認証の完了</strong>:
+<ul>
+<li>ブラウザが開けるローカル環境では <code>auto config = y</code> を選択し、ブラウザで認証します。</li>
+<li>SSH 先や devcontainer などのヘッドレス環境では <code>auto config = n</code> を選び、ブラウザのある手元端末で <code>rclone authorize &quot;drive&quot;</code> を実行して出力されたトークン JSON を貼り付けます。</li>
+</ul>
+</li>
+<li><strong>公開先フォルダ種別ごとの設定（マイドライブ / 共有アイテム / 共有ドライブ）</strong>: 公開先 Google Drive フォルダの URL（<code>https://drive.google.com/drive/folders/&lt;FOLDER_ID&gt;</code>）から <code>&lt;FOLDER_ID&gt;</code> を取得し、配置場所に応じて以下のように設定します。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Google Drive 上の配置先</th>
+<th style="text-align:left"><code>rclone config</code>（<code>team_drive</code>）</th>
+<th style="text-align:left">CLI フラグ・挙動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>マイドライブ配下のフォルダ</strong></td>
+<td style="text-align:left"><code>team_drive</code> は <strong>空</strong>（Shared Drive 質問は <code>n</code>）</td>
+<td style="text-align:left"><code>--drive-root-folder-id=&quot;&lt;FOLDER_ID&gt;&quot;</code> を指定。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>共有アイテム（他者所有の共有フォルダ）</strong></td>
+<td style="text-align:left"><code>team_drive</code> は <strong>空</strong></td>
+<td style="text-align:left"><code>--drive-root-folder-id=&quot;&lt;FOLDER_ID&gt;&quot;</code> を指定（対象フォルダに対する <strong>編集者</strong> 権限が必要）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Google Workspace 共有ドライブ直下</strong></td>
+<td style="text-align:left"><em>&quot;Configure this as a Shared Drive?&quot;</em> で <code>y</code> を選び対象ドライブを指定（<code>team_drive = &lt;DRIVE_ID&gt;</code>）</td>
+<td style="text-align:left"><code>--drive-root-folder-id</code> は省略可（リモート直下が共有ドライブになる）、または <code>--drive-team-drive=&quot;&lt;DRIVE_ID&gt;&quot;</code> を使用。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>共有ドライブ内のサブフォルダ</strong></td>
+<td style="text-align:left"><code>--drive-root-folder-id</code> 指定時は <code>team_drive</code> を <strong>空</strong> にする</td>
+<td style="text-align:left"><code>--drive-root-folder-id=&quot;&lt;SUBFOLDER_ID&gt;&quot;</code> を指定（<code>rclone</code> では非空の <code>team_drive</code> と <code>root_folder_id</code> の併用で <code>404</code> や権限不整合になる場合があるため、下の <code>rclone lsf</code> で必ず疎通確認してください）。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>パス指定（<code>gdrive:Client/Notebooks</code>）ではなく <code>--drive-root-folder-id=&quot;&lt;FOLDER_ID&gt;&quot;</code> を使う理由</strong>:</p>
+<ul>
+<li><strong>フォルダ名変更に強い</strong>: Google Drive 側でフォルダ名を変更・移動しても同期が壊れません。</li>
+<li><strong>親フォルダへの誤書き込み防止</strong>: 書き込みスコープを対象 <code>&lt;FOLDER_ID&gt;</code> 配下に厳密に閉じ込められます。</li>
+<li><strong>配置場所を問わず統一運用可能</strong>: マイドライブ配下・共有フォルダ・共有ドライブ配下のいずれでも同じインターフェースで扱えます。</li>
+</ul>
+<p>スクリプト組み込み前に接続確認を行います。</p>
+<pre><code class="language-bash"><span class="c1"># 公開先 Google Drive フォルダ内の既存ファイル一覧を取得（終了コード 0 になれば OK）:</span>
+rclone<span class="w"> </span>lsf<span class="w"> </span>gdrive:<span class="w"> </span>--drive-root-folder-id<span class="o">=</span><span class="s2">"&lt;FOLDER_ID&gt;"</span>
+</code></pre>
+<blockquote>
+<p><strong>補足 — Google Drive 上の同名ファイル重複への対処:</strong> Google Drive は同一フォルダ内に同名ファイルを複数置ける仕様です。過去に手動アップロードした <code>.ipynb</code> が重複している場合は、自動同期前に <code>rclone dedupe gdrive: --drive-root-folder-id=&quot;&lt;FOLDER_ID&gt;&quot; --dry-run</code> で重複がないか確認しておくと安全です。</p>
+</blockquote>
+<hr />
+<h2>3. Step 2: Drawlib <code>jupyter</code> プロジェクトの設定（<code>.ipynb</code> 専用ビルド）</h2>
+<p>単一言語または多言語の <code>jupyter</code> プロジェクトを初期化します。</p>
+<pre><code class="language-bash"><span class="c1"># 単一言語プロジェクトを作成（jupyter_src/ja/ を生成）:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span>-l<span class="w"> </span>ja<span class="w"> </span>-s<span class="w"> </span>google
+
+<span class="c1"># または日英バイリンガルプロジェクトを作成（jupyter_src/en/ と jupyter_src/ja/ を生成）:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>jupyter<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+</code></pre>
+<p>Google Drive 共有向けに <code>jupyter_src/drawlib.toml</code> を設定します。</p>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jupyter"</span>
+<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"顧客向けデータ分析プレイブック"</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Google Drive 共有フォルダ経由で配布する Google Colab ノートブック集。"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"google"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ja"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"ja"</span><span class="p">]</span>
+
+<span class="k">[jupyter]</span>
+<span class="c1"># Google Drive 共有時は colab_base_url を未設定（空）にします！</span>
+<span class="c1"># GitHub URL が入っていると Drive 上の .ipynb 先頭にリンク切れの "Open in Colab" バッジが埋め込まれます。</span>
+<span class="c1"># colab_base_url = ""</span>
+
+<span class="n">drawlib_cell_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"markdown"</span><span class="w">  </span><span class="c1"># ```drawlib を Base64 埋め込み済みの解説図解として出力</span>
+<span class="n">execute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w">                 </span><span class="c1"># 標準 Python のローカル Dry-Run 用は true、google.colab / 対話認証を含む場合は false</span>
+</code></pre>
+<p><strong>Google Drive + Colab 運用での設定ポイント:</strong></p>
+<ul>
+<li><strong><code>colab_base_url</code> は未設定（空）にする</strong>: <code>colab_base_url</code> を指定すると <code>.ipynb</code> 先頭にその URL への <code>Open in Colab</code> バッジが自動挿入されます。Drive 共有方式では外部リンクが不要（かつリンク切れの原因）になるため必ずコメントアウトしてください。</li>
+<li><strong><code>execute = true</code> と <code>execute = false</code> の使い分け（および <code>--dry-run</code> の挙動差）</strong>:
+<ul>
+<li>標準 Python のみで完結するノートブックは <code>execute = true</code> にすると、ビルド時に全コードセルの例外ゼロ・<code>[Geometry Warning]</code> ゼロを自動検証できます。</li>
+<li><code>google.colab</code>（<code>userdata</code>・<code>auth</code>・<code>drive.mount</code>）や対話的クラウド認証を含むノートブックは <code>execute = false</code> にします。<strong><code>execute = false</code> でも <code>cell=markdown</code> の <code>```drawlib</code> 図解レンダリングと <code>[Geometry Warning]</code> 検査は通常通り実行されます。</strong></li>
+<li>なお、<code>drawlib build jupyter --dry-run</code> は <strong><code>execute = false</code> でもコードセル実行を強制</strong> します。Colab 専用ノートブックでもローカル <code>--dry-run</code> を通したい場合は、以下のようにフォールバックを書いておくと便利です。</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-python"><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">userdata</span>
+
+    <span class="n">API_KEY</span> <span class="o">=</span> <span class="n">userdata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"MY_API_KEY"</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"MY_API_KEY"</span><span class="p">,</span> <span class="s2">"dry-run-placeholder"</span><span class="p">)</span>
+</code></pre>
+<ul>
+<li><strong>図解が多い場合の軽量化（<code>-f webp</code>）</strong>: PNG の Base64 埋め込みで <code>.ipynb</code> ファイルサイズが大きくなると Colab での読み込みが重くなることがあります。<code>drawlib build jupyter -f webp</code> を使うと画質を保ったままファイルサイズを大幅に削減できます。</li>
+<li><strong>単一言語（フラット配置）vs 多言語（言語別フォルダ）</strong>: <code>drawlib build jupyter</code> は常に <code>jupyter_jupyter/&lt;lang&gt;/*.ipynb</code> を出力します。単一言語（例: <code>langs = [&quot;ja&quot;]</code>）なら同期元を <code>jupyter_jupyter/ja</code> にすると Google Drive フォルダ直下に <code>.ipynb</code> がフラットに並び、多言語（<code>langs = [&quot;en&quot;, &quot;ja&quot;]</code>）なら <code>jupyter_jupyter</code> を指定すると Drive 側で自動的に <code>en/</code>・<code>ja/</code> フォルダが切られます。</li>
+<li><strong>リネーム・削除済みの古い <code>.ipynb</code> を残さない小技</strong>: ソースの <code>.md</code> を削除・改名した際にローカル出力先へ古い <code>.ipynb</code> が残らないよう、<code>jupyter_src/build_jupyter.sh</code> で <code>--dry-run</code> およびカスタム <code>-o</code> 指定時以外に限り出力ディレクトリをクリーンにしてからビルドします。</li>
+</ul>
+<pre><code class="language-bash"><span class="c1"># jupyter_src/build_jupyter.sh 内（$DRAWLIB_CMD build jupyter 呼び出し前）:</span>
+<span class="nv">IS_DRY_RUN</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">HAS_CUSTOM_OUT</span><span class="o">=</span><span class="m">0</span>
+<span class="k">for</span><span class="w"> </span>arg<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"</span><span class="nv">$arg</span><span class="s2">"</span><span class="w"> </span><span class="k">in</span>
+<span class="w">        </span>--dry-run<span class="o">)</span><span class="w"> </span><span class="nv">IS_DRY_RUN</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">        </span>-o<span class="p">|</span>--output<span class="p">|</span>--output<span class="o">=</span>*<span class="o">)</span><span class="w"> </span><span class="nv">HAS_CUSTOM_OUT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="p">;;</span>
+<span class="w">    </span><span class="k">esac</span>
+<span class="k">done</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$IS_DRY_RUN</span><span class="s2">"</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$HAS_CUSTOM_OUT</span><span class="s2">"</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"jupyter_jupyter"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">"jupyter_jupyter"</span>
+<span class="k">fi</span>
+
+<span class="nv">$DRAWLIB_CMD</span><span class="w"> </span>build<span class="w"> </span>jupyter<span class="w"> </span>jupyter_src/<span class="w"> </span>-o<span class="w"> </span>jupyter_jupyter/<span class="w"> </span><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre>
+<p>認証情報・フォルダ ID・ビルド生成物は Git 管理外にするため、リポジトリの <code>.gitignore</code> に以下を追記します。</p>
+<pre><code class="language-text"># ビルド生成物（Git ではなく Google Drive へ同期配信）
+jupyter_jupyter/
+jupyter_html/
+jupyter_images/
+
+# ローカル環境変数および rclone / GCP 認証情報 — 絶対にコミットしない！
+.env
+.env.local
+rclone.conf
+*-service-account*.json
+</code></pre>
+<hr />
+<h2>4. Step 3: <code>sync_gdrive.sh</code> と <code>build.sh</code> の自動連携</h2>
+<p>フォルダ ID をリポジトリへハードコードせず環境変数（または Git 管理外の <code>.env</code>）から読み込む <code>jupyter_src/sync_gdrive.sh</code> を作成します。</p>
+<pre><code class="language-bash"><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+
+<span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>
+<span class="nv">PARENT_DIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/.."</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$PARENT_DIR</span><span class="s2">"</span>
+
+<span class="c1"># Git 管理外のローカル .env があれば読み込み</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">".env"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">set</span><span class="w"> </span>-a
+<span class="w">    </span><span class="c1"># shellcheck source=/dev/null</span>
+<span class="w">    </span><span class="nb">source</span><span class="w"> </span><span class="s2">".env"</span>
+<span class="w">    </span><span class="nb">set</span><span class="w"> </span>+a
+<span class="k">fi</span>
+
+<span class="nv">RCLONE_REMOTE</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">RCLONE_REMOTE</span><span class="k">:-</span><span class="nv">gdrive</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">GDRIVE_FOLDER_ID</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">GDRIVE_FOLDER_ID</span><span class="k">:-</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1"># 単一言語: "jupyter_jupyter/ja"（Drive 直下にフラット配置）| 多言語: "jupyter_jupyter"（en/・ja/ 階層）</span>
+<span class="nv">JUPYTER_SRC_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">JUPYTER_SRC_DIR</span><span class="k">:-</span><span class="nv">jupyter_jupyter</span><span class="p">/ja</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1"># 既定は非破壊の "copy"（File ID 維持・Drive 側の既存ファイル誤削除防止）。</span>
+<span class="c1"># 削除ミラーリングは明示的に GDRIVE_SYNC_MODE=sync を指定（事前に必ず --dry-run で確認！）。</span>
+<span class="nv">GDRIVE_SYNC_MODE</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">GDRIVE_SYNC_MODE</span><span class="k">:-</span><span class="nv">copy</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>rclone<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Error: rclone がインストールされていません。https://rclone.org/install/ を参照してください。"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">"</span><span class="nv">$GDRIVE_FOLDER_ID</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Error: GDRIVE_FOLDER_ID が未設定です（環境変数または .env に設定してください）。"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-d<span class="w"> </span><span class="s2">"</span><span class="nv">$JUPYTER_SRC_DIR</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Error: 同期元ディレクトリ '</span><span class="nv">$JUPYTER_SRC_DIR</span><span class="s2">' が見つかりません。先に ./jupyter_src/build_jupyter.sh を実行してください。"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GDRIVE_SYNC_MODE</span><span class="s2">"</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">"copy"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GDRIVE_SYNC_MODE</span><span class="s2">"</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">"sync"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Error: GDRIVE_SYNC_MODE には 'copy' または 'sync' を指定してください（指定値: '</span><span class="nv">$GDRIVE_SYNC_MODE</span><span class="s2">'）。"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Google Drive へ .ipynb を同期中 (</span><span class="nv">$GDRIVE_SYNC_MODE</span><span class="s2">): </span><span class="nv">$JUPYTER_SRC_DIR</span><span class="s2"> -&gt; </span><span class="si">${</span><span class="nv">RCLONE_REMOTE</span><span class="si">}</span><span class="s2">: (folder=</span><span class="nv">$GDRIVE_FOLDER_ID</span><span class="s2">)"</span>
+rclone<span class="w"> </span><span class="s2">"</span><span class="nv">$GDRIVE_SYNC_MODE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">"</span><span class="nv">$JUPYTER_SRC_DIR</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">"</span><span class="si">${</span><span class="nv">RCLONE_REMOTE</span><span class="si">}</span><span class="s2">:"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--drive-root-folder-id<span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">GDRIVE_FOLDER_ID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--include<span class="w"> </span><span class="s2">"*.ipynb"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--stats-one-line<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre>
+<blockquote>
+<p><strong><code>.ipynb</code> 専用ビルドなのに <code>--include &quot;*.ipynb&quot;</code> を残す理由（安全装置）:</strong>
+<code>drawlib build jupyter</code> の出力自体はすでに <code>.ipynb</code> のみですが、<code>rclone</code> 側にも <code>--include &quot;*.ipynb&quot;</code> を付けておくことで <strong>Drive 側の他ファイルを保護する安全装置</strong> になります。将来 <code>GDRIVE_SYNC_MODE=sync ./jupyter_src/sync_gdrive.sh</code> で削除同期を行う場合でも、<code>--include &quot;*.ipynb&quot;</code> があれば顧客やメンバーが同じ共有フォルダへ置いた Google ドキュメント・スプレッドシート・PDF・CSV データを誤削除しません。なお、<code>sync</code> 実行前は必ず <code>GDRIVE_SYNC_MODE=sync ./jupyter_src/sync_gdrive.sh --dry-run</code> で削除対象を確認してください。</p>
+</blockquote>
+<p>続いて <code>jupyter_src/build.sh</code> を拡張し、<code>.ipynb</code> ビルド完了後に <code>sync_gdrive.sh</code> を自動呼び出しします。<strong><code>--no-sync</code> は <code>build.sh</code> 側で消費してから残り引数のみを <code>build_jupyter.sh</code> へ転送</strong>し、<code>--dry-run</code>・オフライン・未設定環境では安全にスキップするガードを入れます。</p>
+<pre><code class="language-bash"><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+
+<span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>
+
+<span class="nv">SKIP_SYNC</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">SKIP_GDRIVE_SYNC</span><span class="k">:-</span><span class="nv">0</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">IS_DRY_RUN</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">BUILD_ARGS</span><span class="o">=()</span>
+
+<span class="k">for</span><span class="w"> </span>arg<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s2">"</span><span class="nv">$arg</span><span class="s2">"</span><span class="w"> </span><span class="k">in</span>
+<span class="w">        </span>--no-sync<span class="o">)</span>
+<span class="w">            </span><span class="nv">SKIP_SYNC</span><span class="o">=</span><span class="m">1</span>
+<span class="w">            </span><span class="p">;;</span>
+<span class="w">        </span>--dry-run<span class="o">)</span>
+<span class="w">            </span><span class="nv">IS_DRY_RUN</span><span class="o">=</span><span class="m">1</span>
+<span class="w">            </span><span class="nv">BUILD_ARGS</span><span class="o">+=(</span><span class="s2">"</span><span class="nv">$arg</span><span class="s2">"</span><span class="o">)</span>
+<span class="w">            </span><span class="p">;;</span>
+<span class="w">        </span>*<span class="o">)</span>
+<span class="w">            </span><span class="nv">BUILD_ARGS</span><span class="o">+=(</span><span class="s2">"</span><span class="nv">$arg</span><span class="s2">"</span><span class="o">)</span>
+<span class="w">            </span><span class="p">;;</span>
+<span class="w">    </span><span class="k">esac</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== 単体 Jupyter ノートブック (.ipynb のみ) をビルド ==="</span>
+<span class="s2">"</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/build_jupyter.sh"</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">BUILD_ARGS</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$IS_DRY_RUN</span><span class="s2">"</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Google Drive 同期をスキップします (--dry-run)。"</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SKIP_SYNC</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"1"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Google Drive 同期をスキップします (--no-sync / SKIP_GDRIVE_SYNC=1)。"</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>rclone<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Google Drive 同期をスキップします (rclone 未インストール)。"</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">GDRIVE_FOLDER_ID</span><span class="k">:-</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/../.env"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Google Drive 同期をスキップします (GDRIVE_FOLDER_ID 未設定)。"</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== Google Drive 共有フォルダへ .ipynb を同期 ==="</span>
+<span class="s2">"</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/sync_gdrive.sh"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"=== ビルドおよび Google Drive 同期が完了しました！ ==="</span>
+</code></pre>
+<p><em>（執筆中にローカルのブラウザで HTML プレビューを確認したい場合は、いつでも <code>./jupyter_src/build_html.sh</code> と <code>./jupyter_src/serve.sh</code> を実行できます。出力先は <code>jupyter_html/</code> に分離されるため、Drive 同期用の <code>jupyter_jupyter/</code> には影響しません。）</em></p>
+<hr />
+<h2>5. Step 4: 利用者（顧客・チームメンバー）側の Google Colab 実行フロー</h2>
+<p>Google Drive へ同期されたノートブックは、利用者側に Git や Python 環境・Drawlib のセットアップを一切求めず、ブラウザだけで完結して実行できます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/09_doc_builder_and_cli/jupyter_google_drive/jupyter_gdrive_colab_user_flow.png" alt="jupyter_google_drive_2" />
+  <figcaption class="drawlib-caption">利用者側の Google Drive 起動から Colab シークレット設定・セル実行までのステップと権限・SSOT ガイドライン</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">code</span> <span class="k">as</span> <span class="n">code_icons</span><span class="p">,</span> <span class="n">phosphor</span><span class="p">,</span> <span class="n">workspace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Top Panel: 4-Step Recipient Execution Flow</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">41.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mf">54.4</span><span class="p">),</span>
+    <span class="s2">"Recipient Workflow: Opening &amp; Running Shared .ipynb Notebooks in Google Colab"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Shared Folder"</span><span class="p">,</span> <span class="s2">"Google Drive</span><span class="se">\n</span><span class="s2">Clean .ipynb list</span><span class="se">\n</span><span class="s2">Viewer role"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="s2">"drive"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">49.0</span><span class="p">,</span> <span class="s2">"2. Open in Colab"</span><span class="p">,</span> <span class="s2">"Open with -&gt;</span><span class="se">\n</span><span class="s2">Colaboratory</span><span class="se">\n</span><span class="s2">(Zero install)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="s2">"colab"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">79.5</span><span class="p">,</span> <span class="s2">"3. Colab Secrets"</span><span class="p">,</span> <span class="s2">"Left Key Icon</span><span class="se">\n</span><span class="s2">Add credentials +</span><span class="se">\n</span><span class="s2">Toggle Access ON"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="s2">"key"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">110.0</span><span class="p">,</span> <span class="s2">"4. Run Cells"</span><span class="p">,</span> <span class="s2">"Shift+Enter top</span><span class="se">\n</span><span class="s2">to bottom • Base64</span><span class="se">\n</span><span class="s2">diagrams inline"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="s2">"play"</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span><span class="p">,</span> <span class="n">bst</span><span class="p">,</span> <span class="n">icon_kind</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">icon_kind</span> <span class="o">==</span> <span class="s2">"drive"</span><span class="p">:</span>
+        <span class="n">workspace</span><span class="o">.</span><span class="n">google_drive</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">46.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">icon_kind</span> <span class="o">==</span> <span class="s2">"colab"</span><span class="p">:</span>
+        <span class="n">code_icons</span><span class="o">.</span><span class="n">colab</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">46.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">icon_kind</span> <span class="o">==</span> <span class="s2">"key"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">46.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">play_circle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">46.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">40.6</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">),</span> <span class="n">body</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">bst</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="ow">in</span> <span class="p">((</span><span class="mf">31.5</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">66.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">92.5</span><span class="p">,</span> <span class="mf">97.0</span><span class="p">)):</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x0</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Bottom Panel: Permission &amp; Single Source of Truth Guardrails</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">33.5</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">61</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">((</span><span class="mf">9.2</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">15.2</span><span class="p">),</span> <span class="s2">"Viewer Role (Recommended)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">8.6</span><span class="p">),</span>
+    <span class="s2">"• Temporary playground run without editing master</span><span class="se">\n</span><span class="s2">• File -&gt; Save a copy in Drive for personal edits"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">96.5</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">57</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mf">73.8</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">15.2</span><span class="p">),</span> <span class="s2">"Git Markdown = SSOT"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">8.6</span><span class="p">),</span>
+    <span class="s2">"• Avoid editing shared .ipynb directly as Editor</span><span class="se">\n</span><span class="s2">• Next rclone copy overwrites manual Drive edits"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<p>配布先の利用者には、以下の 5 ステップを案内します。</p>
+<ol>
+<li><strong>Google Drive の共有フォルダを開く</strong>: <code>.ipynb</code> ファイルのみが連番（<code>01_...</code>、<code>02_...</code>）で並んだクリーンなフォルダが表示されます。</li>
+<li><strong>Google Colaboratory で開く</strong>: 対象の <code>.ipynb</code> をダブルクリック、または右クリック → <strong>「アプリで開く」→「Google Colaboratory」</strong> を選択します。
+<ul>
+<li><em>初回未連携の場合</em>: メニューに Colaboratory が表示されないときは <strong>「アプリを追加」</strong> を開き、Google Workspace Marketplace で <code>Colaboratory</code> を検索してインストールします。</li>
+</ul>
+</li>
+<li><strong>閲覧者（Viewer）権限で一時実行、またはマイドライブへコピー保存</strong>:
+<ul>
+<li>共有フォルダの権限は原則 <strong>「閲覧者（Viewer）」</strong> を推奨します（機密保持のため「リンクを知っている全員」ではなく対象アカウントまたは Google グループを指定してください）。閲覧者でも Colab 上でそのまま一時実行でき、共有元の原本を誤って壊される心配がありません。</li>
+<li>実行結果を残したりパラメータを改造して保存したい場合は、メニューの <strong>「ファイル」→「ドライブにコピーを保存」</strong> を使用します。</li>
+<li><em>編集者（Editor）向けの注意</em>: 編集の正本（Single Source of Truth）はあくまで Git 管理下の Markdown ソース（<code>jupyter_src/</code>）です。Colab 上で共有フォルダ内の <code>.ipynb</code> を直接編集しても、次回の <code>rclone copy</code> で上書きされる点に注意してください。</li>
+</ul>
+</li>
+<li><strong>シークレット設定（クラウド認証や API キーを使うノートブックの場合）</strong>:
+<ul>
+<li>Colab 左サイドバーの <strong>鍵アイコン（シークレット）</strong> を開きます。</li>
+<li>必要なシークレット名と値を登録し、<strong>「ノートブックからのアクセス」トグルを ON</strong> にします（コードセルから <code>google.colab.userdata.get(&quot;&lt;KEY&gt;&quot;)</code> で安全に読み込めます）。</li>
+</ul>
+</li>
+<li><strong>上からセルを順次実行</strong>: <code>Shift + Enter</code>（または <strong>「ランタイム」→「すべてのセルを実行」</strong>）で実行します。Drawlib の説明図は Base64 埋め込み済みのため、追加インストール不要でそのまま鮮明に表示されます。
+<ul>
+<li><em>外部データやノートブック間リンクの補足</em>: 図解画像は <code>.ipynb</code> 単体で完結しますが、コードセルが読み込む CSV / Parquet 等のデータファイルは <code>google.colab.drive.mount('/content/drive')</code> や GCS / BigQuery / API 経由で取得する設計にしてください。また、Markdown 内の相対リンク（<code>./02_next.md</code>）は Colab 上では Drive の File ID へ解決されないため、ファイル名連番（<code>01_...</code>、<code>02_...</code>）で順に案内する構成が適しています。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>6. 補足: CI（GitHub Actions）からの自動公開</h2>
+<p><code>main</code> ブランチへのマージをトリガーに <code>.ipynb</code> のビルドと Google Drive 同期を完全自動化したい場合は、Google Cloud の <strong>サービスアカウント</strong> を作成し、<strong>公開先の Google Drive 共有フォルダ 1 つだけに対して「編集者」権限で共有</strong>（最小権限）した上で、GitHub Actions から <code>drawlib build jupyter</code> → <code>rclone copy</code> を実行します。</p>
+<pre><code class="language-yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Publish Jupyter Notebooks to Google Drive</span>
+
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"jupyter_src/**"</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">publish-notebooks</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up uv &amp; Python</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astral-sh/setup-uv@v5</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install rclone</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">curl -fsSL https://rclone.org/install.sh | sudo bash</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build standalone .ipynb notebooks</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uv run drawlib build jupyter jupyter_src/ -o jupyter_jupyter/</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sync .ipynb notebooks to Google Drive</span>
+<span class="w">        </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">GDRIVE_SA_JSON</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}</span>
+<span class="w">          </span><span class="nt">GDRIVE_FOLDER_ID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GDRIVE_FOLDER_ID }}</span>
+<span class="w">          </span><span class="nt">RCLONE_CONFIG_GDRIVE_TYPE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">drive</span>
+<span class="w">          </span><span class="nt">RCLONE_CONFIG_GDRIVE_SCOPE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">drive</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">SA_FILE="$(mktemp)"</span>
+<span class="w">          </span><span class="no">trap 'rm -f "$SA_FILE"' EXIT</span>
+<span class="w">          </span><span class="no">printf '%s' "$GDRIVE_SA_JSON" &gt; "$SA_FILE"</span>
+<span class="w">          </span><span class="no">chmod 600 "$SA_FILE"</span>
+<span class="w">          </span><span class="no">export RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_FILE="$SA_FILE"</span>
+<span class="w">          </span><span class="no">rclone copy jupyter_jupyter/ja gdrive: \</span>
+<span class="w">            </span><span class="no">--drive-root-folder-id="${GDRIVE_FOLDER_ID}" \</span>
+<span class="w">            </span><span class="no">--include "*.ipynb" \</span>
+<span class="w">            </span><span class="no">-v</span>
+</code></pre>
+<blockquote>
+<p><strong>エンタープライズ環境向けのセキュリティ &amp; キャッシュ補足:</strong></p>
+<ul>
+<li><strong>サービスアカウントキー作成が禁止されている組織</strong>: Google Cloud 組織ポリシーで <code>iam.disableServiceAccountKeyCreation</code> が有効な場合は、静的 JSON キーを GitHub Secrets に置く代わりに <strong>Workload Identity Federation</strong>（<code>google-github-actions/auth</code>）で短命な OAuth アクセストークンを発行して連携する構成を検討してください。</li>
+<li><strong>CI ビルドの高速化</strong>: Drawlib の 2 層キャッシュ（<code>.drawlib/</code> および <code>~/.cache/drawlib/</code>）を <code>actions/cache@v4</code> で永続化する手順は、<a href="./caching_and_cicd.html">キャッシュ機構と CI/CD</a> を参照してください。</li>
+</ul>
+</blockquote>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

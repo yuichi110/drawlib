@@ -27,6 +27,6 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
     fi
 fi
 
-echo "Building Jupyter notebooks (.ipynb) and HTML preview..."
+echo "Building standalone Jupyter notebooks (.ipynb only)..."
 $DRAWLIB_CMD build jupyter __SRC_DIR__/ -o __OUT_JUPYTER_DIR__/ "$@"
 echo "Jupyter build complete: __OUT_JUPYTER_DIR__/"

@@ -20,6 +20,6 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
 fi
 
 echo "Using Drawlib command: $DRAWLIB_CMD"
-echo "Building Jupyter Notebooks (.ipynb) and HTML preview..."
-$DRAWLIB_CMD build jupyter docs_src/jupyter/ -o docs/jupyter/ "$@"
-echo "Jupyter build complete: docs/jupyter/"
+echo "Building standalone Jupyter Notebooks (.ipynb only)..."
+$DRAWLIB_CMD build jupyter docs_src/jupyter/ "$@"
+echo "Jupyter notebook build complete."

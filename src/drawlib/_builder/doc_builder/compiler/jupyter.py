@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Jupyter / Google Colab (.ipynb + HTML preview + Dry-Run) compiler for drawlib."""
+"""Jupyter / Google Colab (.ipynb compiler, HTML preview bundle, and AI Dry-Run engine) for drawlib."""
 
 from __future__ import annotations
 
@@ -26,6 +26,7 @@ from drawlib._builder._common import (
     LlmsSection,
     ProjectManifest,
     SitemapEntry,
+    build_block_render_job,
     build_page_seo_metadata,
     collect_standard_document_block_jobs,
     ensure_seo_og_image_copied,
@@ -123,6 +124,7 @@ def _render_markdown_mode_drawlib_segments(
     processor: DrawlibBlockProcessor,
     source_abs: str,
     progress: FileBuildProgress | None = None,
+    cache_images_dir: str | None = None,
 ) -> None:
     """Render all ``cell_mode == 'markdown'`` Drawlib diagram segments to their target image files."""
     file_dir = os.path.dirname(source_abs)
@@ -145,10 +147,16 @@ def _render_markdown_mode_drawlib_segments(
             if seg.target_img_path is None:
                 continue
             block_no_cache = bool(seg.drawlib_options and seg.drawlib_options.no_cache)
+            cache_target = (
+                os.path.join(cache_images_dir, os.path.basename(seg.target_img_path))
+                if cache_images_dir is not None
+                else None
+            )
             processor.render_block_to_file(
                 code=seg.source,
                 target_file_path=seg.target_img_path,
                 source_filename=source_abs,
+                cache_target_file=cache_target,
                 no_cache=block_no_cache,
             )
             if progress is not None:
@@ -168,7 +176,7 @@ def _build_single_jupyter_file(
     execute: bool | None,
     dry_run: bool,
 ) -> str:
-    """Compile or dry-run a single ``.md`` notebook file."""
+    """Compile or dry-run a single ``.md`` notebook file into a self-contained ``.ipynb``."""
     ext = os.path.splitext(src_abs)[1].lower()
     if ext not in {".md", ".markdown"}:
         raise ValueError(f'Single-file Jupyter build requires a Markdown (.md) file, got "{src_abs}".')
@@ -187,24 +195,26 @@ def _build_single_jupyter_file(
 
     with tempfile.TemporaryDirectory(prefix="drawlib_jupyter_single_") as tmp_dir:
         if dry_run:
-            target_out_dir = tmp_dir
             ipynb_dest = os.path.join(tmp_dir, f"{doc_base_name}.ipynb")
         elif output_path:
             out_abs = os.path.abspath(output_path)
             if out_abs.lower().endswith(".ipynb"):
                 ipynb_dest = out_abs
-                target_out_dir = os.path.dirname(out_abs)
             else:
-                target_out_dir = out_abs
                 ipynb_dest = os.path.join(out_abs, f"{doc_base_name}.ipynb")
         else:
-            target_out_dir = os.path.dirname(src_abs)
-            ipynb_dest = os.path.join(target_out_dir, f"{doc_base_name}.ipynb")
+            ipynb_dest = os.path.join(os.path.dirname(src_abs), f"{doc_base_name}.ipynb")
 
+        # Always render intermediate diagrams into tmp_dir so only the self-contained .ipynb is written.
+        # Use a deterministic canonical cache directory so repeated builds hit .drawlib/cache.db.
+        canonical_cache_dir = os.path.join(
+            os.path.dirname(os.path.abspath(src_abs if dry_run else ipynb_dest)),
+            f"{doc_base_name}_images",
+        )
         segments = parse_notebook_segments(
             content,
             doc_base_name=doc_base_name,
-            output_dir=target_out_dir,
+            output_dir=tmp_dir,
             default_format=image_format,
             default_drawlib_cell_mode=jupyter_cfg.drawlib_cell_mode,
             require_file=True,
@@ -220,6 +230,7 @@ def _build_single_jupyter_file(
             segments,
             processor=processor,
             source_abs=src_abs,
+            cache_images_dir=canonical_cache_dir,
         )
 
         exec_result: NotebookExecutionResult | None = None
@@ -231,7 +242,7 @@ def _build_single_jupyter_file(
                 utils_path=loc_utils,
                 project_root=proj_root,
                 doc_base_name=doc_base_name,
-                output_dir=target_out_dir,
+                output_dir=None,
             )
 
         if dry_run:
@@ -252,53 +263,11 @@ def _build_single_jupyter_file(
         return ipynb_dest
 
 
-def build_jupyter(
-    input_path: str,
-    output_dir: str | None = None,
-    *,
-    image_format: str = "png",
-    styles_path: str | None = None,
-    utils_path: str | None = None,
-    no_cache: bool = False,
-    execute: bool | None = None,
-    dry_run: bool = False,
-    css_mode: str = "external",
-    workers: int | Literal["auto"] = "auto",
-) -> str:
-    """Compile a ``jupyter`` project directory or single ``.md`` file into ``.ipynb`` and HTML preview.
-
-    Args:
-        input_path: Project root directory containing ``drawlib.toml`` or a single ``.md`` file.
-        output_dir: Target output directory (or ``.ipynb`` file path in single-file mode).
-        image_format: Default diagram image format ('png', 'webp', or 'svg'). Defaults to 'png'.
-        styles_path: Optional path to custom ``styles.py``.
-        utils_path: Optional path to custom ``utils.py``.
-        no_cache: If True, disable reading/writing the SQLite build image cache.
-        execute: Whether to sequentially dry-run code cells in-process (defaults to ``[jupyter].execute``).
-        dry_run: If True, execute and verify all cells/diagrams in a temporary directory without writing output.
-        css_mode: CSS linking mode for HTML preview ('external' or 'embed').
-        workers: Number of parallel rendering worker processes ('auto' or int >= 1).
-
-    Returns:
-        str: Absolute path of generated output directory (or file path in single-file mode).
-    """
-    abs_in = os.path.abspath(input_path)
-    if not os.path.exists(abs_in):
-        raise ValueError(f'Input path "{abs_in}" does not exist.')
-
-    if os.path.isfile(abs_in):
-        return _build_single_jupyter_file(
-            abs_in,
-            output_dir,
-            image_format=image_format,
-            styles_path=styles_path,
-            utils_path=utils_path,
-            no_cache=no_cache,
-            execute=execute,
-            dry_run=dry_run,
-        )
-
-    eff_workers = resolve_build_workers(workers)
+def _validate_jupyter_project_dir(
+    abs_in: str,
+    image_format: str,
+) -> tuple[ProjectManifest, I18nConfig, JupyterConfig, list[str], dict[str, list[str]]]:
+    """Validate a ``type = 'jupyter'`` project directory and return resolved config and locale files."""
     manifest = load_project_manifest(abs_in)
     if manifest is None:
         found = find_project_manifest(abs_in, max_up=3)
@@ -323,8 +292,6 @@ def build_jupyter(
 
     i18n_cfg: I18nConfig = manifest.i18n
     jupyter_cfg: JupyterConfig = manifest.jupyter or JupyterConfig()
-    eff_execute = True if dry_run else (execute if execute is not None else jupyter_cfg.execute)
-
     locale_files = validate_i18n_project(
         abs_in,
         i18n_cfg,
@@ -333,6 +300,60 @@ def build_jupyter(
     )
     default_lang = i18n_cfg.default_lang
     ordered_langs = [default_lang] + [lc for lc in i18n_cfg.langs if lc != default_lang]
+    return manifest, i18n_cfg, jupyter_cfg, ordered_langs, locale_files
+
+
+def build_jupyter(
+    input_path: str,
+    output_dir: str | None = None,
+    *,
+    image_format: str = "png",
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+    no_cache: bool = False,
+    execute: bool | None = None,
+    dry_run: bool = False,
+    workers: int | Literal["auto"] = "auto",
+) -> str:
+    """Compile a ``jupyter`` project directory or single ``.md`` file into self-contained ``.ipynb`` notebooks.
+
+    Emits ``<output_dir>/<lang>/**/*.ipynb`` only (no HTML preview, CSS, or external ``images/`` files).
+    To generate the 2-column HTML preview site bundled alongside downloadable ``.ipynb`` notebooks,
+    use ``build_html()`` / ``drawlib build html``.
+
+    Args:
+        input_path: Project root directory containing ``drawlib.toml`` or a single ``.md`` file.
+        output_dir: Target output directory (defaults to ``<base>_jupyter``) or ``.ipynb`` path in single-file mode.
+        image_format: Default diagram image format ('png' or 'webp'). Defaults to 'png'.
+        styles_path: Optional path to custom ``styles.py``.
+        utils_path: Optional path to custom ``utils.py``.
+        no_cache: If True, disable reading/writing the SQLite build image cache.
+        execute: Whether to sequentially dry-run code cells in-process (defaults to ``[jupyter].execute``).
+        dry_run: If True, execute and verify all cells/diagrams in a temporary directory without writing output.
+        workers: Number of parallel rendering worker processes ('auto' or int >= 1).
+
+    Returns:
+        str: Absolute path of generated output directory (or file path in single-file mode).
+    """
+    abs_in = os.path.abspath(input_path)
+    if not os.path.exists(abs_in):
+        raise ValueError(f'Input path "{abs_in}" does not exist.')
+
+    if os.path.isfile(abs_in):
+        return _build_single_jupyter_file(
+            abs_in,
+            output_dir,
+            image_format=image_format,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            execute=execute,
+            dry_run=dry_run,
+        )
+
+    eff_workers = resolve_build_workers(workers)
+    manifest, i18n_cfg, jupyter_cfg, ordered_langs, locale_files = _validate_jupyter_project_dir(abs_in, image_format)
+    eff_execute = True if dry_run else (execute if execute is not None else jupyter_cfg.execute)
 
     if dry_run:
         with tempfile.TemporaryDirectory(prefix="drawlib_jupyter_dryrun_") as tmp_out:
@@ -350,7 +371,8 @@ def build_jupyter(
                 no_cache=no_cache,
                 execute=eff_execute,
                 dry_run=True,
-                css_mode=css_mode,
+                emit_html=False,
+                css_mode="external",
                 workers=eff_workers,
             )
         return abs_in
@@ -376,6 +398,56 @@ def build_jupyter(
         no_cache=no_cache,
         execute=eff_execute,
         dry_run=False,
+        emit_html=False,
+        css_mode="external",
+        workers=eff_workers,
+    )
+    return out_dir_abs
+
+
+def build_jupyter_html(
+    input_path: str,
+    output_dir: str,
+    *,
+    image_format: str = "png",
+    styles_path: str | None = None,
+    utils_path: str | None = None,
+    no_cache: bool = False,
+    execute: bool | None = None,
+    css_mode: str = "external",
+    workers: int | Literal["auto"] = "auto",
+) -> str:
+    """Compile a ``jupyter`` project directory into a 2-column HTML preview site with bundled ``.ipynb`` files.
+
+    Invoked by ``build_html()`` when ``drawlib.toml`` declares ``[project].type = "jupyter"``.
+    """
+    abs_in = os.path.abspath(input_path)
+    out_dir_abs = os.path.abspath(output_dir)
+    if out_dir_abs == abs_in:
+        raise ValueError(
+            f'Refusing to build Jupyter HTML in-place inside source directory "{abs_in}". '
+            "Please specify a separate output directory."
+        )
+
+    eff_workers = resolve_build_workers(workers)
+    manifest, i18n_cfg, jupyter_cfg, ordered_langs, locale_files = _validate_jupyter_project_dir(abs_in, image_format)
+    eff_execute = execute if execute is not None else jupyter_cfg.execute
+
+    _compile_jupyter_locales(
+        input_abs=abs_in,
+        out_dir_abs=out_dir_abs,
+        manifest=manifest,
+        i18n_cfg=i18n_cfg,
+        jupyter_cfg=jupyter_cfg,
+        ordered_langs=ordered_langs,
+        locale_files=locale_files,
+        image_format=image_format,
+        styles_path=styles_path,
+        utils_path=utils_path,
+        no_cache=no_cache,
+        execute=eff_execute,
+        dry_run=False,
+        emit_html=True,
         css_mode=css_mode,
         workers=eff_workers,
     )
@@ -397,11 +469,23 @@ def _compile_jupyter_locales(
     no_cache: bool,
     execute: bool,
     dry_run: bool,
+    emit_html: bool,
     css_mode: str,
     workers: int,
 ) -> None:
-    """Compile all locales for a ``jupyter`` project."""
-    tmpl_file, raw_css, tmp_holder = _resolve_jupyter_template_and_css(input_abs, manifest.project.style)
+    """Compile all locales for a ``jupyter`` project (``.ipynb``-only or HTML + ``.ipynb`` bundle)."""
+    write_html = emit_html and not dry_run
+    tmpl_file = ""
+    raw_css = ""
+    tmp_holder: tempfile.TemporaryDirectory[str] | None = None
+    render_tmp_holder: tempfile.TemporaryDirectory[str] | None = None
+    if write_html:
+        tmpl_file, raw_css, tmp_holder = _resolve_jupyter_template_and_css(input_abs, manifest.project.style)
+        render_root_abs = out_dir_abs
+    else:
+        render_tmp_holder = tempfile.TemporaryDirectory(prefix="drawlib_jupyter_render_")
+        render_root_abs = render_tmp_holder.name
+
     try:
         all_disp_names: list[str] = []
         max_blocks = 0
@@ -409,7 +493,7 @@ def _compile_jupyter_locales(
 
         for lang in ordered_langs:
             lang_out_dir = os.path.join(out_dir_abs, lang)
-            if not dry_run and css_mode != "embed":
+            if write_html and css_mode != "embed":
                 lang_css_out = os.path.join(lang_out_dir, "style.css")
                 os.makedirs(os.path.dirname(lang_css_out), exist_ok=True)
                 with open(lang_css_out, "w", encoding="utf-8") as cf:
@@ -424,8 +508,8 @@ def _compile_jupyter_locales(
             for rel_path in locale_files[lang]:
                 src_abs = os.path.join(input_abs, lang, *rel_path.split("/"))
                 rel_stem, _ = os.path.splitext(rel_path)
-                dest_abs = os.path.join(lang_out_dir, f"{rel_stem}.html")
-                shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+                dest_abs = os.path.join(render_root_abs, lang, f"{rel_stem}.html")
+                shared_dir = os.path.join(render_root_abs, "images", *rel_stem.split("/"))
                 disp = f"/{lang}/{rel_path}"
                 all_disp_names.append(disp)
                 lang_tasks.append((src_abs, dest_abs, True))
@@ -441,7 +525,7 @@ def _compile_jupyter_locales(
             )
             max_blocks = max(max_blocks, loc_max)
 
-        total_files = len(all_disp_names) + (0 if dry_run else 1)
+        total_files = len(all_disp_names) + (1 if write_html else 0)
         name_width = max((len(n) for n in [*all_disp_names, "/index.html"]), default=0)
         image_width = len(str(max(max_blocks, 0)))
         cache = BuildImageCache(enabled=not no_cache)
@@ -453,30 +537,50 @@ def _compile_jupyter_locales(
             jobs: list[BlockRenderJob] = []
             for lang in ordered_langs:
                 loc_styles, loc_utils = locale_styles_utils[lang]
-                lang_out_dir = os.path.join(out_dir_abs, lang)
+                lang_render_dir = os.path.join(render_root_abs, lang)
                 for rel_path in locale_files[lang]:
                     src_abs = os.path.join(input_abs, lang, *rel_path.split("/"))
                     rel_stem, _ = os.path.splitext(rel_path)
-                    dest_abs = os.path.join(lang_out_dir, f"{rel_stem}.html")
-                    shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
-                    jobs.extend(
-                        collect_standard_document_block_jobs(
-                            src_abs=src_abs,
-                            dest_abs=dest_abs,
-                            is_md=True,
-                            image_format=image_format,
-                            embed_images=False,
-                            styles_path=loc_styles,
-                            utils_path=loc_utils,
-                            project_root=input_abs,
-                            shared_images_dir=shared_dir,
-                            require_file=True,
-                            no_cache_global=no_cache,
-                        )
+                    dest_abs = os.path.join(lang_render_dir, f"{rel_stem}.html")
+                    shared_dir = os.path.join(render_root_abs, "images", *rel_stem.split("/"))
+                    canonical_cache_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+                    raw_jobs = collect_standard_document_block_jobs(
+                        src_abs=src_abs,
+                        dest_abs=dest_abs,
+                        is_md=True,
+                        image_format=image_format,
+                        embed_images=False,
+                        styles_path=loc_styles,
+                        utils_path=loc_utils,
+                        project_root=input_abs,
+                        shared_images_dir=shared_dir,
+                        require_file=True,
+                        no_cache_global=no_cache,
                     )
+                    if write_html:
+                        jobs.extend(raw_jobs)
+                    else:
+                        for raw_job in raw_jobs:
+                            target_base = os.path.basename(raw_job.target_abs_path or raw_job.cache_target_file)
+                            jobs.append(
+                                build_block_render_job(
+                                    code=raw_job.code,
+                                    source_filename=raw_job.source_filename,
+                                    working_dir=raw_job.working_dir,
+                                    line_number=raw_job.line_number,
+                                    target_abs_path=raw_job.target_abs_path,
+                                    cache_target_file=os.path.join(canonical_cache_dir, target_base),
+                                    image_format=raw_job.image_format,
+                                    styles_path=loc_styles,
+                                    utils_path=loc_utils,
+                                    project_root=input_abs,
+                                    no_cache_global=no_cache,
+                                    no_cache_block=(not raw_job.read_cache and not no_cache),
+                                )
+                            )
             prerender_document_blocks(jobs, cache=cache, workers=workers)
 
-        if not dry_run:
+        if write_html:
             for lang in ordered_langs:
                 copy_directory_assets(os.path.join(input_abs, lang), os.path.join(out_dir_abs, lang))
             for sub in ("_assets", "assets"):
@@ -494,6 +598,7 @@ def _compile_jupyter_locales(
 
         for lang in ordered_langs:
             lang_out_dir = os.path.join(out_dir_abs, lang)
+            lang_render_dir = os.path.join(render_root_abs, lang)
             loc_styles, loc_utils = locale_styles_utils[lang]
             lang_cfg = get_language_config(lang)
             processor = DrawlibBlockProcessor(
@@ -527,7 +632,9 @@ def _compile_jupyter_locales(
                     has_explicit_index = True
                 dest_html_abs = os.path.join(lang_out_dir, *rel_html.split("/"))
                 dest_ipynb_abs = os.path.join(lang_out_dir, *(f"{rel_stem}.ipynb").split("/"))
-                shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+                render_dest_dir = os.path.dirname(os.path.join(lang_render_dir, *rel_html.split("/")))
+                shared_dir = os.path.join(render_root_abs, "images", *rel_stem.split("/"))
+                canonical_cache_dir = None if write_html else os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
                 doc_base_name = os.path.basename(rel_stem)
 
                 with open(src_abs, "r", encoding="utf-8") as f:
@@ -539,7 +646,7 @@ def _compile_jupyter_locales(
                 segments = parse_notebook_segments(
                     content,
                     doc_base_name=doc_base_name,
-                    output_dir=os.path.dirname(dest_html_abs),
+                    output_dir=render_dest_dir,
                     shared_images_dir=shared_dir,
                     default_format=image_format,
                     default_drawlib_cell_mode=jupyter_cfg.drawlib_cell_mode,
@@ -563,6 +670,7 @@ def _compile_jupyter_locales(
                     processor=processor,
                     source_abs=src_abs,
                     progress=progress,
+                    cache_images_dir=canonical_cache_dir,
                 )
 
                 exec_result: NotebookExecutionResult | None = None
@@ -574,8 +682,8 @@ def _compile_jupyter_locales(
                         utils_path=loc_utils,
                         project_root=input_abs,
                         doc_base_name=doc_base_name,
-                        output_dir=os.path.dirname(dest_html_abs),
-                        shared_images_dir=shared_dir,
+                        output_dir=os.path.dirname(dest_html_abs) if write_html else None,
+                        shared_images_dir=shared_dir if write_html else None,
                     )
 
                 progress.update(md_drawlib_count, md_drawlib_count, done=True)
@@ -592,6 +700,9 @@ def _compile_jupyter_locales(
                     project_root=input_abs,
                 )
                 write_ipynb_file(ipynb_dict, dest_ipynb_abs)
+
+                if not write_html:
+                    continue
 
                 ipynb_href = os.path.basename(dest_ipynb_abs)
                 body_html = render_notebook_body_html(
@@ -693,7 +804,7 @@ def _compile_jupyter_locales(
                 if not first_rendered_html:
                     first_rendered_html = rendered_html
 
-            if not dry_run and not has_explicit_index and first_rendered_html:
+            if write_html and not has_explicit_index and first_rendered_html:
                 lang_index_abs = os.path.join(lang_out_dir, "index.html")
                 with open(lang_index_abs, "w", encoding="utf-8") as idx_f:
                     idx_f.write(first_rendered_html)
@@ -705,7 +816,7 @@ def _compile_jupyter_locales(
             if llms_links:
                 llms_sections.append(LlmsSection(title=f"Notebooks ({lang})", links=llms_links))
 
-        if dry_run:
+        if not write_html:
             return
 
         # Write root /index.html rebased from <default_lang>/index.html
@@ -762,3 +873,5 @@ def _compile_jupyter_locales(
     finally:
         if tmp_holder is not None:
             tmp_holder.cleanup()
+        if render_tmp_holder is not None:
+            render_tmp_holder.cleanup()

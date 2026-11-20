@@ -136,11 +136,12 @@ def build_html(
     css_mode: str = "external",
     workers: int | Literal["auto"] = "auto",
 ) -> str:
-    """Compile an i18n-native ``site``, ``doc``, or ``catalog`` project directory into static HTML.
+    """Compile an i18n-native ``site``, ``doc``, ``catalog``, or ``jupyter`` project directory into static HTML.
 
     Builds all configured locales in ``drawlib.toml`` ``[i18n]`` with shared diagram
     deduplication, per-locale stylesheets, language switcher navigation (when 2+ locales
-    are configured), and a root default-language ``index.html``.
+    are configured), and a root default-language ``index.html``. For ``jupyter`` projects,
+    emits the 2-column notebook HTML preview bundled alongside downloadable ``.ipynb`` files.
 
     Args:
         input_dir (str): Project root directory containing ``drawlib.toml`` and ``<lang>/`` folders.
@@ -156,7 +157,7 @@ def build_html(
         str: Absolute path of generated HTML output directory.
 
     Raises:
-        ValueError: If input_dir is not a valid ``doc``, ``site``, or ``catalog`` project root directory.
+        ValueError: If input_dir is not a valid ``doc``, ``site``, ``catalog``, or ``jupyter`` project root directory.
     """
     eff_workers = resolve_build_workers(workers)
     input_abs = require_directory(input_dir, "build_html")
@@ -191,9 +192,9 @@ def build_html(
         raise ValueError(f'Invalid "{input_abs}/drawlib.toml": "[i18n]" configuration is required.')
 
     if manifest.project.type == "jupyter":
-        from drawlib._builder.doc_builder.compiler.jupyter import build_jupyter  # noqa: PLC0415
+        from drawlib._builder.doc_builder.compiler.jupyter import build_jupyter_html  # noqa: PLC0415
 
-        return build_jupyter(
+        return build_jupyter_html(
             input_path=input_abs,
             output_dir=out_dir_abs,
             image_format=image_format,

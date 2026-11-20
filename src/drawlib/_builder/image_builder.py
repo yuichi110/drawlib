@@ -30,6 +30,7 @@ from drawlib._builder._common import (
     BlockRenderJob,
     BuildImageCache,
     FileBuildProgress,
+    JupyterConfig,
     ScriptRenderJob,
     build_block_render_job,
     collect_standard_document_block_jobs,
@@ -841,6 +842,7 @@ class _MarkdownImageJob:
     utils_path: str | None
     project_root: str | None
     slide_ctx: tuple[int, int] | None = None
+    jupyter_cfg: JupyterConfig | None = None
 
 
 def _resolve_styles_and_utils_in_project(
@@ -990,6 +992,80 @@ def _render_slide_markdown_job(
     return True
 
 
+def _render_jupyter_markdown_job(
+    *,
+    content: str,
+    job: _MarkdownImageJob,
+    processor: DrawlibBlockProcessor,
+    out_img_dir: str,
+    doc_img_format: str,
+) -> bool:
+    """Render embedded drawlib blocks (and executable code-cell figures) for a Jupyter notebook Markdown file."""
+    from drawlib._builder.doc_builder.exporter_jupyter import (  # noqa: PLC0415
+        execute_notebook_cells,
+        parse_notebook_segments,
+    )
+
+    if job.jupyter_cfg is None:
+        return False
+
+    segments = parse_notebook_segments(
+        content,
+        doc_base_name=job.stem,
+        output_dir=out_img_dir,
+        shared_images_dir=job.shared_dir,
+        default_format=doc_img_format,
+        default_drawlib_cell_mode=job.jupyter_cfg.drawlib_cell_mode,
+        require_file=False,
+    )
+
+    rendered_any = False
+    md_segs = [seg for seg in segments if seg.kind == "drawlib" and seg.cell_mode == "markdown" and seg.target_img_path]
+    if md_segs:
+        file_dir = os.path.dirname(job.md_file)
+        exec_dir = file_dir
+        if (
+            job.project_root
+            and not os.path.exists(os.path.join(file_dir, "_assets"))
+            and os.path.exists(os.path.join(job.project_root, "_assets"))
+        ):
+            exec_dir = job.project_root
+        prev_cwd = os.getcwd()
+        try:
+            if os.path.isdir(exec_dir):
+                os.chdir(exec_dir)
+            for seg in md_segs:
+                if not seg.target_img_path:
+                    continue
+                block_no_cache = bool(seg.drawlib_options and seg.drawlib_options.no_cache)
+                processor.render_block_to_file(
+                    code=seg.source,
+                    target_file_path=seg.target_img_path,
+                    source_filename=job.md_file,
+                    no_cache=block_no_cache,
+                )
+                rendered_any = True
+        finally:
+            os.chdir(prev_cwd)
+
+    has_exec_cells = any(seg.kind == "code" or (seg.kind == "drawlib" and seg.cell_mode == "code") for seg in segments)
+    if job.jupyter_cfg.execute and has_exec_cells:
+        exec_result = execute_notebook_cells(
+            segments,
+            source_path=job.md_file,
+            styles_path=job.styles_path,
+            utils_path=job.utils_path,
+            project_root=job.project_root,
+            doc_base_name=job.stem,
+            output_dir=out_img_dir,
+            shared_images_dir=job.shared_dir,
+        )
+        if any(cell_out.figure_rel_paths for cell_out in exec_result.cell_outputs.values()):
+            rendered_any = True
+
+    return rendered_any
+
+
 def _build_directory_markdown_jobs(
     *,
     root_target_dir: str,
@@ -1014,22 +1090,25 @@ def _build_directory_markdown_jobs(
             "Markdown project directories require a drawlib.toml manifest with [project] and [i18n] sections."
         )
 
-    if manifest.project.type not in {"doc", "site", "slide", "catalog"} or manifest.i18n is None:
+    if manifest.project.type not in {"doc", "site", "slide", "catalog", "jupyter"} or manifest.i18n is None:
         raise ValueError(
             f'Input directory "{root_target_dir}" is a "{manifest.project.type}" project; '
-            'Markdown image compilation requires a "doc", "site", "slide", or "catalog" project '
+            'Markdown image compilation requires a "doc", "site", "slide", "catalog", or "jupyter" project '
             "with [i18n] in drawlib.toml."
         )
 
     if manifest.project.type == "doc":
-        proj_type: Literal["doc", "site", "slide", "catalog"] = "doc"
+        proj_type: Literal["doc", "site", "slide", "catalog", "jupyter"] = "doc"
     elif manifest.project.type == "slide":
         proj_type = "slide"
     elif manifest.project.type == "catalog":
         proj_type = "catalog"
+    elif manifest.project.type == "jupyter":
+        proj_type = "jupyter"
     else:
         proj_type = "site"
 
+    jupyter_cfg = (manifest.jupyter or JupyterConfig()) if proj_type == "jupyter" else None
     eff_default_fmt = image_format or ("svg" if proj_type == "slide" else "png")
     i18n_cfg = manifest.i18n
     locale_files = validate_i18n_project(
@@ -1063,6 +1142,7 @@ def _build_directory_markdown_jobs(
                     utils_path=loc_utils,
                     project_root=root_target_dir,
                     slide_ctx=(slide_idx, total_slides) if proj_type == "slide" else None,
+                    jupyter_cfg=jupyter_cfg,
                 )
             )
     return jobs
@@ -1076,7 +1156,7 @@ def _build_single_markdown_job(
     styles_abs: str | None,
     utils_abs: str | None,
 ) -> _MarkdownImageJob:
-    """Resolve project root, nested locale styles/utils, and slide context for a single Markdown file."""
+    """Resolve project root, nested locale styles/utils, and slide/jupyter context for a single Markdown file."""
     md_dir = os.path.dirname(md_file)
     stem = os.path.splitext(os.path.basename(md_file))[0]
     found = find_project_manifest(md_dir, max_up=10)
@@ -1090,6 +1170,7 @@ def _build_single_markdown_job(
             utils_path=job_utils or utils_abs,
             project_root=None,
             slide_ctx=None,
+            jupyter_cfg=None,
         )
 
     proj_root, single_manifest = found
@@ -1113,6 +1194,7 @@ def _build_single_markdown_job(
         else:
             slide_ctx = (1, 1)
 
+    jupyter_cfg = (single_manifest.jupyter or JupyterConfig()) if single_manifest.project.type == "jupyter" else None
     return _MarkdownImageJob(
         md_file=md_file,
         stem=stem,
@@ -1121,6 +1203,7 @@ def _build_single_markdown_job(
         utils_path=job_utils,
         project_root=proj_root,
         slide_ctx=slide_ctx,
+        jupyter_cfg=jupyter_cfg,
     )
 
 
@@ -1139,6 +1222,8 @@ def _collect_md_image_block_jobs(
     collected: list[BlockRenderJob] = []
 
     for job in md_jobs:
+        if job.jupyter_cfg is not None and job.jupyter_cfg.drawlib_cell_mode != "markdown":
+            continue
         try:
             with open(job.md_file, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -1289,7 +1374,7 @@ def _execute_markdown_image_targets(
                     content = f.read()
             except OSError:
                 continue
-            if not md_pattern.search(content):
+            if job.jupyter_cfg is None and not md_pattern.search(content):
                 continue
 
             extra_hash = f"total_slides:{job.slide_ctx[1]}" if job.slide_ctx is not None else ""
@@ -1316,6 +1401,16 @@ def _execute_markdown_image_targets(
                     processor=processor,
                     out_img_dir=out_img_dir,
                     image_format=image_format,
+                )
+                if rendered and job.md_file not in executed:
+                    executed.append(job.md_file)
+            elif job.jupyter_cfg is not None:
+                rendered = _render_jupyter_markdown_job(
+                    content=content,
+                    job=job,
+                    processor=processor,
+                    out_img_dir=out_img_dir,
+                    doc_img_format=doc_img_format,
                 )
                 if rendered and job.md_file not in executed:
                     executed.append(job.md_file)

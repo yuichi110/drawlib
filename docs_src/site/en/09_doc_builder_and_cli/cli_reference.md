@@ -831,7 +831,7 @@ drawlib build pdf doc_src/ -o manual.pdf --toc              # High-fidelity vect
 drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) document
 drawlib build slide slide_src/ -o slide_html/               # Interactive 16:9 HTML slide deck
 drawlib build pptx slide_src/ -o deck.pptx                  # Editable 16:9 MS PowerPoint (.pptx) deck
-drawlib build jupyter jupyter_src/ -o jupyter_jupyter/      # Bundled .ipynb + HTML preview (or --dry-run)
+drawlib build jupyter jupyter_src/ -o jupyter_jupyter/      # Standalone .ipynb notebooks only (or --dry-run)
 drawlib build image scripts/ -o assets/ -g                  # Batch Python image rendering
 
 # Scaffolding & AI Agent Rules
@@ -1053,11 +1053,12 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --static-frame last
 | `--workers` | `-w` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8` or `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 ### 4.7 `drawlib build jupyter`
-Compiles Markdown notebook sources (`jupyter_src/<lang>/**/*.md`) into a unified bundle containing executable Jupyter Notebooks (`<lang>/*.ipynb`) and a 2-column HTML preview website (`<lang>/*.html` + root `index.html`) with in-process AI dry-run execution (capturing `stdout`, expression results, and `show()` / `save()` figures while verifying zero unhandled exceptions or `[Geometry Warning]`).
+Compiles Markdown notebook sources (`jupyter_src/<lang>/**/*.md`) or a single `.md` file into **standalone, self-contained Jupyter Notebooks (`<lang>/*.ipynb` only — zero HTML/CSS/external image files)** with in-process AI dry-run verification (checking zero unhandled exceptions and zero `[Geometry Warning]`). *(To generate the 2-column HTML preview site bundled with downloadable `.ipynb` files, run `drawlib build html jupyter_src/ -o jupyter_html/`.)*
 
 ```bash
 drawlib build jupyter jupyter_src/ -o jupyter_jupyter/
 drawlib build jupyter jupyter_src/ --dry-run
+drawlib build html jupyter_src/ -o jupyter_html/
 ```
 
 | Option | Shorthand | Default | Description |
@@ -1065,7 +1066,7 @@ drawlib build jupyter jupyter_src/ --dry-run
 | `--output` | `-o` | `<base>_jupyter/` | Destination output directory path (or `.ipynb` file path for single-file build). |
 | `--format` | `-f` | `png` | Image output format for embedded `drawlib` blocks (`png` or `webp`). |
 | `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py` (pre-loaded into notebook execution `globals`). |
-| `--execute` / `--no-execute` | | `None` (from `[jupyter].execute`) | Execute `code` cells sequentially in-process and render outputs in the HTML preview (`.ipynb` code cells remain clean). |
+| `--execute` / `--no-execute` | | `None` (from `[jupyter].execute`) | Execute `code` cells sequentially in-process to verify zero errors and `[Geometry Warning]` (`.ipynb` code cells remain clean). |
 | `--dry-run` | | `False` | Execute all cells and validate `[Geometry Warning]` without writing output files to disk. |
 | `--no-cache` | | `False` | Bypass `.drawlib/cache.db` and re-execute all diagram blocks. |
 | `--workers` | `-w` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8` or `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |

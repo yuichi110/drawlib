@@ -124,6 +124,7 @@
 - [スライドデッキプロジェクト (`slide`)](./09_doc_builder_and_cli/project_slide.md)
 - [スライドステージレイアウトと API](./09_doc_builder_and_cli/slide_layout_and_api.md)
 - [Jupyter ノートブックプロジェクト (`jupyter`)](./09_doc_builder_and_cli/project_jupyter.md)
+- [Google Drive + Colab 共有ガイド (`rclone`)](./09_doc_builder_and_cli/jupyter_google_drive.md)
 - [画像プロジェクト (`images`)](./09_doc_builder_and_cli/project_image.md)
 - [テンプレートと CSS カスタマイズ](./09_doc_builder_and_cli/customization.md)
 - [キャッシュ機構と CI/CD](./09_doc_builder_and_cli/caching_and_cicd.md)

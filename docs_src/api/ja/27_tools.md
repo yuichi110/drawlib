@@ -171,7 +171,7 @@ build_html(
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(必須)* | `drawlib.toml`（`type = "site"`、`"doc"`、または `"catalog"`）と `<lang>/` フォルダを含むプロジェクトルート。 |
+| `input_dir` | `str` | *(必須)* | `drawlib.toml`（`type = "site"`、`"doc"`、`"catalog"`、または `"jupyter"`）と `<lang>/` フォルダを含むプロジェクトルート。 |
 | `output_dir` | `str \| None` | `None` | 出力先 HTML ディレクトリ（省略時は `<base>_html`）。 |
 | `image_format` | `str` | `"png"` | 埋め込み `drawlib` ブロックの出力画像形式（`"png"` または `"webp"`）。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
@@ -221,7 +221,7 @@ build_image(
 
 ## `def` build_jupyter(input_path, output_dir=None, *, ...)
 
-`i18n` 対応の `jupyter` プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` Markdown ソース）または単一の `.md` ファイルを、インプロセス AI ドライラン実行および `[Geometry Warning]` 検査付きの Jupyter Notebook（`<output_dir>/<lang>/**/*.ipynb`）および HTML プレビューページ（`<output_dir>/<lang>/**/*.html`）の統合バンドルへコンパイルします。
+`i18n` 対応の `jupyter` プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` Markdown ソース）または単一の `.md` ファイルを、インプロセス AI ドライラン実行および `[Geometry Warning]` 検査付きの自己完結型 Jupyter Notebook（`<output_dir>/<lang>/**/*.ipynb` のみ）へコンパイルします。*（ダウンロード用 `.ipynb` を同梱した 2 カラム HTML プレビューサイトを生成するには `build_html()` を使用します。）*
 
 ```python
 from drawlib.tools import build_jupyter
@@ -236,7 +236,6 @@ build_jupyter(
     no_cache: bool = False,
     execute: bool | None = None,
     dry_run: bool = False,
-    css_mode: str = "external",
     workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
@@ -249,9 +248,8 @@ build_jupyter(
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
-| `execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルを順次実行して出力結果を HTML プレビューに格納します（`.ipynb` 側のコードセルは空の未実行状態）。 |
+| `execute` | `bool \| None` | `None` | `drawlib.toml` の `[jupyter].execute` を上書きし、コードセルをインプロセスで順次実行検証します（`.ipynb` 側のコードセルは空の未実行状態）。 |
 | `dry_run` | `bool` | `False` | 出力ファイルの書き出しを行わず、全ノートブックの実行検証および `[Geometry Warning]` 検査のみを実行します。 |
-| `css_mode` | `str` | `"external"` | HTML プレビューの CSS リンクモード（`"external"` または `"embed"`）。 |
 | `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された出力ディレクトリの絶対パス（単一ファイル指定時は `.ipynb` ファイルパス）。
