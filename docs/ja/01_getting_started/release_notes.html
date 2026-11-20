@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="リリース日: 2026/11/18">
+    <meta name="description" content="リリース日: 2026/11/20">
     <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib ドキュメント">
     <meta property="og:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta property="og:description" content="リリース日: 2026/11/18">
+    <meta property="og:description" content="リリース日: 2026/11/20">
     <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta name="twitter:description" content="リリース日: 2026/11/18">
+    <meta name="twitter:description" content="リリース日: 2026/11/20">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.14</span>
+                    <span class="sidebar-version-text">v0.3.15</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -727,6 +727,27 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.15</h2>
+<p><em>リリース日: 2026/11/20</em></p>
+<p>バージョン 0.3.15 では、<strong><code>jupyter</code> プロジェクトのマルチターゲットビルドを綺麗に分離</strong>（<code>build jupyter</code> = 単体 <code>.ipynb</code> のみ、<code>build html</code> = <code>.ipynb</code> 同梱 2 カラム HTML プレビュー、<code>build image</code> = 図解画像抽出に対応）するとともに、<strong>Jupyter HTML プレビューの図解・折りたたみコードブロック CSS スタイリングを改善</strong>し、クローズド環境向けの日英バイリンガル <strong>Google Drive（<code>rclone</code>）＋ Google Colab 共有ガイド</strong> を追加しました。</p>
+<hr />
+<h3>ハイライトと改善点</h3>
+<h4>1. <code>jupyter</code> プロジェクトのマルチターゲットビルド整備（<code>compiler/jupyter.py</code>, <code>compiler/html.py</code>, <code>image_builder.py</code>, <code>_templates/</code>）</h4>
+<ul>
+<li><strong><code>drawlib build jupyter</code> による <code>.ipynb</code> 専用出力（<code>&lt;base&gt;_jupyter/</code>）</strong>: <code>drawlib build jupyter</code> / <code>build_jupyter()</code> が自己完結型 <code>.ipynb</code> ファイルのみ（<code>&lt;base&gt;_jupyter/&lt;lang&gt;/**/*.ipynb</code>）を出力するように変更しました。中間図解 PNG は一時ディレクトリで描画しつつ決定的な <code>.drawlib/cache.db</code> キャッシュキーを維持するため、HTML・CSS・<code>images/</code> 等を一切混在させずに高速な差分ビルドが行えます。</li>
+<li><strong><code>drawlib build html</code> による HTML プレビュー＋<code>.ipynb</code> 同梱出力（<code>&lt;base&gt;_html/</code>）</strong>: <code>type = &quot;jupyter&quot;</code> に対して <code>drawlib build html</code> / <code>build_html()</code> を実行すると、検索対応の 2 カラム HTML プレビューとダウンロード用 <code>.ipynb</code> を <code>&lt;base&gt;_html/</code> へ出力します（<code>doc</code>・<code>site</code>・<code>catalog</code>・<code>slide</code> と同一の出力規約に統一）。</li>
+<li><strong><code>drawlib build image</code> への対応（<code>&lt;base&gt;_images/</code>）</strong>: <code>jupyter</code> プロジェクトでも <code>drawlib build image</code> / <code>build_image()</code> による図解画像抽出をサポートし、<code>cell=markdown</code> ブロックに加えて <code>[jupyter].execute = true</code> 時の <code>cell=code</code> 図解・<code>show()</code> 出力も抽出可能になりました。未対応ターゲット（<code>build pdf</code> / <code>build docx</code> / <code>build markdown</code>）には明示的な <code>ValueError</code> ガードを追加しています。</li>
+<li><strong>スターターテンプレート更新</strong>: <code>drawlib init project jupyter</code> で <code>build_image.sh</code> を新たに生成し、<code>build.sh</code>・<code>build_html.sh</code>・<code>build_jupyter.sh</code>・<code>serve.sh</code>（<code>&lt;base&gt;_html/</code>）を新仕様へ統一しました。</li>
+</ul>
+<h4>2. Jupyter HTML プレビューの図解・折りたたみコード CSS 改善（<code>exporter_jupyter.py</code>, <code>targets/jupyter.css</code>）</h4>
+<ul>
+<li><strong>標準クラス付与と専用スタイル追加</strong>: <code>exporter_jupyter.py</code> が <code>.drawlib-figure</code>・<code>.drawlib-code-fold</code> に加えて標準の <code>.drawlib-image</code>・<code>.drawlib-caption</code>・<code>.drawlib-code-details</code> クラスを出力するようにし、<code>targets/jupyter.css</code> にレスポンシブな図解枠・折りたたみコード表示スタイルを追加しました。</li>
+</ul>
+<h4>3. 日英バイリンガル Google Drive（<code>rclone</code>）＋ Google Colab 共有ガイドの追加（<code>docs_src/site/</code>, <code>docs_src/api/</code>, <code>_rules/</code>）</h4>
+<ul>
+<li><strong>新ガイド追加（<code>09_doc_builder_and_cli/jupyter_google_drive.md</code>・日英）</strong>: GitHub 公開リポジトリを使えない顧客納品・社内配布向けに、<code>.ipynb</code> 専用ビルドと <code>rclone</code> 同期で Google Drive 共有フォルダへ配布し Google Colab で実行する手順を詳解しました（<code>--drive-root-folder-id</code> とマイドライブ／共有フォルダ／共有ドライブの使い分け、<code>drawlib.toml</code> 設定、<code>sync_gdrive.sh</code>＋<code>build.sh</code> 自動連携、Colab シークレット設定、GitHub Actions サービスアカウント自動化）。あわせて CLI・API リファレンスおよび組み込み AI ルールを更新しました。</li>
+</ul>
+<hr />
 <h2>バージョン 0.3.14</h2>
 <p><em>リリース日: 2026/11/18</em></p>
 <p>バージョン 0.3.14 では、コンパイルされる <strong><code>.ipynb</code> ノートブックを Google Colab・VS Code Jupyter・JupyterLab のすべてで 100% 単一ファイル自己完結化</strong>（図解・ローカル Markdown 画像・公式 <code>Open in Colab</code> SVG バッジをすべて Base64 Data URI として自動インライン化し、<code>[jupyter].image_mode</code> を廃止）するとともに、<code>[jupyter].setup_packages</code> による暗黙セル挿入を廃止して <strong>各ノートブックページで必要なパッケージを明示的に <code>!pip install</code> コードブロックとして記述する設計</strong> へ整理しました。</p>

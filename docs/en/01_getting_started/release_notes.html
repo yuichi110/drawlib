@@ -48,19 +48,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/18">
+    <meta name="description" content="Release Date: 2026/11/20">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/18">
+    <meta property="og:description" content="Release Date: 2026/11/20">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/18">
+    <meta name="twitter:description" content="Release Date: 2026/11/20">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -124,7 +124,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.14</span>
+                    <span class="sidebar-version-text">v0.3.15</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -727,6 +727,27 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.15</h2>
+<p><em>Release Date: 2026/11/20</em></p>
+<p>Version 0.3.15 brings <strong>clean multi-target build separation to <code>jupyter</code> projects</strong> (<code>build jupyter</code> for standalone <code>.ipynb</code>-only output, <code>build html</code> for 2-column HTML previews with bundled <code>.ipynb</code> notebooks, and full <code>build image</code> diagram extraction support), <strong>polishes Jupyter HTML figure &amp; collapsible code CSS styling</strong>, and adds a comprehensive bilingual <strong>Google Drive (<code>rclone</code>) + Google Colab Private Notebook Publishing Guide</strong>.</p>
+<hr />
+<h3>Highlights &amp; Improvements</h3>
+<h4>1. Multi-Target Build Separation for <code>jupyter</code> Projects (<code>compiler/jupyter.py</code>, <code>compiler/html.py</code>, <code>image_builder.py</code>, <code>_templates/</code>)</h4>
+<ul>
+<li><strong>Standalone <code>.ipynb</code>-Only Output via <code>drawlib build jupyter</code> (<code>&lt;base&gt;_jupyter/</code>)</strong>: <code>drawlib build jupyter</code> / <code>build_jupyter()</code> now emits <strong>only</strong> self-contained <code>.ipynb</code> files (<code>&lt;base&gt;_jupyter/&lt;lang&gt;/**/*.ipynb</code>) with zero HTML, CSS, <code>index.html</code>, or external <code>images/</code> files—rendering intermediate diagrams in a temporary directory while preserving deterministic <code>.drawlib/cache.db</code> cache keys for fast incremental rebuilds.</li>
+<li><strong>HTML Preview + Bundled <code>.ipynb</code> via <code>drawlib build html</code> (<code>&lt;base&gt;_html/</code>)</strong>: <code>drawlib build html</code> / <code>build_html()</code> on <code>type = &quot;jupyter&quot;</code> projects produces the searchable 2-column HTML notebook preview site alongside downloadable <code>.ipynb</code> files in <code>&lt;base&gt;_html/</code> (matching the output directory convention of <code>doc</code>, <code>site</code>, <code>catalog</code>, and <code>slide</code> projects).</li>
+<li><strong>Diagram Extraction via <code>drawlib build image</code> (<code>&lt;base&gt;_images/</code>)</strong>: <code>drawlib build image</code> / <code>build_image()</code> now supports <code>type = &quot;jupyter&quot;</code> projects, extracting both <code>cell=markdown</code> <code>```drawlib</code> diagrams and (when <code>[jupyter].execute = true</code>) executed <code>cell=code</code> diagrams / <code>show()</code> outputs cleanly. Unsupported targets (<code>build pdf</code>, <code>build docx</code>, <code>build markdown</code>) now raise clear <code>ValueError</code> diagnostics.</li>
+<li><strong>Updated Starter Templates</strong>: <code>drawlib init project jupyter</code> now scaffolds <code>build_image.sh</code> alongside updated <code>build.sh</code>, <code>build_html.sh</code>, <code>build_jupyter.sh</code>, and <code>serve.sh</code> (<code>&lt;base&gt;_html/</code>).</li>
+</ul>
+<h4>2. Jupyter HTML Figure &amp; Collapsible Code Styling (<code>exporter_jupyter.py</code>, <code>targets/jupyter.css</code>)</h4>
+<ul>
+<li><strong>Unified Figure &amp; Code-Fold Classes</strong>: <code>exporter_jupyter.py</code> now emits standard <code>.drawlib-image</code>, <code>.drawlib-caption</code>, and <code>.drawlib-code-details</code> classes alongside <code>.drawlib-figure</code> and <code>.drawlib-code-fold</code>, backed by dedicated responsive styling in <code>targets/jupyter.css</code> so diagrams and collapsible Drawlib Python source panels render crisply inside Jupyter HTML previews.</li>
+</ul>
+<h4>3. Bilingual Google Drive (<code>rclone</code>) + Google Colab Publishing Guide (<code>docs_src/site/</code>, <code>docs_src/api/</code>, <code>_rules/</code>)</h4>
+<ul>
+<li><strong>New Guide (<code>09_doc_builder_and_cli/jupyter_google_drive.md</code>, EN &amp; JA)</strong>: Documents the end-to-end workflow for distributing private <code>.ipynb</code> notebooks via Google Drive shared folders and Google Colab without public GitHub repositories—covering <code>rclone</code> setup (<code>--drive-root-folder-id</code>, My Drive / Shared Folder / Shared Drive), <code>drawlib.toml</code> configuration, reusable <code>sync_gdrive.sh</code> + <code>build.sh</code> integration, Colab Secrets usage, and GitHub Actions service-account automation, along with updated CLI/API references and embedded AI rules.</li>
+</ul>
+<hr />
 <h2>Version 0.3.14</h2>
 <p><em>Release Date: 2026/11/18</em></p>
 <p>Version 0.3.14 makes compiled <strong><code>.ipynb</code> notebooks 100% single-file self-contained</strong> across Google Colab, VS Code Jupyter, and JupyterLab by <strong>always inlining diagrams, local Markdown images, and the official <code>Open in Colab</code> SVG badge as Base64 Data URIs</strong> (removing <code>[jupyter].image_mode</code>), and simplifies <code>[jupyter]</code> manifest configuration by <strong>replacing implicit <code>[jupyter].setup_packages</code> injection with explicit per-page <code>!pip install</code> code blocks</strong>.</p>

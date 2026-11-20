@@ -1,5 +1,29 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.15
+
+*リリース日: 2026/11/20*
+
+バージョン 0.3.15 では、**`jupyter` プロジェクトのマルチターゲットビルドを綺麗に分離**（`build jupyter` = 単体 `.ipynb` のみ、`build html` = `.ipynb` 同梱 2 カラム HTML プレビュー、`build image` = 図解画像抽出に対応）するとともに、**Jupyter HTML プレビューの図解・折りたたみコードブロック CSS スタイリングを改善**し、クローズド環境向けの日英バイリンガル **Google Drive（`rclone`）＋ Google Colab 共有ガイド** を追加しました。
+
+---
+
+### ハイライトと改善点
+
+#### 1. `jupyter` プロジェクトのマルチターゲットビルド整備（`compiler/jupyter.py`, `compiler/html.py`, `image_builder.py`, `_templates/`）
+- **`drawlib build jupyter` による `.ipynb` 専用出力（`<base>_jupyter/`）**: `drawlib build jupyter` / `build_jupyter()` が自己完結型 `.ipynb` ファイルのみ（`<base>_jupyter/<lang>/**/*.ipynb`）を出力するように変更しました。中間図解 PNG は一時ディレクトリで描画しつつ決定的な `.drawlib/cache.db` キャッシュキーを維持するため、HTML・CSS・`images/` 等を一切混在させずに高速な差分ビルドが行えます。
+- **`drawlib build html` による HTML プレビュー＋`.ipynb` 同梱出力（`<base>_html/`）**: `type = "jupyter"` に対して `drawlib build html` / `build_html()` を実行すると、検索対応の 2 カラム HTML プレビューとダウンロード用 `.ipynb` を `<base>_html/` へ出力します（`doc`・`site`・`catalog`・`slide` と同一の出力規約に統一）。
+- **`drawlib build image` への対応（`<base>_images/`）**: `jupyter` プロジェクトでも `drawlib build image` / `build_image()` による図解画像抽出をサポートし、`cell=markdown` ブロックに加えて `[jupyter].execute = true` 時の `cell=code` 図解・`show()` 出力も抽出可能になりました。未対応ターゲット（`build pdf` / `build docx` / `build markdown`）には明示的な `ValueError` ガードを追加しています。
+- **スターターテンプレート更新**: `drawlib init project jupyter` で `build_image.sh` を新たに生成し、`build.sh`・`build_html.sh`・`build_jupyter.sh`・`serve.sh`（`<base>_html/`）を新仕様へ統一しました。
+
+#### 2. Jupyter HTML プレビューの図解・折りたたみコード CSS 改善（`exporter_jupyter.py`, `targets/jupyter.css`）
+- **標準クラス付与と専用スタイル追加**: `exporter_jupyter.py` が `.drawlib-figure`・`.drawlib-code-fold` に加えて標準の `.drawlib-image`・`.drawlib-caption`・`.drawlib-code-details` クラスを出力するようにし、`targets/jupyter.css` にレスポンシブな図解枠・折りたたみコード表示スタイルを追加しました。
+
+#### 3. 日英バイリンガル Google Drive（`rclone`）＋ Google Colab 共有ガイドの追加（`docs_src/site/`, `docs_src/api/`, `_rules/`）
+- **新ガイド追加（`09_doc_builder_and_cli/jupyter_google_drive.md`・日英）**: GitHub 公開リポジトリを使えない顧客納品・社内配布向けに、`.ipynb` 専用ビルドと `rclone` 同期で Google Drive 共有フォルダへ配布し Google Colab で実行する手順を詳解しました（`--drive-root-folder-id` とマイドライブ／共有フォルダ／共有ドライブの使い分け、`drawlib.toml` 設定、`sync_gdrive.sh`＋`build.sh` 自動連携、Colab シークレット設定、GitHub Actions サービスアカウント自動化）。あわせて CLI・API リファレンスおよび組み込み AI ルールを更新しました。
+
+---
+
 ## バージョン 0.3.14
 
 *リリース日: 2026/11/18*

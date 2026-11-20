@@ -1,5 +1,29 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.15
+
+*Release Date: 2026/11/20*
+
+Version 0.3.15 brings **clean multi-target build separation to `jupyter` projects** (`build jupyter` for standalone `.ipynb`-only output, `build html` for 2-column HTML previews with bundled `.ipynb` notebooks, and full `build image` diagram extraction support), **polishes Jupyter HTML figure & collapsible code CSS styling**, and adds a comprehensive bilingual **Google Drive (`rclone`) + Google Colab Private Notebook Publishing Guide**.
+
+---
+
+### Highlights & Improvements
+
+#### 1. Multi-Target Build Separation for `jupyter` Projects (`compiler/jupyter.py`, `compiler/html.py`, `image_builder.py`, `_templates/`)
+- **Standalone `.ipynb`-Only Output via `drawlib build jupyter` (`<base>_jupyter/`)**: `drawlib build jupyter` / `build_jupyter()` now emits **only** self-contained `.ipynb` files (`<base>_jupyter/<lang>/**/*.ipynb`) with zero HTML, CSS, `index.html`, or external `images/` files—rendering intermediate diagrams in a temporary directory while preserving deterministic `.drawlib/cache.db` cache keys for fast incremental rebuilds.
+- **HTML Preview + Bundled `.ipynb` via `drawlib build html` (`<base>_html/`)**: `drawlib build html` / `build_html()` on `type = "jupyter"` projects produces the searchable 2-column HTML notebook preview site alongside downloadable `.ipynb` files in `<base>_html/` (matching the output directory convention of `doc`, `site`, `catalog`, and `slide` projects).
+- **Diagram Extraction via `drawlib build image` (`<base>_images/`)**: `drawlib build image` / `build_image()` now supports `type = "jupyter"` projects, extracting both `cell=markdown` ```` ```drawlib ```` diagrams and (when `[jupyter].execute = true`) executed `cell=code` diagrams / `show()` outputs cleanly. Unsupported targets (`build pdf`, `build docx`, `build markdown`) now raise clear `ValueError` diagnostics.
+- **Updated Starter Templates**: `drawlib init project jupyter` now scaffolds `build_image.sh` alongside updated `build.sh`, `build_html.sh`, `build_jupyter.sh`, and `serve.sh` (`<base>_html/`).
+
+#### 2. Jupyter HTML Figure & Collapsible Code Styling (`exporter_jupyter.py`, `targets/jupyter.css`)
+- **Unified Figure & Code-Fold Classes**: `exporter_jupyter.py` now emits standard `.drawlib-image`, `.drawlib-caption`, and `.drawlib-code-details` classes alongside `.drawlib-figure` and `.drawlib-code-fold`, backed by dedicated responsive styling in `targets/jupyter.css` so diagrams and collapsible Drawlib Python source panels render crisply inside Jupyter HTML previews.
+
+#### 3. Bilingual Google Drive (`rclone`) + Google Colab Publishing Guide (`docs_src/site/`, `docs_src/api/`, `_rules/`)
+- **New Guide (`09_doc_builder_and_cli/jupyter_google_drive.md`, EN & JA)**: Documents the end-to-end workflow for distributing private `.ipynb` notebooks via Google Drive shared folders and Google Colab without public GitHub repositories—covering `rclone` setup (`--drive-root-folder-id`, My Drive / Shared Folder / Shared Drive), `drawlib.toml` configuration, reusable `sync_gdrive.sh` + `build.sh` integration, Colab Secrets usage, and GitHub Actions service-account automation, along with updated CLI/API references and embedded AI rules.
+
+---
+
 ## Version 0.3.14
 
 *Release Date: 2026/11/18*
